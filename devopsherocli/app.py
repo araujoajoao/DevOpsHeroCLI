@@ -119,20 +119,19 @@ class DevOpsHeroApp(App):
 
                 yield Static("", id="box-tip", classes="tip-box")
                 yield Static("", id="box-solution", classes="solution-box")
-                yield Static("💡 Dica: Digite 'dica' (F3) se precisar de apoio, ou 'help' no terminal.", id="box-help", classes="help-card")
 
             with Vertical(id="terminal-panel"):
                 with Horizontal(id="term-title-bar"):
                     yield Label("🔴 🟡 🟢", classes="term-dots")
                     yield Label("devopshero-terminal · ops-lab:~ (bash/git/docker/k8s/aws/tf/dd)", classes="term-title-text")
                     yield Label("● Online", classes="term-status-badge")
-                yield RichLog(id="term-output-log", highlight=True, markup=True)
+                yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                 with Horizontal(id="term-input-container"):
                     yield Label("devops@ops-lab:~$", id="term-prompt")
                     yield Input(placeholder="Digite o comando aqui (ex: pwd, ls, docker ps, kubectl get nodes...)", id="term-input")
 
         with Horizontal(id="footer-bar"):
-            yield Label("[bold #58a6ff]F2[/] Trilhas  │  [bold #e3b341]F3[/] Dica  │  [bold #ff7b72]F4[/] Solução  │  [bold #8b949e]F5[/] Reset  │  [bold #58a6ff]Ctrl+L[/] Limpar  │  [bold #8b949e]Ctrl+Q[/] Sair")
+            yield Label("[bold #5ac8fa]F2[/] Trilhas  │  [bold #ffd60a]F3[/] Dica  │  [bold #ff6961]F4[/] Solução  │  [bold #8e8e93]F5[/] Reset  │  [bold #5ac8fa]Ctrl+L[/] Limpar  │  [bold #8e8e93]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
         self.load_active_mission()
@@ -202,11 +201,11 @@ class DevOpsHeroApp(App):
 
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
-        log.write("[bold #58a6ff]╭────────────────────────────────────────────────────────────╮[/]")
-        log.write("[bold #58a6ff]│[/] [bold #79c0ff]⚡ DevOpsHeroCLI[/] [dim]· Treinamento Interativo de DevOps[/]        [bold #58a6ff]│[/]")
-        log.write("[bold #58a6ff]│[/] [dim]Linux · Sysadmin · Git · Docker · K8s · AWS · Terraform · DD[/]  [bold #58a6ff]│[/]")
-        log.write("[bold #58a6ff]│[/] [bold #3fb950]Comandos:[/] [cyan]'help'[/], [cyan]'dica'[/], [cyan]'trilhas'[/], [cyan]'reset'[/] ou F1-F5.    [bold #58a6ff]│[/]")
-        log.write("[bold #58a6ff]╰────────────────────────────────────────────────────────────╯[/]\n")
+        log.write("[bold #007aff]╭──────────────────────────────────────────────────╮[/]")
+        log.write("[bold #007aff]│[/] [bold #5ac8fa]⚡ DevOpsHeroCLI[/] [dim]· Treinador Interativo de DevOps[/]  [bold #007aff]│[/]")
+        log.write("[bold #007aff]│[/] [dim]Linux · Sysadmin · Git · Docker · K8s · AWS · TF[/]   [bold #007aff]│[/]")
+        log.write("[bold #007aff]│[/] [bold #30d158]Comandos:[/] [cyan]'help'[/], [cyan]'dica'[/], [cyan]'trilhas'[/], [cyan]'reset'[/]    [bold #007aff]│[/]")
+        log.write("[bold #007aff]╰──────────────────────────────────────────────────╯[/]\n")
 
     @on(Input.Submitted, "#term-input")
     def handle_terminal_input(self, event: Input.Submitted) -> None:
@@ -276,12 +275,11 @@ class DevOpsHeroApp(App):
                 # Bell ring & celebratory banner
                 self.bell()
                 log.write("")
-                log.write("[bold #2ea043]╭──────────────────────────────────────────────────────────────────╮[/]")
-                log.write(f"[bold #2ea043]│[/] [bold #3fb950]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]                      [bold #2ea043]│[/]")
-                log.write(f"[bold #2ea043]│[/] [bold #e3b341]+{earned_xp} XP Ganhos![/]  🔥 Sequência: [bold #f85149]{self.progress.streak}[/] acertos seguidos!         [bold #2ea043]│[/]")
-                log.write(f"[bold #2ea043]│[/] [dim]Feedback:[/] {feedback[:52]:<52} [bold #2ea043]│[/]")
-                log.write("[bold #2ea043]╰──────────────────────────────────────────────────────────────────╯[/]")
-                log.write("[dim]Carregando próxima missão automaticamente...[/]\n")
+                log.write("[bold #30d158]╭──────────────────────────────────────────────────╮[/]")
+                log.write(f"[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]       [bold #30d158]│[/]")
+                log.write(f"[bold #30d158]│[/] [bold #ffd60a]+{earned_xp} XP Ganhos![/]  🔥 Sequência: [bold #ff453a]{self.progress.streak}[/] acertos!      [bold #30d158]│[/]")
+                log.write("[bold #30d158]╰──────────────────────────────────────────────────╯[/]")
+                log.write("[dim]Avançando para a próxima missão...[/]\n")
 
                 # Auto advance
                 self.set_timer(1.8, self.advance_to_next_mission)
@@ -298,8 +296,8 @@ class DevOpsHeroApp(App):
             self.load_active_mission()
 
             log = self.query_one("#term-output-log", RichLog)
-            log.write(f"[bold yellow]👉 Carregando Próxima Missão:[/] [bold cyan]{self.current_mission.title}[/]")
-            log.write(f"[dim]{self.current_mission.context}[/]\n")
+            log.write(f"[bold #ffd60a]👉 Nova Missão:[/] [bold #5ac8fa]{self.current_mission.title}[/]")
+            log.write("[dim]Confira os objetivos e detalhes no painel à esquerda.[/dim]\n")
         else:
             log = self.query_one("#term-output-log", RichLog)
             log.write("[bold gold1]🏆 PARABÉNS! VOCÊ COMPLETOU TODAS AS MISSÕES DO DEVOPSHEROCLI![/]")

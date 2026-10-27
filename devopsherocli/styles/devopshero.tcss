@@ -1,25 +1,27 @@
-/* DevOpsHeroCLI - Modern HTML5+CSS3 Developer Dark Theme */
+/* DevOpsHeroCLI - Apple iOS 27 Sleek Dark Glassmorphism Theme */
 
 Screen {
-    background: #0d1117;
-    color: #c9d1d9;
+    background: #000000;
+    color: #f2f2f7;
     layout: vertical;
+    overflow-x: hidden;
 }
 
 /* Header Bar */
 #header-bar {
     dock: top;
     height: 3;
-    background: #161b22;
-    border-bottom: solid #30363d;
+    background: #111418;
+    border-bottom: solid #22272e;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
+    overflow-x: hidden;
 }
 
 .brand {
     width: 15;
-    color: #58a6ff;
+    color: #5ac8fa;
     text-style: bold;
     content-align: left middle;
 }
@@ -33,15 +35,15 @@ Screen {
 }
 
 .level-title {
-    color: #f0883e;
+    color: #30d158;
     text-style: bold;
     height: 1;
 }
 
 .xp-bar-container {
     height: 1;
-    background: #21262d;
-    color: #2ea043;
+    background: #1c1c1e;
+    color: #30d158;
 }
 
 .streak-box {
@@ -49,10 +51,10 @@ Screen {
     min-width: 15;
     height: 3;
     content-align: center middle;
-    color: #ff7b72;
+    color: #ff9f0a;
     text-style: bold;
-    background: #21262d;
-    border: round #30363d;
+    background: #1c1c1e;
+    border: round #ff453a;
     padding: 0 1;
     margin: 0;
 }
@@ -61,89 +63,90 @@ Screen {
     layout: horizontal;
     align: right middle;
     width: 1fr;
+    overflow-x: hidden;
 }
 
-/* Sleek Minimalist Developer Action Buttons */
+/* iOS 27 Solid Pill Capsule Action Buttons */
 .action-btn {
     margin: 0 0 0 1;
-    min-width: 8;
+    min-width: 9;
     height: 3;
     padding: 0;
-    background: #21262d;
-    border: round #30363d;
-    color: #c9d1d9;
     text-style: bold;
 }
 
-.action-btn:hover {
-    background: #30363d;
-    color: #ffffff;
-}
-
 #btn-tracks {
-    color: #58a6ff;
-    border: round #388bfd;
+    background: #007aff;
+    border: round #5ac8fa;
+    color: #ffffff;
 }
 
 #btn-tracks:hover {
-    background: #1f6feb;
-    color: #ffffff;
+    background: #0051a8;
+    border: round #ffffff;
 }
 
 #btn-tip {
-    color: #e3b341;
-    border: round #9e6a03;
+    background: #ff9500;
+    border: round #ffd60a;
+    color: #000000;
 }
 
 #btn-tip:hover {
-    background: #bb8009;
+    background: #c97700;
     color: #ffffff;
+    border: round #ffffff;
 }
 
 #btn-solution {
-    color: #ff7b72;
-    border: round #b62324;
+    background: #ff3b30;
+    border: round #ff6961;
+    color: #ffffff;
 }
 
 #btn-solution:hover {
-    background: #cf222e;
-    color: #ffffff;
+    background: #c41c14;
+    border: round #ffffff;
 }
 
 #btn-reset {
-    color: #8b949e;
-    border: round #484f58;
+    background: #3a3a3c;
+    border: round #636366;
+    color: #f2f2f7;
 }
 
 #btn-reset:hover {
-    background: #30363d;
-    color: #ffffff;
+    background: #48484a;
+    border: round #ffffff;
 }
 
 /* Main Split View */
 #main-container {
     height: 1fr;
     layout: horizontal;
+    overflow-x: hidden;
 }
 
 /* Left Mission Panel */
 #mission-panel {
     width: 42%;
     height: 100%;
-    background: #161b22;
-    border-right: solid #30363d;
-    padding: 1 1;
+    background: #0d1117;
+    border-right: solid #22272e;
+    padding: 0 1;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .mission-track-badge {
     height: auto;
-    color: #58a6ff;
+    color: #5ac8fa;
     text-style: bold;
-    background: #0d1117;
-    border: round #30363d;
+    background: #1c1c1e;
+    border: round #007aff;
     padding: 0 1;
-    margin-bottom: 1;
+    margin-top: 1;
+    margin-bottom: 0;
     width: auto;
 }
 
@@ -151,20 +154,22 @@ Screen {
     height: auto;
     color: #ffffff;
     text-style: bold;
-    margin-bottom: 1;
+    margin-top: 1;
+    margin-bottom: 0;
 }
 
 .meta-row {
     height: auto;
     layout: horizontal;
+    margin-top: 1;
     margin-bottom: 1;
 }
 
 .badge-diff {
     height: auto;
-    background: #12261e;
-    border: round #238636;
-    color: #3fb950;
+    background: #14321d;
+    border: round #30d158;
+    color: #30d158;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
@@ -172,16 +177,16 @@ Screen {
 
 .badge-xp {
     height: auto;
-    background: #0d2847;
-    border: round #1f6feb;
-    color: #58a6ff;
+    background: #0f243d;
+    border: round #007aff;
+    color: #5ac8fa;
     padding: 0 1;
     text-style: bold;
 }
 
 .section-label {
     height: auto;
-    color: #8b949e;
+    color: #8e8e93;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -189,151 +194,140 @@ Screen {
 
 .context-box {
     height: auto;
-    background: #0d1117;
-    border: round #30363d;
-    padding: 1;
-    margin-bottom: 1;
-    color: #c9d1d9;
+    background: #14171d;
+    border: round #2c313a;
+    padding: 0 1;
+    margin-bottom: 0;
+    color: #ebebf5;
 }
 
 .objective-box {
     height: auto;
-    background: #121d17;
-    border-left: thick #2ea043;
-    border-top: solid #1f382a;
-    border-right: solid #1f382a;
-    border-bottom: solid #1f382a;
-    padding: 1;
-    margin-bottom: 1;
-    color: #f0f6fc;
+    background: #0d2318;
+    border: round #30d158;
+    padding: 0 1;
+    margin-bottom: 0;
+    color: #f2f2f7;
     text-style: bold;
 }
 
 .tip-box {
     height: auto;
-    background: #1c1810;
-    border-left: thick #d29922;
-    border-top: solid #3d301c;
-    border-right: solid #3d301c;
-    border-bottom: solid #3d301c;
-    padding: 1;
-    margin-bottom: 1;
-    color: #e3b341;
+    background: #2a1c0d;
+    border: round #ff9f0a;
+    padding: 0 1;
+    margin-top: 1;
+    margin-bottom: 0;
+    color: #ffd60a;
 }
 
 .solution-box {
     height: auto;
-    background: #201314;
-    border-left: thick #f85149;
-    border-top: solid #441c1e;
-    border-right: solid #441c1e;
-    border-bottom: solid #441c1e;
-    padding: 1;
-    margin-bottom: 1;
-    color: #ff7b72;
-}
-
-.help-card {
-    height: auto;
-    background: #0d1117;
-    border: round #21262d;
-    color: #8b949e;
-    padding: 1;
+    background: #2a0f12;
+    border: round #ff453a;
+    padding: 0 1;
     margin-top: 1;
+    margin-bottom: 0;
+    color: #ff6961;
 }
 
 /* Right Terminal Panel */
 #terminal-panel {
     width: 58%;
     height: 100%;
-    background: #090d13;
+    background: #000000;
     layout: vertical;
+    overflow-x: hidden;
 }
 
 #term-title-bar {
     height: 3;
-    background: #161b22;
-    border-bottom: solid #30363d;
+    background: #111418;
+    border-bottom: solid #22272e;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
+    overflow-x: hidden;
 }
 
 .term-dots {
     width: 8;
-    color: #ff5f56;
+    color: #ff453a;
 }
 
 .term-title-text {
     width: 1fr;
-    color: #8b949e;
+    color: #8e8e93;
     text-style: bold;
     content-align: center middle;
 }
 
 .term-status-badge {
     width: 12;
-    color: #3fb950;
+    color: #30d158;
     text-style: bold;
     content-align: right middle;
 }
 
 #term-output-log {
     height: 1fr;
-    background: #090d13;
-    padding: 1;
-    overflow-y: scroll;
+    background: #000000;
+    padding: 0 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #term-input-container {
     height: 3;
-    background: #161b22;
-    border-top: solid #30363d;
+    background: #111418;
+    border-top: solid #22272e;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
+    overflow-x: hidden;
 }
 
 #term-prompt {
     width: auto;
-    color: #58a6ff;
+    color: #5ac8fa;
     text-style: bold;
     padding: 0 1;
 }
 
 #term-input {
     width: 1fr;
-    background: #0d1117;
-    border: round #30363d;
-    color: #f0f6fc;
+    background: #1c1c1e;
+    border: round #3a3a3c;
+    color: #f2f2f7;
 }
 
 #term-input:focus {
-    border: round #58a6ff;
+    border: round #007aff;
 }
 
 /* Footer Shortcuts */
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #161b22;
-    color: #8b949e;
-    border-top: solid #30363d;
+    background: #111418;
+    color: #8e8e93;
+    border-top: solid #22272e;
     padding: 0 1;
     content-align: center middle;
+    overflow-x: hidden;
 }
 
 /* Tracks Modal Dialog */
 TracksModal {
     align: center middle;
-    background: rgba(13, 17, 23, 0.85);
+    background: rgba(0, 0, 0, 0.85);
 }
 
 #tracks-dialog {
     width: 82%;
     height: 82%;
-    background: #161b22;
-    border: round #58a6ff;
+    background: #111418;
+    border: round #007aff;
     padding: 1 2;
     layout: vertical;
 }
@@ -341,17 +335,18 @@ TracksModal {
 #tracks-list {
     height: 1fr;
     overflow-y: scroll;
+    overflow-x: hidden;
     margin-top: 1;
     margin-bottom: 1;
 }
 
 .track-modal-header {
-    color: #58a6ff;
+    color: #5ac8fa;
     text-style: bold;
 }
 
 .track-group-title {
-    color: #f0883e;
+    color: #ff9f0a;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -361,27 +356,27 @@ TracksModal {
     margin: 0 0 1 0;
     width: 100%;
     height: 3;
-    background: #21262d;
-    border: round #30363d;
-    color: #c9d1d9;
+    background: #1c1c1e;
+    border: round #3a3a3c;
+    color: #ebebf5;
     text-align: left;
 }
 
 .mission-item-btn:hover {
-    background: #30363d;
-    border: round #58a6ff;
+    background: #2c2c2e;
+    border: round #007aff;
     color: #ffffff;
 }
 
 .mission-item-done {
-    background: #12261e;
-    border: round #238636;
-    color: #3fb950;
+    background: #14321d;
+    border: round #30d158;
+    color: #30d158;
 }
 
 .mission-item-curr {
-    background: #1f6feb;
-    border: round #388bfd;
+    background: #007aff;
+    border: round #5ac8fa;
     color: #ffffff;
     text-style: bold;
 }
@@ -389,13 +384,13 @@ TracksModal {
 #btn-close-modal {
     width: 100%;
     height: 3;
-    background: #21262d;
-    border: round #30363d;
-    color: #ff7b72;
+    background: #ff3b30;
+    border: round #ff6961;
+    color: #ffffff;
     text-style: bold;
 }
 
 #btn-close-modal:hover {
-    background: #b62324;
+    background: #c41c14;
     color: #ffffff;
 }
