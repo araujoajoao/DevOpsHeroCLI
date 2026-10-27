@@ -38,6 +38,8 @@ venv.bak/
 .user_progress.json
 *.svg
 *.png
+!assets/*.png
+!assets/*.svg
 
 # macOS specific
 .DS_Store
