@@ -10,28 +10,30 @@ Screen {
 /* Header Bar */
 #header-bar {
     dock: top;
-    height: 3;
-    background: #111418;
-    border-bottom: solid #22272e;
-    padding: 0 1;
+    height: 4;
+    background: #0f1217;
+    border-bottom: solid #1f242d;
+    padding: 0;
     layout: horizontal;
     align-vertical: middle;
     overflow-x: hidden;
 }
 
 .brand {
-    width: 15;
+    width: auto;
     color: #5ac8fa;
     text-style: bold;
     content-align: left middle;
+    margin-left: 1;
 }
 
 .level-box {
-    width: 27;
-    height: 3;
+    width: 14;
+    height: auto;
     layout: vertical;
     align-vertical: middle;
     padding: 0;
+    margin-left: 1;
 }
 
 .level-title {
@@ -48,15 +50,16 @@ Screen {
 
 .streak-box {
     width: auto;
-    min-width: 15;
+    min-width: 0;
     height: 3;
     content-align: center middle;
     color: #ff9f0a;
     text-style: bold;
-    background: #1c1c1e;
+    background: #1e1312;
     border: round #ff453a;
-    padding: 0 1;
-    margin: 0;
+    padding: 0;
+    margin-left: 1;
+    margin-right: 1;
 }
 
 .nav-actions {
@@ -64,60 +67,65 @@ Screen {
     align: right middle;
     width: 1fr;
     overflow-x: hidden;
+    margin-right: 1;
 }
 
-/* iOS 27 Solid Pill Capsule Action Buttons */
+/* Sleek Rounded Glassmorphism Action Buttons */
 .action-btn {
-    margin: 0 0 0 1;
-    min-width: 9;
+    width: auto;
+    min-width: 0;
     height: 3;
     padding: 0;
+    margin: 0 0 0 1;
     text-style: bold;
 }
 
 #btn-tracks {
-    background: #007aff;
-    border: round #5ac8fa;
-    color: #ffffff;
+    background: #0d1e36;
+    border: round #388bfd;
+    color: #58a6ff;
 }
 
 #btn-tracks:hover {
-    background: #0051a8;
-    border: round #ffffff;
+    background: #1f3d68;
+    border: round #79c0ff;
+    color: #ffffff;
 }
 
 #btn-tip {
-    background: #ff9500;
-    border: round #ffd60a;
-    color: #000000;
+    background: #251c08;
+    border: round #d29922;
+    color: #ffd60a;
 }
 
 #btn-tip:hover {
-    background: #c97700;
+    background: #3e2e0d;
+    border: round #f0883e;
     color: #ffffff;
-    border: round #ffffff;
 }
 
 #btn-solution {
-    background: #ff3b30;
-    border: round #ff6961;
-    color: #ffffff;
+    background: #271418;
+    border: round #f85149;
+    color: #ff7b72;
 }
 
 #btn-solution:hover {
-    background: #c41c14;
-    border: round #ffffff;
+    background: #441c20;
+    border: round #ff7b72;
+    color: #ffffff;
 }
 
 #btn-reset {
-    background: #3a3a3c;
-    border: round #636366;
-    color: #f2f2f7;
+    background: #161b22;
+    border: round #484f58;
+    color: #8b949e;
 }
 
 #btn-reset:hover {
-    background: #48484a;
-    border: round #ffffff;
+    background: #282e37;
+    border: round #8b949e;
+    color: #ffffff;
 }
 
 /* Main Split View */

@@ -102,9 +102,9 @@ class DevOpsHeroApp(App):
         with Horizontal(id="header-bar"):
             yield Label("⚡ DevOpsHero", classes="brand")
             with Vertical(classes="level-box"):
-                yield Label("🌱 Nível 1 · Recruta DevOps", id="lbl-level", classes="level-title")
+                yield Label("🌱 Nv.1 · Recruta", id="lbl-level", classes="level-title")
                 yield ProgressBar(total=100, show_eta=False, id="xp-bar", classes="xp-bar-container")
-            yield Label("🔥 Streak: 0 (+0%)", id="lbl-streak", classes="streak-box")
+            yield Label("🔥 Streak: 0", id="lbl-streak", classes="streak-box")
             with Horizontal(classes="nav-actions"):
                 yield Button("🗺️ Trilhas", id="btn-tracks", classes="action-btn")
                 yield Button("💡 Dica", id="btn-tip", classes="action-btn")
@@ -220,11 +220,12 @@ class DevOpsHeroApp(App):
         xp_curr = max(0, self.progress.xp - min_xp)
         pct = min(100, int((xp_curr / xp_span) * 100))
 
-        self.query_one("#lbl-level", Label).update(f"{icon} {title} · {self.progress.xp} XP")
+        self.query_one("#lbl-level", Label).update(f"{icon} Nv.{lvl} · {self.progress.xp} XP")
         self.query_one("#xp-bar", ProgressBar).update(progress=pct)
 
         bonus = self.progress.get_streak_bonus_pct()
-        self.query_one("#lbl-streak", Label).update(f"🔥 Streak: {self.progress.streak} (+{bonus}%)")
+        streak_txt = f"🔥 Streak: {self.progress.streak}" + (f" (+{bonus}%)" if bonus > 0 else "")
+        self.query_one("#lbl-streak", Label).update(streak_txt)
 
     def get_ohmyzsh_prompt(self, success: bool = True) -> str:
         arrow_color = "#30d158" if success else "#ff453a"
