@@ -11,14 +11,12 @@ RUN groupadd -g 1000 devops && \
 
 WORKDIR /home/devops/app
 
-# Install dependencies first for fast layer caching
-COPY --chown=devops:devops pyproject.toml requirements.txt README.md /home/devops/app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy source code and install
+# Copy project definition and source code
+COPY --chown=devops:devops pyproject.toml README.md /home/devops/app/
 COPY --chown=devops:devops devopsherocli /home/devops/app/devopsherocli
 COPY --chown=devops:devops tests /home/devops/app/tests
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -e .
 
 USER devops
 ENV HOME=/home/devops

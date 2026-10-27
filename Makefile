@@ -43,7 +43,7 @@ test:
 	fi
 
 docker:
-	docker compose run --rm devopshero
+	docker compose -f docker/docker-compose.yml run --rm devopshero
 
 clean:
 	rm -rf .venv build dist *.egg-info .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov

@@ -48,18 +48,36 @@ Diferente de quizzes com múltipla escolha ou tutoriais estáticos, o **DevOpsHe
 
 ## 🚀 Como Rodar Localmente em 1 Minuto
 
-Escolha o seu terminal e execute:
+### ⚡ Opção Recomendada: Execução Direta (Zero-Clone / Download Mínimo)
 
-### 🐧 Para Bash / Zsh (macOS, Linux e WSL)
-
-Utilize o atalho oficial de **2 letras** (`./dh` ou `dh`) para máxima velocidade de digitação:
+Se você quer apenas jogar e aprender sem precisar baixar o repositório completo, testes ou documentação:
 
 ```bash
-# 1. Clonar o repositório
-git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
+# Usando pipx (cria ambiente isolado e executa instantaneamente):
+pipx run --spec git+https://github.com/araujoajoao/DevOpsHeroCLI.git dh
+
+# Ou instalando globalmente via pip:
+pip install git+https://github.com/araujoajoao/DevOpsHeroCLI.git
+dh              # Inicia a Interface Visual Completa
+dh r            # Modo REPL Rápido
+```
+
+---
+
+### 📂 Opção via Repositório Git (Clone Rápido e Leve)
+
+Se preferir clonar o projeto para editar ou rodar os scripts de conveniência:
+
+#### 🐧 Para Bash / Zsh (macOS, Linux e WSL)
+
+Utilize o atalho oficial de **2 letras** (`./dh` ou `dh`):
+
+```bash
+# 1. Clone leve (apenas a versão mais recente, sem histórico pesado)
+git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
 
-# 2. Executar (o ambiente virtual e dependências são configurados automaticamente)
+# 2. Executar (ambiente virtual e dependências são configurados automaticamente no primeiro boot)
 ./dh            # Inicia a Interface TUI Completa imediatamente
 ./dh r          # Modo Prompt REPL Rápido (sem divisão de tela)
 ./dh s          # Estatísticas do perfil e XP acumulado
@@ -69,16 +87,16 @@ cd DevOpsHeroCLI
 
 ---
 
-### 🪟 Para PowerShell (Windows 10 / 11)
+#### 🪟 Para PowerShell (Windows 10 / 11)
 
-O **DevOpsHeroCLI** possui launcher nativo para PowerShell (`.\dh.ps1`) com atalhos idênticos:
+O **DevOpsHeroCLI** possui launcher nativo para PowerShell (`.\dh.ps1`):
 
 ```powershell
-# 1. Clonar o repositório
-git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
+# 1. Clone leve
+git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
 
-# 2. Executar diretamente no PowerShell (com Easter Egg humorístico exclusivo! 😉)
+# 2. Executar diretamente no PowerShell (com Easter Egg exclusivo! 😉)
 .\dh.ps1        # Inicia a Interface TUI Completa imediatamente
 .\dh.ps1 r      # Modo Prompt REPL Rápido
 .\dh.ps1 s      # Estatísticas do perfil e XP acumulado
@@ -91,12 +109,12 @@ cd DevOpsHeroCLI
 
 ---
 
-### ⚡ Para Prompt de Comando Clássico (CMD / Windows)
+#### ⚡ Para Prompt de Comando Clássico (CMD / Windows)
 
-Se preferir o bom e velho CMD do Windows:
+Se preferir o CMD do Windows:
 
 ```cmd
-git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
+git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
 
 dh.bat          # Inicia a Interface Completa
@@ -128,10 +146,13 @@ Se você não tiver Python instalado na máquina ou preferir isolamento total:
 
 ```bash
 # Usando Docker Compose com persistência de progresso:
-docker compose run --rm devopshero
+docker compose -f docker/docker-compose.yml run --rm devopshero
 
-# Ou construindo diretamente:
-docker build -t devopshero .
+# Ou via Makefile:
+make docker
+
+# Ou construindo a imagem manualmente:
+docker build -f docker/Dockerfile -t devopshero .
 docker run -it --rm devopshero
 ```
 
@@ -141,13 +162,13 @@ docker run -it --rm devopshero
 
 | Atalho Ultra-Rápido | Comando Completo | Descrição |
 |---|---|---|
-| **`dh`** | `./devopshero.sh` ou `devopshero` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
-| **`dh r`** | `./devopshero.sh repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
-| **`dh l`** | `./devopshero.sh list` | **Catálogo de Missões**: Lista todas as **80 missões** e status concluído/pendente. |
-| **`dh s`** | `./devopshero.sh stats` | **Perfil & Estatísticas**: Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
-| **`dh v`** | `./devopshero.sh verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
-| **`dh d`** | `./devopshero.sh doctor` | **Diagnóstico de SO & Terminal**: Inspeciona compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
-| **`dh reset`** | `./devopshero.sh reset` | **Reset de Progresso**: Restaura seu progresso caso deseje reiniciar a jornada do zero. |
+| **`dh`** | `./dh` ou `devopshero` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
+| **`dh r`** | `./dh r` ou `devopshero repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
+| **`dh l`** | `./dh l` ou `devopshero list` | **Catálogo de Missões**: Lista todas as **80 missões** e status concluído/pendente. |
+| **`dh s`** | `./dh s` ou `devopshero stats` | **Perfil & Estatísticas**: Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
+| **`dh v`** | `./dh v` ou `devopshero verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
+| **`dh d`** | `./dh d` ou `devopshero doctor` | **Diagnóstico de SO & Terminal**: Inspeciona compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
+| **`dh reset`** | `./dh reset` ou `devopshero reset` | **Reset de Progresso**: Restaura seu progresso caso deseje reiniciar a jornada do zero. |
 | **`dh -v`** | `devopshero --version` | Exibe a versão instalada do DevOpsHeroCLI. |
 
 ---
@@ -338,7 +359,7 @@ Todos os Pull Requests abertos contam com uma esteira automatizada no GitHub Act
 
 Contribuições são super bem-vindas! Para garantir a estabilidade e qualidade contínua da ferramenta, a branch `main` possui **Branch Protection ativado** no GitHub (bloqueio de pushes diretos e force-pushes).
 
-1. Leia nosso guia completo de boas práticas em [CONTRIBUTING.md](CONTRIBUTING.md).
+1. Leia nosso guia completo de boas práticas em [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 2. Crie uma branch temática a partir da `main` (`git checkout -b feat/nova-trilha` ou `fix/nome-do-bug`).
 3. Siga o padrão de Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`).
 4. Execute os testes locais (`make test` ou `python3 -m unittest discover tests`).

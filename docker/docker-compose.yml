@@ -1,6 +1,8 @@
 services:
   devopshero:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     image: devopsherocli:latest
     stdin_open: true
     tty: true
