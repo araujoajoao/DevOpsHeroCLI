@@ -2,11 +2,12 @@
 
 <div align="center">
 
-<img src="assets/icon.png" width="160" height="160" alt="DevOpsHeroCLI Icon" />
+<img src="assets/icon.svg" width="160" height="160" alt="DevOpsHeroCLI Icon" />
 
 
 [![GitHub release](https://img.shields.io/github/v/release/araujoajoao/DevOpsHeroCLI?color=blue)](https://github.com/araujoajoao/DevOpsHeroCLI/releases)
 [![CI](https://github.com/araujoajoao/DevOpsHeroCLI/actions/workflows/ci.yml/badge.svg)](https://github.com/araujoajoao/DevOpsHeroCLI/actions/workflows/ci.yml)
+[![AI Code Review](https://img.shields.io/badge/AI%20Review-AppSec%20%26%20Clean%20Code-00f2fe.svg)](#-revisão-automática-por-ia-no-github)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Terminal: iTerm2 + Oh My Zsh](https://img.shields.io/badge/Terminal-iTerm2%20%2B%20Oh%20My%20Zsh-30d158.svg)](#-o-que-%C3%A9-o-devopsherocli)
@@ -21,6 +22,7 @@
 [Trilhas & Missões](#-trilhas-de-aprendizado) •
 [Gamificação](#-sistema-de-gamificação) •
 [Atalhos](#-atalhos-do-teclado) •
+[AI Reviewer](#-revisão-automática-por-ia-no-github) •
 [Docker](#-executando-com-docker) •
 [Testes](#-testes-automatizados)
 
@@ -319,6 +321,16 @@ make verify
 # Ou diretamente via Python:
 .venv/bin/python -m unittest discover tests
 ```
+
+---
+
+## 🤖 Revisão Automática por IA no GitHub
+
+Todos os Pull Requests abertos contam com uma esteira automatizada no GitHub Actions ([`ai_code_review.yml`](.github/workflows/ai_code_review.yml)) que audita:
+- 🔒 **AppSec**: Varredura de credenciais expostas, injeções de comando/SQL/Path Traversal e permissões indevidas.
+- 📐 **Qualidade de Código**: Clean Code, tipagem, tratamento de exceções e legibilidade em qualquer linguagem.
+- 🌿 **Padrões Git**: Validação de Conventional Commits e escopo de alterações.
+- 💬 **Feedback Direto no PR**: Parecer automatizado (`LGTM` ou `Alterações Necessárias`) com sugestões de melhorias inline.
 
 ---
 
