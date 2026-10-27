@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="assets/icon.svg" width="160" height="160" alt="DevOpsHeroCLI Icon" />
+<img src="assets/icon.svg" width="220" height="220" alt="DevOpsHeroCLI Icon" />
 
 
 [![GitHub release](https://img.shields.io/github/v/release/araujoajoao/DevOpsHeroCLI?color=blue)](https://github.com/araujoajoao/DevOpsHeroCLI/releases)
