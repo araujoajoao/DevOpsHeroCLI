@@ -46,64 +46,76 @@ Diferente de quizzes com múltipla escolha ou tutoriais estáticos, o **DevOpsHe
 
 ## 🚀 Como Rodar Localmente em 1 Minuto
 
-Garantido para funcionar no **macOS**, **Linux** ou **Windows (WSL / CMD)**:
+Escolha o seu terminal e execute:
 
-### Opção 1: Atalho Ultra-Rápido `dh` (Recomendado — macOS / Linux / WSL)
+### 🐧 Para Bash / Zsh (macOS, Linux e WSL)
 
-O DevOpsHeroCLI inclui o atalho oficial de **2 letras** (`./dh` ou `dh`) para máxima velocidade de digitação:
+Utilize o atalho oficial de **2 letras** (`./dh` ou `dh`) para máxima velocidade de digitação:
 
 ```bash
 # 1. Clonar o repositório
 git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
 
-# 2. Executar (tudo é configurado no primeiro run)
-./dh          # Inicia a Interface TUI Completa imediatamente
-./dh r        # Modo Prompt REPL Rápido
-./dh s        # Estatísticas e XP acumulado
-./dh l        # Catálogo de missões
+# 2. Executar (o ambiente virtual e dependências são configurados automaticamente)
+./dh            # Inicia a Interface TUI Completa imediatamente
+./dh r          # Modo Prompt REPL Rápido (sem divisão de tela)
+./dh s          # Estatísticas do perfil e XP acumulado
+./dh l          # Catálogo completo das 80 missões
+./dh d          # Diagnóstico do SO e compatibilidade de terminal
 ```
 
-### Opção 2: Modo Linha de Comando Rápido (REPL)
+---
 
-Prefere praticar sem a interface visual dividida, direto no terminal com histórico e autocomplete?
+### 🪟 Para PowerShell (Windows 10 / 11)
 
-```bash
-./dh r
-```
-
-### Opção 3: Windows Nativo (PowerShell & CMD)
-
-O **DevOpsHeroCLI** é 100% compatível com qualquer terminal no Windows com atalhos curtos:
+O **DevOpsHeroCLI** possui launcher nativo para PowerShell (`.\dh.ps1`) com atalhos idênticos:
 
 ```powershell
-# No PowerShell (com Easter Egg humorístico exclusivo! 😉)
+# 1. Clonar o repositório
 git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
-.\dh.ps1        # Interface Completa
-.\dh.ps1 r      # Modo REPL Rápido
 
-# Ou no Prompt de Comando clássico (CMD):
-dh.bat
-dh.bat r
+# 2. Executar diretamente no PowerShell (com Easter Egg humorístico exclusivo! 😉)
+.\dh.ps1        # Inicia a Interface TUI Completa imediatamente
+.\dh.ps1 r      # Modo Prompt REPL Rápido
+.\dh.ps1 s      # Estatísticas do perfil e XP acumulado
+.\dh.ps1 l      # Catálogo completo das 80 missões
+.\dh.ps1 d      # Diagnóstico do SO e compatibilidade de terminal
 ```
 
 > [!TIP]
-> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\dh.ps1` ou `dh r`) para ver uma mensagem carinhosa sobre a sua escolha de "terminal"! 😂
+> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\dh.ps1` ou `dh r`) para ver o alerta humorístico exclusivo sobre a sua escolha de "terminal"! 😂
 
-### Opção 4: Instalação no Sistema via Pip
+---
 
-Ao instalar via pip com o ambiente ativado, o binário global **`dh`** fica disponível em qualquer pasta:
+### ⚡ Para Prompt de Comando Clássico (CMD / Windows)
+
+Se preferir o bom e velho CMD do Windows:
+
+```cmd
+git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
+cd DevOpsHeroCLI
+
+dh.bat          # Inicia a Interface Completa
+dh.bat r        # Modo REPL Rápido
+```
+
+---
+
+### 📦 Instalação Global no Sistema via Pip
+
+Ao instalar via pip com o ambiente ativado, o binário global **`dh`** fica acessível em qualquer diretório do terminal:
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate  # No Windows: .venv\Scripts\activate
+source .venv/bin/activate       # No Windows: .venv\Scripts\Activate.ps1
 pip install -e .
 
-dh          # Interface visual completa
-dh r        # Modo prompt interativo rápido
-dh s        # Estatísticas do perfil e XP
-dh d        # Diagnóstico de SO e compatibilidade
+dh              # Interface visual completa em qualquer diretório
+dh r            # Modo prompt interativo rápido
+dh s            # Estatísticas do perfil e XP
+dh d            # Diagnóstico de SO e compatibilidade
 ```
 
 ---
