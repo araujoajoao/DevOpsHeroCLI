@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# DevOpsHeroCLI - Universal Zero-Config Launcher
+# Works on macOS, Linux, and Windows WSL.
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$DIR"
+
+# 1. Locate suitable Python 3 (3.9+)
+PYTHON_BIN=""
+for cmd in python3 python; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+        VER=$("$cmd" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")' 2>/dev/null || true)
+        MAJOR=$(echo "$VER" | cut -d. -f1)
+        MINOR=$(echo "$VER" | cut -d. -f2)
+        if [ "$MAJOR" -eq 3 ] && [ "$MINOR" -ge 9 ]; then
+            PYTHON_BIN="$cmd"
+            break
+        fi
+    fi
+done
+
+if [ -z "$PYTHON_BIN" ]; then
+    echo -e "\033[1;31m[ERRO]\033[0m Python 3.9 ou superior não foi encontrado no sistema."
+    echo ""
+    echo "Instale o Python 3:"
+    echo "  • macOS (Homebrew):   brew install python3"
+    echo "  • Ubuntu / Debian:    sudo apt update && sudo apt install -y python3 python3-venv python3-pip"
+    echo "  • Fedora / RHEL:      sudo dnf install -y python3 python3-pip"
+    echo "  • Arch Linux:         sudo pacman -S python python-pip"
+    echo "  • Windows:            Baixe em https://www.python.org/downloads/"
+    exit 1
+fi
+
+# 2. Setup Virtual Environment if not present
+VENV_DIR="$DIR/.venv"
+if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ]; then
+    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Primeira execução detectada. Criando ambiente isolado (.venv)..."
+    "$PYTHON_BIN" -m venv "$VENV_DIR"
+    
+    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Instalando dependências (Textual, Rich, Prompt Toolkit)..."
+    "$VENV_DIR/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
+    
+    if [ -f "$DIR/pyproject.toml" ]; then
+        "$VENV_DIR/bin/pip" install -q -e "$DIR"
+    else
+        "$VENV_DIR/bin/pip" install -q -r "$DIR/requirements.txt"
+    fi
+    echo -e "\033[1;32m✓ [DevOpsHeroCLI]\033[0m Ambiente configurado com sucesso!"
+    echo ""
+fi
+
+# 3. Launch application
+if [ -f "$VENV_DIR/bin/devopsherocli" ]; then
+    exec "$VENV_DIR/bin/devopsherocli" "$@"
+else
+    exec "$VENV_DIR/bin/python" -m devopsherocli.cli "$@"
+fi

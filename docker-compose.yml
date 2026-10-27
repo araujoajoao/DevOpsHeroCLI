@@ -1,0 +1,15 @@
+services:
+  devopshero:
+    build: .
+    image: devopsherocli:latest
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color
+      - COLORTERM=truecolor
+    volumes:
+      - devopshero-progress:/root/.devopsherocli
+
+volumes:
+  devopshero-progress:
+    name: devopshero-progress

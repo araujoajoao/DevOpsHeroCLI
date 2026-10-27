@@ -1,0 +1,401 @@
+/* DevOpsHeroCLI - Modern HTML5+CSS3 Developer Dark Theme */
+
+Screen {
+    background: #0d1117;
+    color: #c9d1d9;
+    layout: vertical;
+}
+
+/* Header Bar */
+#header-bar {
+    dock: top;
+    height: 3;
+    background: #161b22;
+    border-bottom: solid #30363d;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.brand {
+    width: 15;
+    color: #58a6ff;
+    text-style: bold;
+    content-align: left middle;
+}
+
+.level-box {
+    width: 27;
+    height: 3;
+    layout: vertical;
+    align-vertical: middle;
+    padding: 0;
+}
+
+.level-title {
+    color: #f0883e;
+    text-style: bold;
+    height: 1;
+}
+
+.xp-bar-container {
+    height: 1;
+    background: #21262d;
+    color: #2ea043;
+}
+
+.streak-box {
+    width: auto;
+    min-width: 15;
+    height: 3;
+    content-align: center middle;
+    color: #ff7b72;
+    text-style: bold;
+    background: #21262d;
+    border: round #30363d;
+    padding: 0 1;
+    margin: 0;
+}
+
+.nav-actions {
+    layout: horizontal;
+    align: right middle;
+    width: 1fr;
+}
+
+/* Sleek Minimalist Developer Action Buttons */
+.action-btn {
+    margin: 0 0 0 1;
+    min-width: 8;
+    height: 3;
+    padding: 0;
+    background: #21262d;
+    border: round #30363d;
+    color: #c9d1d9;
+    text-style: bold;
+}
+
+.action-btn:hover {
+    background: #30363d;
+    color: #ffffff;
+}
+
+#btn-tracks {
+    color: #58a6ff;
+    border: round #388bfd;
+}
+
+#btn-tracks:hover {
+    background: #1f6feb;
+    color: #ffffff;
+}
+
+#btn-tip {
+    color: #e3b341;
+    border: round #9e6a03;
+}
+
+#btn-tip:hover {
+    background: #bb8009;
+    color: #ffffff;
+}
+
+#btn-solution {
+    color: #ff7b72;
+    border: round #b62324;
+}
+
+#btn-solution:hover {
+    background: #cf222e;
+    color: #ffffff;
+}
+
+#btn-reset {
+    color: #8b949e;
+    border: round #484f58;
+}
+
+#btn-reset:hover {
+    background: #30363d;
+    color: #ffffff;
+}
+
+/* Main Split View */
+#main-container {
+    height: 1fr;
+    layout: horizontal;
+}
+
+/* Left Mission Panel */
+#mission-panel {
+    width: 42%;
+    height: 100%;
+    background: #161b22;
+    border-right: solid #30363d;
+    padding: 1 1;
+    overflow-y: auto;
+}
+
+.mission-track-badge {
+    height: auto;
+    color: #58a6ff;
+    text-style: bold;
+    background: #0d1117;
+    border: round #30363d;
+    padding: 0 1;
+    margin-bottom: 1;
+    width: auto;
+}
+
+.mission-title {
+    height: auto;
+    color: #ffffff;
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+.meta-row {
+    height: auto;
+    layout: horizontal;
+    margin-bottom: 1;
+}
+
+.badge-diff {
+    height: auto;
+    background: #12261e;
+    border: round #238636;
+    color: #3fb950;
+    padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.badge-xp {
+    height: auto;
+    background: #0d2847;
+    border: round #1f6feb;
+    color: #58a6ff;
+    padding: 0 1;
+    text-style: bold;
+}
+
+.section-label {
+    height: auto;
+    color: #8b949e;
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+}
+
+.context-box {
+    height: auto;
+    background: #0d1117;
+    border: round #30363d;
+    padding: 1;
+    margin-bottom: 1;
+    color: #c9d1d9;
+}
+
+.objective-box {
+    height: auto;
+    background: #121d17;
+    border-left: thick #2ea043;
+    border-top: solid #1f382a;
+    border-right: solid #1f382a;
+    border-bottom: solid #1f382a;
+    padding: 1;
+    margin-bottom: 1;
+    color: #f0f6fc;
+    text-style: bold;
+}
+
+.tip-box {
+    height: auto;
+    background: #1c1810;
+    border-left: thick #d29922;
+    border-top: solid #3d301c;
+    border-right: solid #3d301c;
+    border-bottom: solid #3d301c;
+    padding: 1;
+    margin-bottom: 1;
+    color: #e3b341;
+}
+
+.solution-box {
+    height: auto;
+    background: #201314;
+    border-left: thick #f85149;
+    border-top: solid #441c1e;
+    border-right: solid #441c1e;
+    border-bottom: solid #441c1e;
+    padding: 1;
+    margin-bottom: 1;
+    color: #ff7b72;
+}
+
+.help-card {
+    height: auto;
+    background: #0d1117;
+    border: round #21262d;
+    color: #8b949e;
+    padding: 1;
+    margin-top: 1;
+}
+
+/* Right Terminal Panel */
+#terminal-panel {
+    width: 58%;
+    height: 100%;
+    background: #090d13;
+    layout: vertical;
+}
+
+#term-title-bar {
+    height: 3;
+    background: #161b22;
+    border-bottom: solid #30363d;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.term-dots {
+    width: 8;
+    color: #ff5f56;
+}
+
+.term-title-text {
+    width: 1fr;
+    color: #8b949e;
+    text-style: bold;
+    content-align: center middle;
+}
+
+.term-status-badge {
+    width: 12;
+    color: #3fb950;
+    text-style: bold;
+    content-align: right middle;
+}
+
+#term-output-log {
+    height: 1fr;
+    background: #090d13;
+    padding: 1;
+    overflow-y: scroll;
+}
+
+#term-input-container {
+    height: 3;
+    background: #161b22;
+    border-top: solid #30363d;
+    layout: horizontal;
+    align-vertical: middle;
+    padding: 0 1;
+}
+
+#term-prompt {
+    width: auto;
+    color: #58a6ff;
+    text-style: bold;
+    padding: 0 1;
+}
+
+#term-input {
+    width: 1fr;
+    background: #0d1117;
+    border: round #30363d;
+    color: #f0f6fc;
+}
+
+#term-input:focus {
+    border: round #58a6ff;
+}
+
+/* Footer Shortcuts */
+#footer-bar {
+    dock: bottom;
+    height: 1;
+    background: #161b22;
+    color: #8b949e;
+    border-top: solid #30363d;
+    padding: 0 1;
+    content-align: center middle;
+}
+
+/* Tracks Modal Dialog */
+TracksModal {
+    align: center middle;
+    background: rgba(13, 17, 23, 0.85);
+}
+
+#tracks-dialog {
+    width: 82%;
+    height: 82%;
+    background: #161b22;
+    border: round #58a6ff;
+    padding: 1 2;
+    layout: vertical;
+}
+
+#tracks-list {
+    height: 1fr;
+    overflow-y: scroll;
+    margin-top: 1;
+    margin-bottom: 1;
+}
+
+.track-modal-header {
+    color: #58a6ff;
+    text-style: bold;
+}
+
+.track-group-title {
+    color: #f0883e;
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+}
+
+.mission-item-btn {
+    margin: 0 0 1 0;
+    width: 100%;
+    height: 3;
+    background: #21262d;
+    border: round #30363d;
+    color: #c9d1d9;
+    text-align: left;
+}
+
+.mission-item-btn:hover {
+    background: #30363d;
+    border: round #58a6ff;
+    color: #ffffff;
+}
+
+.mission-item-done {
+    background: #12261e;
+    border: round #238636;
+    color: #3fb950;
+}
+
+.mission-item-curr {
+    background: #1f6feb;
+    border: round #388bfd;
+    color: #ffffff;
+    text-style: bold;
+}
+
+#btn-close-modal {
+    width: 100%;
+    height: 3;
+    background: #21262d;
+    border: round #30363d;
+    color: #ff7b72;
+    text-style: bold;
+}
+
+#btn-close-modal:hover {
+    background: #b62324;
+    color: #ffffff;
+}
