@@ -275,7 +275,7 @@ class DevOpsHeroApp(App):
         for line in omz_lines:
             log.write(Text(line, style="bold #30d158"))
         log.write("[dim]• Theme: [bold #ffd60a]robbyrussell[/]  │  Plugins: [cyan]git[/], [cyan]docker[/], [cyan]kubectl[/], [cyan]aws[/], [cyan]terraform[/], [cyan]datadog[/][/dim]")
-        log.write("[dim]• Comandos: [bold #5ac8fa]'help'[/], [bold #ffd60a]'dica'[/], [bold #ff453a]'solucao'[/], [bold #30d158]'reset'[/], [bold #5ac8fa]'trilhas'[/][/dim]\n")
+        log.write("[dim]• Atalhos Rápidos: [bold #5ac8fa]'help'[/] (ou [bold #5ac8fa]'h'[/]), [bold #ffd60a]'d'[/] (dica), [bold #ff7b72]'s'[/] (solução), [bold #30d158]'r'[/] (reset), [bold #5ac8fa]'t'[/] (trilhas), [bold #30d158]'n'[/] (next)[/dim]\n")
 
     @on(Input.Submitted, "#term-input")
     def handle_terminal_input(self, event: Input.Submitted) -> None:
