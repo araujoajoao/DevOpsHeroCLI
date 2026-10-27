@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+import time
 from typing import Optional
 
 from rich import print as rprint
@@ -57,10 +58,15 @@ def run_repl():
         table.add_row("[bold cyan]Missão:[/]", f"[bold white]{m.title}[/] ({m.difficulty} · [bold yellow]+{m.xp} XP[/])")
         table.add_row("[bold cyan]Cenário:[/]", f"[dim]{m.context}[/]")
         table.add_row("[bold green]Objetivo:[/]", f"[bold]{m.objective}[/]")
+        table.add_row("[bold yellow]Regra XP:[/]", "[bold #ffd60a]⚡ 100% XP[/] em <5s sem dicas! (>5s = 70% XP · dicas reduzem pontos)")
         table.add_row("[dim]Ajuda:[/]", "[dim]Precisa de auxílio com a sintaxe? Digite [bold yellow]dica[/bold yellow][/dim]")
         console.print(Panel(table, title="[bold yellow]🎯 Desafio Atual[/]", border_style="blue"))
 
     print_mission_card(mission)
+
+    mission_start_time = time.time()
+    tips_used = 0
+    solution_used = False
 
     words = [
         "pwd", "ls", "cd", "mkdir", "touch", "cat", "head", "tail", "grep", "chmod", "kill", "ps", "curl", "df", "free",
@@ -94,11 +100,13 @@ def run_repl():
                 console.print("[cyan]Comandos:[/] dica, solucao, proxima, reset, stats, clear, sair")
                 continue
             elif lower_cmd in ["dica", "hint"]:
-                console.print(f"[bold yellow]💡 Dica:[/] {mission.tip}")
+                tips_used += 1
+                console.print(f"[bold yellow]💡 Dica #{tips_used}:[/] {mission.tip} [dim yellow](Uso de dicas reduz o XP da missão)[/]")
                 continue
             elif lower_cmd in ["solucao", "solution", "gabarito"]:
+                solution_used = True
                 progress.break_streak()
-                console.print(f"[bold red]👁️ Solução:[/] [bold cyan]{mission.solution}[/] [dim](Streak zerado)[/]")
+                console.print(f"[bold red]👁️ Solução:[/] [bold cyan]{mission.solution}[/] [dim](XP zerado e streak resetado)[/]")
                 continue
             elif lower_cmd in ["stats", "perfil"]:
                 show_stats()
@@ -112,13 +120,19 @@ def run_repl():
                     progress.current_track_id, progress.current_mission_id = nxt
                     progress.save()
                     mission = load_curr()
+                    mission_start_time = time.time()
+                    tips_used = 0
+                    solution_used = False
                     print_mission_card(mission)
                 continue
             elif lower_cmd == "reset":
                 state.reset_all()
                 if mission.initial_setup:
                     mission.initial_setup(state)
-                console.print("[bold green]🧹 Ambiente da missão restaurado.[/]")
+                mission_start_time = time.time()
+                tips_used = 0
+                solution_used = False
+                console.print("[bold green]🧹 Ambiente da missão restaurado. Cronômetro zerado![/]")
                 continue
 
             output = executor.execute_command_string(cmd)
@@ -128,18 +142,37 @@ def run_repl():
             if mission.check_completion:
                 completed, feedback = mission.check_completion(state, cmd, output)
                 if completed:
-                    earned = progress.award_mission(mission)
-                    console.print(Panel(
+                    elapsed = max(0.1, round(time.time() - mission_start_time, 1))
+                    award = progress.award_mission(
+                        mission,
+                        elapsed_seconds=elapsed,
+                        tips_used=tips_used,
+                        solution_used=solution_used,
+                    )
+                    bonus_text = f"(+{award.streak_bonus_pct}%)" if award.streak_bonus_pct else ""
+                    msg = (
                         f"[bold green]🎉 PARABÉNS! MISSÃO CONCLUÍDA![/]\n"
-                        f"+{earned} XP Conquistados!  🔥 Streak: {progress.streak} acertos seguidos!\n"
-                        f"[bold white]{feedback}[/]",
-                        border_style="green"
-                    ))
+                        f"[bold yellow]+{award.xp} XP Conquistados![/] · {award.tier_name}\n"
+                        f"⏱️ Tempo: {elapsed}s  │  💡 Dicas: {tips_used}  │  🔥 Streak: {progress.streak} acertos! {bonus_text}\n"
+                        f"[bold white]{feedback}[/]"
+                    )
+                    if award.is_ninja:
+                        msg += "\n[bold green]⚡ 100% DOS PONTOS! Executado em <5s sem dicas ou cola de IA![/]"
+                    elif tips_used > 0:
+                        msg += f"\n[dim yellow]⚠️ Dicas usadas: Pontuação reduzida ({int(award.factor*100)}% de XP).[/]"
+                    elif elapsed > 5.0:
+                        msg += "\n[dim]ℹ️ Tempo > 5.0s: 70% de XP (Regra anti-cola de Google/IA).[/]"
+
+                    console.print(Panel(msg, border_style="green"))
+
                     nxt = get_next_mission(mission.track_id, mission.id)
                     if nxt:
                         progress.current_track_id, progress.current_mission_id = nxt
                         progress.save()
                         mission = load_curr()
+                        mission_start_time = time.time()
+                        tips_used = 0
+                        solution_used = False
                         print_mission_card(mission)
                     else:
                         console.print("[bold gold1]🏆 Parabéns! Você completou todas as missões do DevOpsHeroCLI![/]")

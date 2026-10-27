@@ -211,6 +211,15 @@ docker run -it --rm devopshero
 
 ## 🎮 Sistema de Gamificação
 
+- **⚡ Regra Anti-Cola (Google / IA) & Reflexo Ninja**:
+  - **100% dos Pontos**: Concedidos **apenas** se o comando for executado **sem dicas** e nos **primeiros 5 segundos** (`<= 5.0s`), comprovando fixação real do conteúdo e prevenindo consultas externas em IA (ChatGPT, Claude) ou pesquisas no Google.
+  - **Tempo > 5 segundos (sem dicas)**: Concede 70% dos pontos base (reflete o tempo estendido para consulta).
+  - **Penalidade Progressiva por Dicas**: A cada dica solicitada (F3 ou comando `dica`), a pontuação do aluno diminui:
+    - 💡 **1 dica**: 40% do XP (-60% de dedução)
+    - 💡 **2 dicas**: 20% do XP (-80% de dedução)
+    - 💡 **3+ dicas**: 10% do XP (mínimo garantido para incentivar a conclusão)
+  - **👁️ Gabarito Revelado (F4 / `solucao`)**: Zera o XP da missão e reseta o streak para 0.
+
 - **Progressão por XP e Níveis (10 Patentes)**:
   - 🌱 **Nível 1 · Recruta DevOps** (0 - 249 XP)
   - 🛠️ **Nível 2 · Sysadmin Básico** (250 - 599 XP)
@@ -223,8 +232,7 @@ docker run -it --rm devopshero
   - 🐕 **Nível 9 · Observability Guru** (6200 - 7999 XP)
   - ⚡ **Nível 10 · DevOps Titan** (8000+ XP)
 - **Sequência (Streak 🔥)**:
-  - Acertos seguidos sem pedir gabarito concedem até **+50% de bônus de XP**.
-  - Revelar a solução (F4) zera a sequência de acertos para incentivar o raciocínio.
+  - Acertos seguidos sem pedir gabarito concedem até **+50% de bônus de XP** cumulativo.
 - **Persistência Local Automática**:
   - Seu progresso fica salvo em `~/.devopsherocli/progress.json`.
 

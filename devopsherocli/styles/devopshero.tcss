@@ -181,6 +181,16 @@ Screen {
     border: round #007aff;
     color: #5ac8fa;
     padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.badge-speed {
+    height: auto;
+    background: #2a1f00;
+    border: round #ffd60a;
+    color: #ffd60a;
+    padding: 0 1;
     text-style: bold;
 }
 
@@ -209,6 +219,15 @@ Screen {
     margin-bottom: 0;
     color: #f2f2f7;
     text-style: bold;
+}
+
+.rules-box {
+    height: auto;
+    background: #1c1917;
+    border: round #d97706;
+    padding: 0 1;
+    margin-bottom: 0;
+    color: #e7e5e4;
 }
 
 .tip-box {

@@ -47,6 +47,36 @@ LEVELS = [
 ]
 
 
+class AwardResult(int):
+    """Result of completing a mission, inheriting from int for total backward-compatibility."""
+
+    def __new__(
+        cls,
+        xp: int,
+        base_xp: int = 0,
+        factor: float = 1.0,
+        tier_name: str = "",
+        elapsed_seconds: float = 0.0,
+        tips_used: int = 0,
+        streak_bonus_pct: int = 0,
+        is_ninja: bool = False,
+        is_repeat: bool = False,
+        solution_used: bool = False,
+    ):
+        obj = super().__new__(cls, xp)
+        obj.xp = xp
+        obj.base_xp = base_xp
+        obj.factor = factor
+        obj.tier_name = tier_name
+        obj.elapsed_seconds = elapsed_seconds
+        obj.tips_used = tips_used
+        obj.streak_bonus_pct = streak_bonus_pct
+        obj.is_ninja = is_ninja
+        obj.is_repeat = is_repeat
+        obj.solution_used = solution_used
+        return obj
+
+
 class UserProgress:
     """Manages XP, Streaks, Completed Missions and Save State."""
 
@@ -104,14 +134,72 @@ class UserProgress:
         else:
             return 50
 
-    def award_mission(self, mission: Mission) -> int:
-        """Awards XP with streak bonus and marks mission as completed. Returns gained XP."""
+    def award_mission(
+        self,
+        mission: Mission,
+        elapsed_seconds: float = 0.0,
+        tips_used: int = 0,
+        solution_used: bool = False,
+    ) -> AwardResult:
+        """
+        Awards XP with anti-cheat/anti-Google speed penalty, hints penalty, and streak bonus.
+
+        Rules:
+        - 100% of base points ONLY if: tips_used == 0 AND elapsed_seconds <= 5.0
+        - If solution_used == True (F4/gabarito): 0 XP awarded, streak broken.
+        - If tips_used == 0 and elapsed_seconds > 5.0:
+            Deducts points for excessive delay (anti-copy from Google/AI): 70% base XP.
+        - If tips_used > 0:
+            Points decrease with each tip requested:
+            - 1 tip: 40% base XP (-60%)
+            - 2 tips: 20% base XP (-80%)
+            - 3+ tips: 10% base XP (-90%)
+        - Streak bonus is applied on top of the earned base.
+        - Repeating an already completed mission awards half of the computed XP.
+        """
+        if solution_used:
+            self.break_streak()
+            return AwardResult(
+                xp=0,
+                base_xp=mission.xp,
+                factor=0.0,
+                tier_name="👁️ Gabarito Revelado (0 XP)",
+                elapsed_seconds=elapsed_seconds,
+                tips_used=tips_used,
+                streak_bonus_pct=0,
+                is_ninja=False,
+                is_repeat=mission.id in self.completed_missions,
+                solution_used=True,
+            )
+
+        is_ninja = False
+        if tips_used == 0:
+            if elapsed_seconds <= 5.0:
+                factor = 1.0
+                is_ninja = True
+                tier_name = "⚡ 100% Ninja Reflex (<5s sem dicas!)"
+            else:
+                factor = 0.70
+                tier_name = f"⏱️ Tempo > 5s ({elapsed_seconds:.1f}s) - 70% XP"
+        else:
+            if tips_used == 1:
+                factor = 0.40
+                tier_name = "💡 1 Dica Usada - 40% XP (-60%)"
+            elif tips_used == 2:
+                factor = 0.20
+                tier_name = "💡 2 Dicas Usadas - 20% XP (-80%)"
+            else:
+                factor = 0.10
+                tier_name = f"💡 {tips_used} Dicas Usadas - 10% XP (-90%)"
+
         bonus_pct = self.get_streak_bonus_pct()
-        earned_xp = int(mission.xp * (1 + bonus_pct / 100.0))
-        
+        calc_xp = int(mission.xp * factor * (1 + bonus_pct / 100.0))
+        earned_xp = max(5, calc_xp)
+
         # If already completed before, only grant half XP
-        if mission.id in self.completed_missions:
-            earned_xp = max(10, earned_xp // 2)
+        is_repeat = mission.id in self.completed_missions
+        if is_repeat:
+            earned_xp = max(5, earned_xp // 2)
         else:
             self.completed_missions.add(mission.id)
 
@@ -119,9 +207,20 @@ class UserProgress:
         self.streak += 1
         if self.streak > self.max_streak:
             self.max_streak = self.streak
-            
+
         self.save()
-        return earned_xp
+        return AwardResult(
+            xp=earned_xp,
+            base_xp=mission.xp,
+            factor=factor,
+            tier_name=tier_name,
+            elapsed_seconds=elapsed_seconds,
+            tips_used=tips_used,
+            streak_bonus_pct=bonus_pct,
+            is_ninja=is_ninja,
+            is_repeat=is_repeat,
+            solution_used=False,
+        )
 
     def break_streak(self):
         """Called when user asks for explicit solution or skips."""

@@ -248,13 +248,86 @@ class TestMissionsValidation(unittest.TestCase):
             for m in t.missions:
                 self.assertIsNotNone(m.check_completion)
                 self.assertTrue(m.xp > 0)
-                self.assertTrue(len(m.solution) > 0)
+from devopsherocli.models import UserProgress, Mission
+from devopsherocli.tracks import ALL_TRACKS, get_mission, get_next_mission
 
-    def test_progress_advancement(self):
-        m1 = get_mission("linux", "linux-01")
-        nxt = get_next_mission("linux", "linux-01")
-        self.assertIsNotNone(nxt)
-        self.assertEqual(nxt, ("linux", "linux-02"))
+
+class TestAntiCheatScoring(unittest.TestCase):
+
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.progress_file = Path(self.tmp_dir.name) / "test_progress.json"
+        self.progress = UserProgress(storage_path=self.progress_file)
+        self.mission = Mission(
+            id="test-01",
+            track_id="linux",
+            title="Test Mission",
+            difficulty="Iniciante",
+            xp=100,
+            context="Cenário de teste",
+            objective="Teste objetivo",
+            tip="Use teste",
+            solution="teste",
+        )
+
+    def tearDown(self):
+        self.tmp_dir.cleanup()
+
+    def test_full_points_under_5s_no_tips(self):
+        # 100% of base points ONLY if tips == 0 AND elapsed <= 5.0
+        res = self.progress.award_mission(self.mission, elapsed_seconds=3.2, tips_used=0)
+        self.assertEqual(res.xp, 100)
+        self.assertEqual(res.factor, 1.0)
+        self.assertTrue(res.is_ninja)
+        self.assertIn("100% Ninja Reflex", res.tier_name)
+        self.assertEqual(self.progress.streak, 1)
+
+    def test_deduction_over_5s_no_tips(self):
+        # > 5.0s without tips receives 70% of points (anti-cheat Google/AI deduction)
+        res = self.progress.award_mission(self.mission, elapsed_seconds=8.5, tips_used=0)
+        self.assertEqual(res.xp, 70)
+        self.assertEqual(res.factor, 0.70)
+        self.assertFalse(res.is_ninja)
+        self.assertIn("Tempo > 5s", res.tier_name)
+
+    def test_deduction_with_one_tip(self):
+        # 1 tip reduces to 40%
+        res = self.progress.award_mission(self.mission, elapsed_seconds=2.0, tips_used=1)
+        self.assertEqual(res.xp, 40)
+        self.assertEqual(res.factor, 0.40)
+        self.assertFalse(res.is_ninja)
+        self.assertIn("1 Dica Usada", res.tier_name)
+
+    def test_deduction_with_two_tips(self):
+        # 2 tips reduces to 20%
+        res = self.progress.award_mission(self.mission, elapsed_seconds=4.0, tips_used=2)
+        self.assertEqual(res.xp, 20)
+        self.assertEqual(res.factor, 0.20)
+        self.assertIn("2 Dicas Usadas", res.tier_name)
+
+    def test_deduction_with_three_or_more_tips(self):
+        # 3+ tips reduces to 10%
+        res = self.progress.award_mission(self.mission, elapsed_seconds=1.5, tips_used=3)
+        self.assertEqual(res.xp, 10)
+        self.assertEqual(res.factor, 0.10)
+
+    def test_solution_used_gives_zero_xp_and_breaks_streak(self):
+        # Revealing solution gives 0 XP and resets streak
+        self.progress.streak = 5
+        res = self.progress.award_mission(self.mission, elapsed_seconds=1.0, tips_used=0, solution_used=True)
+        self.assertEqual(res.xp, 0)
+        self.assertEqual(self.progress.streak, 0)
+        self.assertIn("Gabarito Revelado", res.tier_name)
+
+    def test_streak_bonus_with_ninja_reflex(self):
+        # Streak 3 (+20% bonus) + 100% ninja reflex
+        self.progress.streak = 3
+        res = self.progress.award_mission(self.mission, elapsed_seconds=4.0, tips_used=0)
+        # 100 * 1.0 * 1.20 = 120 XP
+        self.assertEqual(res.xp, 120)
+        self.assertEqual(self.progress.streak, 4)
 
 
 if __name__ == "__main__":

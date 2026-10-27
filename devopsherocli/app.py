@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import time
 from typing import Optional
 
 from rich.panel import Panel
@@ -87,6 +88,9 @@ class DevOpsHeroApp(App):
         self.current_mission: Optional[Mission] = None
         self.show_tip: bool = False
         self.show_solution: bool = False
+        self.mission_start_time: float = time.time()
+        self.tips_used: int = 0
+        self.solution_used: bool = False
 
     def compose(self) -> ComposeResult:
         # Top Header Bar
@@ -109,13 +113,23 @@ class DevOpsHeroApp(App):
                 yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
                 with Horizontal(classes="meta-row"):
                     yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
-                    yield Label("100 XP", id="lbl-xp-badge", classes="badge-xp")
+                    yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
+                    yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
                 
                 yield Label("📖 CENÁRIO DO MUNDO REAL:", classes="section-label")
                 yield Static("", id="box-context", classes="context-box")
 
                 yield Label("🎯 SEU OBJETIVO:", classes="section-label")
                 yield Static("", id="box-objective", classes="objective-box")
+
+                yield Label("⚡ REGRA ANTI-COLA (GOOGLE / IA):", classes="section-label")
+                yield Static(
+                    "⚡ [bold #ffd60a]100% XP[/]: Envie sem dicas nos primeiros [bold #30d158]5 segundos[/]!\n"
+                    "⏱️ [dim]> 5 segundos sem dicas: 70% XP (tempo para busca externa)[/]\n"
+                    "💡 [dim yellow]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
+                    id="box-rules",
+                    classes="rules-box",
+                )
 
                 yield Static("", id="box-tip", classes="tip-box")
                 yield Static("", id="box-solution", classes="solution-box")
@@ -150,6 +164,9 @@ class DevOpsHeroApp(App):
 
         self.show_tip = False
         self.show_solution = False
+        self.tips_used = 0
+        self.solution_used = False
+        self.mission_start_time = time.time()
         self.render_mission_panel()
 
     def render_mission_panel(self) -> None:
@@ -269,20 +286,33 @@ class DevOpsHeroApp(App):
         if self.current_mission and self.current_mission.check_completion:
             completed, feedback = self.current_mission.check_completion(self.state, cmd_text, output)
             if completed:
-                earned_xp = self.progress.award_mission(self.current_mission)
+                elapsed = max(0.1, round(time.time() - self.mission_start_time, 1))
+                award = self.progress.award_mission(
+                    self.current_mission,
+                    elapsed_seconds=elapsed,
+                    tips_used=self.tips_used,
+                    solution_used=self.solution_used,
+                )
                 self.update_header_stats()
                 
                 # Bell ring & celebratory banner
                 self.bell()
                 log.write("")
-                log.write("[bold #30d158]╭──────────────────────────────────────────────────╮[/]")
-                log.write(f"[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]       [bold #30d158]│[/]")
-                log.write(f"[bold #30d158]│[/] [bold #ffd60a]+{earned_xp} XP Ganhos![/]  🔥 Sequência: [bold #ff453a]{self.progress.streak}[/] acertos!      [bold #30d158]│[/]")
-                log.write("[bold #30d158]╰──────────────────────────────────────────────────╯[/]")
+                log.write("[bold #30d158]╭─────────────────────────────────────────────────────────────────╮[/]")
+                log.write(f"[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]")
+                log.write(f"[bold #30d158]│[/] [bold #ffd60a]+{award.xp} XP Conquistados![/] · {award.tier_name}")
+                log.write(f"[bold #30d158]│[/] ⏱️ [bold cyan]Tempo:[/] {elapsed}s  │  💡 [bold yellow]Dicas:[/] {self.tips_used}  │  🔥 [bold #ff453a]Streak:[/] {self.progress.streak} (+{award.streak_bonus_pct}%)")
+                if award.is_ninja:
+                    log.write(f"[bold #30d158]│[/] [bold #30d158]⚡ 100% DOS PONTOS! Executado em <5s sem dicas ou cola de IA![/]")
+                elif self.tips_used > 0:
+                    log.write(f"[bold #30d158]│[/] [dim yellow]⚠️ Dicas utilizadas: Pontuação reduzida ({int(award.factor*100)}% de XP).[/]")
+                elif elapsed > 5.0:
+                    log.write(f"[bold #30d158]│[/] [dim]ℹ️ Tempo > 5s: 70% de XP (Regra anti-cola de Google/IA).[/]")
+                log.write("[bold #30d158]╰─────────────────────────────────────────────────────────────────╯[/]")
                 log.write("[dim]Avançando para a próxima missão...[/]\n")
 
                 # Auto advance
-                self.set_timer(1.8, self.advance_to_next_mission)
+                self.set_timer(2.2, self.advance_to_next_mission)
 
     def advance_to_next_mission(self) -> None:
         if not self.current_mission:
@@ -328,22 +358,30 @@ class DevOpsHeroApp(App):
 
     def action_toggle_tip(self) -> None:
         self.show_tip = not self.show_tip
+        if self.show_tip:
+            self.tips_used += 1
+            log = self.query_one("#term-output-log", RichLog)
+            log.write(f"[dim yellow]💡 Dica revelada (Uso #{self.tips_used})! Atenção: o uso de dicas reduz o XP da missão.[/]")
         self.render_mission_panel()
 
     def action_solution(self) -> None:
         self.show_solution = True
+        self.solution_used = True
         self.progress.break_streak()
         self.update_header_stats()
         self.render_mission_panel()
         log = self.query_one("#term-output-log", RichLog)
-        log.write("[dim yellow]⚠️ Solução revelada! Sua sequência de streak foi zerada.[/]")
+        log.write("[bold #ff3b30]👁️ Gabarito revelado![/] [dim yellow]O XP desta missão foi zerado e o streak resetado.[/]")
 
     def action_reset_lab(self) -> None:
         self.state.reset_all()
         if self.current_mission and self.current_mission.initial_setup:
             self.current_mission.initial_setup(self.state)
+        self.mission_start_time = time.time()
+        self.tips_used = 0
+        self.solution_used = False
         log = self.query_one("#term-output-log", RichLog)
-        log.write("[bold green]🧹 Ambiente simulado restaurado para o estado inicial da missão.[/]")
+        log.write("[bold green]🧹 Ambiente simulado restaurado para o estado inicial. Cronômetro zerado![/]")
 
     def action_clear_screen(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
