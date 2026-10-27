@@ -1,4 +1,4 @@
-.PHONY: all run repl test install docker clean help r s l v d app dmg macos
+.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico
 
 all: run
 
@@ -10,8 +10,9 @@ help:
 	@echo "  make l             - Lista o catálogo das 80 missões (./dh l)"
 	@echo "  make v             - Executa validação de todas as missões (./dh v)"
 	@echo "  make d             - Diagnóstico de SO e compatibilidade (./dh d)"
-	@echo "  make app           - Empacota aplicativo nativo macOS (dist/DevOpsHero.app)"
-	@echo "  make dmg           - Gera instalador disk image (.dmg) para /Applications"
+	@echo "  make dmg (ou app)  - Gera instalador macOS (DevOpsHero.dmg na raiz e dist/)"
+	@echo "  make deb           - Gera instalador Debian/Ubuntu (.deb) em dist/"
+	@echo "  make install-linux - Instala atalho oficial no menu e PATH no Linux"
 	@echo "  make test          - Executa a suíte de testes unitários"
 	@echo "  make docker        - Executa em contêiner Docker isolado"
 	@echo "  make clean         - Limpa arquivos temporários e caches"
@@ -46,6 +47,12 @@ test:
 
 app dmg macos:
 	./scripts/build_macos_app.sh
+
+deb:
+	python3 scripts/build_linux_deb.py
+
+install-linux:
+	./scripts/install_linux.sh
 
 docker:
 	docker compose -f docker/docker-compose.yml run --rm devopshero

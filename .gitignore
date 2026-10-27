@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/*
 !dist/DevOpsHero.dmg
+!dist/DevOpsHero.deb
 downloads/
 eggs/
 .eggs/
@@ -42,6 +43,7 @@ venv.bak/
 !assets/*.png
 !assets/*.svg
 !assets/*.icns
+!assets/*.ico
 
 # macOS specific
 .DS_Store

@@ -81,7 +81,10 @@ Agora execute de acordo com o seu Sistema Operacional:
 
 #### 🐧 1. Linux (Ubuntu, Debian, Fedora, Arch) ou WSL
 
-Abra o seu terminal favorito (**Bash** ou **Zsh**) e execute o launcher oficial:
+Você pode rodar diretamente no terminal ou integrar com o menu de aplicativos:
+
+##### Opção 1.1 — Executar diretamente no Terminal (Recomendado)
+Abra seu terminal (**Bash** ou **Zsh**) e execute o launcher oficial:
 
 ```bash
 cd DevOpsHeroCLI
@@ -95,42 +98,61 @@ cd DevOpsHeroCLI
 > [!NOTE]
 > Na primeira execução, o script `./dh` cria o ambiente virtual `.venv` e instala as dependências automaticamente de forma isolada.
 
+##### Opção 1.2 — Pacote Instalador Nativo Debian / Ubuntu (.deb)
+Se você usa **Ubuntu, Debian, Linux Mint ou Pop!_OS**, pode instalar o pacote oficial com atalho no menu e ícone SVG nativo:
+
+```bash
+cd DevOpsHeroCLI
+
+# Instale via terminal (ou dê duplo clique no arquivo dist/DevOpsHero.deb pelo gerenciador de arquivos):
+sudo apt install ./dist/DevOpsHero.deb
+
+# (Opcional) Para recompilar o pacote .deb:
+make deb
+```
+
+##### Opção 1.3 — Integrar Atalho no Menu do Linux (Qualquer Distribuição)
+Para distribuições com Gnome, KDE, XFCE ou Cinnamon:
+```bash
+cd DevOpsHeroCLI
+make install-linux   # Cria atalho no menu de aplicativos e vincula comando 'dh' ao PATH
+```
+
 ---
 
 #### 🍎 2. macOS (MacBook, iMac, Mac mini)
 
-No macOS você tem duas formas excelentes de rodar:
+<a id="app-macos"></a>
+##### Opção 2.1 (Principal e Recomendada) — Aplicativo Nativo (.dmg na raiz)
+O instalador gráfico oficial **já vem pré-compilado diretamente na raiz do repositório (`DevOpsHero.dmg`)** com ícone oficial Apple Retina HIG:
 
-##### Opção 2.1 — Pelo Terminal (iTerm2 ou Terminal.app)
+```bash
+cd DevOpsHeroCLI
+
+# 1. Abre a imagem de disco visual diretamente no Finder:
+open DevOpsHero.dmg
+
+# (Opcional) Caso queira recompilar o instalador do zero a qualquer momento:
+make dmg
+```
+
+> **Instalação**: Ao abrir a imagem de disco, basta arrastar o ícone **DevOpsHero** para a pasta **Applications**. O jogo fica imediatamente disponível no seu **Launchpad**, **Spotlight** e **Dock** com o ícone oficial!
+
+##### Opção 2.2 — Pelo Terminal (iTerm2 ou Terminal.app)
+Se você prefere jogar direto dentro da sua janela de terminal existente:
 ```bash
 cd DevOpsHeroCLI
 ./dh            # Inicia a Interface Completa diretamente no terminal
 ./dh r          # Modo Prompt REPL Rápido
 ```
 
-<a id="app-macos"></a>
-##### Opção 2.2 — Aplicativo Nativo no Launchpad & `/Applications` (.app / .dmg)
-Se você deseja ter o **ícone oficial** no seu Launchpad, Spotlight e pasta `/Applications`:
-
-```bash
-cd DevOpsHeroCLI
-
-# 1. O instalador oficial já vem pré-compilado no repositório! Basta abrir no Finder:
-open dist/DevOpsHero.dmg
-
-# (Opcional) Caso queira recompilar o instalador do zero a qualquer momento:
-make dmg
-```
-
-> **Instalação**: Ao abrir a imagem, basta arrastar o ícone **DevOpsHero** para a pasta **Applications**. Ele fica disponível no Spotlight e Launchpad com ícone oficial Retina!
-
 ---
 
 #### 🪟 3. Windows (10 e 11)
 
-Escolha o terminal do Windows que você costuma usar:
+Escolha a forma que melhor se adapta ao seu fluxo de trabalho:
 
-##### Opção 3.1 — No PowerShell (Recomendado)
+##### Opção 3.1 — No PowerShell (Recomendado para início rápido)
 ```powershell
 cd DevOpsHeroCLI
 .\dh.ps1        # Inicia a Interface TUI Completa imediatamente
@@ -140,7 +162,14 @@ cd DevOpsHeroCLI
 .\dh.ps1 d      # Diagnóstico do SO e compatibilidade
 ```
 
-##### Opção 3.2 — No Prompt de Comando Clássico (CMD)
+##### Opção 3.2 — Criar Atalhos Oficiais na Área de Trabalho e Menu Iniciar
+Se deseja fixar o DevOpsHero na Área de Trabalho e no Menu Iniciar com o ícone oficial `.ico`:
+```powershell
+cd DevOpsHeroCLI
+powershell -ExecutionPolicy Bypass -File scripts\install_windows.ps1
+```
+
+##### Opção 3.3 — No Prompt de Comando Clássico (CMD)
 ```cmd
 cd DevOpsHeroCLI
 dh.bat          # Inicia a Interface Completa

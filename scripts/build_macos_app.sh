@@ -164,15 +164,18 @@ hdiutil create -volname "DevOpsHero" \
                -format UDZO \
                "$DMG_OUTPUT" >/dev/null
 
-echo -e "\033[1;32m✓ [macOS Packager]\033[0m Instalador criado com sucesso: dist/$APP_NAME.dmg"
+# Copia também para a raiz do repositório como opção principal
+cp "$DMG_OUTPUT" "$DIR/DevOpsHero.dmg"
+
+echo -e "\033[1;32m✓ [macOS Packager]\033[0m Instalador criado com sucesso: DevOpsHero.dmg (raiz) e dist/$APP_NAME.dmg"
 echo ""
 echo -e "\033[1;35m========================================================================\033[0m"
 echo -e " 🚀 \033[1;32mDevOpsHeroCLI Instalador macOS Pronto!\033[0m"
-echo -e " • Aplicativo direto: \033[1;36mdist/DevOpsHero.app\033[0m"
-echo -e " • Imagem de disco:   \033[1;36mdist/DevOpsHero.dmg\033[0m"
+echo -e " • Imagem de disco (Raiz): \033[1;36mDevOpsHero.dmg\033[0m"
+echo -e " • Aplicativo direto:      \033[1;36mdist/DevOpsHero.app\033[0m"
 echo ""
 echo -e " Para instalar no seu Mac:"
-echo -e "   1. Abra o arquivo \033[1;33mdist/DevOpsHero.dmg\033[0m no Finder."
+echo -e "   1. Abra o arquivo \033[1;33mDevOpsHero.dmg\033[0m no Finder (ou 'open DevOpsHero.dmg')."
 echo -e "   2. Arraste o ícone do \033[1;32mDevOpsHero\033[0m para a pasta \033[1;34mApplications\033[0m."
 echo -e "   Ou copie diretamente via terminal:"
 echo -e "   \033[1;37mcp -R dist/DevOpsHero.app /Applications/\033[0m"
