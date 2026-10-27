@@ -76,7 +76,9 @@ cat <<EOF > "$APP_BUNDLE/Contents/Info.plist"
     <key>CFBundleExecutable</key>
     <string>DevOpsHero</string>
     <key>CFBundleIconFile</key>
-    <string>DevOpsHero.icns</string>
+    <string>DevOpsHero</string>
+    <key>CFBundleIconName</key>
+    <string>DevOpsHero</string>
     <key>CFBundleIdentifier</key>
     <string>com.devopshero.cli</string>
     <key>CFBundleInfoDictionaryVersion</key>
