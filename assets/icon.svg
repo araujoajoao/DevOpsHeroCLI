@@ -76,18 +76,15 @@
     <!-- 4. Subtle Diagonal Screen Specular Glint -->
     <path d="M 154 220 L 870 500 L 870 146 L 220 146 Z" fill="url(#specularGlint)"/>
 
-    <!-- 5. Terminal Content (devopsherocli exactly as in current icon, mathematically centered at X=512, Y=503) -->
+    <!-- 5. Apple Terminal Identifier: Chevron > and Cursor _ (Model Standard) -->
+    <path d="M 260 274 L 403 365.5 L 260 457 L 260 439 L 372 365.5 L 260 292 Z" fill="#ffffff"/>
+    <rect x="432" y="498" width="165" height="18" rx="4" ry="4" fill="#e5e7eb"/>
+
+    <!-- 6. Brand Writing: devopsherocli centered below prompt -->
     <g>
-      <!-- Oh My Zsh Green Prompt Arrow -->
-      <path d="M 238 482 L 276 504 L 238 526 Z" fill="#30d158"/>
-
-      <!-- Command Text 'devopsherocli' (SF Mono / Menlo regular non-bold typography, size 58) -->
-      <text x="300" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#00f2fe">devops</text>
-      <text x="510" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#30d158">hero</text>
-      <text x="649" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#f3f4f6">cli</text>
-
-      <!-- Terminal Block Cursor -->
-      <rect x="764" y="475" width="22" height="56" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
+      <text x="270" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#00f2fe">devops</text>
+      <text x="493" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#30d158">hero</text>
+      <text x="642" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#f3f4f6">cli</text>
     </g>
   </g>
 </svg>
