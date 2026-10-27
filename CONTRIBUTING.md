@@ -90,5 +90,18 @@ Todos os testes devem passar com status `OK`.
    ```
 2. Acesse o repositório oficial no GitHub e clique em **New Pull Request**.
 3. Preencha o modelo do Pull Request detalhando o que foi feito e os testes realizados.
-4. Aguarde a validação automática do GitHub Actions CI (Ubuntu e macOS em Python 3.9 a 3.13).
-5. Após aprovação e CI verde, o PR será incorporado à branch `main` via merge seguro.
+4. Aguarde a validação automática do **GitHub Actions CI** (Ubuntu, macOS e Windows em Python 3.9 a 3.13).
+5. O **DevOpsHero AI Reviewer** irá auditar automaticamente seu PR quanto a segurança (OWASP/AppSec), boas práticas e padrões Git.
+6. Após aprovação e CI verde, o PR será incorporado à branch `main` via merge seguro.
+
+---
+
+## 🤖 Revisão Automática por IA (DevOpsHero AI Reviewer)
+
+Todos os Pull Requests abertos no repositório contam com uma esteira de auditoria automatizada por IA (via Google Gemini ou OpenAI):
+
+- 🔒 **AppSec**: Varredura de credenciais expostas, injeções de comando/SQL/Path Traversal e permissões indevidas.
+- 📐 **Qualidade de Código**: Verificação de boas práticas, tipagem, tratamento de exceções e legibilidade em qualquer linguagem.
+- 🌿 **Padrões Git**: Validação de Conventional Commits e escopo de alterações.
+
+> **Nota para Mantenedores**: Para ativar o revisor de IA com custo zero (plano gratuito), basta gerar uma chave em [Google AI Studio](https://aistudio.google.com/app/apikey) e cadastrá-la nos Secrets do repositório (`Settings` ➔ `Secrets and variables` ➔ `Actions`) com o nome **`GEMINI_API_KEY`**.
