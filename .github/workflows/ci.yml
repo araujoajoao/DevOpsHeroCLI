@@ -67,3 +67,9 @@ jobs:
         python -m devopsherocli.cli stats
         python -m devopsherocli.cli verify
         python -m devopsherocli.cli doctor
+        dh --help
+        dh --version
+        dh l
+        dh s
+        dh v
+        dh d

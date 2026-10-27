@@ -1,5 +1,7 @@
 .PHONY: all run repl test install docker clean help r s l v d
 
+all: run
+
 help:
 	@echo "⚡ DevOpsHeroCLI (dh) - Atalhos de Execução Rápida"
 	@echo "  make (ou make run) - Inicia a interface visual completa (./dh)"
