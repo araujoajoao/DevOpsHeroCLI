@@ -84,6 +84,7 @@ Agora execute de acordo com o seu Sistema Operacional:
 Abra o seu terminal favorito (**Bash** ou **Zsh**) e execute o launcher oficial:
 
 ```bash
+cd DevOpsHeroCLI
 ./dh            # Inicia a Interface TUI Completa imediatamente
 ./dh r          # Modo Prompt REPL Rápido (sem divisão de tela)
 ./dh s          # Estatísticas do perfil e XP acumulado
@@ -102,6 +103,7 @@ No macOS você tem duas formas excelentes de rodar:
 
 ##### Opção 2.1 — Pelo Terminal (iTerm2 ou Terminal.app)
 ```bash
+cd DevOpsHeroCLI
 ./dh            # Inicia a Interface Completa diretamente no terminal
 ./dh r          # Modo Prompt REPL Rápido
 ```
@@ -111,6 +113,8 @@ No macOS você tem duas formas excelentes de rodar:
 Se você deseja ter o **ícone oficial** no seu Launchpad, Spotlight e pasta `/Applications`:
 
 ```bash
+cd DevOpsHeroCLI
+
 # 1. O instalador oficial já vem pré-compilado no repositório! Basta abrir no Finder:
 open dist/DevOpsHero.dmg
 
@@ -128,6 +132,7 @@ Escolha o terminal do Windows que você costuma usar:
 
 ##### Opção 3.1 — No PowerShell (Recomendado)
 ```powershell
+cd DevOpsHeroCLI
 .\dh.ps1        # Inicia a Interface TUI Completa imediatamente
 .\dh.ps1 r      # Modo Prompt REPL Rápido
 .\dh.ps1 s      # Estatísticas do perfil e XP acumulado
@@ -137,6 +142,7 @@ Escolha o terminal do Windows que você costuma usar:
 
 ##### Opção 3.2 — No Prompt de Comando Clássico (CMD)
 ```cmd
+cd DevOpsHeroCLI
 dh.bat          # Inicia a Interface Completa
 dh.bat r        # Modo REPL Rápido
 ```
