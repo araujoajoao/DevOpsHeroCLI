@@ -59,6 +59,10 @@ class TestDevOpsHeroCLI(unittest.TestCase):
         with patch.object(sys, "argv", ["devopsherocli", "reset"]):
             main()
 
+    def test_cli_main_doctor(self):
+        with patch.object(sys, "argv", ["devopsherocli", "doctor"]):
+            main()
+
 
 if __name__ == "__main__":
     unittest.main()

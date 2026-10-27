@@ -5,6 +5,7 @@ import time
 from typing import Optional
 
 from rich.markup import escape
+from rich.panel import Panel
 from rich.text import Text
 from textual import on
 from textual.app import App, ComposeResult
@@ -20,9 +21,16 @@ from textual.widgets import (
     Static,
 )
 
+from devopsherocli.compat import (
+    ensure_utf8_encoding,
+    get_powershell_humor_message,
+    is_powershell,
+)
 from devopsherocli.engine.executor import CommandExecutor, EnvironmentState
 from devopsherocli.models import Mission, UserProgress
 from devopsherocli.tracks import ALL_TRACKS, TRACKS_MAP, get_mission, get_next_mission
+
+ensure_utf8_encoding()
 
 
 class TracksModal(ModalScreen):
@@ -135,9 +143,9 @@ class DevOpsHeroApp(App):
                 with Horizontal(id="term-title-bar"):
                     yield Label("🔴 🟡 🟢", classes="term-dots")
                     with Horizontal(classes="iterm-tab-active"):
-                        yield Label("🐚 devops@ops-lab (zsh)", classes="iterm-tab-title")
+                        yield Label("🐚 devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
                     yield Static("", classes="term-bar-spacer")
-                    yield Label("iTerm2 · 80x24", classes="term-status-badge")
+                    yield Label("iTerm2 · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                 with Horizontal(id="term-input-container"):
                     yield Label("➜  ~ ", id="term-prompt")
@@ -147,6 +155,12 @@ class DevOpsHeroApp(App):
             yield Label("[bold #5ac8fa]F2[/] Trilhas  │  [bold #ffd60a]F3[/] Dica  │  [bold #ff6961]F4[/] Solução  │  [bold #8e8e93]F5[/] Reset  │  [bold #5ac8fa]Ctrl+L[/] Limpar  │  [bold #8e8e93]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
+        if is_powershell():
+            try:
+                self.query_one("#lbl-term-tab-title", Label).update("🐚 devops@ops-lab (pwsh · em reabilitação 😉)")
+                self.query_one("#lbl-term-status-badge", Label).update("PowerShell? · 80x24")
+            except Exception:
+                pass
         self.load_active_mission()
         self.update_header_stats()
         self.update_prompt()
@@ -235,6 +249,20 @@ class DevOpsHeroApp(App):
         log = self.query_one("#term-output-log", RichLog)
         cur_time = time.strftime("%a %b %d %H:%M:%S")
         log.write(f"[dim]Last login: {cur_time} on ttys001 (iTerm2)[/]")
+
+        if is_powershell():
+            log.write(Panel(
+                get_powershell_humor_message(),
+                title="[bold #ffd60a]⚠️  PowerShell Easter Egg[/]",
+                border_style="#ffd60a",
+            ))
+            self.notify(
+                "Você realmente chama isso de terminal?! 😂 Recomendamos um de verdade longe do Windows... Mas relaxa, o DevOpsHero roda suave até aqui!",
+                title="⚠️ PowerShell Detectado!",
+                severity="warning",
+                timeout=8.0,
+            )
+
         omz_lines = [
             "         __                                     __",
             "  ____  / /_     ____ ___  __  __   ____  _____/ /_",

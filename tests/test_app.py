@@ -94,6 +94,21 @@ class TestDevOpsHeroAppTUI(unittest.IsolatedAsyncioTestCase):
                 await pilot.pause()
             self.assertTrue(app.is_running)
 
+    async def test_app_powershell_easter_egg_mode(self):
+        import os
+        from unittest.mock import patch
+
+        with patch.dict(os.environ, {"DEVOPSHERO_SHELL": "powershell"}):
+            app = DevOpsHeroApp()
+            app.progress = UserProgress(storage_path=self.storage_file)
+            async with app.run_test() as pilot:
+                await pilot.pause()
+                tab_label = app.query_one("#lbl-term-tab-title")
+                status_badge = app.query_one("#lbl-term-status-badge")
+                self.assertIn("pwsh", str(tab_label.render()))
+                self.assertIn("PowerShell", str(status_badge.render()))
+                self.assertTrue(app.is_running)
+
 
 if __name__ == "__main__":
     unittest.main()

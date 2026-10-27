@@ -1,6 +1,7 @@
 @echo off
 rem DevOpsHeroCLI - Windows Launcher (CMD & PowerShell)
 setlocal enabledelayedexpansion
+chcp 65001 >nul 2>&1
 
 cd /d "%~dp0"
 

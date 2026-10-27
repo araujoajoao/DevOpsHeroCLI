@@ -12,7 +12,7 @@
 [![Terminal: iTerm2 + Oh My Zsh](https://img.shields.io/badge/Terminal-iTerm2%20%2B%20Oh%20My%20Zsh-30d158.svg)](#-o-que-%C3%A9-o-devopsherocli)
 [![Gamification: 80 Missões](https://img.shields.io/badge/Missões-80%20Desafios-orange.svg)](#-trilhas-de-aprendizado)
 
-**Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
+**Aprenda Linux, SysAdmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
 *Sem precisar de nuvem, sem pagar contas e sem risco de quebrar sua máquina física.*
 
 > **English Overview:** *DevOpsHeroCLI is an interactive, gamified terminal simulator designed to teach **Linux, Sysadmin, Git, Docker, Kubernetes, AWS CLI, Terraform, and Datadog** through hands-on CLI practice. Features an authentic **iTerm2 + Oh My Zsh** interface, in-memory virtual state engines, and anti-cheat speed scoring.*
@@ -69,25 +69,41 @@ Prefere praticar sem a interface visual dividida, direto no terminal com histór
 ./devopshero.sh repl
 ```
 
-### Opção 3: Windows Nativo (CMD / PowerShell)
+### Opção 3: Windows Nativo (PowerShell & CMD)
 
-Se você estiver no Windows nativo fora do WSL:
+O **DevOpsHeroCLI** é 100% compatível com qualquer terminal no Windows:
 
-```cmd
+```powershell
+# No PowerShell (com Easter Egg humorístico exclusivo! 😉)
 git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
+.\devopshero.ps1
+
+# Ou no Prompt de Comando clássico (CMD):
 devopshero.bat
 ```
 
-### Opção 4: Instalação Manual com Pip
+> [!TIP]
+> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\devopshero.ps1` ou `devopshero repl`) para ver uma mensagem carinhosa sobre a sua escolha de "terminal"! 😂
+
+### Opção 4: WSL (Windows Subsystem for Linux) ou macOS / Linux
+
+Em qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch) ou macOS com iTerm2/Terminal.app:
+
+```bash
+./devopshero.sh
+```
+
+### Opção 5: Instalação Manual com Pip
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate  # No Windows: .venv\Scripts\activate
 pip install -e .
 
-devopshero       # Interface visual completa
-devopshero repl  # Modo prompt interativo
+devopshero          # Interface visual completa
+devopshero repl     # Modo prompt interativo
+devopshero doctor   # Diagnóstico de SO e compatibilidade
 ```
 
 ---
@@ -111,12 +127,13 @@ docker run -it --rm devopshero
 
 | Comando | Descrição |
 |---|---|
-| `./devopshero.sh` ou `./devopshero.sh tui` | **Interface TUI Completa**: Tela dividida com card de missão, barra de XP, streak e terminal. |
-| `./devopshero.sh repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
-| `./devopshero.sh verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
-| `./devopshero.sh list` | Exibe o catálogo completo das **80 missões** e quais você já concluiu. |
-| `./devopshero.sh stats` | Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
-| `./devopshero.sh reset` | Restaura seu progresso caso deseje reiniciar a jornada do zero. |
+| `./devopshero.sh` ou `devopshero tui` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
+| `./devopshero.sh repl` ou `devopshero repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
+| `./devopshero.sh doctor` ou `devopshero doctor` | **Diagnóstico de SO & Terminal**: Inspeciona compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
+| `./devopshero.sh verify` ou `devopshero verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
+| `./devopshero.sh list` ou `devopshero list` | Exibe o catálogo completo das **80 missões** e quais você já concluiu. |
+| `./devopshero.sh stats` ou `devopshero stats` | Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
+| `./devopshero.sh reset` ou `devopshero reset` | Restaura seu progresso caso deseje reiniciar a jornada do zero. |
 | `devopshero --version` | Exibe a versão instalada do DevOpsHeroCLI. |
 
 ---
