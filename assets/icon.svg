@@ -26,58 +26,49 @@
       <stop offset="35%" stop-color="#ffffff" stop-opacity="0.025"/>
       <stop offset="55%" stop-color="#ffffff" stop-opacity="0.0"/>
     </linearGradient>
-
-    <!-- Subtle Ambient Text Glow -->
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3.5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
 
-  <!-- Main Squircle Body -->
+  <!-- Main Squircle Body (Clipped strictly to Apple HIG Squircle) -->
   <g clip-path="url(#appleSquircle)">
     <!-- Dark Terminal Canvas filling the exact Apple Squircle -->
     <rect x="0" y="0" width="1024" height="1024" fill="url(#bodyGrad)"/>
 
     <!-- Subtle Window Header Divider -->
-    <line x1="100" y1="240" x2="924" y2="240" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5"/>
+    <line x1="100" y1="220" x2="924" y2="220" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5"/>
 
     <!-- macOS Title Bar Controls (Traffic Lights) -->
     <!-- Red Close -->
-    <circle cx="188" cy="175" r="16" fill="#ff5f56" stroke="#e0443e" stroke-width="1.5"/>
-    <circle cx="184" cy="171" r="5" fill="#ffffff" opacity="0.45"/>
+    <circle cx="185" cy="168" r="15" fill="#ff5f56" stroke="#e0443e" stroke-width="1.5"/>
+    <circle cx="181" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
 
     <!-- Yellow Minimize -->
-    <circle cx="240" cy="175" r="16" fill="#ffbd2e" stroke="#dea123" stroke-width="1.5"/>
-    <circle cx="236" cy="171" r="5" fill="#ffffff" opacity="0.45"/>
+    <circle cx="235" cy="168" r="15" fill="#ffbd2e" stroke="#dea123" stroke-width="1.5"/>
+    <circle cx="231" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
 
     <!-- Green Expand -->
-    <circle cx="292" cy="175" r="16" fill="#27c93f" stroke="#1aab29" stroke-width="1.5"/>
-    <circle cx="288" cy="171" r="5" fill="#ffffff" opacity="0.45"/>
+    <circle cx="285" cy="168" r="15" fill="#27c93f" stroke="#1aab29" stroke-width="1.5"/>
+    <circle cx="281" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
 
-    <!-- macOS Terminal Header Center Tab -->
-    <rect x="422" y="151" width="260" height="48" rx="10" fill="#20242e" stroke="#343a47" stroke-width="1.5"/>
-    <text x="552" y="182" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif" font-size="20" font-weight="400" fill="#9ca3af" text-anchor="middle" letter-spacing="0.5">zsh · devops</text>
+    <!-- macOS Terminal Header Center Tab (Centered at X=512) -->
+    <rect x="412" y="146" width="200" height="44" rx="10" fill="#20242e" stroke="#343a47" stroke-width="1.5"/>
+    <text x="512" y="175" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif" font-size="18" font-weight="400" fill="#9ca3af" text-anchor="middle" letter-spacing="0.5">zsh · devops</text>
 
-    <!-- Terminal Prompt & Command (Authentic Non-Bold SF Mono Typography) -->
-    <g filter="url(#softGlow)">
+    <!-- Terminal Prompt & Command (Optical & Mathematical Centering at X=512, Y=512) -->
+    <g>
       <!-- Oh My Zsh Green Prompt Arrow -->
-      <path d="M 195 572 L 235 596 L 195 620 Z" fill="#30d158"/>
+      <path d="M 198 488 L 238 512 L 198 536 Z" fill="#30d158"/>
 
-      <!-- Command Text 'devopsherocli' (font-weight: 400 normal) -->
-      <text x="262" y="618" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', 'Fira Code', monospace" font-size="68" font-weight="400" letter-spacing="0">
-        <tspan fill="#00f2fe">devops</tspan><tspan fill="#30d158">hero</tspan><tspan fill="#f3f4f6">cli</tspan>
-      </text>
+      <!-- Command Text 'devopsherocli' (SF Mono / Menlo regular non-bold typography) -->
+      <text x="264" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#00f2fe">devops</text>
+      <text x="510" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#30d158">hero</text>
+      <text x="674" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#f3f4f6">cli</text>
 
       <!-- Terminal Block Cursor -->
-      <rect x="798" y="560" width="24" height="64" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
+      <rect x="802" y="480" width="24" height="64" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
     </g>
 
     <!-- Subtle Diagonal Specular Glass Reflection -->
-    <path d="M 100 240 L 924 540 L 924 100 L 220 100 Z" fill="url(#glassSheen)"/>
+    <path d="M 100 220 L 924 520 L 924 100 L 220 100 Z" fill="url(#glassSheen)"/>
 
     <!-- Apple HIG Precision Inner Bevel / Rim Stroke -->
     <path d="M 923.35,288.08 C 932.21,187.86 847.66,103.45 735.39,100 L 287.96,100 C 182.88,98.66 98.68,182.95 100,288.08 L 100,735.81 C 100.6,842.49 184.89,927.06 287.96,923.9 L 735.39,923.9 C 840.94,926.06 925.28,841.91 923.35,735.81 Z" fill="none" stroke="url(#appleRimStroke)" stroke-width="3"/>

@@ -26,30 +26,11 @@ echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Gerando ícone Apple ICNS (16x16 
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-qlmanage -t -s 1024 -o "$TEMP_DIR" "$DIR/assets/icon.svg" >/dev/null 2>&1
-BASE_PNG="$TEMP_DIR/icon.svg.png"
-
-if [ ! -f "$BASE_PNG" ]; then
-    echo -e "\033[1;31m[ERRO]\033[0m Falha ao renderizar icon.svg para 1024px."
-    exit 1
-fi
-
 ICONSET_DIR="$TEMP_DIR/DevOpsHero.iconset"
-mkdir -p "$ICONSET_DIR"
-
-sips -z 16 16     "$BASE_PNG" --out "$ICONSET_DIR/icon_16x16.png" >/dev/null 2>&1
-sips -z 32 32     "$BASE_PNG" --out "$ICONSET_DIR/icon_16x16@2x.png" >/dev/null 2>&1
-sips -z 32 32     "$BASE_PNG" --out "$ICONSET_DIR/icon_32x32.png" >/dev/null 2>&1
-sips -z 64 64     "$BASE_PNG" --out "$ICONSET_DIR/icon_32x32@2x.png" >/dev/null 2>&1
-sips -z 128 128   "$BASE_PNG" --out "$ICONSET_DIR/icon_128x128.png" >/dev/null 2>&1
-sips -z 256 256   "$BASE_PNG" --out "$ICONSET_DIR/icon_128x128@2x.png" >/dev/null 2>&1
-sips -z 256 256   "$BASE_PNG" --out "$ICONSET_DIR/icon_256x256.png" >/dev/null 2>&1
-sips -z 512 512   "$BASE_PNG" --out "$ICONSET_DIR/icon_256x256@2x.png" >/dev/null 2>&1
-sips -z 512 512   "$BASE_PNG" --out "$ICONSET_DIR/icon_512x512.png" >/dev/null 2>&1
-cp "$BASE_PNG" "$ICONSET_DIR/icon_512x512@2x.png"
+"$DIR/scripts/render_icon.swift" "$DIR/assets/icon.svg" "$ICONSET_DIR"
 
 iconutil -c icns "$ICONSET_DIR" -o "$ICNS_FILE"
-echo -e "\033[1;32m✓ [macOS Packager]\033[0m Ícone gerado com sucesso: assets/DevOpsHero.icns"
+echo -e "\033[1;32m✓ [macOS Packager]\033[0m Ícone gerado com transparência real Apple HIG: assets/DevOpsHero.icns"
 
 # 3. Montar a estrutura de diretórios do DevOpsHero.app
 echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Criando estrutura de bundle macOS ($APP_NAME.app)..."
