@@ -109,15 +109,16 @@ No macOS você tem duas formas excelentes de rodar:
 <a id="app-macos"></a>
 ##### Opção 2.2 — Aplicativo Nativo no Launchpad & `/Applications` (.app / .dmg)
 Se você deseja ter o **ícone oficial** no seu Launchpad, Spotlight e pasta `/Applications`:
-```bash
-# Gera o instalador oficial .dmg com 1 comando:
-make dmg
 
-# Abre a imagem de disco no Finder:
+```bash
+# 1. O instalador oficial já vem pré-compilado no repositório! Basta abrir no Finder:
 open dist/DevOpsHero.dmg
+
+# (Opcional) Caso queira recompilar o instalador do zero a qualquer momento:
+make dmg
 ```
-> Basta arrastar o ícone **DevOpsHero** para a pasta **Applications**!  
-> *(Ou copie direto pelo terminal: `cp -R dist/DevOpsHero.app /Applications/`)*
+
+> **Instalação**: Ao abrir a imagem, basta arrastar o ícone **DevOpsHero** para a pasta **Applications**. Ele fica disponível no Spotlight e Launchpad com ícone oficial Retina!
 
 ---
 
