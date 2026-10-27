@@ -6,9 +6,9 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Interface: Textual TUI](https://img.shields.io/badge/Interface-Textual%20TUI-brightgreen.svg)](https://github.com/Textualize/textual)
-[![Gamification: 50 Missões](https://img.shields.io/badge/Missões-50%20Desafios-orange.svg)](#-trilhas-de-aprendizado)
+[![Gamification: 80 Missões](https://img.shields.io/badge/Missões-80%20Desafios-orange.svg)](#-trilhas-de-aprendizado)
 
-**Aprenda Linux, Sysadmin, Docker, Kubernetes e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
+**Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
 *Sem precisar de nuvem, sem pagar contas e sem risco de quebrar sua máquina física.*
 
 [Como Rodar](#-como-rodar-localmente-em-1-minuto) •
@@ -103,13 +103,13 @@ docker run -it --rm devopshero
 |---|---|
 | `./devopshero.sh` ou `./devopshero.sh tui` | **Interface TUI Completa**: Tela dividida com card de missão, barra de XP, streak e terminal. |
 | `./devopshero.sh repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
-| `./devopshero.sh list` | Exibe o catálogo completo das **50 missões** e quais você já concluiu. |
+| `./devopshero.sh list` | Exibe o catálogo completo das **80 missões** e quais você já concluiu. |
 | `./devopshero.sh stats` | Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
 | `./devopshero.sh reset` | Restaura seu progresso caso deseje reiniciar a jornada do zero. |
 
 ---
 
-## 🗺️ Trilhas de Aprendizado (50 Missões)
+## 🗺️ Trilhas de Aprendizado (80 Missões)
 
 ### 🐧 1. Linux Essencial (10 Missões)
 1. **Navegação Básica**: Descubra e exiba o caminho do diretório de trabalho atual.
@@ -135,7 +135,19 @@ docker run -it --rm devopshero
 9. **Carga e Uptime do Sistema**: Monitore o tempo de atividade e média de carga (load average).
 10. **Privilégios Administrativos (Sudo)**: Conceda poderes de superusuário adicionando membros ao grupo sudo.
 
-### 🐳 3. Docker & Contêineres (10 Missões)
+### 🌿 3. Git Controle de Versão (10 Missões)
+1. **Inicializando o Repositório**: Crie um repositório Git limpo para versionar a aplicação.
+2. **Inspecionando o Estado**: Consulte o status da árvore de trabalho e arquivos pendentes.
+3. **Área de Staging**: Mova arquivos modificados para a staging area antes do commit.
+4. **Gravando Commits**: Registre pontos de restauração com mensagens descritivas.
+5. **Histórico de Commits**: Inspecione commits anteriores, autores e identificadores sha.
+6. **Isolamento em Branches**: Crie e ative branches de feature para desenvolvimento paralelo.
+7. **Mesclando Alterações**: Faça merge de funcionalidades finalizadas na branch principal.
+8. **Repositórios Remotos**: Conecte o repositório local a servidores remotos como GitHub.
+9. **Stash Temporário**: Guarde alterações pendentes no stash para trocar de contexto rapidamente.
+10. **Tags de Versão**: Crie tags imutáveis para marcar releases oficiais de produção.
+
+### 🐳 4. Docker & Contêineres (10 Missões)
 1. **Primeiro Contêiner Web**: Execute servidores web em background mapeando portas para o host.
 2. **Auditoria de Contêineres Ativos**: Liste contêineres em execução com seus IDs e portas.
 3. **Inspeção de Logs de Aplicação**: Monitore stdout/stderr de microsserviços em execução.
@@ -147,7 +159,7 @@ docker run -it --rm devopshero
 9. **Métricas de Recursos**: Monitore uso de CPU e memória em tempo real com `docker stats`.
 10. **Limpeza e Descarte**: Remova contêineres obsoletos liberando recursos do host.
 
-### ☸️ 4. Kubernetes Orquestração (10 Missões)
+### ☸️ 5. Kubernetes Orquestração (10 Missões)
 1. **Inspeção de Nós do Cluster**: Verifique o status e papéis dos nós master e worker.
 2. **Execução de Pods Standalone**: Crie Pods rápidos para testes de conectividade.
 3. **Visão Global dos Namespaces**: Liste cargas de trabalho em todos os namespaces do cluster.
@@ -159,7 +171,31 @@ docker run -it --rm devopshero
 9. **Coleta de Logs de Pods**: Extraia logs de inicialização e requisições no Kubernetes.
 10. **Deleção Limpa de Cargas**: Encerre e remova Pods e recursos obsoletos com segurança.
 
-### 🐕 5. Datadog Observabilidade (10 Missões)
+### ☁️ 6. AWS Cloud & Infraestrutura (10 Missões)
+1. **Auditoria de Identidade**: Valide sua conta e usuário autenticado com AWS STS.
+2. **Listagem de Buckets S3**: Inspecione os buckets de armazenamento de objetos disponíveis.
+3. **Criação de Buckets**: Provisione novos buckets S3 para armazenar backups e logs.
+4. **Upload de Artefatos**: Transfira pacotes de release locais para buckets em nuvem.
+5. **Inventário EC2**: Descreva instâncias virtuais e consulte seus IPs públicos e privados.
+6. **Iniciando Servidores**: Inicie instâncias EC2 sob demanda para suportar cargas batch.
+7. **Parando Servidores Ociosos**: Interrompa instâncias EC2 preservando volumes e cortando custos.
+8. **Auditoria de Identidades IAM**: Liste os usuários cadastrados na conta de nuvem.
+9. **Provisionando Contas de Serviço**: Crie novas identidades IAM para esteiras de CI/CD.
+10. **Inventário Serverless Lambda**: Liste funções serverless ativas na região AWS.
+
+### 🏗️ 7. Terraform Infraestrutura como Código (10 Missões)
+1. **Inicialização do Projeto**: Prepare o diretório instalando provedores e configurando backends.
+2. **Padronização de Código**: Reformate manifestos HCL no padrão oficial da HashiCorp.
+3. **Validação Estática**: Valide sintaxe e argumentos antes de tocar nos recursos de nuvem.
+4. **Planejamento de Mudanças**: Preveja o plano de execução (`+`, `~`, `-`) com `terraform plan`.
+5. **Provisionamento com Apply**: Aplique mudanças declaradas para criar recursos e atualizar o estado.
+6. **Inspeção do Estado**: Exiba o arquivo de estado em formato legível com `terraform show`.
+7. **Inventário de Recursos**: Liste os endereços de recursos gerenciados no estado com `state list`.
+8. **Detalhamento Específico**: Inspecione atributos de um recurso isolado salvo no estado.
+9. **Consultando Outputs**: Extraia variáveis de saída úteis geradas pelo provisionamento.
+10. **Destruição Controlada**: Remova todos os recursos gerenciados para zerar custos de teste.
+
+### 🐕 8. Datadog Observabilidade (10 Missões)
 1. **Diagnóstico do Agent**: Verifique a saúde geral de coletores, métricas e APM.
 2. **Health Check do Daemon**: Execute testes rápidos de integridade do processo de monitoramento.
 3. **Auditoria de Versão**: Identifique a versão exata do Datadog Agent instalada.
@@ -175,14 +211,17 @@ docker run -it --rm devopshero
 
 ## 🎮 Sistema de Gamificação
 
-- **Progressão por XP e Níveis**:
+- **Progressão por XP e Níveis (10 Patentes)**:
   - 🌱 **Nível 1 · Recruta DevOps** (0 - 249 XP)
   - 🛠️ **Nível 2 · Sysadmin Básico** (250 - 599 XP)
   - 🐧 **Nível 3 · Linux Explorer** (600 - 1099 XP)
-  - 🐳 **Nível 4 · Container Captain** (1100 - 1699 XP)
-  - ☸️ **Nível 5 · Cluster Commander** (1700 - 2499 XP)
-  - 🐕 **Nível 6 · Observability Guru** (2500 - 3599 XP)
-  - ⚡ **Nível 7 · SRE Legend** (3600+ XP)
+  - 🌿 **Nível 4 · Git Codecrafter** (1100 - 1699 XP)
+  - 🐳 **Nível 5 · Container Captain** (1700 - 2499 XP)
+  - ☸️ **Nível 6 · Cluster Commander** (2500 - 3499 XP)
+  - ☁️ **Nível 7 · Cloud Architect** (3500 - 4699 XP)
+  - 🏗️ **Nível 8 · IaC Master** (4700 - 6199 XP)
+  - 🐕 **Nível 9 · Observability Guru** (6200 - 7999 XP)
+  - ⚡ **Nível 10 · DevOps Titan** (8000+ XP)
 - **Sequência (Streak 🔥)**:
   - Acertos seguidos sem pedir gabarito concedem até **+50% de bônus de XP**.
   - Revelar a solução (F4) zera a sequência de acertos para incentivar o raciocínio.

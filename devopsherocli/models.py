@@ -37,10 +37,13 @@ LEVELS = [
     (0, "Nível 1 · Recruta DevOps", "🌱"),
     (250, "Nível 2 · Sysadmin Básico", "🛠️"),
     (600, "Nível 3 · Linux Explorer", "🐧"),
-    (1100, "Nível 4 · Container Captain", "🐳"),
-    (1700, "Nível 5 · Cluster Commander", "☸️"),
-    (2500, "Nível 6 · Observability Guru", "🐕"),
-    (3600, "Nível 7 · SRE Legend", "⚡"),
+    (1100, "Nível 4 · Git Codecrafter", "🌿"),
+    (1700, "Nível 5 · Container Captain", "🐳"),
+    (2500, "Nível 6 · Cluster Commander", "☸️"),
+    (3500, "Nível 7 · Cloud Architect", "☁️"),
+    (4700, "Nível 8 · IaC Master", "🏗️"),
+    (6200, "Nível 9 · Observability Guru", "🐕"),
+    (8000, "Nível 10 · DevOps Titan", "⚡"),
 ]
 
 

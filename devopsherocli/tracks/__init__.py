@@ -4,17 +4,23 @@ from __future__ import annotations
 from typing import Dict, List, Optional, Tuple
 
 from devopsherocli.models import Mission, Track
+from devopsherocli.tracks.aws_track import AWS_TRACK
 from devopsherocli.tracks.datadog_track import DATADOG_TRACK
 from devopsherocli.tracks.docker_track import DOCKER_TRACK
+from devopsherocli.tracks.git_track import GIT_TRACK
 from devopsherocli.tracks.k8s_track import K8S_TRACK
 from devopsherocli.tracks.linux_track import LINUX_TRACK
 from devopsherocli.tracks.sysadmin_track import SYSADMIN_TRACK
+from devopsherocli.tracks.terraform_track import TERRAFORM_TRACK
 
 ALL_TRACKS: List[Track] = [
     LINUX_TRACK,
     SYSADMIN_TRACK,
+    GIT_TRACK,
     DOCKER_TRACK,
     K8S_TRACK,
+    AWS_TRACK,
+    TERRAFORM_TRACK,
     DATADOG_TRACK,
 ]
 

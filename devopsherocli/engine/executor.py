@@ -5,10 +5,13 @@ import shlex
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
+from devopsherocli.engine.aws_sim import AwsSimulator
 from devopsherocli.engine.datadog_sim import DatadogSimulator
 from devopsherocli.engine.docker_sim import DockerSimulator
+from devopsherocli.engine.git_sim import GitSimulator
 from devopsherocli.engine.k8s_sim import KubernetesSimulator
 from devopsherocli.engine.linux_sim import LinuxSimulator
+from devopsherocli.engine.terraform_sim import TerraformSimulator
 
 
 @dataclass
@@ -17,6 +20,9 @@ class EnvironmentState:
     docker: DockerSimulator = field(default_factory=DockerSimulator)
     k8s: KubernetesSimulator = field(default_factory=KubernetesSimulator)
     datadog: DatadogSimulator = field(default_factory=DatadogSimulator)
+    git: GitSimulator = field(default_factory=GitSimulator)
+    aws: AwsSimulator = field(default_factory=AwsSimulator)
+    terraform: TerraformSimulator = field(default_factory=TerraformSimulator)
     env_vars: Dict[str, str] = field(default_factory=dict)
 
     def reset_all(self):
@@ -24,6 +30,9 @@ class EnvironmentState:
         self.docker.reset_default_state()
         self.k8s.reset_default_state()
         self.datadog = DatadogSimulator()
+        self.git.reset_default_state()
+        self.aws.reset_default_state()
+        self.terraform.reset_default_state()
         self.env_vars.clear()
 
 
@@ -118,6 +127,18 @@ class CommandExecutor:
         # Handle Datadog commands
         if prog in ["datadog-agent", "agent"]:
             return self.state.datadog.execute(args, env_vars=self.state.env_vars)
+
+        # Handle Git commands
+        if prog == "git":
+            return self.state.git.execute(args)
+
+        # Handle AWS CLI commands
+        if prog == "aws":
+            return self.state.aws.execute(args)
+
+        # Handle Terraform commands
+        if prog == "terraform":
+            return self.state.terraform.execute(args)
 
         # Handle sudo wrapper
         if prog == "sudo":

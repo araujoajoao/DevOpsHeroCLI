@@ -150,11 +150,99 @@ class TestDevOpsHeroEngine(unittest.TestCase):
         up_out = self.executor.execute_command_string("uptime")
         self.assertIn("load average", up_out)
 
+    def test_git_commands(self):
+        # Test git init
+        init_out = self.executor.execute_command_string("git init")
+        self.assertIn("Initialized empty Git repository", init_out)
+        self.assertTrue(self.state.git.is_repo)
+
+        # Test git status
+        self.state.git.untracked_files.add("main.py")
+        status_out = self.executor.execute_command_string("git status")
+        self.assertIn("main.py", status_out)
+
+        # Test git add
+        self.executor.execute_command_string("git add .")
+        self.assertIn("main.py", self.state.git.staged_files)
+
+        # Test git commit
+        commit_out = self.executor.execute_command_string('git commit -m "feat: initial app"')
+        self.assertIn("feat: initial app", commit_out)
+        self.assertEqual(len(self.state.git.commits), 1)
+
+        # Test git branch and checkout
+        self.executor.execute_command_string("git checkout -b feature/login")
+        self.assertEqual(self.state.git.current_branch, "feature/login")
+
+        # Test git remote
+        self.executor.execute_command_string("git remote add origin https://github.com/org/repo.git")
+        self.assertIn("origin", self.state.git.remotes)
+
+        # Test git tag
+        self.executor.execute_command_string("git tag v1.0.0")
+        self.assertIn("v1.0.0", self.state.git.tags)
+
+    def test_aws_commands(self):
+        # Test aws sts get-caller-identity
+        sts_out = self.executor.execute_command_string("aws sts get-caller-identity")
+        self.assertIn("123456789012", sts_out)
+
+        # Test aws s3 ls
+        s3_ls = self.executor.execute_command_string("aws s3 ls")
+        self.assertIn("company-app-artifacts", s3_ls)
+
+        # Test aws s3 mb
+        self.executor.execute_command_string("aws s3 mb s3://new-test-bucket")
+        self.assertIn("new-test-bucket", self.state.aws.buckets)
+
+        # Test aws ec2 describe-instances
+        ec2_out = self.executor.execute_command_string("aws ec2 describe-instances")
+        self.assertIn("i-0a1b2c3d4e5f67890", ec2_out)
+
+        # Test aws ec2 start-instances
+        self.executor.execute_command_string("aws ec2 start-instances --instance-ids i-0f9e8d7c6b5a43210")
+        self.assertEqual(self.state.aws.instances["i-0f9e8d7c6b5a43210"].state, "running")
+
+        # Test aws iam list-users
+        iam_out = self.executor.execute_command_string("aws iam list-users")
+        self.assertIn("devops-hero", iam_out)
+
+    def test_terraform_commands(self):
+        # Test terraform init
+        init_out = self.executor.execute_command_string("terraform init")
+        self.assertIn("Terraform has been successfully initialized", init_out)
+        self.assertTrue(self.state.terraform.initialized)
+
+        # Test terraform fmt
+        fmt_out = self.executor.execute_command_string("terraform fmt")
+        self.assertIn("main.tf", fmt_out)
+
+        # Test terraform validate
+        val_out = self.executor.execute_command_string("terraform validate")
+        self.assertIn("Success! The configuration is valid", val_out)
+
+        # Test terraform plan
+        plan_out = self.executor.execute_command_string("terraform plan")
+        self.assertIn("Plan: 2 to add", plan_out)
+
+        # Test terraform apply
+        apply_out = self.executor.execute_command_string("terraform apply -auto-approve")
+        self.assertIn("Apply complete", apply_out)
+        self.assertIn("aws_s3_bucket.app_storage", self.state.terraform.state_resources)
+
+        # Test terraform state list
+        state_list = self.executor.execute_command_string("terraform state list")
+        self.assertIn("aws_s3_bucket.app_storage", state_list)
+
+        # Test terraform output
+        out_val = self.executor.execute_command_string("terraform output")
+        self.assertIn("vpc_id", out_val)
+
 
 class TestMissionsValidation(unittest.TestCase):
 
     def test_all_tracks_have_missions(self):
-        self.assertEqual(len(ALL_TRACKS), 5)
+        self.assertEqual(len(ALL_TRACKS), 8)
         for t in ALL_TRACKS:
             self.assertEqual(len(t.missions), 10)
             for m in t.missions:

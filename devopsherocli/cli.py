@@ -37,7 +37,7 @@ def run_repl():
 
     console.print(Panel.fit(
         "[bold cyan]⚡ DevOpsHeroCLI REPL Mode[/bold cyan]\n"
-        "[dim]Linux · Docker · Kubernetes · Datadog — Treine comandos reais no terminal.[/dim]\n"
+        "[dim]Linux · Sysadmin · Git · Docker · K8s · AWS · Terraform · Datadog[/dim]\n"
         "Comandos especiais: [bold yellow]dica[/], [bold yellow]solucao[/], [bold yellow]proxima[/], [bold yellow]stats[/], [bold yellow]sair[/]",
         border_style="cyan"
     ))
@@ -64,8 +64,12 @@ def run_repl():
 
     words = [
         "pwd", "ls", "cd", "mkdir", "touch", "cat", "head", "tail", "grep", "chmod", "kill", "ps", "curl", "df", "free",
+        "systemctl status", "systemctl restart", "systemctl enable", "ss -tulpn", "useradd -m", "usermod -aG", "tar -czvf", "uptime",
+        "git init", "git status", "git add", "git commit", "git branch", "git checkout", "git switch", "git merge", "git log", "git remote", "git stash", "git tag",
         "docker run", "docker ps", "docker logs", "docker exec", "docker stop", "docker images", "docker build", "docker network", "docker stats",
         "kubectl get", "kubectl run", "kubectl describe", "kubectl logs", "kubectl create deployment", "kubectl scale", "kubectl expose",
+        "aws sts get-caller-identity", "aws s3 ls", "aws s3 mb", "aws s3 cp", "aws ec2 describe-instances", "aws ec2 start-instances", "aws iam list-users", "aws lambda list-functions",
+        "terraform init", "terraform fmt", "terraform validate", "terraform plan", "terraform apply", "terraform show", "terraform state list", "terraform output",
         "datadog-agent status", "datadog-agent health", "datadog-agent check", "datadog-agent flare", "datadog-agent version", "export DD_ENV="
     ]
     completer = WordCompleter(words, ignore_case=True) if session else None
@@ -189,7 +193,7 @@ def list_tracks():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="⚡ DevOpsHeroCLI: Aprenda Linux, Docker, Kubernetes e Datadog no terminal")
+    parser = argparse.ArgumentParser(description="⚡ DevOpsHeroCLI: Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal")
     subparsers = parser.add_subparsers(dest="command")
 
     subparsers.add_parser("tui", help="Inicia a interface visual completa (Padrão)")

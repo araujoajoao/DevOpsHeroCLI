@@ -124,7 +124,7 @@ class DevOpsHeroApp(App):
             with Vertical(id="terminal-panel"):
                 with Horizontal(id="term-title-bar"):
                     yield Label("🔴 🟡 🟢", classes="term-dots")
-                    yield Label("devopshero-terminal · ops-lab:~ (bash/docker/k8s/datadog)", classes="term-title-text")
+                    yield Label("devopshero-terminal · ops-lab:~ (bash/git/docker/k8s/aws/tf/dd)", classes="term-title-text")
                     yield Label("● Online", classes="term-status-badge")
                 yield RichLog(id="term-output-log", highlight=True, markup=True)
                 with Horizontal(id="term-input-container"):
@@ -204,7 +204,7 @@ class DevOpsHeroApp(App):
         log = self.query_one("#term-output-log", RichLog)
         log.write("[bold #58a6ff]╭────────────────────────────────────────────────────────────╮[/]")
         log.write("[bold #58a6ff]│[/] [bold #79c0ff]⚡ DevOpsHeroCLI[/] [dim]· Treinamento Interativo de DevOps[/]        [bold #58a6ff]│[/]")
-        log.write("[bold #58a6ff]│[/] [dim]Simulador em memória (Linux, Docker, K8s, Datadog).[/]     [bold #58a6ff]│[/]")
+        log.write("[bold #58a6ff]│[/] [dim]Linux · Sysadmin · Git · Docker · K8s · AWS · Terraform · DD[/]  [bold #58a6ff]│[/]")
         log.write("[bold #58a6ff]│[/] [bold #3fb950]Comandos:[/] [cyan]'help'[/], [cyan]'dica'[/], [cyan]'trilhas'[/], [cyan]'reset'[/] ou F1-F5.    [bold #58a6ff]│[/]")
         log.write("[bold #58a6ff]╰────────────────────────────────────────────────────────────╯[/]\n")
 
