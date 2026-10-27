@@ -692,12 +692,12 @@ class LinuxSimulator:
 
     def ss(self, args: List[str]) -> str:
         return (
-            f"{'Netid':<6} {'State':<12} {'Recv-Q':<8} {'Send-Q':<8} {'Local Address:Port':<24} {'Peer Address:Port':<20} {'Process'}\n"
-            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'0.0.0.0:22':<24} {'0.0.0.0:*':<20} {'users:((\"sshd\",pid=600,fd=3))'}\n"
-            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'511':<8} {'0.0.0.0:80':<24} {'0.0.0.0:*':<20} {'users:((\"nginx\",pid=1120,fd=6))'}\n"
-            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'127.0.0.1:5432':<24} {'0.0.0.0:*':<20} {'users:((\"postgres\",pid=2048,fd=4))'}\n"
-            f"{'udp':<6} {'UNCONN':<12} {'0':<8} {'0':<8} {'127.0.0.1:8125':<24} {'0.0.0.0:*':<20} {'users:((\"datadog-agent\",pid=850,fd=8))'}\n"
-            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'127.0.0.1:8126':<24} {'0.0.0.0:*':<20} {'users:((\"trace-agent\",pid=852,fd=5))'}"
+            f"{'Netid':<6} {'State':<12} {'Recv-Q':<8} {'Send-Q':<8} {'Local Address:Port':<24} {'Peer Address:Port':<20} Process\n"
+            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'0.0.0.0:22':<24} {'0.0.0.0:*':<20} users:((\"sshd\",pid=600,fd=3))\n"
+            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'511':<8} {'0.0.0.0:80':<24} {'0.0.0.0:*':<20} users:((\"nginx\",pid=1120,fd=6))\n"
+            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'127.0.0.1:5432':<24} {'0.0.0.0:*':<20} users:((\"postgres\",pid=2048,fd=4))\n"
+            f"{'udp':<6} {'UNCONN':<12} {'0':<8} {'0':<8} {'127.0.0.1:8125':<24} {'0.0.0.0:*':<20} users:((\"datadog-agent\",pid=850,fd=8))\n"
+            f"{'tcp':<6} {'LISTEN':<12} {'0':<8} {'128':<8} {'127.0.0.1:8126':<24} {'0.0.0.0:*':<20} users:((\"trace-agent\",pid=852,fd=5))"
         )
 
     def tar(self, args: List[str]) -> str:

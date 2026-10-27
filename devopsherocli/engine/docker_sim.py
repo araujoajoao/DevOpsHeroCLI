@@ -437,7 +437,8 @@ class DockerSimulator:
             net_name = args[1]
             if net_name not in self.networks:
                 return f"Error: No such network: {net_name}"
-            return f"[\n  {{\n    \"Name\": \"{net_name}\",\n    \"Driver\": \"bridge\",\n    \"Scope\": \"local\"\n  }}\n]"
+            import json
+            return json.dumps([{"Name": net_name, "Driver": "bridge", "Scope": "local"}], indent=2)
         return "docker network [create|ls|inspect|rm] [OPTIONS]"
 
     def volume(self, args: List[str]) -> str:

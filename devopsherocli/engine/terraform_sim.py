@@ -114,11 +114,15 @@ class TerraformSimulator:
         elif sub == "show" and len(args) > 1:
             target = args[1]
             if target in self.state_resources:
+                parts = target.split(".", 1)
+                r_type = parts[0]
+                r_name = parts[1] if len(parts) > 1 else "default"
+                r_id = abs(hash(target)) % 1000000000
                 return (
                     f"# {target}:\n"
-                    f"resource \"{target.split('.')[0]}\" \"{target.split('.')[1]}\" {{\n"
-                    f"    id = \"{abs(hash(target)) % 1000000000}\"\n"
-                    f"}}"
+                    f'resource "{r_type}" "{r_name}" {{\n'
+                    f'    id = "{r_id}"\n'
+                    f'}}'
                 )
             return f"No instance found for the given address: {target}"
         return f"terraform state: unsupported subcommand {sub}"

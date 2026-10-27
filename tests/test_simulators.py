@@ -4,7 +4,7 @@ from __future__ import annotations
 import unittest
 from devopsherocli.engine.executor import CommandExecutor, EnvironmentState
 from devopsherocli.tracks import ALL_TRACKS, get_mission, get_next_mission
-from devopsherocli.models import UserProgress
+from devopsherocli.models import UserProgress, Mission
 
 
 class TestDevOpsHeroEngine(unittest.TestCase):
@@ -248,8 +248,12 @@ class TestMissionsValidation(unittest.TestCase):
             for m in t.missions:
                 self.assertIsNotNone(m.check_completion)
                 self.assertTrue(m.xp > 0)
-from devopsherocli.models import UserProgress, Mission
-from devopsherocli.tracks import ALL_TRACKS, get_mission, get_next_mission
+                self.assertTrue(len(m.solution) > 0)
+
+    def test_progress_advancement(self):
+        nxt = get_next_mission("linux", "linux-01")
+        self.assertIsNotNone(nxt)
+        self.assertEqual(nxt, ("linux", "linux-02"))
 
 
 class TestAntiCheatScoring(unittest.TestCase):
