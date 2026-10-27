@@ -34,13 +34,24 @@ fi
 
 # 2. Setup Virtual Environment if not present
 VENV_DIR="$DIR/.venv"
+INSTALL_FLAG="-e"
+if [ ! -w "$DIR" ]; then
+    VENV_DIR="$HOME/.devopsherocli/venv"
+    INSTALL_FLAG=""
+    mkdir -p "$HOME/.devopsherocli"
+fi
+
 if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ]; then
-    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Primeira execução detectada. Criando ambiente isolado (.venv)..."
+    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Primeira execução detectada. Criando ambiente isolado..."
     "$PYTHON_BIN" -m venv "$VENV_DIR"
     
     echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Instalando dependências (Textual, Rich, Prompt Toolkit)..."
     "$VENV_DIR/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
-    "$VENV_DIR/bin/pip" install -q -e "$DIR"
+    if [ -n "$INSTALL_FLAG" ]; then
+        "$VENV_DIR/bin/pip" install -q -e "$DIR"
+    else
+        "$VENV_DIR/bin/pip" install -q "$DIR"
+    fi
     echo -e "\033[1;32m✓ [DevOpsHeroCLI]\033[0m Ambiente configurado com sucesso!"
     echo ""
 fi

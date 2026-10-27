@@ -140,6 +140,22 @@ dh d            # Diagnóstico de SO e compatibilidade
 
 ---
 
+### 🍎 Aplicativo Nativo macOS (.app e Instalador .dmg)
+
+Se você utiliza macOS e deseja ter o ícone oficial do **DevOpsHero** no **Launchpad**, **Spotlight** e na sua pasta `/Applications`:
+
+```bash
+# Gerar o instalador .dmg e o app nativo com 1 comando:
+make dmg
+```
+
+1. Abra o arquivo gerado `dist/DevOpsHero.dmg` no Finder.
+2. Arraste o ícone **DevOpsHero** para a pasta **Applications**.
+3. O aplicativo inicia automaticamente no seu terminal favorito (**iTerm2** ou **Terminal.app**) com suporte total a telas Retina, UTF-8 e atalhos rápidos.
+*(Ou copie diretamente: `cp -R dist/DevOpsHero.app /Applications/`)*
+
+---
+
 ## 🐳 Executando com Docker (Sem Instalar Python)
 
 Se você não tiver Python instalado na máquina ou preferir isolamento total:

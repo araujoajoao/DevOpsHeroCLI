@@ -40,6 +40,7 @@ venv.bak/
 *.png
 !assets/*.png
 !assets/*.svg
+!assets/*.icns
 
 # macOS specific
 .DS_Store
