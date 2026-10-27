@@ -21,16 +21,8 @@ ICNS_FILE="$DIR/assets/DevOpsHero.icns"
 
 mkdir -p "$DIST_DIR"
 
-# 2. Gerar o arquivo .icns em alta resolução a partir do icon.svg (se necessário)
-echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Gerando ícone Apple ICNS (16x16 até 1024x1024 Retina)..."
-TEMP_DIR=$(mktemp -d)
-trap 'rm -rf "$TEMP_DIR"' EXIT
-
-ICONSET_DIR="$TEMP_DIR/DevOpsHero.iconset"
-"$DIR/scripts/render_icon.swift" "$DIR/assets/icon.svg" "$ICONSET_DIR"
-
-iconutil -c icns "$ICONSET_DIR" -o "$ICNS_FILE"
-echo -e "\033[1;32m✓ [macOS Packager]\033[0m Ícone gerado com transparência real Apple HIG: assets/DevOpsHero.icns"
+# 2. Gerar/Atualizar ícones oficiais via pipeline Apple Swift
+"$DIR/scripts/build_icons.sh"
 
 # 3. Montar a estrutura de diretórios do DevOpsHero.app
 echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Criando estrutura de bundle macOS ($APP_NAME.app)..."
@@ -126,6 +118,8 @@ echo -e "\033[1;32m✓ [macOS Packager]\033[0m Aplicativo construído: dist/$APP
 
 # 5. Criar o instalador DMG com atalho de arrastar para /Applications
 echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Gerando instalador disk image (.dmg)..."
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TEMP_DIR"' EXIT
 DMG_STAGING="$TEMP_DIR/dmg_staging"
 mkdir -p "$DMG_STAGING"
 

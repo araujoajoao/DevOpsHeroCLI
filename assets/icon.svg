@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- Official Apple macOS Continuous Curvature Squircle Path (Apple HIG Standard) -->
+    <!-- Official Apple macOS App Icon Template (HIG Standard: 824x824 at (100,100), rx=185.4) -->
     <clipPath id="appleSquircle">
-      <path d="M 923.35,288.08 C 932.21,187.86 847.66,103.45 735.39,100 L 287.96,100 C 182.88,98.66 98.68,182.95 100,288.08 L 100,735.81 C 100.6,842.49 184.89,927.06 287.96,923.9 L 735.39,923.9 C 840.94,926.06 925.28,841.91 923.35,735.81 Z"/>
+      <rect x="100" y="100" width="824" height="824" rx="185.4" ry="185.4"/>
     </clipPath>
 
     <!-- macOS Terminal Deep Dark Surface Gradient -->
@@ -28,10 +28,10 @@
     </linearGradient>
   </defs>
 
-  <!-- Main Squircle Body (Clipped strictly to Apple HIG Squircle) -->
+  <!-- Main Squircle Body (Clipped strictly to official Apple HIG Squircle) -->
   <g clip-path="url(#appleSquircle)">
     <!-- Dark Terminal Canvas filling the exact Apple Squircle -->
-    <rect x="0" y="0" width="1024" height="1024" fill="url(#bodyGrad)"/>
+    <rect x="100" y="100" width="824" height="824" fill="url(#bodyGrad)"/>
 
     <!-- Subtle Window Header Divider -->
     <line x1="100" y1="220" x2="924" y2="220" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5"/>
@@ -51,26 +51,26 @@
 
     <!-- macOS Terminal Header Center Tab (Centered at X=512) -->
     <rect x="412" y="146" width="200" height="44" rx="10" fill="#20242e" stroke="#343a47" stroke-width="1.5"/>
-    <text x="512" y="175" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif" font-size="18" font-weight="400" fill="#9ca3af" text-anchor="middle" letter-spacing="0.5">zsh · devops</text>
+    <text x="512" y="175" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="18" font-weight="400" fill="#9ca3af" text-anchor="middle" letter-spacing="0.5">zsh · devops</text>
 
-    <!-- Terminal Prompt & Command (Optical & Mathematical Centering at X=512, Y=512) -->
+    <!-- Terminal Prompt & Command (Exact Optical & Geometric Centering at X=512, Y=512) -->
     <g>
       <!-- Oh My Zsh Green Prompt Arrow -->
-      <path d="M 198 488 L 238 512 L 198 536 Z" fill="#30d158"/>
+      <path d="M 195 488 L 235 512 L 195 536 Z" fill="#30d158"/>
 
-      <!-- Command Text 'devopsherocli' (SF Mono / Menlo regular non-bold typography) -->
-      <text x="264" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#00f2fe">devops</text>
-      <text x="510" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#30d158">hero</text>
-      <text x="674" y="534" font-family="'SF Mono', 'Menlo', 'Monaco', 'JetBrains Mono', monospace" font-size="68" font-weight="400" fill="#f3f4f6">cli</text>
+      <!-- Command Text 'devopsherocli' (Monospace continuous word, non-bold 400) -->
+      <text x="263" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#00f2fe">devops</text>
+      <text x="509" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#30d158">hero</text>
+      <text x="672" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#f3f4f6">cli</text>
 
       <!-- Terminal Block Cursor -->
-      <rect x="802" y="480" width="24" height="64" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
+      <rect x="805" y="480" width="24" height="64" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
     </g>
 
     <!-- Subtle Diagonal Specular Glass Reflection -->
     <path d="M 100 220 L 924 520 L 924 100 L 220 100 Z" fill="url(#glassSheen)"/>
 
     <!-- Apple HIG Precision Inner Bevel / Rim Stroke -->
-    <path d="M 923.35,288.08 C 932.21,187.86 847.66,103.45 735.39,100 L 287.96,100 C 182.88,98.66 98.68,182.95 100,288.08 L 100,735.81 C 100.6,842.49 184.89,927.06 287.96,923.9 L 735.39,923.9 C 840.94,926.06 925.28,841.91 923.35,735.81 Z" fill="none" stroke="url(#appleRimStroke)" stroke-width="3"/>
+    <rect x="100" y="100" width="824" height="824" rx="185.4" ry="185.4" fill="none" stroke="url(#appleRimStroke)" stroke-width="3"/>
   </g>
 </svg>

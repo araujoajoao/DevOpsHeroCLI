@@ -1,4 +1,4 @@
-.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico
+.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico icons
 
 all: run
 
@@ -10,6 +10,7 @@ help:
 	@echo "  make l             - Lista o catálogo das 80 missões (./dh l)"
 	@echo "  make v             - Executa validação de todas as missões (./dh v)"
 	@echo "  make d             - Diagnóstico de SO e compatibilidade (./dh d)"
+	@echo "  make icons         - Compila .icns e .ico a partir de assets/icon.svg via Swift"
 	@echo "  make dmg (ou app)  - Gera instalador macOS (DevOpsHero.dmg na raiz e dist/)"
 	@echo "  make deb           - Gera instalador Debian/Ubuntu (.deb) em dist/"
 	@echo "  make install-linux - Instala atalho oficial no menu e PATH no Linux"
@@ -44,6 +45,9 @@ test:
 	else \
 		python3 -m unittest discover tests; \
 	fi
+
+icons:
+	./scripts/build_icons.sh
 
 app dmg macos:
 	./scripts/build_macos_app.sh

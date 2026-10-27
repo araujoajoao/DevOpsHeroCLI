@@ -389,6 +389,22 @@ Durante o treinamento interativo, digite apenas uma letra para ações frequente
 
 ---
 
+## 🎨 Padrão Visual & Design System de Ícones
+
+O vetor [assets/icon.svg](assets/icon.svg) é a **fonte única oficial de verdade** para toda a identidade visual do DevOpsHeroCLI, projetado sob as diretrizes do **Apple macOS Human Interface Guidelines (HIG)**:
+- **Geometria Oficial**: Superelipse contínua (*squircle* 824x824 centralizado em canvas 1024x1024).
+- **Transparência Alfa Pura**: Fundo externo 100% transparente (`alpha = 0`), eliminando qualquer placa ou moldura indesejada no Dock e Launchpad.
+- **Pipeline Nativo Apple Swift**: O script [`scripts/build_icons.sh`](scripts/build_icons.sh) compila os formatos derivados utilizando a API nativa do `AppKit` em Swift (`NSGraphicsContext`):
+  - `assets/DevOpsHero.icns` (10 resoluções Retina de 16px a 1024px)
+  - `assets/DevOpsHero.ico` (multi-resoluções para Windows)
+
+Para recompilar todos os ícones a partir do SVG padrão:
+```bash
+make icons
+```
+
+---
+
 ## 🧪 Testes Automatizados
 
 Para executar a suíte completa de testes unitários e de integração:
