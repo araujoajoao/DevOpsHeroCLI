@@ -19,7 +19,7 @@
 > **English Overview:** *DevOpsHeroCLI is an interactive, gamified terminal simulator designed to teach **Linux, Sysadmin, Git, Docker, Kubernetes, AWS CLI, Terraform, and Datadog** through hands-on CLI practice. Features an authentic **iTerm2 + Oh My Zsh** interface, in-memory virtual state engines, and anti-cheat speed scoring.*
 
 [Como Rodar](#-como-rodar-localmente-em-1-minuto) •
-[App macOS](#-aplicativo-nativo-macos-app-e-instalador-dmg) •
+[App macOS](#app-macos) •
 [Trilhas & Missões](#️-trilhas-de-aprendizado-80-missões) •
 [Gamificação](#-sistema-de-gamificação) •
 [Atalhos](#️-atalhos-do-teclado) •
@@ -65,20 +65,25 @@ dh r            # Modo REPL Rápido
 
 ---
 
-### 📂 Opção via Repositório Git (Clone Rápido e Leve)
+### 📂 Opção via Repositório Git (Passo a Passo por Sistema Operacional)
 
-Se preferir clonar o projeto para editar ou rodar os scripts de conveniência:
-
-#### 🐧 Para Bash / Zsh (macOS, Linux e WSL)
-
-Utilize o atalho oficial de **2 letras** (`./dh` ou `dh`):
+Se preferir clonar o código-fonte para rodar localmente ou contribuir:
 
 ```bash
-# 1. Clone leve (apenas a versão mais recente, sem histórico pesado)
+# 1. Clone leve (baixa apenas o estado atual, sem histórico antigo pesado)
 git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
+```
 
-# 2. Executar (ambiente virtual e dependências são configurados automaticamente no primeiro boot)
+Agora execute de acordo com o seu Sistema Operacional:
+
+---
+
+#### 🐧 1. Linux (Ubuntu, Debian, Fedora, Arch) ou WSL
+
+Abra o seu terminal favorito (**Bash** ou **Zsh**) e execute o launcher oficial:
+
+```bash
 ./dh            # Inicia a Interface TUI Completa imediatamente
 ./dh r          # Modo Prompt REPL Rápido (sem divisão de tela)
 ./dh s          # Estatísticas do perfil e XP acumulado
@@ -86,74 +91,77 @@ cd DevOpsHeroCLI
 ./dh d          # Diagnóstico do SO e compatibilidade de terminal
 ```
 
+> [!NOTE]
+> Na primeira execução, o script `./dh` cria o ambiente virtual `.venv` e instala as dependências automaticamente de forma isolada.
+
 ---
 
-#### 🪟 Para PowerShell (Windows 10 / 11)
+#### 🍎 2. macOS (MacBook, iMac, Mac mini)
 
-O **DevOpsHeroCLI** possui launcher nativo para PowerShell (`.\dh.ps1`):
+No macOS você tem duas formas excelentes de rodar:
 
+##### Opção 2.1 — Pelo Terminal (iTerm2 ou Terminal.app)
+```bash
+./dh            # Inicia a Interface Completa diretamente no terminal
+./dh r          # Modo Prompt REPL Rápido
+```
+
+<a id="app-macos"></a>
+##### Opção 2.2 — Aplicativo Nativo no Launchpad & `/Applications` (.app / .dmg)
+Se você deseja ter o **ícone oficial** no seu Launchpad, Spotlight e pasta `/Applications`:
+```bash
+# Gera o instalador oficial .dmg com 1 comando:
+make dmg
+
+# Abre a imagem de disco no Finder:
+open dist/DevOpsHero.dmg
+```
+> Basta arrastar o ícone **DevOpsHero** para a pasta **Applications**!  
+> *(Ou copie direto pelo terminal: `cp -R dist/DevOpsHero.app /Applications/`)*
+
+---
+
+#### 🪟 3. Windows (10 e 11)
+
+Escolha o terminal do Windows que você costuma usar:
+
+##### Opção 3.1 — No PowerShell (Recomendado)
 ```powershell
-# 1. Clone leve
-git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
-cd DevOpsHeroCLI
-
-# 2. Executar diretamente no PowerShell (com Easter Egg exclusivo! 😉)
-.\dh.ps1        # Inicia a Interface TUI Completa imediatamente
+.\dh.ps1        # Inicia a Interface Completa (com Easter Egg exclusivo! 😉)
 .\dh.ps1 r      # Modo Prompt REPL Rápido
 .\dh.ps1 s      # Estatísticas do perfil e XP acumulado
 .\dh.ps1 l      # Catálogo completo das 80 missões
-.\dh.ps1 d      # Diagnóstico do SO e compatibilidade de terminal
+.\dh.ps1 d      # Diagnóstico do SO e compatibilidade
 ```
 
 > [!TIP]
 > **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\dh.ps1` ou `dh r`) para ver o alerta humorístico exclusivo sobre a sua escolha de "terminal"! 😂
 
----
-
-#### ⚡ Para Prompt de Comando Clássico (CMD / Windows)
-
-Se preferir o CMD do Windows:
-
+##### Opção 3.2 — No Prompt de Comando Clássico (CMD)
 ```cmd
-git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
-cd DevOpsHeroCLI
-
 dh.bat          # Inicia a Interface Completa
 dh.bat r        # Modo REPL Rápido
 ```
 
+> [!TIP]
+> **Usuários de WSL (Windows Subsystem for Linux)**: Se você usa WSL no Windows, basta abrir seu terminal Linux (Ubuntu/Debian) e rodar `./dh`.
+
 ---
 
-### 📦 Instalação Global no Sistema via Pip
+#### 📦 4. Instalação Global no Sistema via Pip (Qualquer OS)
 
-Ao instalar via pip com o ambiente ativado, o binário global **`dh`** fica acessível em qualquer diretório do terminal:
+Se quiser que o comando **`dh`** funcione globalmente em qualquer pasta do seu terminal:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate       # No Windows: .venv\Scripts\Activate.ps1
 pip install -e .
 
-dh              # Interface visual completa em qualquer diretório
+dh              # Executa a interface de qualquer pasta
 dh r            # Modo prompt interativo rápido
 dh s            # Estatísticas do perfil e XP
 dh d            # Diagnóstico de SO e compatibilidade
 ```
-
----
-
-### 🍎 Aplicativo Nativo macOS (.app e Instalador .dmg)
-
-Se você utiliza macOS e deseja ter o ícone oficial do **DevOpsHero** no **Launchpad**, **Spotlight** e na sua pasta `/Applications`:
-
-```bash
-# Gerar o instalador .dmg e o app nativo com 1 comando:
-make dmg
-```
-
-1. Abra o arquivo gerado `dist/DevOpsHero.dmg` no Finder.
-2. Arraste o ícone **DevOpsHero** para a pasta **Applications**.
-3. O aplicativo inicia automaticamente no seu terminal favorito (**iTerm2** ou **Terminal.app**) com suporte total a telas Retina, UTF-8 e atalhos rápidos.
-*(Ou copie diretamente: `cp -R dist/DevOpsHero.app /Applications/`)*
 
 ---
 
