@@ -353,6 +353,12 @@ Screen {
     background: #06070a;
 }
 
+#term-input > .input--cursor {
+    background: transparent;
+    color: #00f2fe;
+    text-style: underline bold;
+}
+
 /* ==========================================================================
    Footer Shortcuts Bar
    ========================================================================== */
