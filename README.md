@@ -24,6 +24,10 @@
 [Docker](#-executando-com-docker) •
 [Testes](#-testes-automatizados)
 
+<br/>
+
+<img src="assets/terminal_preview.png" width="100%" alt="DevOpsHeroCLI iTerm2 + Oh My Zsh Interface Preview" />
+
 </div>
 
 ---
