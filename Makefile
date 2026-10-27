@@ -11,7 +11,7 @@ help:
 	@echo "  make v             - Executa validação de todas as missões (./dh v)"
 	@echo "  make d             - Diagnóstico de SO e compatibilidade (./dh d)"
 	@echo "  make icons         - Compila .icns e .ico a partir de assets/icon.svg via Swift"
-	@echo "  make dmg (ou app)  - Gera instalador macOS (DevOpsHero.dmg na raiz e dist/)"
+	@echo "  make dmg (ou app)  - Gera instalador macOS (DevOpsHero.dmg na raiz)"
 	@echo "  make deb           - Gera instalador Debian/Ubuntu (.deb) em dist/"
 	@echo "  make install-linux - Instala atalho oficial no menu e PATH no Linux"
 	@echo "  make test          - Executa a suíte de testes unitários"
@@ -62,6 +62,7 @@ docker:
 	docker compose -f docker/docker-compose.yml run --rm devopshero
 
 clean:
-	rm -rf .venv build dist *.egg-info .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
+	rm -rf build *.egg-info .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov dist/DevOpsHero.app
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type f -name "*.py[cod]" -delete
+	find . -type f -name ".DS_Store" -delete
