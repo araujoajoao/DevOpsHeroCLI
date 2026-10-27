@@ -91,6 +91,7 @@ class DevOpsHeroApp(App):
         self.mission_start_time: float = time.time()
         self.tips_used: int = 0
         self.solution_used: bool = False
+        self.last_command_success: bool = True
 
     def compose(self) -> ComposeResult:
         # Top Header Bar
@@ -137,12 +138,14 @@ class DevOpsHeroApp(App):
             with Vertical(id="terminal-panel"):
                 with Horizontal(id="term-title-bar"):
                     yield Label("🔴 🟡 🟢", classes="term-dots")
-                    yield Label("devopshero-terminal · ops-lab:~ (bash/git/docker/k8s/aws/tf/dd)", classes="term-title-text")
-                    yield Label("● Online", classes="term-status-badge")
+                    with Horizontal(classes="iterm-tab-active"):
+                        yield Label("🐚 devops@ops-lab (zsh)", classes="iterm-tab-title")
+                    yield Static("", classes="term-bar-spacer")
+                    yield Label("iTerm2 · 80x24", classes="term-status-badge")
                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                 with Horizontal(id="term-input-container"):
-                    yield Label("devops@ops-lab:~$", id="term-prompt")
-                    yield Input(placeholder="Digite o comando aqui (ex: pwd, ls, docker ps, kubectl get nodes...)", id="term-input")
+                    yield Label("➜  ~ ", id="term-prompt")
+                    yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
 
         with Horizontal(id="footer-bar"):
             yield Label("[bold #5ac8fa]F2[/] Trilhas  │  [bold #ffd60a]F3[/] Dica  │  [bold #ff6961]F4[/] Solução  │  [bold #8e8e93]F5[/] Reset  │  [bold #5ac8fa]Ctrl+L[/] Limpar  │  [bold #8e8e93]Ctrl+Q[/] Sair")
@@ -150,6 +153,7 @@ class DevOpsHeroApp(App):
     def on_mount(self) -> None:
         self.load_active_mission()
         self.update_header_stats()
+        self.update_prompt()
         self.print_welcome_message()
         self.query_one("#term-input", Input).focus()
 
@@ -212,17 +216,41 @@ class DevOpsHeroApp(App):
         bonus = self.progress.get_streak_bonus_pct()
         self.query_one("#lbl-streak", Label).update(f"🔥 Streak: {self.progress.streak} (+{bonus}%)")
 
-    def update_prompt(self) -> None:
+    def get_ohmyzsh_prompt(self, success: bool = True) -> str:
+        arrow_color = "#30d158" if success else "#ff453a"
         cwd = self.state.linux.cwd.replace("/home/devops", "~")
-        self.query_one("#term-prompt", Label).update(f"devops@ops-lab:{cwd}$")
+
+        git_segment = ""
+        if self.state.git.is_repo:
+            branch = self.state.git.current_branch or "main"
+            is_dirty = bool(self.state.git.staged_files or self.state.git.unstaged_files or self.state.git.untracked_files)
+            dirty_sym = " [bold #ffd60a]✗[/]" if is_dirty else ""
+            git_segment = f" [bold #5ac8fa]git:([/][bold #ff453a]{branch}[/]{dirty_sym}[bold #5ac8fa])[/]"
+        elif "git" in self.state.linux.cwd:
+            git_segment = " [bold #5ac8fa]git:([/][bold #ff453a]main[/][bold #5ac8fa])[/]"
+
+        return f"[bold {arrow_color}]➜[/]  [bold #5ac8fa]{cwd}[/]{git_segment} "
+
+    def update_prompt(self) -> None:
+        prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
+        self.query_one("#term-prompt", Label).update(prompt_markup)
 
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
-        log.write("[bold #007aff]╭──────────────────────────────────────────────────╮[/]")
-        log.write("[bold #007aff]│[/] [bold #5ac8fa]⚡ DevOpsHeroCLI[/] [dim]· Treinador Interativo de DevOps[/]  [bold #007aff]│[/]")
-        log.write("[bold #007aff]│[/] [dim]Linux · Sysadmin · Git · Docker · K8s · AWS · TF[/]   [bold #007aff]│[/]")
-        log.write("[bold #007aff]│[/] [bold #30d158]Comandos:[/] [cyan]'help'[/], [cyan]'dica'[/], [cyan]'trilhas'[/], [cyan]'reset'[/]    [bold #007aff]│[/]")
-        log.write("[bold #007aff]╰──────────────────────────────────────────────────╯[/]\n")
+        cur_time = time.strftime("%a %b %d %H:%M:%S")
+        log.write(f"[dim]Last login: {cur_time} on ttys001 (iTerm2)[/]")
+        omz_lines = [
+            "         __                                     __",
+            "  ____  / /_     ____ ___  __  __   ____  _____/ /_",
+            " / __ \\/ __ \\   / __ `__ \\/ / / /  /_  / / ___/ __ \\",
+            "/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /",
+            "\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/",
+            "                        /____/     v5.9 (iTerm2 · Oh My Zsh)",
+        ]
+        for line in omz_lines:
+            log.write(Text(line, style="bold #30d158"))
+        log.write("[dim]• Theme: [bold #ffd60a]robbyrussell[/]  │  Plugins: [cyan]git[/], [cyan]docker[/], [cyan]kubectl[/], [cyan]aws[/], [cyan]terraform[/], [cyan]datadog[/][/dim]")
+        log.write("[dim]• Comandos: [bold #5ac8fa]'help'[/], [bold #ffd60a]'dica'[/], [bold #ff453a]'solucao'[/], [bold #30d158]'reset'[/], [bold #5ac8fa]'trilhas'[/][/dim]\n")
 
     @on(Input.Submitted, "#term-input")
     def handle_terminal_input(self, event: Input.Submitted) -> None:
@@ -236,13 +264,14 @@ class DevOpsHeroApp(App):
         self.progress.command_history.append(cmd_text)
         log = self.query_one("#term-output-log", RichLog)
 
-        # Print prompt line
-        cwd = self.state.linux.cwd.replace("/home/devops", "~")
-        log.write(f"[bold cyan]devops@ops-lab[/]:[bold blue]{cwd}[/]$ [bold white]{cmd_text}[/]")
+        # Print prompt line in authentic Oh My Zsh style
+        prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
+        log.write(f"{prompt_markup}[bold #ffffff]{cmd_text}[/]")
 
         # Handle built-in meta commands
         lower_cmd = cmd_text.lower()
         if lower_cmd == "help":
+            self.last_command_success = True
             log.write(
                 "[bold yellow]Comandos de apoio do DevOpsHeroCLI:[/]\n"
                 "  [bold cyan]dica[/]       - Revela a dica da missão atual (F3)\n"
@@ -253,34 +282,57 @@ class DevOpsHeroApp(App):
                 "  [bold cyan]stats[/]      - Mostra seu perfil, XP e conquistas\n"
                 "  [bold cyan]proxima[/]    - Pula para a próxima missão\n"
             )
+            self.update_prompt()
             return
         elif lower_cmd in ["dica", "hint"]:
+            self.last_command_success = True
             self.action_toggle_tip()
+            self.update_prompt()
             return
         elif lower_cmd in ["solucao", "solution", "gabarito"]:
+            self.last_command_success = True
             self.action_solution()
+            self.update_prompt()
             return
         elif lower_cmd in ["trilhas", "tracks"]:
+            self.last_command_success = True
             self.action_tracks()
+            self.update_prompt()
             return
         elif lower_cmd == "reset":
+            self.last_command_success = True
             self.action_reset_lab()
+            self.update_prompt()
             return
         elif lower_cmd == "clear":
+            self.last_command_success = True
             self.action_clear_screen()
+            self.update_prompt()
             return
         elif lower_cmd in ["stats", "perfil"]:
+            self.last_command_success = True
             self.show_user_stats(log)
+            self.update_prompt()
             return
         elif lower_cmd in ["proxima", "next"]:
+            self.last_command_success = True
             self.advance_to_next_mission()
+            self.update_prompt()
             return
 
         # Execute in simulated engine
         output = self.executor.execute_command_string(cmd_text)
-        self.update_prompt()
         if output:
             log.write(output)
+            low_out = output.lower()
+            if "command not found" in low_out or "error" in low_out or "fatal" in low_out:
+                self.last_command_success = False
+            else:
+                self.last_command_success = True
+        else:
+            self.last_command_success = True
+
+        self.update_prompt()
 
         # Check mission completion
         if self.current_mission and self.current_mission.check_completion:

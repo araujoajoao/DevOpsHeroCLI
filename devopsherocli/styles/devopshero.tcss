@@ -250,19 +250,19 @@ Screen {
     color: #ff6961;
 }
 
-/* Right Terminal Panel */
+/* Right Terminal Panel - iTerm2 Obsidian Acrylic */
 #terminal-panel {
     width: 58%;
     height: 100%;
-    background: #000000;
+    background: #0d0f17;
     layout: vertical;
     overflow-x: hidden;
 }
 
 #term-title-bar {
     height: 3;
-    background: #111418;
-    border-bottom: solid #22272e;
+    background: #141721;
+    border-bottom: solid #212532;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -270,27 +270,42 @@ Screen {
 }
 
 .term-dots {
-    width: 8;
-    color: #ff453a;
+    width: 9;
+    color: #ff5f56;
 }
 
-.term-title-text {
-    width: 1fr;
-    color: #8e8e93;
-    text-style: bold;
+.iterm-tab-active {
+    width: auto;
+    height: 100%;
+    background: #1e2230;
+    border-top: solid #5ac8fa;
+    border-left: solid #2a2e40;
+    border-right: solid #2a2e40;
+    padding: 0 2;
     content-align: center middle;
+    align: center middle;
+}
+
+.iterm-tab-title {
+    color: #e5e9f0;
+    text-style: bold;
+}
+
+.term-bar-spacer {
+    width: 1fr;
 }
 
 .term-status-badge {
-    width: 12;
-    color: #30d158;
+    width: auto;
+    color: #5af78e;
     text-style: bold;
     content-align: right middle;
 }
 
 #term-output-log {
     height: 1fr;
-    background: #000000;
+    background: #0d0f17;
+    color: #f8f8f2;
     padding: 0 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -298,8 +313,8 @@ Screen {
 
 #term-input-container {
     height: 3;
-    background: #111418;
-    border-top: solid #22272e;
+    background: #0d0f17;
+    border-top: solid #1f2332;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -308,20 +323,23 @@ Screen {
 
 #term-prompt {
     width: auto;
-    color: #5ac8fa;
+    color: #5af78e;
     text-style: bold;
-    padding: 0 1;
+    padding: 0 1 0 0;
+    background: #0d0f17;
 }
 
 #term-input {
     width: 1fr;
-    background: #1c1c1e;
-    border: round #3a3a3c;
-    color: #f2f2f7;
+    background: #0d0f17;
+    border: none;
+    color: #f8f8f2;
+    padding: 0;
 }
 
 #term-input:focus {
-    border: round #007aff;
+    border: none;
+    background: #0d0f17;
 }
 
 /* Footer Shortcuts */

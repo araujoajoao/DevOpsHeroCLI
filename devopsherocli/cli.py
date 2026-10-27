@@ -37,9 +37,14 @@ def run_repl():
     executor = CommandExecutor(state)
 
     console.print(Panel.fit(
-        "[bold cyan]⚡ DevOpsHeroCLI REPL Mode[/bold cyan]\n"
-        "[dim]Linux · Sysadmin · Git · Docker · K8s · AWS · Terraform · Datadog[/dim]\n"
-        "Comandos especiais: [bold yellow]dica[/], [bold yellow]solucao[/], [bold yellow]proxima[/], [bold yellow]stats[/], [bold yellow]sair[/]",
+        "[bold green]         __                                     __[/]\n"
+        "[bold green]  ____  / /_     ____ ___  __  __   ____  _____/ /_[/]\n"
+        "[bold green] / __ \\/ __ \\   / __ `__ \\/ / / /  /_  / / ___/ __ \\[/]\n"
+        "[bold green]/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /[/]\n"
+        "[bold green]\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/[/]\n"
+        "[bold green]                        /____/[/]     [bold cyan]⚡ iTerm2 · Oh My Zsh REPL[/]\n"
+        "[dim]Linux · Sysadmin · Git · Docker · Kubernetes · AWS · Terraform · Datadog[/dim]\n"
+        "Comandos especiais: [bold yellow]dica[/], [bold red]solucao[/], [bold cyan]proxima[/], [bold cyan]reset[/], [bold cyan]stats[/], [bold cyan]sair[/]",
         border_style="cyan"
     ))
 
@@ -83,7 +88,13 @@ def run_repl():
     while True:
         try:
             cwd = state.linux.cwd.replace("/home/devops", "~")
-            prompt_str = f"devopshero:{cwd}$ "
+            git_part = ""
+            if state.git.is_repo:
+                b = state.git.current_branch or "main"
+                is_dirty = bool(state.git.staged_files or state.git.unstaged_files or state.git.untracked_files)
+                dirty_sym = " ✗" if is_dirty else ""
+                git_part = f" git:({b}{dirty_sym})"
+            prompt_str = f"➜  {cwd}{git_part} "
             if session:
                 cmd = session.prompt(prompt_str, completer=completer).strip()
             else:
