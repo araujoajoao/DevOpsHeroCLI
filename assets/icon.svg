@@ -76,15 +76,19 @@
     <!-- 4. Subtle Diagonal Screen Specular Glint -->
     <path d="M 154 220 L 870 500 L 870 146 L 220 146 Z" fill="url(#specularGlint)"/>
 
-    <!-- 5. Apple Terminal Identifier: Chevron > and Cursor _ (Model Standard) -->
-    <path d="M 260 274 L 403 365.5 L 260 457 L 260 439 L 372 365.5 L 260 292 Z" fill="#ffffff"/>
-    <rect x="432" y="498" width="165" height="18" rx="4" ry="4" fill="#e5e7eb"/>
+    <!-- 5. Apple Terminal Identifier: Compact Sleek >_ (Model Standard, Centered at X=512) -->
+    <path d="M 399 290 L 494 351 L 399 412 L 399 400 L 474 351 L 399 302 Z" fill="#ffffff"/>
+    <rect x="515" y="438" width="110" height="14" rx="3" ry="3" fill="#e5e7eb"/>
 
-    <!-- 6. Brand Writing: devopsherocli centered below prompt -->
+    <!-- 6. Brand Writing with Oh My Zsh Green Prompt Arrow (Centered at X=512) -->
     <g>
-      <text x="270" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#00f2fe">devops</text>
-      <text x="493" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#30d158">hero</text>
-      <text x="642" y="655" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="62" font-weight="400" fill="#f3f4f6">cli</text>
+      <!-- Oh My Zsh Green Prompt Arrow -->
+      <path d="M 258 596 L 292 616 L 258 636 Z" fill="#30d158" stroke="#30d158" stroke-width="2" stroke-linejoin="round"/>
+
+      <!-- Command Text 'devopsherocli' (SF Mono / Menlo regular typography, font-size 58) -->
+      <text x="312" y="635" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#00f2fe">devops</text>
+      <text x="521" y="635" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#30d158">hero</text>
+      <text x="660" y="635" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#f3f4f6">cli</text>
     </g>
   </g>
 </svg>
