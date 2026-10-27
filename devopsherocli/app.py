@@ -100,11 +100,11 @@ class DevOpsHeroApp(App):
     def compose(self) -> ComposeResult:
         # Top Header Bar
         with Horizontal(id="header-bar"):
-            yield Label("⚡ DevOpsHero", classes="brand")
+            yield Label("⚡ DEVOPS//HERO", classes="brand")
             with Vertical(classes="level-box"):
-                yield Label("🌱 Nv.1 · Recruta", id="lbl-level", classes="level-title")
+                yield Label("🌱 Lv.1 · 0 XP", id="lbl-level", classes="level-title")
                 yield ProgressBar(total=100, show_eta=False, id="xp-bar", classes="xp-bar-container")
-            yield Label("🔥 Streak: 0", id="lbl-streak", classes="streak-box")
+            yield Label("⚡ STREAK: 0", id="lbl-streak", classes="streak-box")
             with Horizontal(classes="nav-actions"):
                 yield Button("🗺️ Trilhas", id="btn-tracks", classes="action-btn")
                 yield Button("💡 Dica", id="btn-tip", classes="action-btn")
@@ -114,24 +114,24 @@ class DevOpsHeroApp(App):
         # Main Body (Split into Mission Card & Terminal Screen)
         with Horizontal(id="main-container"):
             with VerticalScroll(id="mission-panel"):
-                yield Label("🐧 Trilha: Linux Essencial", id="lbl-mission-track", classes="mission-track-badge")
+                yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
                 yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
                 with Horizontal(classes="meta-row"):
                     yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
                     yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
                     yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
 
-                yield Label("📖 CENÁRIO DO MUNDO REAL:", classes="section-label")
+                yield Label("// CENÁRIO REAL", classes="section-label")
                 yield Static("", id="box-context", classes="context-box")
 
-                yield Label("🎯 SEU OBJETIVO:", classes="section-label")
+                yield Label("// OBJETIVO DA MISSÃO", classes="section-label")
                 yield Static("", id="box-objective", classes="objective-box")
 
-                yield Label("⚡ REGRA ANTI-COLA (GOOGLE / IA):", classes="section-label")
+                yield Label("// SPEED SCORE (ANTI-COLA)", classes="section-label")
                 yield Static(
-                    "⚡ [bold #ffd60a]100% XP[/]: Envie sem dicas nos primeiros [bold #30d158]5 segundos[/]!\n"
+                    "⚡ [bold #fbbf24]100% XP[/]: Envie sem dicas nos primeiros [bold #00ff87]5 segundos[/]!\n"
                     "⏱️ [dim]> 5 segundos sem dicas: 70% XP (tempo para busca externa)[/]\n"
-                    "💡 [dim yellow]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
+                    "💡 [dim #fbbf24]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
                     id="box-rules",
                     classes="rules-box",
                 )
@@ -141,18 +141,18 @@ class DevOpsHeroApp(App):
 
             with Vertical(id="terminal-panel"):
                 with Horizontal(id="term-title-bar"):
-                    yield Label("🔴 🟡 🟢", classes="term-dots")
+                    yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
                     with Horizontal(classes="iterm-tab-active"):
-                        yield Label("🐚 devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
+                        yield Label("devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
                     yield Static("", classes="term-bar-spacer")
-                    yield Label("iTerm2 · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
+                    yield Label("● ONLINE · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                 with Horizontal(id="term-input-container"):
                     yield Label("➜  ~ ", id="term-prompt")
                     yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
 
         with Horizontal(id="footer-bar"):
-            yield Label("[bold #5ac8fa]F2[/] Trilhas  │  [bold #ffd60a]F3[/] Dica  │  [bold #ff6961]F4[/] Solução  │  [bold #8e8e93]F5[/] Reset  │  [bold #5ac8fa]Ctrl+L[/] Limpar  │  [bold #8e8e93]Ctrl+Q[/] Sair")
+            yield Label("[bold #00f2fe]F2[/] Trilhas  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #00f2fe]Ctrl+L[/] Limpar  │  [bold #64748b]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
         if is_powershell():
@@ -190,9 +190,9 @@ class DevOpsHeroApp(App):
         track = TRACKS_MAP.get(m.track_id)
         track_name = track.name if track else m.track_id
 
-        self.query_one("#lbl-mission-track", Label).update(f"{track.icon if track else '⚡'} Trilha: {track_name}")
-        self.query_one("#lbl-mission-title", Label).update(f"Missão: {m.title}")
-        self.query_one("#lbl-diff-badge", Label).update(m.difficulty)
+        self.query_one("#lbl-mission-track", Label).update(f"// TRILHA: {track_name.upper()}")
+        self.query_one("#lbl-mission-title", Label).update(m.title)
+        self.query_one("#lbl-diff-badge", Label).update(m.difficulty.upper())
         self.query_one("#lbl-xp-badge", Label).update(f"+{m.xp} XP")
 
         self.query_one("#box-context", Static).update(m.context)
@@ -202,7 +202,7 @@ class DevOpsHeroApp(App):
         tip_box = self.query_one("#box-tip", Static)
         if self.show_tip:
             tip_box.display = True
-            tip_box.update(f"💡 [bold]Dica:[/bold] {m.tip}")
+            tip_box.update(f"💡 [bold #fbbf24]DICA:[/] {m.tip}")
         else:
             tip_box.display = False
 
@@ -210,7 +210,7 @@ class DevOpsHeroApp(App):
         sol_box = self.query_one("#box-solution", Static)
         if self.show_solution:
             sol_box.display = True
-            sol_box.update(f"👁️ [bold red]Gabarito:[/bold red] [bold cyan]{m.solution}[/]")
+            sol_box.update(f"👁️ [bold #fb7185]GABARITO:[/] [bold #00f2fe]{m.solution}[/]")
         else:
             sol_box.display = False
 
@@ -220,27 +220,27 @@ class DevOpsHeroApp(App):
         xp_curr = max(0, self.progress.xp - min_xp)
         pct = min(100, int((xp_curr / xp_span) * 100))
 
-        self.query_one("#lbl-level", Label).update(f"{icon} Nv.{lvl} · {self.progress.xp} XP")
+        self.query_one("#lbl-level", Label).update(f"{icon} Lv.{lvl} · {self.progress.xp} XP")
         self.query_one("#xp-bar", ProgressBar).update(progress=pct)
 
         bonus = self.progress.get_streak_bonus_pct()
-        streak_txt = f"🔥 Streak: {self.progress.streak}" + (f" (+{bonus}%)" if bonus > 0 else "")
+        streak_txt = f"⚡ STREAK: {self.progress.streak}" + (f" (+{bonus}%)" if bonus > 0 else "")
         self.query_one("#lbl-streak", Label).update(streak_txt)
 
     def get_ohmyzsh_prompt(self, success: bool = True) -> str:
-        arrow_color = "#30d158" if success else "#ff453a"
+        arrow_color = "#00ff87" if success else "#fb7185"
         cwd = self.state.linux.cwd.replace("/home/devops", "~")
 
         git_segment = ""
         if self.state.git.is_repo:
             branch = self.state.git.current_branch or "main"
             is_dirty = bool(self.state.git.staged_files or self.state.git.unstaged_files or self.state.git.untracked_files)
-            dirty_sym = " [bold #ffd60a]✗[/]" if is_dirty else ""
-            git_segment = f" [bold #5ac8fa]git:([/][bold #ff453a]{branch}[/]{dirty_sym}[bold #5ac8fa])[/]"
+            dirty_sym = " [bold #fbbf24]✗[/]" if is_dirty else ""
+            git_segment = f" [bold #00f2fe]git:([/][bold #fb7185]{branch}[/]{dirty_sym}[bold #00f2fe])[/]"
         elif "git" in self.state.linux.cwd:
-            git_segment = " [bold #5ac8fa]git:([/][bold #ff453a]main[/][bold #5ac8fa])[/]"
+            git_segment = " [bold #00f2fe]git:([/][bold #fb7185]main[/][bold #00f2fe])[/]"
 
-        return f"[bold {arrow_color}]➜[/]  [bold #5ac8fa]{cwd}[/]{git_segment} "
+        return f"[bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
 
     def update_prompt(self) -> None:
         prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
@@ -249,13 +249,13 @@ class DevOpsHeroApp(App):
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
         cur_time = time.strftime("%a %b %d %H:%M:%S")
-        log.write(f"[dim]Last login: {cur_time} on ttys001 (iTerm2)[/]")
+        log.write(f"[dim #64748b]Last login: {cur_time} on ttys001 (iTerm2)[/]")
 
         if is_powershell():
             log.write(Panel(
                 get_powershell_humor_message(),
-                title="[bold #ffd60a]⚠️  PowerShell Easter Egg[/]",
-                border_style="#ffd60a",
+                title="[bold #fbbf24]⚠️  PowerShell Easter Egg[/]",
+                border_style="#fbbf24",
             ))
             self.notify(
                 "Você realmente chama isso de terminal?! 😂 Recomendamos um de verdade longe do Windows... Mas relaxa, o DevOpsHero roda suave até aqui!",
@@ -273,9 +273,9 @@ class DevOpsHeroApp(App):
             "                        /____/     v5.9 (iTerm2 · Oh My Zsh)",
         ]
         for line in omz_lines:
-            log.write(Text(line, style="bold #30d158"))
-        log.write("[dim]• Theme: [bold #ffd60a]robbyrussell[/]  │  Plugins: [cyan]git[/], [cyan]docker[/], [cyan]kubectl[/], [cyan]aws[/], [cyan]terraform[/], [cyan]datadog[/][/dim]")
-        log.write("[dim]• Atalhos Rápidos: [bold #5ac8fa]'help'[/] (ou [bold #5ac8fa]'h'[/]), [bold #ffd60a]'d'[/] (dica), [bold #ff7b72]'s'[/] (solução), [bold #30d158]'r'[/] (reset), [bold #5ac8fa]'t'[/] (trilhas), [bold #30d158]'n'[/] (next)[/dim]\n")
+            log.write(Text(line, style="bold #00ff87"))
+        log.write("[#64748b]• Theme: [bold #fbbf24]robbyrussell[/]  │  Plugins: [bold #38bdf8]git[/], [bold #38bdf8]docker[/], [bold #38bdf8]kubectl[/], [bold #38bdf8]aws[/], [bold #38bdf8]terraform[/], [bold #38bdf8]datadog[/][/]")
+        log.write("[#64748b]• Comandos: [bold #00f2fe]'h'[/]elp, [bold #fbbf24]'d'[/]ica, [bold #fb7185]'s'[/]olução, [bold #00ff87]'r'[/]eset, [bold #00f2fe]'t'[/]rilhas, [bold #00ff87]'n'[/]ext[/]\n")
 
     @on(Input.Submitted, "#term-input")
     def handle_terminal_input(self, event: Input.Submitted) -> None:

@@ -1,19 +1,21 @@
-/* DevOpsHeroCLI - Apple iOS 27 Sleek Dark Glassmorphism Theme */
+/* DevOpsHeroCLI - Cyber-Minimalist & Futuristic Bold TUI Theme */
 
 Screen {
-    background: #000000;
-    color: #f2f2f7;
+    background: #06070a;
+    color: #e2e8f0;
     layout: vertical;
     overflow-x: hidden;
 }
 
-/* Header Bar */
+/* ==========================================================================
+   Header Bar (Top HUD)
+   ========================================================================== */
 #header-bar {
     dock: top;
     height: 4;
-    background: #0f1217;
-    border-bottom: solid #1f242d;
-    padding: 0;
+    background: #090b10;
+    border-bottom: solid #141822;
+    padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
     overflow-x: hidden;
@@ -21,31 +23,31 @@ Screen {
 
 .brand {
     width: auto;
-    color: #5ac8fa;
+    color: #00f2fe;
     text-style: bold;
     content-align: left middle;
-    margin-left: 1;
+    margin-right: 2;
 }
 
 .level-box {
-    width: 14;
+    width: 15;
     height: auto;
     layout: vertical;
     align-vertical: middle;
     padding: 0;
-    margin-left: 1;
+    margin-right: 2;
 }
 
 .level-title {
-    color: #30d158;
+    color: #00ff87;
     text-style: bold;
     height: 1;
 }
 
 .xp-bar-container {
     height: 1;
-    background: #1c1c1e;
-    color: #30d158;
+    background: #11151f;
+    color: #00ff87;
 }
 
 .streak-box {
@@ -53,12 +55,11 @@ Screen {
     min-width: 0;
     height: 3;
     content-align: center middle;
-    color: #ff9f0a;
+    color: #fbbf24;
     text-style: bold;
-    background: #1e1312;
-    border: round #ff453a;
-    padding: 0;
-    margin-left: 1;
+    background: #130f06;
+    border: round #3d2f10;
+    padding: 0 1;
     margin-right: 1;
 }
 
@@ -67,92 +68,92 @@ Screen {
     align: right middle;
     width: 1fr;
     overflow-x: hidden;
-    margin-right: 1;
 }
 
-/* Sleek Rounded Glassmorphism Action Buttons */
+/* Sleek Cyber-Minimalist Action Buttons */
 .action-btn {
     width: auto;
     min-width: 0;
     height: 3;
-    padding: 0;
+    padding: 0 1;
     margin: 0 0 0 1;
     text-style: bold;
 }
 
 #btn-tracks {
-    background: #0d1e36;
-    border: round #388bfd;
-    color: #58a6ff;
+    background: #071321;
+    border: round #143254;
+    color: #38bdf8;
 }
 
 #btn-tracks:hover {
-    background: #1f3d68;
-    border: round #79c0ff;
+    background: #0d233d;
+    border: round #38bdf8;
     color: #ffffff;
 }
 
 #btn-tip {
-    background: #251c08;
-    border: round #d29922;
-    color: #ffd60a;
+    background: #161205;
+    border: round #382c0b;
+    color: #fbbf24;
 }
 
 #btn-tip:hover {
-    background: #3e2e0d;
-    border: round #f0883e;
+    background: #2a2008;
+    border: round #fbbf24;
     color: #ffffff;
 }
 
 #btn-solution {
-    background: #271418;
-    border: round #f85149;
-    color: #ff7b72;
+    background: #18080c;
+    border: round #3d141d;
+    color: #fb7185;
 }
 
 #btn-solution:hover {
-    background: #441c20;
-    border: round #ff7b72;
+    background: #2e0f16;
+    border: round #fb7185;
     color: #ffffff;
 }
 
 #btn-reset {
-    background: #161b22;
-    border: round #484f58;
-    color: #8b949e;
+    background: #0c0f16;
+    border: round #1e2536;
+    color: #94a3b8;
 }
 
 #btn-reset:hover {
-    background: #282e37;
-    border: round #8b949e;
+    background: #181f2e;
+    border: round #94a3b8;
     color: #ffffff;
 }
 
-/* Main Split View */
+/* ==========================================================================
+   Main Split View
+   ========================================================================== */
 #main-container {
     height: 1fr;
     layout: horizontal;
     overflow-x: hidden;
 }
 
-/* Left Mission Panel */
+/* Left Mission Panel (Mission Briefing Card) */
 #mission-panel {
     width: 42%;
     height: 100%;
-    background: #0d1117;
-    border-right: solid #22272e;
-    padding: 0 1;
+    background: #080a0f;
+    border-right: solid #141822;
+    padding: 0 2;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .mission-track-badge {
     height: auto;
-    color: #5ac8fa;
+    color: #00f2fe;
     text-style: bold;
-    background: #1c1c1e;
-    border: round #007aff;
-    padding: 0 1;
+    background: transparent;
+    padding: 0;
     margin-top: 1;
     margin-bottom: 0;
     width: auto;
@@ -162,7 +163,7 @@ Screen {
     height: auto;
     color: #ffffff;
     text-style: bold;
-    margin-top: 1;
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -175,9 +176,9 @@ Screen {
 
 .badge-diff {
     height: auto;
-    background: #14321d;
-    border: round #30d158;
-    color: #30d158;
+    background: #061c12;
+    border: round #0d3824;
+    color: #00ff87;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
@@ -185,9 +186,9 @@ Screen {
 
 .badge-xp {
     height: auto;
-    background: #0f243d;
-    border: round #007aff;
-    color: #5ac8fa;
+    background: #071626;
+    border: round #0f3052;
+    color: #38bdf8;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
@@ -195,16 +196,16 @@ Screen {
 
 .badge-speed {
     height: auto;
-    background: #2a1f00;
-    border: round #ffd60a;
-    color: #ffd60a;
+    background: #181205;
+    border: round #382c0b;
+    color: #fbbf24;
     padding: 0 1;
     text-style: bold;
 }
 
 .section-label {
     height: auto;
-    color: #8e8e93;
+    color: #64748b;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -212,65 +213,68 @@ Screen {
 
 .context-box {
     height: auto;
-    background: #14171d;
-    border: round #2c313a;
+    background: #0b0e14;
+    border: solid #161b26;
     padding: 0 1;
     margin-bottom: 0;
-    color: #ebebf5;
+    color: #cbd5e1;
 }
 
+/* Hero Element: Neon Focused Objective Card */
 .objective-box {
     height: auto;
-    background: #0d2318;
-    border: round #30d158;
+    background: #05141c;
+    border: round #00f2fe;
     padding: 0 1;
     margin-bottom: 0;
-    color: #f2f2f7;
+    color: #ffffff;
     text-style: bold;
 }
 
 .rules-box {
     height: auto;
-    background: #1c1917;
-    border: round #d97706;
+    background: #0b0e14;
+    border: solid #161b26;
     padding: 0 1;
-    margin-bottom: 0;
-    color: #e7e5e4;
+    margin-bottom: 1;
+    color: #94a3b8;
 }
 
 .tip-box {
     height: auto;
-    background: #2a1c0d;
-    border: round #ff9f0a;
+    background: #191306;
+    border: round #fbbf24;
     padding: 0 1;
     margin-top: 1;
     margin-bottom: 0;
-    color: #ffd60a;
+    color: #fde68a;
 }
 
 .solution-box {
     height: auto;
-    background: #2a0f12;
-    border: round #ff453a;
+    background: #1c080d;
+    border: round #fb7185;
     padding: 0 1;
     margin-top: 1;
     margin-bottom: 0;
-    color: #ff6961;
+    color: #fecdd3;
 }
 
-/* Right Terminal Panel - iTerm2 Obsidian Acrylic */
+/* ==========================================================================
+   Right Terminal Panel (Obsidian Cyber-Terminal)
+   ========================================================================== */
 #terminal-panel {
     width: 58%;
     height: 100%;
-    background: #0d0f17;
+    background: #06070a;
     layout: vertical;
     overflow-x: hidden;
 }
 
 #term-title-bar {
     height: 3;
-    background: #141721;
-    border-bottom: solid #212532;
+    background: #090b10;
+    border-bottom: solid #141822;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -278,24 +282,23 @@ Screen {
 }
 
 .term-dots {
-    width: 9;
-    color: #ff5f56;
+    width: 8;
 }
 
 .iterm-tab-active {
     width: auto;
     height: 100%;
-    background: #1e2230;
-    border-top: solid #5ac8fa;
-    border-left: solid #2a2e40;
-    border-right: solid #2a2e40;
+    background: #0e121a;
+    border-top: solid #00f2fe;
+    border-left: solid #181d2a;
+    border-right: solid #181d2a;
     padding: 0 2;
     content-align: center middle;
     align: center middle;
 }
 
 .iterm-tab-title {
-    color: #e5e9f0;
+    color: #e2e8f0;
     text-style: bold;
 }
 
@@ -305,15 +308,15 @@ Screen {
 
 .term-status-badge {
     width: auto;
-    color: #5af78e;
+    color: #00ff87;
     text-style: bold;
     content-align: right middle;
 }
 
 #term-output-log {
     height: 1fr;
-    background: #0d0f17;
-    color: #f8f8f2;
+    background: #06070a;
+    color: #f8fafc;
     padding: 0 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -321,8 +324,8 @@ Screen {
 
 #term-input-container {
     height: 3;
-    background: #0d0f17;
-    border-top: solid #1f2332;
+    background: #06070a;
+    border-top: solid #141822;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -331,48 +334,52 @@ Screen {
 
 #term-prompt {
     width: auto;
-    color: #5af78e;
+    color: #00ff87;
     text-style: bold;
     padding: 0 1 0 0;
-    background: #0d0f17;
+    background: #06070a;
 }
 
 #term-input {
     width: 1fr;
-    background: #0d0f17;
+    background: #06070a;
     border: none;
-    color: #f8f8f2;
+    color: #f8fafc;
     padding: 0;
 }
 
 #term-input:focus {
     border: none;
-    background: #0d0f17;
+    background: #06070a;
 }
 
-/* Footer Shortcuts */
+/* ==========================================================================
+   Footer Shortcuts Bar
+   ========================================================================== */
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #111418;
-    color: #8e8e93;
-    border-top: solid #22272e;
+    background: #07090d;
+    color: #64748b;
+    border-top: solid #141822;
     padding: 0 1;
     content-align: center middle;
     overflow-x: hidden;
 }
 
-/* Tracks Modal Dialog */
+/* ==========================================================================
+   Tracks Modal Dialog (Cyberpunk Glass HUD)
+   ========================================================================== */
 TracksModal {
     align: center middle;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(4, 5, 8, 0.88);
 }
 
 #tracks-dialog {
     width: 82%;
     height: 82%;
-    background: #111418;
-    border: round #007aff;
+    background: #0a0d14;
+    border: round #00f2fe;
     padding: 1 2;
     layout: vertical;
 }
@@ -386,12 +393,12 @@ TracksModal {
 }
 
 .track-modal-header {
-    color: #5ac8fa;
+    color: #00f2fe;
     text-style: bold;
 }
 
 .track-group-title {
-    color: #ff9f0a;
+    color: #fbbf24;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -401,27 +408,27 @@ TracksModal {
     margin: 0 0 1 0;
     width: 100%;
     height: 3;
-    background: #1c1c1e;
-    border: round #3a3a3c;
-    color: #ebebf5;
+    background: #0e121a;
+    border: round #1e2536;
+    color: #e2e8f0;
     text-align: left;
 }
 
 .mission-item-btn:hover {
-    background: #2c2c2e;
-    border: round #007aff;
+    background: #161e2e;
+    border: round #00f2fe;
     color: #ffffff;
 }
 
 .mission-item-done {
-    background: #14321d;
-    border: round #30d158;
-    color: #30d158;
+    background: #071f14;
+    border: round #00ff87;
+    color: #00ff87;
 }
 
 .mission-item-curr {
-    background: #007aff;
-    border: round #5ac8fa;
+    background: #0d283d;
+    border: round #38bdf8;
     color: #ffffff;
     text-style: bold;
 }
@@ -429,13 +436,14 @@ TracksModal {
 #btn-close-modal {
     width: 100%;
     height: 3;
-    background: #ff3b30;
-    border: round #ff6961;
-    color: #ffffff;
+    background: #240a10;
+    border: round #fb7185;
+    color: #fb7185;
     text-style: bold;
 }
 
 #btn-close-modal:hover {
-    background: #c41c14;
+    background: #3b1019;
+    border: round #f43f5e;
     color: #ffffff;
 }
