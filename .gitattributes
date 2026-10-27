@@ -1,0 +1,35 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Unix scripts and source files must always have LF line endings
+*.sh text eol=lf
+dh text eol=lf
+*.py text eol=lf
+*.tcss text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.svg text eol=lf
+
+# Windows scripts must preserve CRLF line endings
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+dh.bat text eol=crlf
+dh.ps1 text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+
+# Exclude developer-only files from release tarballs / zip archives (git archive)
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+tests export-ignore
+Dockerfile export-ignore
+docker-compose.yml export-ignore
+Makefile export-ignore

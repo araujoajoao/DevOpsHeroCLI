@@ -59,3 +59,16 @@ venv.bak/
 .pytest_cache/
 .coverage
 htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environment and logs
+*.log
+.env
+.env.*
+!.env.example
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+desktop.ini

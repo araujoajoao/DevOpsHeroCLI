@@ -44,5 +44,6 @@ docker:
 	docker compose run --rm devopshero
 
 clean:
-	rm -rf .venv build dist *.egg-info .pytest_cache __pycache__
+	rm -rf .venv build dist *.egg-info .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
 	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type f -name "*.py[cod]" -delete
