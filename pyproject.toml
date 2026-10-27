@@ -61,8 +61,12 @@ Repository = "https://github.com/araujoajoao/DevOpsHeroCLI"
 Issues = "https://github.com/araujoajoao/DevOpsHeroCLI/issues"
 
 [project.scripts]
-devopsherocli = "devopsherocli.cli:main"
+dh = "devopsherocli.cli:main"
 devopshero = "devopsherocli.cli:main"
+devopsherocli = "devopsherocli.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["devopsherocli*"]
 
 [tool.ruff]
 line-length = 120

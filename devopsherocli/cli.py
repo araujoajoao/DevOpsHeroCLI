@@ -50,7 +50,7 @@ def run_repl():
         "[bold green]\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/[/]\n"
         "[bold green]                        /____/[/]     [bold cyan]⚡ iTerm2 · Oh My Zsh REPL[/]\n"
         "[dim]Linux · Sysadmin · Git · Docker · Kubernetes · AWS · Terraform · Datadog[/dim]\n"
-        "Comandos especiais: [bold yellow]dica[/], [bold red]solucao[/], [bold cyan]proxima[/], [bold cyan]reset[/], [bold cyan]stats[/], [bold cyan]sair[/]",
+        "Atalhos ultra-rápidos: [bold yellow]d[/] (dica), [bold red]s[/] (solução), [bold cyan]n[/] (próxima), [bold cyan]r[/] (reset), [bold cyan]q[/] (sair)",
         border_style="cyan"
     ))
 
@@ -120,25 +120,25 @@ def run_repl():
             if lower_cmd in ["sair", "exit", "quit", "q"]:
                 console.print("[dim]Até a próxima sessão de treino![/]")
                 break
-            elif lower_cmd == "help":
-                console.print("[cyan]Comandos:[/] dica, solucao, proxima, reset, stats, clear, sair")
+            elif lower_cmd in ["help", "h", "?"]:
+                console.print("[cyan]Atalhos rápidos:[/] [yellow]d[/] (dica), [red]s[/] (solução), [cyan]n[/] (próxima), [cyan]r[/] (reset), [cyan]stats[/], [cyan]c[/] (limpar), [cyan]q[/] (sair)")
                 continue
-            elif lower_cmd in ["dica", "hint"]:
+            elif lower_cmd in ["dica", "hint", "d"]:
                 tips_used += 1
                 console.print(f"[bold yellow]💡 Dica #{tips_used}:[/] {mission.tip} [dim yellow](Uso de dicas reduz o XP da missão)[/]")
                 continue
-            elif lower_cmd in ["solucao", "solution", "gabarito"]:
+            elif lower_cmd in ["solucao", "solution", "gabarito", "s"]:
                 solution_used = True
                 progress.break_streak()
                 console.print(f"[bold red]👁️ Solução:[/] [bold cyan]{mission.solution}[/] [dim](XP zerado e streak resetado)[/]")
                 continue
-            elif lower_cmd in ["stats", "perfil"]:
+            elif lower_cmd in ["stats", "perfil", "st"]:
                 show_stats()
                 continue
-            elif lower_cmd == "clear":
+            elif lower_cmd in ["clear", "c"]:
                 console.clear()
                 continue
-            elif lower_cmd in ["proxima", "next"]:
+            elif lower_cmd in ["proxima", "next", "n", "p"]:
                 nxt = get_next_mission(mission.track_id, mission.id)
                 if nxt:
                     progress.current_track_id, progress.current_mission_id = nxt
@@ -149,7 +149,7 @@ def run_repl():
                     solution_used = False
                     print_mission_card(mission)
                 continue
-            elif lower_cmd == "reset":
+            elif lower_cmd in ["reset", "r"]:
                 state.reset_all()
                 if mission.initial_setup:
                     mission.initial_setup(state)
@@ -321,24 +321,25 @@ def show_doctor() -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="⚡ DevOpsHeroCLI: Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal"
+        prog="dh",
+        description="⚡ DevOpsHeroCLI (dh): Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal",
     )
-    parser.add_argument("-v", "--version", action="version", version="devopsherocli 1.0.0")
+    parser.add_argument("-v", "--version", action="version", version="devopsherocli 1.0.0 (dh)")
     subparsers = parser.add_subparsers(dest="command")
 
-    tui_p = subparsers.add_parser("tui", help="Inicia a interface visual completa (Padrão)")
-    tui_p.add_argument("--track", help="ID da trilha inicial (ex: linux, git, docker, k8s, aws, terraform, datadog)")
-    tui_p.add_argument("--mission", help="ID da missão inicial (ex: linux-01, docker-05)")
+    tui_p = subparsers.add_parser("tui", aliases=["t"], help="Interface visual completa (Padrão: basta digitar 'dh')")
+    tui_p.add_argument("--track", "-t", help="ID da trilha inicial (ex: linux, git, docker, k8s, aws, terraform, datadog)")
+    tui_p.add_argument("--mission", "-m", help="ID da missão inicial (ex: linux-01, docker-05)")
 
-    repl_p = subparsers.add_parser("repl", help="Inicia modo linha de comando interativo rápido")
-    repl_p.add_argument("--track", help="ID da trilha inicial")
-    repl_p.add_argument("--mission", help="ID da missão inicial")
+    repl_p = subparsers.add_parser("repl", aliases=["r"], help="Modo REPL rápido direto na linha de comando (dh r)")
+    repl_p.add_argument("--track", "-t", help="ID da trilha inicial")
+    repl_p.add_argument("--mission", "-m", help="ID da missão inicial")
 
-    subparsers.add_parser("stats", help="Exibe seu nível, XP e streak")
-    subparsers.add_parser("list", help="Lista todas as trilhas e missões")
-    subparsers.add_parser("reset", help="Reseta todo o progresso do usuário")
-    subparsers.add_parser("verify", help="Executa auto-diagnóstico de integridade de todas as missões")
-    subparsers.add_parser("doctor", help="Verifica compatibilidade de SO, terminal, encoding e PowerShell")
+    subparsers.add_parser("stats", aliases=["s", "stat"], help="Exibe seu nível, XP e streak (dh s)")
+    subparsers.add_parser("list", aliases=["l", "ls"], help="Lista todas as trilhas e missões (dh l)")
+    subparsers.add_parser("reset", aliases=["clean"], help="Reseta todo o progresso do usuário (dh reset)")
+    subparsers.add_parser("verify", aliases=["v", "check"], help="Executa auto-diagnóstico de todas as missões (dh v)")
+    subparsers.add_parser("doctor", aliases=["d", "doc"], help="Verifica compatibilidade de SO e terminal (dh d)")
 
     args = parser.parse_args()
 
@@ -350,21 +351,22 @@ def main():
             progress.current_mission_id = args.mission
         progress.save()
 
-    if args.command == "repl":
+    cmd = args.command
+    if cmd in ("repl", "r"):
         run_repl()
-    elif args.command == "stats":
+    elif cmd in ("stats", "s", "stat"):
         show_stats()
-    elif args.command == "list":
+    elif cmd in ("list", "l", "ls"):
         list_tracks()
-    elif args.command == "reset":
+    elif cmd in ("reset", "clean"):
         progress = UserProgress()
         progress.reset_progress()
         console.print("[bold red]🧹 Progresso resetado com sucesso![/]")
-    elif args.command == "verify":
+    elif cmd in ("verify", "v", "check"):
         success = verify_missions()
         if not success:
             sys.exit(1)
-    elif args.command == "doctor":
+    elif cmd in ("doctor", "d", "doc"):
         show_doctor()
     else:
         # Default: Launch rich Textual TUI

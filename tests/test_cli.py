@@ -63,6 +63,11 @@ class TestDevOpsHeroCLI(unittest.TestCase):
         with patch.object(sys, "argv", ["devopsherocli", "doctor"]):
             main()
 
+    def test_cli_main_short_aliases(self):
+        for alias in ["s", "l", "v", "d"]:
+            with patch.object(sys, "argv", ["dh", alias]):
+                main()
+
 
 if __name__ == "__main__":
     unittest.main()

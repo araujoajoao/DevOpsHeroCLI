@@ -1,35 +1,43 @@
-.PHONY: all run repl test install docker clean help
+.PHONY: all run repl test install docker clean help r s l v d
 
 help:
-	@echo "⚡ DevOpsHeroCLI - Comandos de Apoio"
-	@echo "  make run       - Inicia a interface TUI completa"
-	@echo "  make repl      - Inicia o modo REPL rápido via terminal"
-	@echo "  make test      - Executa os testes unitários"
-	@echo "  make install   - Configura o ambiente virtual e instala dependências"
-	@echo "  make docker    - Constrói e roda a imagem Docker interativa"
-	@echo "  make clean     - Remove caches, .venv e arquivos temporários"
+	@echo "⚡ DevOpsHeroCLI (dh) - Atalhos de Execução Rápida"
+	@echo "  make (ou make run) - Inicia a interface visual completa (./dh)"
+	@echo "  make r             - Inicia o modo REPL rápido (./dh r)"
+	@echo "  make s             - Exibe estatísticas e XP do perfil (./dh s)"
+	@echo "  make l             - Lista o catálogo das 80 missões (./dh l)"
+	@echo "  make v             - Executa validação de todas as missões (./dh v)"
+	@echo "  make d             - Diagnóstico de SO e compatibilidade (./dh d)"
+	@echo "  make test          - Executa a suíte de testes unitários"
+	@echo "  make docker        - Executa em contêiner Docker isolado"
+	@echo "  make clean         - Limpa arquivos temporários e caches"
 
 install:
-	./devopshero.sh --help >/dev/null
+	./dh --help >/dev/null
 
 run:
-	./devopshero.sh
+	./dh
 
-repl:
-	./devopshero.sh repl
+r repl:
+	./dh r
+
+s stats:
+	./dh s
+
+l list:
+	./dh l
+
+d doctor:
+	./dh d
+
+v verify:
+	./dh v
 
 test:
 	@if [ -d ".venv" ]; then \
 		.venv/bin/python -m unittest discover tests; \
 	else \
 		python3 -m unittest discover tests; \
-	fi
-
-verify:
-	@if [ -d ".venv" ]; then \
-		.venv/bin/python -m devopsherocli.cli verify; \
-	else \
-		python3 -m devopsherocli.cli verify; \
 	fi
 
 docker:

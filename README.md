@@ -48,9 +48,9 @@ Diferente de quizzes com múltipla escolha ou tutoriais estáticos, o **DevOpsHe
 
 Garantido para funcionar no **macOS**, **Linux** ou **Windows (WSL / CMD)**:
 
-### Opção 1: Inicialização Automática (Recomendada — macOS / Linux / WSL)
+### Opção 1: Atalho Ultra-Rápido `dh` (Recomendado — macOS / Linux / WSL)
 
-Basta clonar e executar o script. Ele detecta seu Python, cria o ambiente virtual `.venv` e instala tudo automaticamente:
+O DevOpsHeroCLI inclui o atalho oficial de **2 letras** (`./dh` ou `dh`) para máxima velocidade de digitação:
 
 ```bash
 # 1. Clonar o repositório
@@ -58,7 +58,10 @@ git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
 
 # 2. Executar (tudo é configurado no primeiro run)
-./devopshero.sh
+./dh          # Inicia a Interface TUI Completa imediatamente
+./dh r        # Modo Prompt REPL Rápido
+./dh s        # Estatísticas e XP acumulado
+./dh l        # Catálogo de missões
 ```
 
 ### Opção 2: Modo Linha de Comando Rápido (REPL)
@@ -66,44 +69,41 @@ cd DevOpsHeroCLI
 Prefere praticar sem a interface visual dividida, direto no terminal com histórico e autocomplete?
 
 ```bash
-./devopshero.sh repl
+./dh r
 ```
 
 ### Opção 3: Windows Nativo (PowerShell & CMD)
 
-O **DevOpsHeroCLI** é 100% compatível com qualquer terminal no Windows:
+O **DevOpsHeroCLI** é 100% compatível com qualquer terminal no Windows com atalhos curtos:
 
 ```powershell
 # No PowerShell (com Easter Egg humorístico exclusivo! 😉)
 git clone https://github.com/araujoajoao/DevOpsHeroCLI.git
 cd DevOpsHeroCLI
-.\devopshero.ps1
+.\dh.ps1        # Interface Completa
+.\dh.ps1 r      # Modo REPL Rápido
 
 # Ou no Prompt de Comando clássico (CMD):
-devopshero.bat
+dh.bat
+dh.bat r
 ```
 
 > [!TIP]
-> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\devopshero.ps1` ou `devopshero repl`) para ver uma mensagem carinhosa sobre a sua escolha de "terminal"! 😂
+> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\dh.ps1` ou `dh r`) para ver uma mensagem carinhosa sobre a sua escolha de "terminal"! 😂
 
-### Opção 4: WSL (Windows Subsystem for Linux) ou macOS / Linux
+### Opção 4: Instalação no Sistema via Pip
 
-Em qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch) ou macOS com iTerm2/Terminal.app:
-
-```bash
-./devopshero.sh
-```
-
-### Opção 5: Instalação Manual com Pip
+Ao instalar via pip com o ambiente ativado, o binário global **`dh`** fica disponível em qualquer pasta:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate  # No Windows: .venv\Scripts\activate
 pip install -e .
 
-devopshero          # Interface visual completa
-devopshero repl     # Modo prompt interativo
-devopshero doctor   # Diagnóstico de SO e compatibilidade
+dh          # Interface visual completa
+dh r        # Modo prompt interativo rápido
+dh s        # Estatísticas do perfil e XP
+dh d        # Diagnóstico de SO e compatibilidade
 ```
 
 ---
@@ -123,18 +123,33 @@ docker run -it --rm devopshero
 
 ---
 
-## 🧭 Comandos do CLI
+## 🧭 Comandos do CLI (Digitação Rápida)
 
-| Comando | Descrição |
-|---|---|
-| `./devopshero.sh` ou `devopshero tui` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
-| `./devopshero.sh repl` ou `devopshero repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
-| `./devopshero.sh doctor` ou `devopshero doctor` | **Diagnóstico de SO & Terminal**: Inspeciona compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
-| `./devopshero.sh verify` ou `devopshero verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
-| `./devopshero.sh list` ou `devopshero list` | Exibe o catálogo completo das **80 missões** e quais você já concluiu. |
-| `./devopshero.sh stats` ou `devopshero stats` | Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
-| `./devopshero.sh reset` ou `devopshero reset` | Restaura seu progresso caso deseje reiniciar a jornada do zero. |
-| `devopshero --version` | Exibe a versão instalada do DevOpsHeroCLI. |
+| Atalho Ultra-Rápido | Comando Completo | Descrição |
+|---|---|---|
+| **`dh`** | `./devopshero.sh` ou `devopshero` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
+| **`dh r`** | `./devopshero.sh repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
+| **`dh l`** | `./devopshero.sh list` | **Catálogo de Missões**: Lista todas as **80 missões** e status concluído/pendente. |
+| **`dh s`** | `./devopshero.sh stats` | **Perfil & Estatísticas**: Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
+| **`dh v`** | `./devopshero.sh verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
+| **`dh d`** | `./devopshero.sh doctor` | **Diagnóstico de SO & Terminal**: Inspeciona compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
+| **`dh reset`** | `./devopshero.sh reset` | **Reset de Progresso**: Restaura seu progresso caso deseje reiniciar a jornada do zero. |
+| **`dh -v`** | `devopshero --version` | Exibe a versão instalada do DevOpsHeroCLI. |
+
+---
+
+## ⚡ Atalhos de 1 Letra no Modo REPL (Em Jogo)
+
+Durante o treinamento interativo, digite apenas uma letra para ações frequentes:
+
+| Letra / Atalho | Comando Longo | Ação no Treinamento |
+|:---:|---|---|
+| **`d`** | `dica` / `hint` | Solicita uma dica prática da missão atual (-XP) |
+| **`s`** | `solucao` / `gabarito` | Revela a solução da missão (zera XP e quebra streak) |
+| **`n`** | `proxima` / `next` | Avança para o próximo desafio disponível |
+| **`r`** | `reset` | Restaura o ambiente do laboratório da missão atual |
+| **`c`** | `clear` | Limpa a tela do terminal |
+| **`q`** | `sair` / `exit` | Salva o progresso e encerra a sessão |
 
 ---
 
