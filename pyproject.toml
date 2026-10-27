@@ -27,7 +27,11 @@ keywords = [
     "simulator",
     "education",
     "gamification",
-    "terminal"
+    "terminal",
+    "iterm2",
+    "oh-my-zsh",
+    "interactive-tutorial",
+    "learning-by-doing"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
