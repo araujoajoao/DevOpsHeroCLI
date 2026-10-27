@@ -267,14 +267,15 @@ make test
 
 ---
 
-## 🤝 Contribuições
+## 🤝 Contribuições & Boas Práticas de Git
 
-Contribuições são super bem-vindas!
-1. Faça um Fork do projeto
-2. Crie sua branch de funcionalidade (`git checkout -b feature/nova-trilha`)
-3. Commit suas alterações (`git commit -m 'feat: adiciona nova trilha de Terraform'`)
-4. Faça o push para a branch (`git push origin feature/nova-trilha`)
-5. Abra um Pull Request
+Contribuições são super bem-vindas! Para garantir a estabilidade e qualidade contínua da ferramenta, a branch `main` possui **Branch Protection ativado** no GitHub (bloqueio de pushes diretos e force-pushes).
+
+1. Leia nosso guia completo de boas práticas em [CONTRIBUTING.md](CONTRIBUTING.md).
+2. Crie uma branch temática a partir da `main` (`git checkout -b feat/nova-trilha` ou `fix/nome-do-bug`).
+3. Siga o padrão de Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`).
+4. Execute os testes locais (`make test` ou `python3 -m unittest discover tests`).
+5. Abra um Pull Request utilizando nosso [modelo padrão](.github/pull_request_template.md).
 
 ---
 
