@@ -63,3 +63,15 @@ Issues = "https://github.com/araujoajoao/DevOpsHeroCLI/issues"
 [project.scripts]
 devopsherocli = "devopsherocli.cli:main"
 devopshero = "devopsherocli.cli:main"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -4,7 +4,7 @@ from __future__ import annotations
 import posixpath
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 
 @dataclass
@@ -51,7 +51,7 @@ class LinuxSimulator:
         self.processes.clear()
 
         # Skeleton dirs
-        for d in ["/bin", "/etc", "/var", "/var/log", "/home", "/home/devops", "/app", "/tmp", "/usr/bin"]:
+        for d in ["/bin", "/etc", "/var", "/var/log", "/home", "/home/devops", "/app", "/tmp", "/usr/bin"]:  # nosec B108
             self._mkdir_p(d)
 
         # Starter files
@@ -170,7 +170,7 @@ class LinuxSimulator:
         parent_dir = posixpath.dirname(norm)
         filename = posixpath.basename(norm)
         parent_node = self._mkdir_p(parent_dir)
-        
+
         if filename in parent_node.children:
             node = parent_node.children[filename]
             if mode == "a":
@@ -200,13 +200,13 @@ class LinuxSimulator:
     def ls(self, args: List[str]) -> str:
         show_all = any(a in ["-a", "-la", "-al", "-lha", "-lah"] for a in args)
         long_format = any(a in ["-l", "-la", "-al", "-lh", "-lha", "-lah"] for a in args)
-        
+
         target_paths = [a for a in args if not a.startswith("-")]
         target = target_paths[0] if target_paths else self.cwd
         node = self._get_node(target)
         if not node:
             return f"ls: cannot access '{target}': No such file or directory"
-        
+
         if not node.is_dir:
             if long_format:
                 return f"{node.perms} 1 {node.owner} {node.group} {len(node.content):>6} Oct 26 12:00 {node.name}"
@@ -233,7 +233,7 @@ class LinuxSimulator:
                     perms = child.perms
                     size = 4096 if child.is_dir else len(child.content)
                     owner, group = child.owner, child.group
-                
+
                 # Format name with color indicator
                 disp_name = f"[bold cyan]{name}/[/]" if (name in [".", ".."] or node.children.get(name, node).is_dir) else name
                 lines.append(f"{perms} 1 {owner:<8} {group:<8} {size:>6} Oct 26 12:00 {disp_name}")
@@ -403,7 +403,7 @@ class LinuxSimulator:
             return "rm: missing operand"
         recursive = any(a in ["-r", "-rf", "-fr", "-R"] for a in args)
         targets = [a for a in args if not a.startswith("-")]
-        
+
         for target in targets:
             norm = self._resolve_path(target)
             if norm == "/":
@@ -545,7 +545,8 @@ class LinuxSimulator:
         )
 
     def curl(self, args: List[str]) -> str:
-        target = args[-1] if args else ""
+        if not args:
+            return "curl: try 'curl --help' for more information"
         if "-I" in args or "--head" in args:
             return (
                 "HTTP/1.1 200 OK\n"

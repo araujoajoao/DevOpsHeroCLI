@@ -5,7 +5,7 @@ import json
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from typing import Any, Callable, List, Optional, Set, Tuple
 
 
 @dataclass
@@ -83,7 +83,10 @@ class UserProgress:
     def __init__(self, storage_path: Optional[Path] = None):
         if storage_path is None:
             config_dir = Path.home() / ".devopsherocli"
-            config_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                config_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
+            except OSError:
+                config_dir.mkdir(parents=True, exist_ok=True)
             self.storage_path = config_dir / "progress.json"
         else:
             self.storage_path = storage_path
@@ -228,35 +231,54 @@ class UserProgress:
         self.save()
 
     def save(self):
+        """Atomically saves progress state to disk with secure permissions."""
         try:
             data = {
-                "xp": self.xp,
-                "streak": self.streak,
-                "max_streak": self.max_streak,
-                "completed_missions": list(self.completed_missions),
-                "current_track_id": self.current_track_id,
-                "current_mission_id": self.current_mission_id,
-                "command_history": self.command_history[-100:],
+                "xp": int(self.xp),
+                "streak": int(self.streak),
+                "max_streak": int(self.max_streak),
+                "completed_missions": sorted(list(self.completed_missions)),
+                "current_track_id": str(self.current_track_id),
+                "current_mission_id": str(self.current_mission_id),
+                "command_history": [str(c) for c in self.command_history[-100:]],
             }
-            with open(self.storage_path, "w", encoding="utf-8") as f:
+            parent = self.storage_path.parent
+            parent.mkdir(parents=True, exist_ok=True)
+            tmp_path = parent / f".{self.storage_path.name}.tmp"
+
+            with open(tmp_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
-        except Exception:
+
+            try:
+                os.chmod(tmp_path, 0o600)
+            except OSError:
+                pass
+
+            os.replace(tmp_path, self.storage_path)
+        except (OSError, TypeError, ValueError):
             pass
 
     def load(self):
+        """Loads and safely validates progress state from storage."""
         if not self.storage_path.exists():
             return
         try:
             with open(self.storage_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                self.xp = data.get("xp", 0)
-                self.streak = data.get("streak", 0)
-                self.max_streak = data.get("max_streak", 0)
-                self.completed_missions = set(data.get("completed_missions", []))
-                self.current_track_id = data.get("current_track_id", "linux")
-                self.current_mission_id = data.get("current_mission_id", "linux-01")
-                self.command_history = data.get("command_history", [])
-        except Exception:
+            if not isinstance(data, dict):
+                return
+            self.xp = max(0, int(data.get("xp", 0)))
+            self.streak = max(0, int(data.get("streak", 0)))
+            self.max_streak = max(self.streak, int(data.get("max_streak", 0)))
+            raw_completed = data.get("completed_missions", [])
+            if isinstance(raw_completed, (list, set, tuple)):
+                self.completed_missions = {str(m) for m in raw_completed if isinstance(m, (str, int))}
+            self.current_track_id = str(data.get("current_track_id", "linux"))
+            self.current_mission_id = str(data.get("current_mission_id", "linux-01"))
+            raw_hist = data.get("command_history", [])
+            if isinstance(raw_hist, list):
+                self.command_history = [str(c) for c in raw_hist if isinstance(c, str)]
+        except (OSError, json.JSONDecodeError, TypeError, ValueError):
             pass
 
     def reset_progress(self):

@@ -106,9 +106,11 @@ docker run -it --rm devopshero
 |---|---|
 | `./devopshero.sh` ou `./devopshero.sh tui` | **Interface TUI Completa**: Tela dividida com card de missão, barra de XP, streak e terminal. |
 | `./devopshero.sh repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
+| `./devopshero.sh verify` | **Diagnóstico de Integridade**: Executa auto-teste em sandbox validando todas as **80 missões**. |
 | `./devopshero.sh list` | Exibe o catálogo completo das **80 missões** e quais você já concluiu. |
 | `./devopshero.sh stats` | Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
 | `./devopshero.sh reset` | Restaura seu progresso caso deseje reiniciar a jornada do zero. |
+| `devopshero --version` | Exibe a versão instalada do DevOpsHeroCLI. |
 
 ---
 
@@ -257,12 +259,14 @@ docker run -it --rm devopshero
 
 ## 🧪 Testes Automatizados
 
-Para executar a suíte completa de testes unitários:
+Para executar a suíte completa de testes unitários e de integração:
 
 ```bash
 make test
+# Ou diagnóstico completo de integridade das 80 missões:
+make verify
 # Ou diretamente via Python:
-.venv/bin/python -m unittest tests/test_simulators.py
+.venv/bin/python -m unittest discover tests
 ```
 
 ---

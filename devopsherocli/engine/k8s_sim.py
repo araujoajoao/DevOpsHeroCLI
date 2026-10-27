@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Dict, List, Tuple
 
 
 @dataclass
@@ -256,6 +256,10 @@ class KubernetesSimulator:
                 i += 1
             i += 1
 
+        pod_labels = {"run": pod_name}
+        if "port" in locals() and port:
+            pod_labels["port"] = port
+
         pod = K8sPod(
             name=pod_name,
             namespace=ns,
@@ -265,7 +269,7 @@ class KubernetesSimulator:
             restarts=0,
             age="1s",
             ip=f"10.244.1.{random.randint(10, 99)}",
-            labels={"run": pod_name},
+            labels=pod_labels,
             logs=[f"Starting {pod_name} container with image {image}", "Ready for requests."],
         )
         self.pods[pod_name] = pod

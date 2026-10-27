@@ -20,9 +20,16 @@ repl:
 
 test:
 	@if [ -d ".venv" ]; then \
-		.venv/bin/python -m unittest tests/test_simulators.py; \
+		.venv/bin/python -m unittest discover tests; \
 	else \
-		python3 -m unittest tests/test_simulators.py; \
+		python3 -m unittest discover tests; \
+	fi
+
+verify:
+	@if [ -d ".venv" ]; then \
+		.venv/bin/python -m devopsherocli.cli verify; \
+	else \
+		python3 -m devopsherocli.cli verify; \
 	fi
 
 docker:

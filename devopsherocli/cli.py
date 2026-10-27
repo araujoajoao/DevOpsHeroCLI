@@ -4,9 +4,7 @@ from __future__ import annotations
 import argparse
 import sys
 import time
-from typing import Optional
 
-from rich import print as rprint
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -21,10 +19,11 @@ console = Console()
 def run_repl():
     """Runs DevOpsHeroCLI in lightweight inline REPL mode using prompt_toolkit and Rich."""
     try:
+        from pathlib import Path
+
         from prompt_toolkit import PromptSession
         from prompt_toolkit.completion import WordCompleter
         from prompt_toolkit.history import FileHistory
-        from pathlib import Path
 
         hist_path = Path.home() / ".devopsherocli" / "history.txt"
         hist_path.parent.mkdir(parents=True, exist_ok=True)
@@ -236,17 +235,79 @@ def list_tracks():
     console.print(table)
 
 
+def verify_missions() -> bool:
+    """Diagnostic self-test that validates all 80 missions in isolated sandbox mode."""
+    table = Table(title="🔍 Diagnóstico de Integridade — DevOpsHeroCLI", border_style="cyan")
+    table.add_column("Trilha", style="bold cyan", width=24)
+    table.add_column("Missões", justify="center", width=10)
+    table.add_column("Status", width=15)
+    table.add_column("Observações", style="dim")
+
+    all_passed = True
+    for track in ALL_TRACKS:
+        passed = 0
+        failed_names = []
+        for m in track.missions:
+            executor = CommandExecutor()
+            if m.initial_setup:
+                m.initial_setup(executor.state)
+            out = executor.execute_command_string(m.solution)
+            if m.check_completion:
+                ok, _ = m.check_completion(executor.state, m.solution, out)
+                if ok:
+                    passed += 1
+                else:
+                    failed_names.append(m.id)
+            else:
+                passed += 1
+
+        if not failed_names:
+            status = "[bold green]✓ 100% OK[/]"
+            notes = "Todas as soluções validadas"
+        else:
+            all_passed = False
+            status = f"[bold red]✗ {len(failed_names)} falhas[/]"
+            notes = f"Falhas: {', '.join(failed_names)}"
+
+        table.add_row(f"{track.icon} {track.name}", f"{passed}/{len(track.missions)}", status, notes)
+
+    console.print(table)
+    if all_passed:
+        console.print("[bold green]✅ Todas as 80 missões foram verificadas e validadas com sucesso![/]")
+    else:
+        console.print("[bold red]❌ Foram encontradas inconsistências nas missões.[/]")
+    return all_passed
+
+
 def main():
-    parser = argparse.ArgumentParser(description="⚡ DevOpsHeroCLI: Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal")
+    parser = argparse.ArgumentParser(
+        description="⚡ DevOpsHeroCLI: Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal"
+    )
+    parser.add_argument("-v", "--version", action="version", version="devopsherocli 1.0.0")
     subparsers = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser("tui", help="Inicia a interface visual completa (Padrão)")
-    subparsers.add_parser("repl", help="Inicia modo linha de comando interativo rápido")
+    tui_p = subparsers.add_parser("tui", help="Inicia a interface visual completa (Padrão)")
+    tui_p.add_argument("--track", help="ID da trilha inicial (ex: linux, git, docker, k8s, aws, terraform, datadog)")
+    tui_p.add_argument("--mission", help="ID da missão inicial (ex: linux-01, docker-05)")
+
+    repl_p = subparsers.add_parser("repl", help="Inicia modo linha de comando interativo rápido")
+    repl_p.add_argument("--track", help="ID da trilha inicial")
+    repl_p.add_argument("--mission", help="ID da missão inicial")
+
     subparsers.add_parser("stats", help="Exibe seu nível, XP e streak")
     subparsers.add_parser("list", help="Lista todas as trilhas e missões")
     subparsers.add_parser("reset", help="Reseta todo o progresso do usuário")
+    subparsers.add_parser("verify", help="Executa auto-diagnóstico de integridade de todas as missões")
 
     args = parser.parse_args()
+
+    if getattr(args, "track", None) or getattr(args, "mission", None):
+        progress = UserProgress()
+        if args.track:
+            progress.current_track_id = args.track
+        if args.mission:
+            progress.current_mission_id = args.mission
+        progress.save()
 
     if args.command == "repl":
         run_repl()
@@ -258,6 +319,10 @@ def main():
         progress = UserProgress()
         progress.reset_progress()
         console.print("[bold red]🧹 Progresso resetado com sucesso![/]")
+    elif args.command == "verify":
+        success = verify_missions()
+        if not success:
+            sys.exit(1)
     else:
         # Default: Launch rich Textual TUI
         from devopsherocli.app import launch_app

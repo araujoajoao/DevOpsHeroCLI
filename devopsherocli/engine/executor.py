@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import shlex
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 from devopsherocli.engine.aws_sim import AwsSimulator
 from devopsherocli.engine.datadog_sim import DatadogSimulator

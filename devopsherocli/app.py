@@ -1,22 +1,18 @@
 """Main Textual TUI Application for DevOpsHeroCLI."""
 from __future__ import annotations
 
-import os
 import time
 from typing import Optional
 
-from rich.panel import Panel
-from rich.table import Table
+from rich.markup import escape
 from rich.text import Text
 from textual import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Container, Horizontal, Vertical, VerticalScroll
+from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import (
     Button,
-    Footer,
-    Header,
     Input,
     Label,
     ProgressBar,
@@ -25,7 +21,7 @@ from textual.widgets import (
 )
 
 from devopsherocli.engine.executor import CommandExecutor, EnvironmentState
-from devopsherocli.models import Mission, Track, UserProgress
+from devopsherocli.models import Mission, UserProgress
 from devopsherocli.tracks import ALL_TRACKS, TRACKS_MAP, get_mission, get_next_mission
 
 
@@ -116,7 +112,7 @@ class DevOpsHeroApp(App):
                     yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
                     yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
                     yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
-                
+
                 yield Label("📖 CENÁRIO DO MUNDO REAL:", classes="section-label")
                 yield Static("", id="box-context", classes="context-box")
 
@@ -161,7 +157,7 @@ class DevOpsHeroApp(App):
         track_id = self.progress.current_track_id
         mission_id = self.progress.current_mission_id
         self.current_mission = get_mission(track_id, mission_id) or ALL_TRACKS[0].missions[0]
-        
+
         # Execute setup if any
         if self.current_mission.initial_setup:
             self.current_mission.initial_setup(self.state)
@@ -266,7 +262,7 @@ class DevOpsHeroApp(App):
 
         # Print prompt line in authentic Oh My Zsh style
         prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
-        log.write(f"{prompt_markup}[bold #ffffff]{cmd_text}[/]")
+        log.write(f"{prompt_markup}[bold #ffffff]{escape(cmd_text)}[/]")
 
         # Handle built-in meta commands
         lower_cmd = cmd_text.lower()
@@ -323,7 +319,10 @@ class DevOpsHeroApp(App):
         # Execute in simulated engine
         output = self.executor.execute_command_string(cmd_text)
         if output:
-            log.write(output)
+            try:
+                log.write(output)
+            except Exception:
+                log.write(Text(output))
             low_out = output.lower()
             if "command not found" in low_out or "error" in low_out or "fatal" in low_out:
                 self.last_command_success = False
@@ -346,20 +345,20 @@ class DevOpsHeroApp(App):
                     solution_used=self.solution_used,
                 )
                 self.update_header_stats()
-                
+
                 # Bell ring & celebratory banner
                 self.bell()
                 log.write("")
                 log.write("[bold #30d158]╭─────────────────────────────────────────────────────────────────╮[/]")
-                log.write(f"[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]")
+                log.write("[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]")
                 log.write(f"[bold #30d158]│[/] [bold #ffd60a]+{award.xp} XP Conquistados![/] · {award.tier_name}")
                 log.write(f"[bold #30d158]│[/] ⏱️ [bold cyan]Tempo:[/] {elapsed}s  │  💡 [bold yellow]Dicas:[/] {self.tips_used}  │  🔥 [bold #ff453a]Streak:[/] {self.progress.streak} (+{award.streak_bonus_pct}%)")
                 if award.is_ninja:
-                    log.write(f"[bold #30d158]│[/] [bold #30d158]⚡ 100% DOS PONTOS! Executado em <5s sem dicas ou cola de IA![/]")
+                    log.write("[bold #30d158]│[/] [bold #30d158]⚡ 100% DOS PONTOS! Executado em <5s sem dicas ou cola de IA![/]")
                 elif self.tips_used > 0:
                     log.write(f"[bold #30d158]│[/] [dim yellow]⚠️ Dicas utilizadas: Pontuação reduzida ({int(award.factor*100)}% de XP).[/]")
                 elif elapsed > 5.0:
-                    log.write(f"[bold #30d158]│[/] [dim]ℹ️ Tempo > 5s: 70% de XP (Regra anti-cola de Google/IA).[/]")
+                    log.write("[bold #30d158]│[/] [dim]ℹ️ Tempo > 5s: 70% de XP (Regra anti-cola de Google/IA).[/]")
                 log.write("[bold #30d158]╰─────────────────────────────────────────────────────────────────╯[/]")
                 log.write("[dim]Avançando para a próxima missão...[/]\n")
 

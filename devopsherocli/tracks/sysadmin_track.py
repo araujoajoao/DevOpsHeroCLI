@@ -46,7 +46,7 @@ def check_sys06(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]
 
 
 def check_sys07(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
-    node = state.linux._get_node("/tmp/app-backup.tar.gz")
+    node = state.linux._get_node("/tmp/app-backup.tar.gz")  # nosec B108 - simulated path
     if node is not None:
         return True, "Arquivo compactado .tar.gz gerado com sucesso em /tmp/app-backup.tar.gz!"
     return False, "Gere o arquivo com 'tar -czvf /tmp/app-backup.tar.gz /app'."
@@ -62,6 +62,18 @@ def check_sys09(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]
     if cmd.strip() == "uptime":
         return True, "Uptime e Load Average analisados com sucesso!"
     return False, "Execute 'uptime' para verificar o tempo de atividade da máquina."
+
+
+def setup_sys10(state: EnvironmentState):
+    if "deployer" not in state.linux.users:
+        state.linux.users["deployer"] = {
+            "uid": 1002,
+            "gid": 1002,
+            "home": "/home/deployer",
+            "shell": "/bin/bash",
+            "groups": ["deployer"],
+        }
+        state.linux._mkdir_p("/home/deployer")
 
 
 def check_sys10(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
@@ -195,6 +207,7 @@ SYSADMIN_TRACK = Track(
             objective="Adicione o usuário `deployer` ao grupo `sudo` usando `usermod -aG sudo deployer`.",
             tip="Use `usermod -aG sudo deployer`.",
             solution="usermod -aG sudo deployer",
+            initial_setup=setup_sys10,
             check_completion=check_sys10,
         ),
     ],

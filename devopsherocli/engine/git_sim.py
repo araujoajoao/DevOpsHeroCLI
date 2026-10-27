@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set
+from dataclasses import dataclass
+from typing import Dict, List, Set
 
 
 @dataclass
@@ -142,7 +142,7 @@ class GitSimulator:
 
         # Generate fake commit hash
         import hashlib
-        short_hash = hashlib.sha1(f"{message}{time.time()}".encode()).hexdigest()[:7]
+        short_hash = hashlib.sha1(f"{message}{time.time()}".encode(), usedforsecurity=False).hexdigest()[:7]
         committed_files = list(self.staged_files)
         commit_obj = GitCommit(
             hash_id=short_hash,
@@ -241,10 +241,10 @@ class GitSimulator:
             return f"merge: {target} - not something we can merge"
 
         return (
-            f"Updating 3d2f1a0..7c8e9b1\n"
-            f"Fast-forward\n"
-            f" app.py | 14 +++++++++++++-\n"
-            f" 1 file changed, 13 insertions(+), 1 deletion(-)"
+            "Updating 3d2f1a0..7c8e9b1\n"
+            "Fast-forward\n"
+            " app.py | 14 +++++++++++++-\n"
+            " 1 file changed, 13 insertions(+), 1 deletion(-)"
         )
 
     def log(self, args: List[str]) -> str:

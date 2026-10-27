@@ -26,6 +26,11 @@ def check_d03(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
     return False, "Obtenha os logs do contêiner 'postgres-db'."
 
 
+def setup_web_server(state: EnvironmentState):
+    if not state.docker._find_container("web-server"):
+        state.docker.execute(["run", "-d", "--name", "web-server", "-p", "8080:80", "nginx:alpine"])
+
+
 def check_d04(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
     if "docker exec" in cmd and "web-server" in cmd and "env" in cmd:
         return True, "Perfeito! Você executou uma instrução diretamente dentro do namespace do contêiner."
@@ -122,6 +127,7 @@ DOCKER_TRACK = Track(
             objective="Execute a listagem das variáveis de ambiente ('env') dentro do contêiner ativo 'web-server' sem abrir uma sessão interativa manual.",
             tip="Use 'docker exec web-server env'.",
             solution="docker exec web-server env",
+            initial_setup=setup_web_server,
             check_completion=check_d04,
         ),
         Mission(
@@ -134,6 +140,7 @@ DOCKER_TRACK = Track(
             objective="Interrompa a execução do contêiner 'web-server'.",
             tip="Use 'docker stop web-server'.",
             solution="docker stop web-server",
+            initial_setup=setup_web_server,
             check_completion=check_d05,
         ),
         Mission(

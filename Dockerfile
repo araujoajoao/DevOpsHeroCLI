@@ -5,20 +5,24 @@ ENV PYTHONUNBUFFERED=1 \
     TERM=xterm-256color \
     COLORTERM=truecolor
 
-WORKDIR /app
+# Create non-root devops user for security (CIS Benchmark 4.1 / CWE-250)
+RUN groupadd -g 1000 devops && \
+    useradd -u 1000 -g devops -m -s /bin/bash devops
+
+WORKDIR /home/devops/app
 
 # Install dependencies first for fast layer caching
-COPY pyproject.toml requirements.txt README.md /app/
+COPY --chown=devops:devops pyproject.toml requirements.txt README.md /home/devops/app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source code and install
-COPY devopsherocli /app/devopsherocli
-COPY tests /app/tests
+COPY --chown=devops:devops devopsherocli /home/devops/app/devopsherocli
+COPY --chown=devops:devops tests /home/devops/app/tests
 RUN pip install --no-cache-dir -e .
 
-# Create persistent user home
-ENV HOME=/root
-VOLUME ["/root/.devopsherocli"]
+USER devops
+ENV HOME=/home/devops
+VOLUME ["/home/devops/.devopsherocli"]
 
 ENTRYPOINT ["devopsherocli"]
 CMD []

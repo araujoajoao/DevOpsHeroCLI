@@ -2,9 +2,10 @@
 from __future__ import annotations
 
 import unittest
+
 from devopsherocli.engine.executor import CommandExecutor, EnvironmentState
-from devopsherocli.tracks import ALL_TRACKS, get_mission, get_next_mission
-from devopsherocli.models import UserProgress, Mission
+from devopsherocli.models import Mission, UserProgress
+from devopsherocli.tracks import ALL_TRACKS, get_next_mission
 
 
 class TestDevOpsHeroEngine(unittest.TestCase):
@@ -126,6 +127,7 @@ class TestDevOpsHeroEngine(unittest.TestCase):
 
         # Test systemctl enable
         enable_out = self.executor.execute_command_string("systemctl enable nginx")
+        self.assertIn("Created symlink", enable_out)
         self.assertTrue(self.state.linux.services["nginx"]["enabled"])
 
         # Test ss socket inspection
@@ -142,7 +144,7 @@ class TestDevOpsHeroEngine(unittest.TestCase):
         self.assertIn("sudo", self.state.linux.users["deployer"]["groups"])
 
         # Test tar
-        tar_out = self.executor.execute_command_string("tar -czvf /tmp/app-backup.tar.gz /app")
+        self.executor.execute_command_string("tar -czvf /tmp/app-backup.tar.gz /app")
         node = self.state.linux._get_node("/tmp/app-backup.tar.gz")
         self.assertIsNotNone(node)
 
@@ -332,6 +334,142 @@ class TestAntiCheatScoring(unittest.TestCase):
         # 100 * 1.0 * 1.20 = 120 XP
         self.assertEqual(res.xp, 120)
         self.assertEqual(self.progress.streak, 4)
+
+    def test_repeat_mission_awards_half_xp(self):
+        # First completion
+        res1 = self.progress.award_mission(self.mission, elapsed_seconds=2.0, tips_used=0)
+        self.assertEqual(res1.xp, 100)
+        self.assertFalse(res1.is_repeat)
+
+        # Second completion awards half XP
+        res2 = self.progress.award_mission(self.mission, elapsed_seconds=2.0, tips_used=0)
+        self.assertEqual(res2.xp, 50)
+        self.assertTrue(res2.is_repeat)
+
+    def test_high_streak_caps_at_fifty_percent(self):
+        self.progress.streak = 10
+        self.assertEqual(self.progress.get_streak_bonus_pct(), 50)
+
+
+class TestAllEightyMissions(unittest.TestCase):
+
+    def test_all_eighty_missions_isolated_execution(self):
+        """Validates that every single one of the 80 missions passes in clean isolated state."""
+        failed = []
+        for track in ALL_TRACKS:
+            for m in track.missions:
+                executor = CommandExecutor()
+                if m.initial_setup:
+                    m.initial_setup(executor.state)
+                out = executor.execute_command_string(m.solution)
+                if m.check_completion:
+                    ok, feedback = m.check_completion(executor.state, m.solution, out)
+                    if not ok:
+                        failed.append(f"[{track.id}] {m.id}: {m.solution} -> {feedback}")
+        self.assertEqual(len(failed), 0, msg="\n".join(failed))
+
+    def test_all_eighty_missions_sequential_execution(self):
+        """Validates that every single track passes completely when played sequentially."""
+        failed = []
+        for track in ALL_TRACKS:
+            executor = CommandExecutor()
+            for m in track.missions:
+                if m.initial_setup:
+                    m.initial_setup(executor.state)
+                out = executor.execute_command_string(m.solution)
+                if m.check_completion:
+                    ok, feedback = m.check_completion(executor.state, m.solution, out)
+                    if not ok:
+                        failed.append(f"Seq [{track.id}] {m.id}: {m.solution} -> {feedback}")
+        self.assertEqual(len(failed), 0, msg="\n".join(failed))
+
+
+class TestUserProgressStorageResilience(unittest.TestCase):
+
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.storage_file = Path(self.tmp_dir.name) / "progress.json"
+
+    def tearDown(self):
+        self.tmp_dir.cleanup()
+
+    def test_save_and_reload(self):
+        p1 = UserProgress(storage_path=self.storage_file)
+        p1.xp = 450
+        p1.streak = 4
+        p1.max_streak = 7
+        p1.completed_missions = {"linux-01", "linux-02", "git-01"}
+        p1.save()
+
+        # Reload in fresh instance
+        p2 = UserProgress(storage_path=self.storage_file)
+        self.assertEqual(p2.xp, 450)
+        self.assertEqual(p2.streak, 4)
+        self.assertEqual(p2.max_streak, 7)
+        self.assertIn("git-01", p2.completed_missions)
+
+    def test_corrupted_json_recovery(self):
+        # Write invalid corrupted JSON
+        with open(self.storage_file, "w", encoding="utf-8") as f:
+            f.write("CORRUPTED NOT JSON {{{")
+
+        # Loading should not raise exception, but fallback gracefully to defaults
+        p = UserProgress(storage_path=self.storage_file)
+        self.assertEqual(p.xp, 0)
+        self.assertEqual(p.streak, 0)
+        self.assertEqual(len(p.completed_missions), 0)
+
+    def test_corrupted_types_recovery(self):
+        # Write corrupted types in JSON
+        import json
+        with open(self.storage_file, "w", encoding="utf-8") as f:
+            json.dump({"xp": "invalid", "streak": None, "completed_missions": 123}, f)
+
+        # Loading should recover without crash
+        p = UserProgress(storage_path=self.storage_file)
+        self.assertEqual(p.xp, 0)
+        self.assertEqual(p.streak, 0)
+
+
+class TestCommandExecutorEdgeCases(unittest.TestCase):
+
+    def setUp(self):
+        self.state = EnvironmentState()
+        self.executor = CommandExecutor(self.state)
+
+    def test_empty_and_whitespace(self):
+        self.assertEqual(self.executor.execute_command_string(""), "")
+        self.assertEqual(self.executor.execute_command_string("   "), "")
+
+    def test_command_chaining(self):
+        self.executor.execute_command_string("mkdir -p /app/test && touch /app/test/a.txt")
+        node = self.state.linux._get_node("/app/test/a.txt")
+        self.assertIsNotNone(node)
+
+    def test_append_redirect(self):
+        self.executor.execute_command_string("echo line1 > /app/data.txt")
+        self.executor.execute_command_string("echo line2 >> /app/data.txt")
+        node = self.state.linux._get_node("/app/data.txt")
+        self.assertIsNotNone(node)
+        self.assertIn("line1", node.content)
+        self.assertIn("line2", node.content)
+
+    def test_syntax_error_quotes(self):
+        out = self.executor.execute_command_string('echo "unclosed quote')
+        self.assertIn("syntax error", out)
+
+    def test_unknown_command(self):
+        out = self.executor.execute_command_string("nonexistentcommand")
+        self.assertIn("command not found", out)
+
+
+class TestCliDiagnosticVerify(unittest.TestCase):
+
+    def test_verify_all_missions_cli(self):
+        from devopsherocli.cli import verify_missions
+        self.assertTrue(verify_missions())
 
 
 if __name__ == "__main__":

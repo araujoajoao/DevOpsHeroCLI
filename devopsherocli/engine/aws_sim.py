@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Set
 
 
 @dataclass
@@ -77,7 +77,7 @@ class AwsSimulator:
                 for b_name, b in self.buckets.items():
                     lines.append(f"{b.creation_date[:10]} 12:00:00 {b_name}")
                 return "\n".join(lines)
-            
+
             target = sub_args[0].replace("s3://", "").rstrip("/")
             if target in self.buckets:
                 b = self.buckets[target]
@@ -85,7 +85,7 @@ class AwsSimulator:
                 for obj in b.objects:
                     lines.append(f"2026-10-27 10:00:00      142857 {obj}")
                 return "\n".join(lines) if lines else ""
-            return f"fatal error: An error occurred (NoSuchBucket) when calling the ListObjectsV2 operation: The specified bucket does not exist"
+            return "fatal error: An error occurred (NoSuchBucket) when calling the ListObjectsV2 operation: The specified bucket does not exist"
 
         elif sub == "mb":
             if not sub_args:
@@ -269,4 +269,4 @@ class AwsSimulator:
         elif service == "configure":
             return self.configure_cmd(service_args)
 
-        return f"aws: error: argument command: Invalid choice, valid choices are: s3 | ec2 | iam | sts | lambda | configure"
+        return "aws: error: argument command: Invalid choice, valid choices are: s3 | ec2 | iam | sts | lambda | configure"

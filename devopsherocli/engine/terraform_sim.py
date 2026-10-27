@@ -79,7 +79,6 @@ class TerraformSimulator:
         if not self.initialized:
             return "Error: Could not satisfy plugin requirements\nRun 'terraform init' to install required providers."
 
-        auto_approve = "-auto-approve" in args
         self.state_resources.update(self.planned_resources)
         self.outputs["s3_bucket_arn"] = "arn:aws:s3:::company-app-production-data"
         self.outputs["api_server_ip"] = "54.210.12.34"

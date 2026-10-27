@@ -165,7 +165,7 @@ class DatadogSimulator:
             if idx + 1 < len(args):
                 case_id = args[idx + 1]
 
-        flare_filename = f"/tmp/datadog-agent-flare-20261026-{case_id}.zip"
+        flare_filename = f"/tmp/datadog-agent-flare-20261026-{case_id}.zip"  # nosec B108 - simulated path
         self.flares_generated.append(flare_filename)
         return (
             f"Collecting Agent logs, config files, and environment telemetry...\n"

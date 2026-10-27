@@ -33,6 +33,16 @@ def check_k04(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
     return False, "Crie o deployment 'backend-api' com 3 réplicas."
 
 
+def setup_backend_deploy(state: EnvironmentState):
+    if "backend-api" not in state.k8s.deployments:
+        state.k8s.execute(["create", "deployment", "backend-api", "--image=nginx:alpine", "--replicas=3"])
+
+
+def setup_web_pod(state: EnvironmentState):
+    if "web-pod" not in state.k8s.pods:
+        state.k8s.execute(["run", "web-pod", "--image=nginx:alpine"])
+
+
 def check_k05(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
     d = state.k8s.deployments.get("backend-api")
     if d and d.replicas == 5:
@@ -135,6 +145,7 @@ K8S_TRACK = Track(
             objective="Escale a quantidade de réplicas do deployment 'backend-api' para 5 instâncias.",
             tip="Use 'kubectl scale deployment backend-api --replicas=5'.",
             solution="kubectl scale deployment backend-api --replicas=5",
+            initial_setup=setup_backend_deploy,
             check_completion=check_k05,
         ),
         Mission(
@@ -147,6 +158,7 @@ K8S_TRACK = Track(
             objective="Exponha o deployment 'backend-api' através de um Service na porta 80.",
             tip="Use 'kubectl expose deployment backend-api --port=80 --target-port=80'.",
             solution="kubectl expose deployment backend-api --port=80 --target-port=80",
+            initial_setup=setup_backend_deploy,
             check_completion=check_k06,
         ),
         Mission(
@@ -171,6 +183,7 @@ K8S_TRACK = Track(
             objective="Inspecione os detalhes completos e eventos recentes do pod 'web-pod'.",
             tip="Use 'kubectl describe pod web-pod'.",
             solution="kubectl describe pod web-pod",
+            initial_setup=setup_web_pod,
             check_completion=check_k08,
         ),
         Mission(
@@ -183,6 +196,7 @@ K8S_TRACK = Track(
             objective="Exiba os logs gerados pelo pod 'web-pod'.",
             tip="Use 'kubectl logs web-pod'.",
             solution="kubectl logs web-pod",
+            initial_setup=setup_web_pod,
             check_completion=check_k09,
         ),
         Mission(
@@ -195,6 +209,7 @@ K8S_TRACK = Track(
             objective="Remova o pod 'web-pod' do cluster.",
             tip="Use 'kubectl delete pod web-pod'.",
             solution="kubectl delete pod web-pod",
+            initial_setup=setup_web_pod,
             check_completion=check_k10,
         ),
     ],
