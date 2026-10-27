@@ -1,76 +1,93 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- Official Apple macOS App Icon Template (HIG Standard: 824x824 at (100,100), rx=185.4) -->
+    <!-- Outer Apple HIG Squircle Mask (824x824 at (100,100), rx=185.4) -->
     <clipPath id="appleSquircle">
       <rect x="100" y="100" width="824" height="824" rx="185.4" ry="185.4"/>
     </clipPath>
 
-    <!-- macOS Terminal Deep Dark Surface Gradient -->
-    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1c1f26"/>
-      <stop offset="28%" stop-color="#13151b"/>
-      <stop offset="100%" stop-color="#0a0b0e"/>
+    <!-- Brushed Silver Aluminium Bezel Gradient -->
+    <linearGradient id="silverBezelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#eaedf2"/>
+      <stop offset="6%" stop-color="#d8dce4"/>
+      <stop offset="45%" stop-color="#b4b9c2"/>
+      <stop offset="85%" stop-color="#9399a3"/>
+      <stop offset="100%" stop-color="#7c818c"/>
     </linearGradient>
 
-    <!-- Apple HIG Precision Edge Rim (Top highlight, bottom shadow) -->
-    <linearGradient id="appleRimStroke" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
-      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.08"/>
+    <!-- Outer Bezel Precision Highlight Stroke -->
+    <linearGradient id="bezelHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.35"/>
       <stop offset="70%" stop-color="#000000" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.60"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.65"/>
     </linearGradient>
 
-    <!-- Subtle Glass Specular Reflection -->
-    <linearGradient id="glassSheen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/>
-      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.025"/>
-      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.0"/>
+    <!-- Inner Recessed Groove Gradient -->
+    <linearGradient id="grooveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#040506"/>
+      <stop offset="40%" stop-color="#0a0b0e"/>
+      <stop offset="100%" stop-color="#14161a"/>
+    </linearGradient>
+
+    <!-- Matte Terminal Screen Deep Surface Gradient -->
+    <linearGradient id="screenSurfaceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#282a2f"/>
+      <stop offset="30%" stop-color="#202226"/>
+      <stop offset="80%" stop-color="#17181c"/>
+      <stop offset="100%" stop-color="#131417"/>
+    </linearGradient>
+
+    <!-- Screen Glass Rim Inner Highlight -->
+    <linearGradient id="screenRimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="25%" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.75"/>
+    </linearGradient>
+
+    <!-- Subtle Diagonal Specular Reflection across Screen -->
+    <linearGradient id="specularGlint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.02"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.0"/>
     </linearGradient>
   </defs>
 
-  <!-- Main Squircle Body (Clipped strictly to official Apple HIG Squircle) -->
+  <!-- 0. Subtle Apple Drop Shadow underneath Bezel -->
+  <rect x="100" y="116" width="824" height="824" rx="185.4" ry="185.4" fill="#000000" opacity="0.08"/>
+  <rect x="100" y="110" width="824" height="824" rx="185.4" ry="185.4" fill="#000000" opacity="0.14"/>
+  <rect x="100" y="104" width="824" height="824" rx="185.4" ry="185.4" fill="#000000" opacity="0.22"/>
+
+  <!-- Group clipped to official Apple Squircle (100% transparent outside) -->
   <g clip-path="url(#appleSquircle)">
-    <!-- Dark Terminal Canvas filling the exact Apple Squircle -->
-    <rect x="100" y="100" width="824" height="824" fill="url(#bodyGrad)"/>
+    <!-- 1. Outer Aluminium Bezel -->
+    <rect x="100" y="100" width="824" height="824" fill="url(#silverBezelGrad)"/>
+    <!-- Aluminium Bezel Highlight Stroke -->
+    <rect x="100" y="100" width="824" height="824" rx="185.4" ry="185.4" fill="none" stroke="url(#bezelHighlight)" stroke-width="2"/>
 
-    <!-- Subtle Window Header Divider -->
-    <line x1="100" y1="220" x2="924" y2="220" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5"/>
+    <!-- 2. Dark Recessed Inner Groove / Gap -->
+    <rect x="136" y="132" width="752" height="748" rx="150" ry="150" fill="url(#grooveGrad)"/>
+    <rect x="136" y="132" width="752" height="748" rx="150" ry="150" fill="none" stroke="#040506" stroke-width="2"/>
 
-    <!-- macOS Title Bar Controls (Traffic Lights) -->
-    <!-- Red Close -->
-    <circle cx="185" cy="168" r="15" fill="#ff5f56" stroke="#e0443e" stroke-width="1.5"/>
-    <circle cx="181" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
+    <!-- 3. Inner Dark Matte Terminal Screen -->
+    <rect x="154" y="146" width="716" height="710" rx="134" ry="134" fill="url(#screenSurfaceGrad)"/>
+    <rect x="154" y="146" width="716" height="710" rx="134" ry="134" fill="none" stroke="url(#screenRimGrad)" stroke-width="2"/>
 
-    <!-- Yellow Minimize -->
-    <circle cx="235" cy="168" r="15" fill="#ffbd2e" stroke="#dea123" stroke-width="1.5"/>
-    <circle cx="231" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
+    <!-- 4. Subtle Diagonal Screen Specular Glint -->
+    <path d="M 154 220 L 870 500 L 870 146 L 220 146 Z" fill="url(#specularGlint)"/>
 
-    <!-- Green Expand -->
-    <circle cx="285" cy="168" r="15" fill="#27c93f" stroke="#1aab29" stroke-width="1.5"/>
-    <circle cx="281" cy="164" r="5" fill="#ffffff" opacity="0.45"/>
-
-    <!-- macOS Terminal Header Center Tab (Centered at X=512) -->
-    <rect x="412" y="146" width="200" height="44" rx="10" fill="#20242e" stroke="#343a47" stroke-width="1.5"/>
-    <text x="512" y="175" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="18" font-weight="400" fill="#9ca3af" text-anchor="middle" letter-spacing="0.5">zsh · devops</text>
-
-    <!-- Terminal Prompt & Command (Exact Optical & Geometric Centering at X=512, Y=512) -->
+    <!-- 5. Terminal Content (devopsherocli exactly as in current icon, mathematically centered at X=512, Y=503) -->
     <g>
       <!-- Oh My Zsh Green Prompt Arrow -->
-      <path d="M 195 488 L 235 512 L 195 536 Z" fill="#30d158"/>
+      <path d="M 238 482 L 276 504 L 238 526 Z" fill="#30d158"/>
 
-      <!-- Command Text 'devopsherocli' (Monospace continuous word, non-bold 400) -->
-      <text x="263" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#00f2fe">devops</text>
-      <text x="509" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#30d158">hero</text>
-      <text x="672" y="534" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="68" font-weight="400" fill="#f3f4f6">cli</text>
+      <!-- Command Text 'devopsherocli' (SF Mono / Menlo regular non-bold typography, size 58) -->
+      <text x="300" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#00f2fe">devops</text>
+      <text x="510" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#30d158">hero</text>
+      <text x="649" y="523" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="58" font-weight="400" fill="#f3f4f6">cli</text>
 
       <!-- Terminal Block Cursor -->
-      <rect x="805" y="480" width="24" height="64" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
+      <rect x="764" y="475" width="22" height="56" rx="3" ry="3" fill="#00f2fe" opacity="0.9"/>
     </g>
-
-    <!-- Subtle Diagonal Specular Glass Reflection -->
-    <path d="M 100 220 L 924 520 L 924 100 L 220 100 Z" fill="url(#glassSheen)"/>
-
-    <!-- Apple HIG Precision Inner Bevel / Rim Stroke -->
-    <rect x="100" y="100" width="824" height="824" rx="185.4" ry="185.4" fill="none" stroke="url(#appleRimStroke)" stroke-width="3"/>
   </g>
 </svg>
