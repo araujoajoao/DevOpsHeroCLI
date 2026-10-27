@@ -11,7 +11,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Terminal: iTerm2 + Oh My Zsh](https://img.shields.io/badge/Terminal-iTerm2%20%2B%20Oh%20My%20Zsh-30d158.svg)](#-o-que-%C3%A9-o-devopsherocli)
-[![Gamification: 80 Missões](https://img.shields.io/badge/Missões-80%20Desafios-orange.svg)](#-trilhas-de-aprendizado)
+[![Gamification: 80 Missões](https://img.shields.io/badge/Missões-80%20Desafios-orange.svg)](#️-trilhas-de-aprendizado-80-missões)
 
 **Aprenda Linux, SysAdmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
 *Sem precisar de nuvem, sem pagar contas e sem risco de quebrar sua máquina física.*
@@ -19,11 +19,12 @@
 > **English Overview:** *DevOpsHeroCLI is an interactive, gamified terminal simulator designed to teach **Linux, Sysadmin, Git, Docker, Kubernetes, AWS CLI, Terraform, and Datadog** through hands-on CLI practice. Features an authentic **iTerm2 + Oh My Zsh** interface, in-memory virtual state engines, and anti-cheat speed scoring.*
 
 [Como Rodar](#-como-rodar-localmente-em-1-minuto) •
-[Trilhas & Missões](#-trilhas-de-aprendizado) •
+[App macOS](#-aplicativo-nativo-macos-app-e-instalador-dmg) •
+[Trilhas & Missões](#️-trilhas-de-aprendizado-80-missões) •
 [Gamificação](#-sistema-de-gamificação) •
-[Atalhos](#-atalhos-do-teclado) •
+[Atalhos](#️-atalhos-do-teclado) •
 [AI Reviewer](#-revisão-automática-por-ia-no-github) •
-[Docker](#-executando-com-docker) •
+[Docker](#-executando-com-docker-sem-instalar-python) •
 [Testes](#-testes-automatizados)
 
 <br/>
