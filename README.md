@@ -127,15 +127,12 @@ Escolha o terminal do Windows que você costuma usar:
 
 ##### Opção 3.1 — No PowerShell (Recomendado)
 ```powershell
-.\dh.ps1        # Inicia a Interface Completa (com Easter Egg exclusivo! 😉)
+.\dh.ps1        # Inicia a Interface TUI Completa imediatamente
 .\dh.ps1 r      # Modo Prompt REPL Rápido
 .\dh.ps1 s      # Estatísticas do perfil e XP acumulado
 .\dh.ps1 l      # Catálogo completo das 80 missões
 .\dh.ps1 d      # Diagnóstico do SO e compatibilidade
 ```
-
-> [!TIP]
-> **Easter Egg do PowerShell**: Experimente rodar no PowerShell (`.\dh.ps1` ou `dh r`) para ver o alerta humorístico exclusivo sobre a sua escolha de "terminal"! 😂
 
 ##### Opção 3.2 — No Prompt de Comando Clássico (CMD)
 ```cmd
