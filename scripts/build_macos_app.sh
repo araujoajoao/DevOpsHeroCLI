@@ -126,6 +126,13 @@ mkdir -p "$DMG_STAGING"
 # Copia o .app para a raiz do DMG
 cp -R "$APP_BUNDLE" "$DMG_STAGING/"
 
+# Configura ícone oficial no próprio volume do DMG montado
+cp "$ICNS_FILE" "$DMG_STAGING/.VolumeIcon.icns"
+if command -v SetFile >/dev/null 2>&1; then
+    SetFile -c icnC "$DMG_STAGING/.VolumeIcon.icns" 2>/dev/null || true
+    SetFile -a C "$DMG_STAGING" 2>/dev/null || true
+fi
+
 # Cria o link simbólico padrão do macOS para /Applications
 ln -s /Applications "$DMG_STAGING/Applications"
 
@@ -141,6 +148,17 @@ hdiutil create -volname "DevOpsHero" \
 
 # Copia também para a raiz do repositório como opção principal
 cp "$DMG_OUTPUT" "$DIR/DevOpsHero.dmg"
+
+# Se o aplicativo já estiver instalado em /Applications, sincroniza imediatamente
+if [ -d "/Applications/$APP_NAME.app" ]; then
+    echo -e "\033[1;34m⚡ [macOS Packager]\033[0m Sincronizando /Applications/$APP_NAME.app e invalidando cache do LaunchServices..."
+    rm -rf "/Applications/$APP_NAME.app"
+    cp -R "$APP_BUNDLE" "/Applications/"
+    touch "/Applications/$APP_NAME.app"
+    if [ -x "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister" ]; then
+        /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "/Applications/$APP_NAME.app" 2>/dev/null || true
+    fi
+fi
 
 echo -e "\033[1;32m✓ [macOS Packager]\033[0m Instalador criado com sucesso: DevOpsHero.dmg (raiz) e dist/$APP_NAME.dmg"
 echo ""

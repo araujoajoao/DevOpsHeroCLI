@@ -77,18 +77,18 @@
     <path d="M 154 220 L 870 500 L 870 146 L 220 146 Z" fill="url(#specularGlint)"/>
 
     <!-- 5. Apple Terminal Identifier: Clean Scaled Prompt >_ (Centered at X=512) -->
-    <path d="M 390 275 L 495 343 L 390 410 L 390 395 L 472 343 L 390 290 Z" fill="#ffffff"/>
-    <rect x="518" y="440" width="115" height="17" rx="4" ry="4" fill="#ffffff"/>
+    <path d="M 405 270 L 490 328 L 405 386 L 405 370 L 470 328 L 405 285 Z" fill="#ffffff"/>
+    <rect x="510" y="372" width="105" height="15" rx="3" ry="3" fill="#ffffff"/>
 
-    <!-- 6. High-Contrast Brand Writing with Oh My Zsh Green Prompt Arrow (Font-size 74, Bold 700) -->
+    <!-- 6. High-Contrast Brand Writing with Oh My Zsh Green Prompt Arrow (Font-size 76, Bold 800, Optical Centering) -->
     <g>
       <!-- Oh My Zsh Green Prompt Arrow -->
-      <path d="M 196 621 L 232 644 L 196 667 Z" fill="#30d158" stroke="#30d158" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M 177 598 L 213 624 L 177 650 Z" fill="#30d158" stroke="#30d158" stroke-width="2" stroke-linejoin="round"/>
 
-      <!-- Command Text 'devopsherocli' (Menlo Bold 700, High Contrast Colors) -->
-      <text x="250" y="666" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="74" font-weight="700" fill="#00f2fe">devops</text>
-      <text x="516" y="666" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="74" font-weight="700" fill="#30d158">hero</text>
-      <text x="694" y="666" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="74" font-weight="700" fill="#ffffff">cli</text>
+      <!-- Command Text 'devops hero cli' (Bold 800, Solid Fill + Edge Stroke for High Contrast Readability) -->
+      <text x="229" y="648" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="76" font-weight="800" fill="#00f2fe" stroke="#00f2fe" stroke-width="1.2">devops</text>
+      <text x="516" y="648" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="76" font-weight="800" fill="#30d158" stroke="#30d158" stroke-width="1.2">hero</text>
+      <text x="711" y="648" font-family="Menlo, Monaco, 'SF Mono', monospace" font-size="76" font-weight="800" fill="#ffffff" stroke="#ffffff" stroke-width="1.2">cli</text>
     </g>
   </g>
 </svg>
