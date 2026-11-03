@@ -443,12 +443,12 @@ class DevOpsHeroApp(App):
                             with Horizontal(id="term-title-bar"):
                                 yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
                                 with Horizontal(classes="iterm-tab-active"):
-                                    yield Label("devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
+                                    yield Label("linux-01.sh", id="lbl-term-tab-title", classes="iterm-tab-title")
                                 yield Static("", classes="term-bar-spacer")
-                                yield Label("● ONLINE · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
+                                yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
                             yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                             with Horizontal(id="term-input-container"):
-                                yield Label("➜  ~ ", id="term-prompt")
+                                yield Label("2  ➜  ~ ", id="term-prompt")
                                 yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
 
                 # Footer
@@ -564,6 +564,12 @@ class DevOpsHeroApp(App):
         self.solution_used = False
         self.mission_start_time = time.time()
         self.render_mission_panel()
+        try:
+            log = self.query_one("#term-output-log", RichLog)
+            log.write("")
+            log.write(f"[dim #8a94b8]1  # {self.current_mission.objective}[/]")
+        except Exception:
+            pass
 
     def render_mission_panel(self) -> None:
         if not self.current_mission:
@@ -579,6 +585,16 @@ class DevOpsHeroApp(App):
 
         self.query_one("#box-context", Static).update(m.context)
         self.query_one("#box-objective", Static).update(f"🎯 {m.objective}")
+
+        try:
+            if is_powershell():
+                self.query_one("#lbl-term-tab-title", Label).update(f"🐚 {m.id}.ps1 (pwsh · em reabilitação 😉)")
+                self.query_one("#lbl-term-status-badge", Label).update("PowerShell? · 80x24")
+            else:
+                self.query_one("#lbl-term-tab-title", Label).update(f"{m.id}.sh")
+                self.query_one("#lbl-term-status-badge", Label).update(f"⭐ +{m.xp} XP  │  ● ONLINE")
+        except Exception:
+            pass
 
         tip_box = self.query_one("#box-tip", Static)
         if self.show_tip:
@@ -610,7 +626,7 @@ class DevOpsHeroApp(App):
         elif "git" in self.state.linux.cwd:
             git_segment = " [bold #00f2fe]git:([/][bold #fb7185]main[/][bold #00f2fe])[/]"
 
-        return f"[bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
+        return f"[dim #8a94b8]2[/]  [bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
 
     def update_prompt(self) -> None:
         prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)

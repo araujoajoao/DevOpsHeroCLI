@@ -4,7 +4,7 @@
    ========================================================================== */
 
 Screen {
-    background: #090c15;
+    background: #131627;
     color: #f8fafc;
     layout: vertical;
     overflow-x: hidden;
@@ -17,7 +17,7 @@ Screen {
     width: 100%;
     height: 1fr;
     layout: horizontal;
-    background: #090c15;
+    background: #131627;
     overflow-x: hidden;
 }
 
@@ -27,8 +27,8 @@ Screen {
 #floci-sidebar {
     width: 25;
     height: 100%;
-    background: #070913;
-    border-right: solid #141a2e;
+    background: #0f1220;
+    border-right: solid #272e4f;
     layout: vertical;
     padding: 0;
 }
@@ -41,7 +41,7 @@ Screen {
 }
 
 .sidebar-category {
-    color: #475569;
+    color: #64748b;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -49,7 +49,7 @@ Screen {
 }
 
 .sidebar-subcat {
-    color: #334155;
+    color: #475569;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -69,14 +69,14 @@ Screen {
 }
 
 .sidebar-nav-btn:hover {
-    background: #13192f;
+    background: #1e243e;
     color: #ffffff;
 }
 
 .sidebar-active {
-    background: #17213d;
-    color: #38bdf8;
-    border-left: wide #38bdf8;
+    background: #272e4f;
+    color: #9e85ff;
+    border-left: wide #9e85ff;
     text-style: bold;
 }
 
@@ -86,8 +86,8 @@ Screen {
 
 #sidebar-footer {
     height: 3;
-    background: #070913;
-    border-top: solid #141a2e;
+    background: #0f1220;
+    border-top: solid #272e4f;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -95,13 +95,13 @@ Screen {
 
 .sidebar-footer-text {
     width: 1fr;
-    color: #475569;
+    color: #64748b;
     text-style: bold;
 }
 
 .sidebar-footer-collapse {
     width: auto;
-    color: #475569;
+    color: #64748b;
 }
 
 /* ==========================================================================
@@ -111,15 +111,15 @@ Screen {
     width: 1fr;
     height: 100%;
     layout: vertical;
-    background: #090c15;
+    background: #131627;
 }
 
 /* Top Header Bar */
 #floci-top-header {
     dock: top;
     height: 3;
-    background: #0a0d1a;
-    border-bottom: solid #141a2e;
+    background: #181d33;
+    border-bottom: solid #272e4f;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 2;
@@ -134,7 +134,7 @@ Screen {
 #top-header-icon {
     width: 3;
     height: 1;
-    color: #38bdf8;
+    color: #9e85ff;
     margin-right: 1;
 }
 
@@ -165,17 +165,17 @@ Screen {
     width: auto;
     min-width: 0;
     height: 2;
-    background: #101528;
-    border: solid #1a223b;
-    color: #94a3b8;
+    background: #1e243e;
+    border: solid #272e4f;
+    color: #a5b4fc;
     padding: 0 1;
     margin-left: 1;
     text-style: bold;
 }
 
 .top-filter-pill:hover {
-    background: #18223d;
-    border: solid #38bdf8;
+    background: #272e4f;
+    border: solid #9e85ff;
     color: #ffffff;
 }
 
@@ -184,9 +184,9 @@ Screen {
     width: auto;
     min-width: 0;
     height: 2;
-    background: #240a10;
-    border: solid #e05236;
-    color: #f87171;
+    background: #272e4f;
+    border: solid #fb7185;
+    color: #fb7185;
     padding: 0 1;
     margin-left: 1;
     text-style: bold;
@@ -213,8 +213,8 @@ Screen {
 #hero-banner-card {
     width: 100%;
     height: auto;
-    background: #11162a;
-    border: solid #1a223b;
+    background: #1e243e;
+    border: solid #272e4f;
     border-left: wide #10b981; /* Emerald green left accent line */
     padding: 1 2;
     margin-bottom: 1;
@@ -254,15 +254,17 @@ Screen {
     width: auto;
     min-width: 0;
     height: 3;
-    background: #18223d;
-    border: solid #38bdf8;
-    color: #38bdf8;
+    background: #272e4f;
+    border: solid #9e85ff;
+    color: #ffffff;
     text-style: bold;
     padding: 0 2;
+    content-align: center middle;
+    align: center middle;
 }
 
 .hero-action-btn:hover {
-    background: #38bdf8;
+    background: #9e85ff;
     color: #0b0e1b;
 }
 
@@ -277,8 +279,8 @@ Screen {
 .floci-stat-card {
     width: 1fr;
     height: 5;
-    background: #11162a;
-    border: solid #1a223b;
+    background: #1e243e;
+    border: solid #272e4f;
     padding: 0 1;
     margin-right: 1;
 }
@@ -320,9 +322,9 @@ Screen {
 .floci-chip {
     width: auto;
     height: 1;
-    background: #0d1120;
-    border: solid #192038;
-    color: #818cf8;
+    background: #161b2e;
+    border: solid #272e4f;
+    color: #9e85ff;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
@@ -345,8 +347,8 @@ Screen {
 .service-card {
     width: 1fr;
     height: 7;
-    background: #11172a;
-    border: solid #1a223b;
+    background: #1e243e;
+    border: solid #272e4f;
     padding: 1 1;
     margin-right: 1;
     color: #f8fafc;
@@ -358,13 +360,13 @@ Screen {
 }
 
 .service-card:hover {
-    background: #17213d;
-    border: solid #38bdf8;
+    background: #272e4f;
+    border: solid #9e85ff;
 }
 
 .service-card-disabled {
     opacity: 0.6;
-    border: solid #141a2c;
+    border: solid #1c223a;
 }
 
 /* ==========================================================================
@@ -381,8 +383,8 @@ Screen {
 #mission-panel {
     width: 40%;
     height: 100%;
-    background: #080a12;
-    border-right: solid #141a2e;
+    background: #161b2e;
+    border-right: solid #272e4f;
     padding: 0 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -390,7 +392,7 @@ Screen {
 
 .mission-track-badge {
     height: auto;
-    color: #38bdf8;
+    color: #9e85ff;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -413,8 +415,8 @@ Screen {
 
 .badge-diff {
     height: auto;
-    background: #061c12;
-    border: round #0d3824;
+    background: #0d281e;
+    border: round #10b981;
     color: #10b981;
     padding: 0 1;
     margin-right: 1;
@@ -423,9 +425,9 @@ Screen {
 
 .badge-xp {
     height: auto;
-    background: #071626;
-    border: round #0f3052;
-    color: #38bdf8;
+    background: #1d1b38;
+    border: round #9e85ff;
+    color: #9e85ff;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
@@ -433,8 +435,8 @@ Screen {
 
 .badge-speed {
     height: auto;
-    background: #181205;
-    border: round #382c0b;
+    background: #29200e;
+    border: round #fbbf24;
     color: #fbbf24;
     padding: 0 1;
     text-style: bold;
@@ -450,8 +452,8 @@ Screen {
 
 .context-box {
     height: auto;
-    background: #0c101e;
-    border: solid #161d33;
+    background: #1e243e;
+    border: solid #272e4f;
     padding: 0 1;
     color: #cbd5e1;
     margin-bottom: 0;
@@ -459,8 +461,8 @@ Screen {
 
 .objective-box {
     height: auto;
-    background: #081628;
-    border: round #00f2fe;
+    background: #1e243e;
+    border: round #9e85ff;
     padding: 0 1;
     color: #ffffff;
     text-style: bold;
@@ -469,8 +471,8 @@ Screen {
 
 .rules-box {
     height: auto;
-    background: #0c101e;
-    border: solid #161d33;
+    background: #1e243e;
+    border: solid #272e4f;
     padding: 0 1;
     color: #94a3b8;
     margin-bottom: 1;
@@ -490,59 +492,61 @@ Screen {
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
+    content-align: center middle;
+    align: center middle;
 }
 
 #btn-tip {
-    background: #161205;
-    border: round #382c0b;
+    background: #272e4f;
+    border: round #fbbf24;
     color: #fbbf24;
 }
 
 #btn-tip:hover {
-    background: #2a2008;
+    background: #3a3219;
     border: round #fbbf24;
     color: #ffffff;
 }
 
 #btn-solution {
-    background: #18080c;
-    border: round #3d141d;
+    background: #272e4f;
+    border: round #fb7185;
     color: #fb7185;
 }
 
 #btn-solution:hover {
-    background: #2e0f16;
+    background: #3d1b26;
     border: round #fb7185;
     color: #ffffff;
 }
 
 #btn-reset {
-    background: #0c0f16;
-    border: round #1e2536;
-    color: #94a3b8;
+    background: #272e4f;
+    border: round #475569;
+    color: #cbd5e1;
 }
 
 #btn-reset:hover {
-    background: #181f2e;
+    background: #334155;
     border: round #94a3b8;
     color: #ffffff;
 }
 
 #btn-tracks {
-    background: #071321;
-    border: round #143254;
-    color: #38bdf8;
+    background: #272e4f;
+    border: round #9e85ff;
+    color: #9e85ff;
 }
 
 #btn-tracks:hover {
-    background: #0d233d;
-    border: round #38bdf8;
+    background: #3e326e;
+    border: round #9e85ff;
     color: #ffffff;
 }
 
 .tip-box {
     height: auto;
-    background: #191306;
+    background: #252014;
     border: round #fbbf24;
     padding: 0 1;
     margin-top: 1;
@@ -552,7 +556,7 @@ Screen {
 
 .solution-box {
     height: auto;
-    background: #1c080d;
+    background: #29151c;
     border: round #fb7185;
     padding: 0 1;
     margin-top: 1;
@@ -564,15 +568,15 @@ Screen {
 #terminal-panel {
     width: 60%;
     height: 100%;
-    background: #06070c;
+    background: #1e243e;
     layout: vertical;
     overflow-x: hidden;
 }
 
 #term-title-bar {
     height: 3;
-    background: #0a0d1a;
-    border-bottom: solid #141a2e;
+    background: #181d33;
+    border-bottom: solid #272e4f;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -586,17 +590,17 @@ Screen {
 .iterm-tab-active {
     width: auto;
     height: 100%;
-    background: #0e1322;
-    border-top: solid #38bdf8;
-    border-left: solid #182035;
-    border-right: solid #182035;
+    background: #1e243e;
+    border-top: solid #9e85ff;
+    border-left: solid #272e4f;
+    border-right: solid #272e4f;
     padding: 0 2;
     content-align: center middle;
     align: center middle;
 }
 
 .iterm-tab-title {
-    color: #e2e8f0;
+    color: #a5b4fc;
     text-style: bold;
 }
 
@@ -613,7 +617,7 @@ Screen {
 
 #term-output-log {
     height: 1fr;
-    background: #06070c;
+    background: #1e243e;
     color: #f8fafc;
     padding: 0 1;
     overflow-y: auto;
@@ -622,8 +626,8 @@ Screen {
 
 #term-input-container {
     height: 3;
-    background: #06070c;
-    border-top: solid #141a2e;
+    background: #181d33;
+    border-top: solid #272e4f;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -635,12 +639,12 @@ Screen {
     color: #10b981;
     text-style: bold;
     padding: 0 1 0 0;
-    background: #06070c;
+    background: #181d33;
 }
 
 #term-input {
     width: 1fr;
-    background: #06070c;
+    background: #181d33;
     border: none;
     color: #f8fafc;
     padding: 0;
@@ -648,7 +652,7 @@ Screen {
 
 #term-input:focus {
     border: none;
-    background: #06070c;
+    background: #181d33;
 }
 
 Input > .input--cursor,
@@ -669,9 +673,9 @@ Input > .input--placeholder,
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #070913;
+    background: #0f1220;
     color: #64748b;
-    border-top: solid #141a2e;
+    border-top: solid #272e4f;
     padding: 0 1;
     content-align: center middle;
     overflow-x: hidden;
@@ -682,14 +686,14 @@ Input > .input--placeholder,
    ========================================================================== */
 TracksModal {
     align: center middle;
-    background: rgba(4, 5, 8, 0.88);
+    background: rgba(19, 22, 39, 0.88);
 }
 
 #tracks-dialog {
     width: 82%;
     height: 82%;
-    background: #0a0d18;
-    border: round #38bdf8;
+    background: #161b2e;
+    border: round #9e85ff;
     padding: 1 2;
     layout: vertical;
 }
@@ -703,7 +707,7 @@ TracksModal {
 }
 
 .track-modal-header {
-    color: #38bdf8;
+    color: #9e85ff;
     text-style: bold;
 }
 
@@ -716,68 +720,67 @@ TracksModal {
     margin: 0 0 1 0;
     width: 100%;
     height: 5;
-    background: #0e1322;
-    border: round #1e2844;
+    background: #1e243e;
+    border: round #272e4f;
     color: #e2e8f0;
     text-align: left;
     padding: 0 1;
 }
 
 .track-card-btn:hover {
-    background: #16203a;
-    border: round #38bdf8;
+    background: #272e4f;
+    border: round #9e85ff;
     color: #ffffff;
 }
 
 .track-card-curr {
-    background: #0d283d;
-    border: round #38bdf8;
+    background: #272e4f;
+    border: round #9e85ff;
     color: #ffffff;
 }
 
 .track-card-progress {
-    background: #1b1c2b;
-    border: round #8b5cf6;
+    background: #23223f;
+    border: round #9e85ff;
     color: #ffffff;
 }
 
 .track-card-done {
-    background: #071f15;
+    background: #0d281e;
     border: round #10b981;
     color: #ffffff;
 }
 
 .track-card-locked {
-    background: #0d0f17;
-    border: round #1b1e2e;
+    background: #141829;
+    border: round #1f253d;
     color: #64748b;
 }
 
 #btn-close-modal {
     margin-top: 1;
-    background: #141928;
-    border: round #27314d;
-    color: #cbd5e1;
+    background: #272e4f;
+    border: round #9e85ff;
+    color: #ffffff;
 }
 
 #btn-close-modal:hover {
-    background: #1e253c;
-    border: round #38bdf8;
-    color: #ffffff;
+    background: #9e85ff;
+    color: #0b0e1b;
 }
 
 /* App Update Modal */
 AppUpdateModal {
     align: center middle;
-    background: rgba(5, 7, 12, 0.85);
+    background: rgba(19, 22, 39, 0.88);
 }
 
 #update-card {
     width: 64;
     height: auto;
     max-height: 85%;
-    background: #0c101e;
-    border: round #38bdf8;
+    background: #161b2e;
+    border: round #9e85ff;
     padding: 1 2;
     layout: vertical;
 }
@@ -792,7 +795,7 @@ AppUpdateModal {
     width: 5;
     height: 3;
     content-align: center middle;
-    color: #38bdf8;
+    color: #9e85ff;
 }
 
 #update-title-col {
@@ -817,7 +820,7 @@ AppUpdateModal {
 }
 
 .update-pill-badge {
-    background: #38bdf8;
+    background: #9e85ff;
     color: #0b0e1b;
     text-style: bold;
     padding: 0 1;
@@ -854,7 +857,7 @@ AppUpdateModal {
 
 #lbl-update-spinner {
     width: 2;
-    color: #38bdf8;
+    color: #9e85ff;
 }
 
 .update-status-msg {
@@ -863,15 +866,15 @@ AppUpdateModal {
 
 #update-progress-bar {
     height: 1;
-    background: #141a2e;
-    color: #38bdf8;
+    background: #272e4f;
+    color: #9e85ff;
 }
 
 #update-whats-new-box {
     height: auto;
     max-height: 12;
-    background: #090c15;
-    border: solid #161d33;
+    background: #131627;
+    border: solid #272e4f;
     padding: 1 1;
     margin-top: 1;
     margin-bottom: 1;
@@ -879,7 +882,7 @@ AppUpdateModal {
 }
 
 .whats-new-heading {
-    color: #38bdf8;
+    color: #9e85ff;
     text-style: bold;
 }
 
@@ -890,7 +893,7 @@ AppUpdateModal {
 
 #update-divider-line {
     height: 1;
-    border-bottom: solid #161d33;
+    border-bottom: solid #272e4f;
     margin-bottom: 1;
 }
 
@@ -904,7 +907,7 @@ AppUpdateModal {
     width: auto;
     background: transparent;
     border: none;
-    color: #38bdf8;
+    color: #9e85ff;
 }
 
 #btn-whats-new:hover {
@@ -913,14 +916,14 @@ AppUpdateModal {
 
 #btn-update-dismiss {
     width: auto;
-    background: #18223d;
-    border: solid #38bdf8;
-    color: #38bdf8;
+    background: #272e4f;
+    border: solid #9e85ff;
+    color: #ffffff;
     text-style: bold;
     margin-left: 2;
 }
 
 #btn-update-dismiss:hover {
-    background: #38bdf8;
+    background: #9e85ff;
     color: #0b0e1b;
 }
