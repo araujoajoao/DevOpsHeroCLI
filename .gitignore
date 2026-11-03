@@ -75,3 +75,8 @@ htmlcov/
 Thumbs.db
 ehthumbs.db
 desktop.ini
+
+# Mobile Applications (Deploy to iOS/Android only, isolated from CLI GitHub repo)
+/devopshero-mobile/
+/devopshero-ios-swiftui/
+
