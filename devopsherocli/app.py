@@ -405,57 +405,87 @@ class DevOpsHeroApp(App):
                                     classes="service-card",
                                 )
 
-                    # VIEW B: Terminal Lab View (Split into Mission Briefing & Terminal Screen)
-                    with Horizontal(id="view-terminal-lab"):
-                        with VerticalScroll(id="mission-panel"):
-                            yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
-                            yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
-                            with Horizontal(classes="meta-row"):
-                                yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
-                                yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
-                                yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
+                    # VIEW B: Terminal Lab View (Superfile Multi-Pane Architecture)
+                    with Vertical(id="view-terminal-lab"):
+                        # Top Workspace: Directory/Missions Browser Column + Terminal Code Editor Column
+                        with Horizontal(id="lab-workspace"):
+                            # Missions Browser Column (superfile directory pane)
+                            with Vertical(id="mission-panel"):
+                                with Horizontal(id="mission-search-row"):
+                                    yield Label("🔍 (/) Filter missions or type...", id="lbl-mission-search")
+                                with VerticalScroll(id="missions-tree-scroll"):
+                                    with Vertical(id="box-missions-list"):
+                                        for slot_i in range(10):
+                                            yield Button("", id=f"btn-m-slot-{slot_i}", classes="mission-file-btn")
+                                with Horizontal(id="mission-panel-meta-hidden"):
+                                    yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
+                                    yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
+                                    with Horizontal(classes="meta-row"):
+                                        yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
+                                        yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
+                                        yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
 
-                            yield Label("// CENÁRIO REAL", classes="section-label")
-                            yield Static("", id="box-context", classes="context-box")
+                            # Right Terminal & Code Preview Window
+                            with Vertical(id="terminal-panel"):
+                                with Horizontal(id="term-title-bar"):
+                                    yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
+                                    with Horizontal(classes="iterm-tab-active"):
+                                        yield Label("linux-01.sh", id="lbl-term-tab-title", classes="iterm-tab-title")
+                                    yield Static("", classes="term-bar-spacer")
+                                    yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
+                                yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
+                                with Horizontal(id="term-input-container"):
+                                    yield Label("2  ➜  ~ ", id="term-prompt")
+                                    yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
 
-                            yield Label("// OBJETIVO DA MISSÃO", classes="section-label")
-                            yield Static("", id="box-objective", classes="objective-box")
+                        # Bottom Area: Tri-Panel Tray (Processes, Metadata, Clipboard)
+                        with Horizontal(id="lab-bottom-tray"):
+                            # Panel 1: Processes
+                            with Vertical(id="panel-processes", classes="superfile-tray-panel"):
+                                yield Label("⚡ Speed Score (Anti-Cola)", classes="tray-header-label")
+                                yield Static("", id="box-rules", classes="rules-box")
+                                yield Label("XP Progress", classes="tray-header-label")
+                                yield ProgressBar(total=100, show_eta=False, id="lab-xp-bar")
 
-                            yield Label("// SPEED SCORE (ANTI-COLA)", classes="section-label")
-                            yield Static(
-                                "⚡ [bold #fbbf24]100% XP[/]: Envie sem dicas nos primeiros [bold #10b981]5 segundos[/]!\n"
-                                "⏱️ [dim]> 5 segundos sem dicas: 70% XP (tempo para busca externa)[/]\n"
-                                "💡 [dim #fbbf24]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
-                                id="box-rules",
-                                classes="rules-box",
-                            )
+                            # Panel 2: Metadata
+                            with VerticalScroll(id="panel-metadata", classes="superfile-tray-panel"):
+                                yield Static("", id="box-metadata-content", classes="metadata-content-box")
+                                yield Static("", id="box-objective", classes="objective-box")
+                                yield Static("", id="box-context", classes="context-box")
 
-                            with Horizontal(classes="lab-quick-actions"):
-                                yield Button("💡 Dica (F3)", id="btn-tip", classes="action-btn")
-                                yield Button("👁️ Solução (F4)", id="btn-solution", classes="action-btn")
-                                yield Button("🧹 Reset (F5)", id="btn-reset", classes="action-btn")
-                                yield Button("🗺️ Trilhas (F2)", id="btn-tracks", classes="action-btn")
-
-                            yield Static("", id="box-tip", classes="tip-box")
-                            yield Static("", id="box-solution", classes="solution-box")
-
-                        with Vertical(id="terminal-panel"):
-                            with Horizontal(id="term-title-bar"):
-                                yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
-                                with Horizontal(classes="iterm-tab-active"):
-                                    yield Label("linux-01.sh", id="lbl-term-tab-title", classes="iterm-tab-title")
-                                yield Static("", classes="term-bar-spacer")
-                                yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
-                            yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
-                            with Horizontal(id="term-input-container"):
-                                yield Label("2  ➜  ~ ", id="term-prompt")
-                                yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
+                            # Panel 3: Clipboard
+                            with VerticalScroll(id="panel-clipboard", classes="superfile-tray-panel"):
+                                with Horizontal(classes="lab-quick-actions"):
+                                    yield Button("💡 Dica (F3)", id="btn-tip", classes="action-btn")
+                                    yield Button("👁️ Solução (F4)", id="btn-solution", classes="action-btn")
+                                    yield Button("🧹 Reset (F5)", id="btn-reset", classes="action-btn")
+                                    yield Button("🗺️ Trilhas (F2)", id="btn-tracks", classes="action-btn")
+                                yield Static("", id="box-tip", classes="tip-box")
+                                yield Static("", id="box-solution", classes="solution-box")
 
                 # Footer
                 with Horizontal(id="footer-bar"):
                     yield Label("[bold #00f2fe]F2[/] Console Home  │  [bold #38bdf8]Enter[/] Terminal Lab  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
+        try:
+            self.query_one("#floci-sidebar").border_title = "📁 Super File"
+            self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
+            self.query_one("#floci-top-header").border_title = "☁️ DevOpsHero Console"
+            self.query_one("#floci-top-header").border_subtitle = "online"
+            self.query_one("#mission-panel").border_title = "📁 .../devopshero/tracks"
+            self.query_one("#mission-panel").border_subtitle = "👁 Browser"
+            self.query_one("#terminal-panel").border_title = "💻 terminal.sh"
+            self.query_one("#terminal-panel").border_subtitle = "● ONLINE"
+            self.query_one("#panel-processes").border_title = "Processes"
+            self.query_one("#panel-processes").border_subtitle = "1/4"
+            self.query_one("#panel-metadata").border_title = "Metadata"
+            self.query_one("#panel-metadata").border_subtitle = "1/3"
+            self.query_one("#panel-clipboard").border_title = "Clipboard"
+            self.query_one("#panel-clipboard").border_subtitle = "1/3"
+        except Exception:
+            pass
+
         if is_powershell():
             try:
                 self.query_one("#lbl-term-tab-title", Label).update("🐚 devops@ops-lab (pwsh · em reabilitação 😉)")
@@ -487,6 +517,12 @@ class DevOpsHeroApp(App):
             btn_nav_home.add_class("sidebar-active")
             btn_nav_lab.remove_class("sidebar-active")
             self.update_console_home_stats()
+            try:
+                hero = self.query_one("#hero-banner-card")
+                hero.border_title = "SELECTED RUNTIME"
+                hero.border_subtitle = "((•)) ACTIVE"
+            except Exception:
+                pass
         else:
             console_home.display = False
             terminal_lab.display = True
@@ -510,6 +546,25 @@ class DevOpsHeroApp(App):
             self.progress.save()
             self.load_active_mission()
             self.switch_view("terminal_lab")
+
+    def select_mission_by_id(self, mission_id: str) -> None:
+        track = TRACKS_MAP.get(self.progress.current_track_id)
+        if track:
+            target_m = next((m for m in track.missions if m.id == mission_id), None)
+            if target_m:
+                idx = track.missions.index(target_m)
+                if idx > 0:
+                    prev_m = track.missions[idx - 1]
+                    if prev_m.id not in self.progress.completed_missions and target_m.id not in self.progress.completed_missions:
+                        try:
+                            log = self.query_one("#term-output-log", RichLog)
+                            log.write(f"[bold #fb7185]🔒 Missão '{target_m.title}' bloqueada! Conclua '{prev_m.title}' primeiro.[/]")
+                        except Exception:
+                            pass
+                        return
+                self.progress.current_mission_id = target_m.id
+                self.progress.save()
+                self.load_active_mission()
 
     def update_console_home_stats(self) -> None:
         try:
@@ -578,14 +633,107 @@ class DevOpsHeroApp(App):
         track = TRACKS_MAP.get(m.track_id)
         track_name = track.name if track else m.track_id
 
-        self.query_one("#lbl-mission-track", Label).update(f"// TRILHA: {track_name.upper()}")
-        self.query_one("#lbl-mission-title", Label).update(m.title)
-        self.query_one("#lbl-diff-badge", Label).update(m.difficulty.upper())
-        self.query_one("#lbl-xp-badge", Label).update(f"+{m.xp} XP")
+        # Update legacy labels
+        try:
+            self.query_one("#lbl-mission-track", Label).update(f"// TRILHA: {track_name.upper()}")
+            self.query_one("#lbl-mission-title", Label).update(m.title)
+            self.query_one("#lbl-diff-badge", Label).update(m.difficulty.upper())
+            self.query_one("#lbl-xp-badge", Label).update(f"+{m.xp} XP")
+            self.query_one("#box-context", Static).update(f"[bold #64748b]Scenario:[/] {m.context}")
+            self.query_one("#box-objective", Static).update(f"[bold #10b981]🎯 Objetivo:[/] {m.objective}")
+        except Exception:
+            pass
 
-        self.query_one("#box-context", Static).update(m.context)
-        self.query_one("#box-objective", Static).update(f"🎯 {m.objective}")
+        # Superfile border titles & subtitles
+        try:
+            mission_panel = self.query_one("#mission-panel")
+            all_m = track.missions if track else [m]
+            cur_idx = next((i for i, item in enumerate(all_m) if item.id == m.id), 0)
+            mission_panel.border_title = f"📁 .../{m.track_id}"
+            mission_panel.border_subtitle = f"👁 Browser {cur_idx + 1}/{len(all_m)}"
 
+            term_panel = self.query_one("#terminal-panel")
+            term_panel.border_title = f"💻 {m.id}.sh"
+            term_panel.border_subtitle = f"⭐ +{m.xp} XP │ ● ONLINE"
+
+            self.query_one("#panel-processes").border_title = "Processes"
+            self.query_one("#panel-processes").border_subtitle = "1/4"
+
+            self.query_one("#panel-metadata").border_title = "Metadata"
+            self.query_one("#panel-metadata").border_subtitle = "1/3"
+
+            self.query_one("#panel-clipboard").border_title = "Clipboard"
+            self.query_one("#panel-clipboard").border_subtitle = "1/3"
+
+            self.query_one("#floci-sidebar").border_title = "📁 Super File"
+            self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
+        except Exception:
+            pass
+
+        # Update Superfile file tree in #box-missions-list
+        try:
+            tree_box = self.query_one("#box-missions-list", Vertical)
+            all_m = track.missions if track else [m]
+            buttons = list(tree_box.query(Button))
+            for idx in range(max(10, len(all_m))):
+                if idx < len(all_m):
+                    mission_item = all_m[idx]
+                    is_active = mission_item.id == m.id
+                    is_done = mission_item.id in self.progress.completed_missions
+                    is_locked = False
+                    if idx > 0 and not is_done and not is_active:
+                        prev_item = all_m[idx - 1]
+                        if prev_item.id not in self.progress.completed_missions and mission_item.id not in self.progress.completed_missions:
+                            is_locked = True
+
+                    if is_active:
+                        style_cls = "mission-file-btn mission-file-active"
+                        label_markup = f"[bold #00f2fe]❯ {mission_item.id}.sh[/]"
+                    elif is_done:
+                        style_cls = "mission-file-btn mission-file-done"
+                        label_markup = f"  [bold #10b981]✓ {mission_item.id}.sh[/]"
+                    elif is_locked:
+                        style_cls = "mission-file-btn mission-file-locked"
+                        label_markup = f"  [dim #64748b]🔒 {mission_item.id}.sh[/]"
+                    else:
+                        style_cls = "mission-file-btn"
+                        label_markup = f"  [#cbd5e1]📄 {mission_item.id}.sh[/]"
+
+                    if idx < len(buttons):
+                        btn = buttons[idx]
+                        btn.label = label_markup
+                        btn.classes = style_cls
+                        btn.mission_id = mission_item.id
+                        btn.display = True
+                else:
+                    if idx < len(buttons):
+                        buttons[idx].display = False
+        except Exception:
+            pass
+
+        # Update Metadata formatted text
+        try:
+            cur_time = time.strftime("%Y-%m-%d %H:%M:%S")
+            meta_markup = (
+                f"[bold #64748b]FileName:[/]       [bold #38bdf8]{m.id}.sh[/]\n"
+                f"[bold #64748b]FileSize:[/]       [bold #10b981]+{m.xp} XP[/]\n"
+                f"[bold #64748b]FileModifyDate:[/] [dim #94a3b8]{cur_time}[/]\n"
+                f"[bold #64748b]Track:[/]          [bold #9e85ff]{track_name}[/]\n"
+                f"[bold #64748b]Difficulty:[/]     [bold #fbbf24]{m.difficulty.upper()}[/]"
+            )
+            self.query_one("#box-metadata-content", Static).update(meta_markup)
+        except Exception:
+            pass
+
+        # Update XP Progress bar in tray
+        try:
+            xp_bar = self.query_one("#lab-xp-bar", ProgressBar)
+            lvl, min_xp, next_xp, pct, _ = self.progress.get_level_info()
+            xp_bar.progress = pct
+        except Exception:
+            pass
+
+        # Terminal tab title
         try:
             if is_powershell():
                 self.query_one("#lbl-term-tab-title", Label).update(f"🐚 {m.id}.ps1 (pwsh · em reabilitação 😉)")
@@ -933,6 +1081,17 @@ class DevOpsHeroApp(App):
     @on(Button.Pressed, "#pill-filter-datadog")
     def on_select_datadog(self) -> None:
         self.select_track_by_id("datadog")
+
+    @on(Button.Pressed)
+    def on_mission_item_click(self, event: Button.Pressed) -> None:
+        m_id = getattr(event.button, "mission_id", None)
+        if m_id:
+            self.select_mission_by_id(m_id)
+            return
+        btn_id = event.button.id or ""
+        if btn_id.startswith("btn-m-") and not btn_id.startswith("btn-m-slot-"):
+            m_id = btn_id.replace("btn-m-", "")
+            self.select_mission_by_id(m_id)
 
 
 def launch_app():

@@ -1,36 +1,38 @@
 /* ==========================================================================
-   DevOpsHeroCLI - Flocí Cloud Console Architecture & Theme
-   Authentic replica of Flocí Local Cloud Runtime Console UI
+   DevOpsHeroCLI - Superfile Modular Architecture & Design Language
+   Authentic replica of Superfile Lipgloss / Bubbletea TUI Style
+   Modular character-box layout with border-titles and deep obsidian theme
    ========================================================================== */
 
 Screen {
-    background: #131627;
+    background: #0f111a;
     color: #f8fafc;
     layout: vertical;
     overflow-x: hidden;
 }
 
-/* ==========================================================================
-   Root Layout: Left Sidebar + Main Content Area
-   ========================================================================== */
 #floci-root {
     width: 100%;
     height: 1fr;
     layout: horizontal;
-    background: #131627;
+    background: #0f111a;
     overflow-x: hidden;
+    padding: 0 1;
 }
 
 /* ==========================================================================
-   1. Left Sidebar Navigation (Authentic Flocí Console Sidebar)
+   1. Left Sidebar Navigation (Superfile Leftmost Column)
    ========================================================================== */
 #floci-sidebar {
     width: 25;
     height: 100%;
-    background: #0f1220;
-    border-right: solid #272e4f;
+    background: #0f111a;
+    border: round #fb7185;
+    border-title-align: left;
+    border-subtitle-align: right;
     layout: vertical;
     padding: 0;
+    margin-right: 1;
 }
 
 #sidebar-scroll {
@@ -41,7 +43,7 @@ Screen {
 }
 
 .sidebar-category {
-    color: #64748b;
+    color: #fb7185;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -49,7 +51,7 @@ Screen {
 }
 
 .sidebar-subcat {
-    color: #475569;
+    color: #64748b;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -74,9 +76,9 @@ Screen {
 }
 
 .sidebar-active {
-    background: #272e4f;
-    color: #9e85ff;
-    border-left: wide #9e85ff;
+    background: #1e243e;
+    color: #00f2fe;
+    border-left: wide #00f2fe;
     text-style: bold;
 }
 
@@ -84,10 +86,16 @@ Screen {
     color: #475569;
 }
 
+.sidebar-disk-label {
+    color: #64748b;
+    padding: 0 1;
+    height: 1;
+}
+
 #sidebar-footer {
     height: 3;
-    background: #0f1220;
-    border-top: solid #272e4f;
+    background: #0f111a;
+    border-top: round #272e4f;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -105,24 +113,27 @@ Screen {
 }
 
 /* ==========================================================================
-   2. Main Column (Top Bar + Dynamic View Container)
+   2. Main Column (Top Header + Dynamic View Container)
    ========================================================================== */
 #floci-main-col {
     width: 1fr;
     height: 100%;
     layout: vertical;
-    background: #131627;
+    background: #0f111a;
 }
 
 /* Top Header Bar */
 #floci-top-header {
     dock: top;
     height: 3;
-    background: #181d33;
-    border-bottom: solid #272e4f;
+    background: #0f111a;
+    border: round #272e4f;
+    border-title-align: left;
+    border-subtitle-align: right;
     layout: horizontal;
     align-vertical: middle;
-    padding: 0 2;
+    padding: 0 1;
+    margin-bottom: 1;
 }
 
 #top-title-col {
@@ -158,7 +169,7 @@ Screen {
     width: 1fr;
     layout: horizontal;
     align: right middle;
-    height: 3;
+    height: 2;
 }
 
 .top-filter-pill {
@@ -166,7 +177,7 @@ Screen {
     min-width: 0;
     height: 2;
     background: #1e243e;
-    border: solid #272e4f;
+    border: round #272e4f;
     color: #a5b4fc;
     padding: 0 1;
     margin-left: 1;
@@ -175,7 +186,7 @@ Screen {
 
 .top-filter-pill:hover {
     background: #272e4f;
-    border: solid #9e85ff;
+    border: round #9e85ff;
     color: #ffffff;
 }
 
@@ -185,7 +196,7 @@ Screen {
     min-width: 0;
     height: 2;
     background: #272e4f;
-    border: solid #fb7185;
+    border: round #fb7185;
     color: #fb7185;
     padding: 0 1;
     margin-left: 1;
@@ -200,22 +211,23 @@ Screen {
 }
 
 /* ==========================================================================
-   3. Flocí Console Home View (Dashboard Layout from Screenshot)
+   3. Superfile Console Home View (Dashboard Layout)
    ========================================================================== */
 #view-console-home {
     width: 100%;
     height: auto;
     layout: vertical;
-    padding: 1 2;
+    padding: 0 1;
 }
 
 /* Selected Runtime Hero Banner Card */
 #hero-banner-card {
     width: 100%;
     height: auto;
-    background: #1e243e;
-    border: solid #272e4f;
-    border-left: wide #10b981; /* Emerald green left accent line */
+    background: #131728;
+    border: round #10b981;
+    border-title-align: left;
+    border-subtitle-align: right;
     padding: 1 2;
     margin-bottom: 1;
 }
@@ -255,7 +267,7 @@ Screen {
     min-width: 0;
     height: 3;
     background: #272e4f;
-    border: solid #9e85ff;
+    border: round #10b981;
     color: #ffffff;
     text-style: bold;
     padding: 0 2;
@@ -264,7 +276,7 @@ Screen {
 }
 
 .hero-action-btn:hover {
-    background: #9e85ff;
+    background: #10b981;
     color: #0b0e1b;
 }
 
@@ -279,8 +291,10 @@ Screen {
 .floci-stat-card {
     width: 1fr;
     height: 5;
-    background: #1e243e;
-    border: solid #272e4f;
+    background: #131728;
+    border: round #272e4f;
+    border-title-align: left;
+    border-subtitle-align: right;
     padding: 0 1;
     margin-right: 1;
 }
@@ -322,15 +336,15 @@ Screen {
 .floci-chip {
     width: auto;
     height: 1;
-    background: #161b2e;
-    border: solid #272e4f;
+    background: #131728;
+    border: round #272e4f;
     color: #9e85ff;
     padding: 0 1;
     margin-right: 1;
     text-style: bold;
 }
 
-/* 4x2 Grid of Service Cards (Flocí Service Cards) */
+/* 4x2 Grid of Service Cards (Superfile Cards) */
 #floci-grid-container {
     width: 100%;
     height: auto;
@@ -347,8 +361,10 @@ Screen {
 .service-card {
     width: 1fr;
     height: 7;
-    background: #1e243e;
-    border: solid #272e4f;
+    background: #131728;
+    border: round #272e4f;
+    border-title-align: left;
+    border-subtitle-align: right;
     padding: 1 1;
     margin-right: 1;
     color: #f8fafc;
@@ -360,57 +376,118 @@ Screen {
 }
 
 .service-card:hover {
-    background: #272e4f;
-    border: solid #9e85ff;
+    background: #1e243e;
+    border: round #9e85ff;
 }
 
 .service-card-disabled {
     opacity: 0.6;
-    border: solid #1c223a;
+    border: round #1c223a;
 }
 
 /* ==========================================================================
-   4. Terminal Lab View (Split into Mission Briefing & Oh My Zsh Terminal)
+   4. Terminal Lab View (Superfile Multi-Pane Architecture)
+   Top: Missions Browser Column + Code/Terminal Column
+   Bottom: Tri-Panel Tray (Processes, Metadata, Clipboard)
    ========================================================================== */
 #view-terminal-lab {
     width: 100%;
     height: 100%;
+    layout: vertical;
+}
+
+/* Top Area: Workspace Columns (~68% height) */
+#lab-workspace {
+    width: 100%;
+    height: 68%;
     layout: horizontal;
+    margin-bottom: 1;
+}
+
+/* Column 1: Missions Directory Browser (superfile directory pane) */
+#mission-panel {
+    width: 32%;
+    height: 100%;
+    background: #0f111a;
+    border: round #9e85ff;
+    border-title-align: left;
+    border-subtitle-align: right;
+    layout: vertical;
+    padding: 0 1;
+    margin-right: 1;
+}
+
+#mission-search-row {
+    height: 1;
+    border-bottom: solid #272e4f;
+    margin-bottom: 1;
+}
+
+#lbl-mission-search {
+    color: #64748b;
+    text-style: italic;
+}
+
+#missions-tree-scroll {
+    height: 1fr;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Left Mission Briefing Panel */
-#mission-panel {
-    width: 40%;
-    height: 100%;
-    background: #161b2e;
-    border-right: solid #272e4f;
-    padding: 0 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+#box-missions-list {
+    height: auto;
+    layout: vertical;
+}
+
+.mission-file-btn {
+    width: 100%;
+    height: 1;
+    min-height: 1;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    content-align: left middle;
+    padding: 0;
+    margin: 0;
+}
+
+.mission-file-btn:hover {
+    background: #1e243e;
+    color: #ffffff;
+}
+
+.mission-file-active {
+    color: #00f2fe;
+    text-style: bold;
+}
+
+.mission-file-done {
+    color: #10b981;
+}
+
+.mission-file-locked {
+    color: #475569;
+}
+
+#mission-panel-meta-hidden {
+    display: none;
 }
 
 .mission-track-badge {
     height: auto;
     color: #9e85ff;
     text-style: bold;
-    margin-top: 1;
-    margin-bottom: 0;
 }
 
 .mission-title {
     height: auto;
     color: #ffffff;
     text-style: bold;
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
 .meta-row {
     height: auto;
     layout: horizontal;
-    margin-top: 1;
-    margin-bottom: 1;
 }
 
 .badge-diff {
@@ -446,141 +523,26 @@ Screen {
     height: auto;
     color: #64748b;
     text-style: bold;
-    margin-top: 1;
-    margin-bottom: 0;
 }
 
-.context-box {
-    height: auto;
-    background: #1e243e;
-    border: solid #272e4f;
-    padding: 0 1;
-    color: #cbd5e1;
-    margin-bottom: 0;
-}
-
-.objective-box {
-    height: auto;
-    background: #1e243e;
-    border: round #9e85ff;
-    padding: 0 1;
-    color: #ffffff;
-    text-style: bold;
-    margin-bottom: 0;
-}
-
-.rules-box {
-    height: auto;
-    background: #1e243e;
-    border: solid #272e4f;
-    padding: 0 1;
-    color: #94a3b8;
-    margin-bottom: 1;
-}
-
-.lab-quick-actions {
-    layout: horizontal;
-    height: auto;
-    margin-top: 1;
-    margin-bottom: 1;
-}
-
-.action-btn {
-    width: auto;
-    min-width: 0;
-    height: 3;
-    padding: 0 1;
-    margin-right: 1;
-    text-style: bold;
-    content-align: center middle;
-    align: center middle;
-}
-
-#btn-tip {
-    background: #272e4f;
-    border: round #fbbf24;
-    color: #fbbf24;
-}
-
-#btn-tip:hover {
-    background: #3a3219;
-    border: round #fbbf24;
-    color: #ffffff;
-}
-
-#btn-solution {
-    background: #272e4f;
-    border: round #fb7185;
-    color: #fb7185;
-}
-
-#btn-solution:hover {
-    background: #3d1b26;
-    border: round #fb7185;
-    color: #ffffff;
-}
-
-#btn-reset {
-    background: #272e4f;
-    border: round #475569;
-    color: #cbd5e1;
-}
-
-#btn-reset:hover {
-    background: #334155;
-    border: round #94a3b8;
-    color: #ffffff;
-}
-
-#btn-tracks {
-    background: #272e4f;
-    border: round #9e85ff;
-    color: #9e85ff;
-}
-
-#btn-tracks:hover {
-    background: #3e326e;
-    border: round #9e85ff;
-    color: #ffffff;
-}
-
-.tip-box {
-    height: auto;
-    background: #252014;
-    border: round #fbbf24;
-    padding: 0 1;
-    margin-top: 1;
-    margin-bottom: 0;
-    color: #fde68a;
-}
-
-.solution-box {
-    height: auto;
-    background: #29151c;
-    border: round #fb7185;
-    padding: 0 1;
-    margin-top: 1;
-    margin-bottom: 0;
-    color: #fecdd3;
-}
-
-/* Right Terminal Window (iTerm2 Oh My Zsh) */
+/* Column 2: Code Preview & Interactive Terminal Window */
 #terminal-panel {
-    width: 60%;
+    width: 1fr;
     height: 100%;
-    background: #1e243e;
+    background: #0f111a;
+    border: round #38bdf8;
+    border-title-align: left;
+    border-subtitle-align: right;
     layout: vertical;
-    overflow-x: hidden;
+    padding: 0;
 }
 
 #term-title-bar {
-    height: 3;
-    background: #181d33;
-    border-bottom: solid #272e4f;
+    height: 1;
+    background: #131728;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
-    overflow-x: hidden;
 }
 
 .term-dots {
@@ -589,18 +551,13 @@ Screen {
 
 .iterm-tab-active {
     width: auto;
-    height: 100%;
-    background: #1e243e;
-    border-top: solid #9e85ff;
-    border-left: solid #272e4f;
-    border-right: solid #272e4f;
-    padding: 0 2;
-    content-align: center middle;
-    align: center middle;
+    height: 1;
+    background: transparent;
+    padding: 0 1;
 }
 
 .iterm-tab-title {
-    color: #a5b4fc;
+    color: #38bdf8;
     text-style: bold;
 }
 
@@ -612,12 +569,11 @@ Screen {
     width: auto;
     color: #10b981;
     text-style: bold;
-    content-align: right middle;
 }
 
 #term-output-log {
     height: 1fr;
-    background: #1e243e;
+    background: #0f111a;
     color: #f8fafc;
     padding: 0 1;
     overflow-y: auto;
@@ -625,26 +581,23 @@ Screen {
 }
 
 #term-input-container {
-    height: 3;
-    background: #181d33;
+    height: 2;
+    background: #131728;
     border-top: solid #272e4f;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
-    overflow-x: hidden;
 }
 
 #term-prompt {
     width: auto;
     color: #10b981;
     text-style: bold;
-    padding: 0 1 0 0;
-    background: #181d33;
 }
 
 #term-input {
     width: 1fr;
-    background: #181d33;
+    background: transparent;
     border: none;
     color: #f8fafc;
     padding: 0;
@@ -652,7 +605,7 @@ Screen {
 
 #term-input:focus {
     border: none;
-    background: #181d33;
+    background: transparent;
 }
 
 Input > .input--cursor,
@@ -668,12 +621,157 @@ Input > .input--placeholder,
 }
 
 /* ==========================================================================
-   5. Footer Shortcuts Bar
+   5. Bottom Tri-Panel Tray (Processes, Metadata, Clipboard) (~32% height)
+   ========================================================================== */
+#lab-bottom-tray {
+    width: 100%;
+    height: 32%;
+    layout: horizontal;
+}
+
+.superfile-tray-panel {
+    height: 100%;
+    background: #0f111a;
+    border: round #272e4f;
+    border-title-align: left;
+    border-subtitle-align: right;
+    padding: 0 1;
+}
+
+#panel-processes {
+    width: 32%;
+    margin-right: 1;
+}
+
+#panel-metadata {
+    width: 38%;
+    margin-right: 1;
+}
+
+#panel-clipboard {
+    width: 30%;
+}
+
+.tray-header-label {
+    color: #64748b;
+    text-style: bold;
+    height: 1;
+    margin-bottom: 0;
+}
+
+.metadata-content-box {
+    height: auto;
+    color: #cbd5e1;
+    margin-bottom: 0;
+}
+
+.context-box {
+    height: auto;
+    color: #94a3b8;
+    margin-top: 0;
+}
+
+.objective-box {
+    height: auto;
+    color: #ffffff;
+    text-style: bold;
+    margin-top: 0;
+}
+
+.rules-box {
+    height: auto;
+    color: #94a3b8;
+    margin-bottom: 0;
+}
+
+#lab-xp-bar {
+    width: 100%;
+    height: 1;
+    margin-top: 1;
+}
+
+.lab-quick-actions {
+    layout: horizontal;
+    height: 2;
+    margin-bottom: 1;
+}
+
+.action-btn {
+    width: auto;
+    min-width: 0;
+    height: 2;
+    padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+#btn-tip {
+    background: #272e4f;
+    border: round #fbbf24;
+    color: #fbbf24;
+}
+
+#btn-tip:hover {
+    background: #3a3219;
+    color: #ffffff;
+}
+
+#btn-solution {
+    background: #272e4f;
+    border: round #fb7185;
+    color: #fb7185;
+}
+
+#btn-solution:hover {
+    background: #3d1b26;
+    color: #ffffff;
+}
+
+#btn-reset {
+    background: #272e4f;
+    border: round #475569;
+    color: #cbd5e1;
+}
+
+#btn-reset:hover {
+    background: #334155;
+    color: #ffffff;
+}
+
+#btn-tracks {
+    background: #272e4f;
+    border: round #9e85ff;
+    color: #9e85ff;
+}
+
+#btn-tracks:hover {
+    background: #3e326e;
+    color: #ffffff;
+}
+
+.tip-box {
+    height: auto;
+    background: #252014;
+    border: round #fbbf24;
+    padding: 0 1;
+    color: #fde68a;
+}
+
+.solution-box {
+    height: auto;
+    background: #29151c;
+    border: round #fb7185;
+    padding: 0 1;
+    color: #fecdd3;
+}
+
+/* ==========================================================================
+   6. Footer Shortcuts Bar
    ========================================================================== */
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #0f1220;
+    background: #0f111a;
     color: #64748b;
     border-top: solid #272e4f;
     padding: 0 1;
@@ -682,18 +780,20 @@ Input > .input--placeholder,
 }
 
 /* ==========================================================================
-   6. Modals (TracksModal & AppUpdateModal)
+   7. Modals (TracksModal & AppUpdateModal)
    ========================================================================== */
 TracksModal {
     align: center middle;
-    background: rgba(19, 22, 39, 0.88);
+    background: rgba(15, 17, 26, 0.88);
 }
 
 #tracks-dialog {
     width: 82%;
     height: 82%;
-    background: #161b2e;
+    background: #0f111a;
     border: round #9e85ff;
+    border-title-align: left;
+    border-subtitle-align: right;
     padding: 1 2;
     layout: vertical;
 }
@@ -720,7 +820,7 @@ TracksModal {
     margin: 0 0 1 0;
     width: 100%;
     height: 5;
-    background: #1e243e;
+    background: #131728;
     border: round #272e4f;
     color: #e2e8f0;
     text-align: left;
@@ -728,19 +828,19 @@ TracksModal {
 }
 
 .track-card-btn:hover {
-    background: #272e4f;
+    background: #1e243e;
     border: round #9e85ff;
     color: #ffffff;
 }
 
 .track-card-curr {
-    background: #272e4f;
+    background: #1e243e;
     border: round #9e85ff;
     color: #ffffff;
 }
 
 .track-card-progress {
-    background: #23223f;
+    background: #1e243e;
     border: round #9e85ff;
     color: #ffffff;
 }
@@ -752,7 +852,7 @@ TracksModal {
 }
 
 .track-card-locked {
-    background: #141829;
+    background: #101320;
     border: round #1f253d;
     color: #64748b;
 }
@@ -772,15 +872,17 @@ TracksModal {
 /* App Update Modal */
 AppUpdateModal {
     align: center middle;
-    background: rgba(19, 22, 39, 0.88);
+    background: rgba(15, 17, 26, 0.88);
 }
 
 #update-card {
     width: 64;
     height: auto;
     max-height: 85%;
-    background: #161b2e;
+    background: #0f111a;
     border: round #9e85ff;
+    border-title-align: left;
+    border-subtitle-align: right;
     padding: 1 2;
     layout: vertical;
 }
@@ -873,8 +975,8 @@ AppUpdateModal {
 #update-whats-new-box {
     height: auto;
     max-height: 12;
-    background: #131627;
-    border: solid #272e4f;
+    background: #131728;
+    border: round #272e4f;
     padding: 1 1;
     margin-top: 1;
     margin-bottom: 1;
@@ -917,7 +1019,7 @@ AppUpdateModal {
 #btn-update-dismiss {
     width: auto;
     background: #272e4f;
-    border: solid #9e85ff;
+    border: round #9e85ff;
     color: #ffffff;
     text-style: bold;
     margin-left: 2;
