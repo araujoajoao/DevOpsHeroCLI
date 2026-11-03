@@ -8,7 +8,7 @@ from typing import Optional
 from rich.markup import escape
 from rich.panel import Panel
 from rich.text import Text
-from textual import on
+from textual import events, on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
@@ -237,6 +237,77 @@ class AppUpdateModal(ModalScreen):
         self.dismiss(None)
 
 
+SIDEBAR_ITEMS = [
+    ("nav-console-home", "view", "console_home", "⊞ Console Home"),
+    ("nav-terminal-lab", "view", "terminal_lab", "⚡ Terminal Lab"),
+    ("nav-track-linux", "track", "linux", "🐧 Linux Shell"),
+    ("nav-track-docker", "track", "docker", "🐳 Docker"),
+    ("nav-track-k8s", "track", "k8s", "☸️ Kubernetes"),
+    ("nav-track-git", "track", "git", "🔀 Git VCS"),
+    ("nav-track-aws", "track", "aws", "☁️ AWS Storage"),
+    ("nav-track-terraform", "track", "terraform", "🏗️ Terraform"),
+    ("nav-track-datadog", "track", "datadog", "🐶 Datadog"),
+]
+
+
+class SidebarPanel(Vertical):
+    """Left sidebar panel with keyboard and mouse navigation."""
+    can_focus = True
+
+    def on_key(self, event: events.Key) -> None:
+        if event.key in ("up", "k"):
+            self.app.cursor_prev_sidebar()
+            event.stop()
+        elif event.key in ("down", "j"):
+            self.app.cursor_next_sidebar()
+            event.stop()
+        elif event.key in ("enter", "space"):
+            self.app.select_cursor_sidebar()
+            event.stop()
+
+    def on_click(self, event: events.Click) -> None:
+        target = event.target
+        target_id = getattr(target, "id", "") or ""
+        self.app.activate_sidebar_item(target_id)
+
+
+class MissionPanel(Vertical):
+    """Missions directory browser panel with keyboard and mouse navigation."""
+    can_focus = True
+
+    def on_key(self, event: events.Key) -> None:
+        if event.key in ("up", "k"):
+            self.app.cursor_prev_mission()
+            event.stop()
+        elif event.key in ("down", "j"):
+            self.app.cursor_next_mission()
+            event.stop()
+        elif event.key in ("enter", "space"):
+            self.app.select_cursor_mission()
+            event.stop()
+
+    def on_click(self, event: events.Click) -> None:
+        target = event.target
+        m_id = getattr(target, "mission_id", None)
+        if m_id:
+            self.app.select_mission_by_id(m_id)
+
+
+class ProcessesPanel(Vertical):
+    """Processes tray panel."""
+    can_focus = True
+
+
+class MetadataPanel(VerticalScroll):
+    """Metadata tray panel."""
+    can_focus = True
+
+
+class ClipboardPanel(Vertical):
+    """Clipboard tray panel."""
+    can_focus = True
+
+
 class DevOpsHeroApp(App):
     """Full-featured Terminal User Interface for DevOpsHeroCLI (Flocí Cloud Console Style)."""
 
@@ -266,33 +337,35 @@ class DevOpsHeroApp(App):
         self.solution_used: bool = False
         self.last_command_success: bool = True
         self.current_view: str = "terminal_lab"
+        self.cursor_mission_idx: int = 0
+        self.cursor_sidebar_idx: int = 1
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="floci-root"):
-            # 1. Left Sidebar Navigation (Authentic Flocí Console Sidebar)
-            with Vertical(id="floci-sidebar"):
+            # 1. Left Sidebar Navigation (Authentic Superfile Sidebar)
+            with SidebarPanel(id="floci-sidebar"):
                 with VerticalScroll(id="sidebar-scroll"):
                     yield Label("GENERAL", classes="sidebar-category")
-                    yield Button("⊞ Console Home", id="nav-console-home", classes="sidebar-nav-btn")
-                    yield Button("⚡ Terminal Lab", id="nav-terminal-lab", classes="sidebar-nav-btn sidebar-active")
+                    yield Label("⊞ Console Home", id="nav-console-home", classes="sidebar-nav-item")
+                    yield Label("⚡ Terminal Lab", id="nav-terminal-lab", classes="sidebar-nav-item sidebar-active")
 
                     yield Label("CLOUD SERVICES · DEVOPS", classes="sidebar-category")
 
                     yield Label("COMPUTE", classes="sidebar-subcat")
-                    yield Button("🐧 Linux Shell", id="nav-track-linux", classes="sidebar-nav-btn")
-                    yield Button("🐳 Docker", id="nav-track-docker", classes="sidebar-nav-btn")
-                    yield Button("☸️ Kubernetes", id="nav-track-k8s", classes="sidebar-nav-btn")
-                    yield Button("⚡ Serverless", id="nav-track-serverless", classes="sidebar-nav-btn sidebar-disabled", disabled=True)
+                    yield Label("🐧 Linux Shell", id="nav-track-linux", classes="sidebar-nav-item")
+                    yield Label("🐳 Docker", id="nav-track-docker", classes="sidebar-nav-item")
+                    yield Label("☸️ Kubernetes", id="nav-track-k8s", classes="sidebar-nav-item")
+                    yield Label("⚡ Serverless", id="nav-track-serverless", classes="sidebar-nav-item sidebar-disabled")
 
                     yield Label("STORAGE & VCS", classes="sidebar-subcat")
-                    yield Button("🔀 Git VCS", id="nav-track-git", classes="sidebar-nav-btn")
-                    yield Button("☁️ AWS Storage", id="nav-track-aws", classes="sidebar-nav-btn")
+                    yield Label("🔀 Git VCS", id="nav-track-git", classes="sidebar-nav-item")
+                    yield Label("☁️ AWS Storage", id="nav-track-aws", classes="sidebar-nav-item")
 
                     yield Label("PROVISIONING", classes="sidebar-subcat")
-                    yield Button("🏗️ Terraform", id="nav-track-terraform", classes="sidebar-nav-btn")
+                    yield Label("🏗️ Terraform", id="nav-track-terraform", classes="sidebar-nav-item")
 
                     yield Label("OBSERVABILITY", classes="sidebar-subcat")
-                    yield Button("🐶 Datadog", id="nav-track-datadog", classes="sidebar-nav-btn")
+                    yield Label("🐶 Datadog", id="nav-track-datadog", classes="sidebar-nav-item")
 
                 with Horizontal(id="sidebar-footer"):
                     yield Label("Flocí DevTools · Local", classes="sidebar-footer-text")
@@ -300,22 +373,19 @@ class DevOpsHeroApp(App):
 
             # 2. Main Column (Top Header + Views Container)
             with Vertical(id="floci-main-col"):
-                # Top Header Bar (Flocí Header)
+                # Top Header Bar (Clean Superfile Header - Zero Broken Pills)
                 with Horizontal(id="floci-top-header"):
                     with Horizontal(id="top-title-col"):
                         yield Label("☁️", id="top-header-icon")
-                        with Horizontal(id="top-header-text-col"):
-                            yield Label("Terminal Lab", id="lbl-top-view-title", classes="top-main-title")
-                            yield Label("Interactive DevOps & SRE learning runtime", id="lbl-top-view-sub", classes="top-sub-title")
+                        yield Label("DevOpsHero Console", classes="top-brand-title")
+                        yield Label("│", classes="top-sep")
+                        yield Label("Terminal Lab", id="lbl-top-view-title", classes="top-main-title")
+                        yield Label("│", classes="top-sep")
+                        yield Label("Trilha: Linux", id="lbl-top-track-title", classes="top-track-title")
 
-                    with Horizontal(id="top-pills-row"):
-                        yield Button("Linux", id="pill-filter-linux", classes="top-filter-pill")
-                        yield Button("Docker", id="pill-filter-docker", classes="top-filter-pill")
-                        yield Button("K8s", id="pill-filter-k8s", classes="top-filter-pill")
-                        yield Button("AWS", id="pill-filter-aws", classes="top-filter-pill")
-                        yield Button("IaC", id="pill-filter-terraform", classes="top-filter-pill")
-                        yield Button("Obs", id="pill-filter-datadog", classes="top-filter-pill")
-                        yield Button("🚀 Update", id="btn-update", classes="top-update-pill")
+                    with Horizontal(id="top-status-col"):
+                        yield Label("[dim #64748b]Navegação:[/] [bold #fbbf24]Tab[/] Alternar Painéis  │  [bold #10b981]● ONLINE[/]", id="lbl-top-status")
+                        yield Label("", id="lbl-top-update", classes="top-update-badge")
 
                 # Dynamic Views Container
                 with Vertical(id="floci-views-container"):
@@ -410,13 +480,13 @@ class DevOpsHeroApp(App):
                         # Top Workspace: Directory/Missions Browser Column + Terminal Code Editor Column
                         with Horizontal(id="lab-workspace"):
                             # Missions Browser Column (superfile directory pane)
-                            with Vertical(id="mission-panel"):
+                            with MissionPanel(id="mission-panel"):
                                 with Horizontal(id="mission-search-row"):
                                     yield Label("🔍 (/) Filter missions or type...", id="lbl-mission-search")
                                 with VerticalScroll(id="missions-tree-scroll"):
                                     with Vertical(id="box-missions-list"):
                                         for slot_i in range(10):
-                                            yield Button("", id=f"btn-m-slot-{slot_i}", classes="mission-file-btn")
+                                            yield Label("", id=f"btn-m-slot-{slot_i}", classes="mission-file-item")
                                 with Horizontal(id="mission-panel-meta-hidden"):
                                     yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
                                     yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
@@ -441,31 +511,36 @@ class DevOpsHeroApp(App):
                         # Bottom Area: Tri-Panel Tray (Processes, Metadata, Clipboard)
                         with Horizontal(id="lab-bottom-tray"):
                             # Panel 1: Processes
-                            with Vertical(id="panel-processes", classes="superfile-tray-panel"):
-                                yield Label("⚡ Speed Score (Anti-Cola)", classes="tray-header-label")
+                            with ProcessesPanel(id="panel-processes", classes="superfile-tray-panel"):
+                                yield Label("⚡ SPEED SCORE & REGRAS", classes="tray-header-label")
                                 yield Static("", id="box-rules", classes="rules-box")
-                                yield Label("XP Progress", classes="tray-header-label")
+                                yield Label("PROGRESSO DE XP NA TRILHA", classes="tray-header-label")
                                 yield ProgressBar(total=100, show_eta=False, id="lab-xp-bar")
 
                             # Panel 2: Metadata
-                            with VerticalScroll(id="panel-metadata", classes="superfile-tray-panel"):
+                            with MetadataPanel(id="panel-metadata", classes="superfile-tray-panel"):
                                 yield Static("", id="box-metadata-content", classes="metadata-content-box")
                                 yield Static("", id="box-objective", classes="objective-box")
                                 yield Static("", id="box-context", classes="context-box")
 
                             # Panel 3: Clipboard
-                            with VerticalScroll(id="panel-clipboard", classes="superfile-tray-panel"):
-                                with Horizontal(classes="lab-quick-actions"):
-                                    yield Button("💡 Dica (F3)", id="btn-tip", classes="action-btn")
-                                    yield Button("👁️ Solução (F4)", id="btn-solution", classes="action-btn")
-                                    yield Button("🧹 Reset (F5)", id="btn-reset", classes="action-btn")
-                                    yield Button("🗺️ Trilhas (F2)", id="btn-tracks", classes="action-btn")
+                            with ClipboardPanel(id="panel-clipboard", classes="superfile-tray-panel"):
+                                yield Label("⌨️ ATALHOS RÁPIDOS", classes="tray-header-label")
+                                yield Static(
+                                    " [bold #fbbf24][F3][/]  💡 [bold white]Dica[/]        [dim #64748b]revela auxílio progressivo[/]\n"
+                                    " [bold #fb7185][F4][/]  👁️ [bold white]Gabarito[/]    [dim #64748b]revela comando solução[/]\n"
+                                    " [bold #94a3b8][F5][/]  🧹 [bold white]Reset Lab[/]   [dim #64748b]restaura o laboratório[/]\n"
+                                    " [bold #00f2fe][F2][/]  🗺️ [bold white]Trilhas[/]     [dim #64748b]alterna Console Home[/]\n"
+                                    " [bold #38bdf8][Tab][/] ⇄  [bold white]Painéis[/]     [dim #64748b]alterna foco das janelas[/]",
+                                    id="box-shortcuts-list",
+                                    classes="shortcuts-box",
+                                )
                                 yield Static("", id="box-tip", classes="tip-box")
                                 yield Static("", id="box-solution", classes="solution-box")
 
                 # Footer
                 with Horizontal(id="footer-bar"):
-                    yield Label("[bold #00f2fe]F2[/] Console Home  │  [bold #38bdf8]Enter[/] Terminal Lab  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
+                    yield Label("[bold #fbbf24]Tab[/] Alternar Painéis  │  [bold #00f2fe]F2[/] Console Home  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
         try:
@@ -499,23 +574,24 @@ class DevOpsHeroApp(App):
         self.switch_view("terminal_lab")
         self.run_worker(self._async_check_update, thread=True)
 
+        try:
+            self.query_one("#term-input", Input).focus()
+        except Exception:
+            pass
+
     def switch_view(self, view_name: str) -> None:
         self.current_view = view_name
         console_home = self.query_one("#view-console-home")
         terminal_lab = self.query_one("#view-terminal-lab")
         lbl_title = self.query_one("#lbl-top-view-title", Label)
-        lbl_sub = self.query_one("#lbl-top-view-sub", Label)
-
-        btn_nav_home = self.query_one("#nav-console-home", Button)
-        btn_nav_lab = self.query_one("#nav-terminal-lab", Button)
+        lbl_track = self.query_one("#lbl-top-track-title", Label)
+        track = TRACKS_MAP.get(self.progress.current_track_id) or ALL_TRACKS[0]
 
         if view_name == "console_home":
             console_home.display = True
             terminal_lab.display = False
             lbl_title.update("Console Home")
-            lbl_sub.update("Cloud-aware local runtime overview")
-            btn_nav_home.add_class("sidebar-active")
-            btn_nav_lab.remove_class("sidebar-active")
+            lbl_track.update(f"Trilha: {track.name}")
             self.update_console_home_stats()
             try:
                 hero = self.query_one("#hero-banner-card")
@@ -527,13 +603,12 @@ class DevOpsHeroApp(App):
             console_home.display = False
             terminal_lab.display = True
             lbl_title.update("Terminal Lab")
-            lbl_sub.update("Interactive DevOps & SRE learning runtime")
-            btn_nav_home.remove_class("sidebar-active")
-            btn_nav_lab.add_class("sidebar-active")
+            lbl_track.update(f"Trilha: {track.name}")
             try:
                 self.query_one("#term-input", Input).focus()
             except Exception:
                 pass
+        self.update_sidebar_styles()
 
     def select_track_by_id(self, track_id: str) -> None:
         track = TRACKS_MAP.get(track_id)
@@ -595,20 +670,27 @@ class DevOpsHeroApp(App):
     def _async_check_update(self) -> None:
         has_update, remote_ver = check_update_available()
         if has_update:
-            def show_update_btn():
+            def show_update_badge():
                 try:
-                    btn = self.query_one("#btn-update", Button)
-                    btn.display = True
-                    if remote_ver:
-                        btn.label = f"🚀 Update ({remote_ver})"
+                    lbl = self.query_one("#lbl-top-update", Label)
+                    lbl.display = True
+                    ver_text = f" ({remote_ver})" if remote_ver else ""
+                    lbl.update(f"[bold #fb7185]🚀 Update{ver_text} (F6)[/]")
                 except Exception:
                     pass
-            self.call_from_thread(show_update_btn)
+            self.call_from_thread(show_update_badge)
 
     def load_active_mission(self) -> None:
         track_id = self.progress.current_track_id
         mission_id = self.progress.current_mission_id
         self.current_mission = get_mission(track_id, mission_id) or ALL_TRACKS[0].missions[0]
+
+        track = TRACKS_MAP.get(track_id)
+        if track and self.current_mission:
+            try:
+                self.cursor_mission_idx = track.missions.index(self.current_mission)
+            except ValueError:
+                self.cursor_mission_idx = 0
 
         if self.current_mission.initial_setup:
             self.current_mission.initial_setup(self.state)
@@ -641,6 +723,7 @@ class DevOpsHeroApp(App):
             self.query_one("#lbl-xp-badge", Label).update(f"+{m.xp} XP")
             self.query_one("#box-context", Static).update(f"[bold #64748b]Scenario:[/] {m.context}")
             self.query_one("#box-objective", Static).update(f"[bold #10b981]🎯 Objetivo:[/] {m.objective}")
+            self.query_one("#lbl-top-track-title", Label).update(f"Trilha: {track_name}")
         except Exception:
             pass
 
@@ -654,7 +737,7 @@ class DevOpsHeroApp(App):
 
             term_panel = self.query_one("#terminal-panel")
             term_panel.border_title = f"💻 {m.id}.sh"
-            term_panel.border_subtitle = f"⭐ +{m.xp} XP │ ● ONLINE"
+            term_panel.border_subtitle = "● ONLINE"
 
             self.query_one("#panel-processes").border_title = "Processes"
             self.query_one("#panel-processes").border_subtitle = "1/4"
@@ -674,11 +757,18 @@ class DevOpsHeroApp(App):
         try:
             tree_box = self.query_one("#box-missions-list", Vertical)
             all_m = track.missions if track else [m]
-            buttons = list(tree_box.query(Button))
+            labels = list(tree_box.query(Label))
+            is_panel_focused = False
+            try:
+                is_panel_focused = self.query_one("#mission-panel").has_focus
+            except Exception:
+                pass
+
             for idx in range(max(10, len(all_m))):
                 if idx < len(all_m):
                     mission_item = all_m[idx]
                     is_active = mission_item.id == m.id
+                    is_cursor = idx == self.cursor_mission_idx and is_panel_focused
                     is_done = mission_item.id in self.progress.completed_missions
                     is_locked = False
                     if idx > 0 and not is_done and not is_active:
@@ -687,27 +777,48 @@ class DevOpsHeroApp(App):
                             is_locked = True
 
                     if is_active:
-                        style_cls = "mission-file-btn mission-file-active"
-                        label_markup = f"[bold #00f2fe]❯ {mission_item.id}.sh[/]"
+                        prefix = "[bold #00f2fe]❯ 📄[/]"
+                        text_style = "bold #00f2fe"
+                        style_cls = "mission-file-item mission-file-active"
+                    elif is_cursor:
+                        prefix = "[bold #38bdf8]► 📄[/]"
+                        text_style = "bold white"
+                        style_cls = "mission-file-item mission-file-cursor"
                     elif is_done:
-                        style_cls = "mission-file-btn mission-file-done"
-                        label_markup = f"  [bold #10b981]✓ {mission_item.id}.sh[/]"
+                        prefix = "[bold #10b981]✓ 📄[/]"
+                        text_style = "bold #10b981"
+                        style_cls = "mission-file-item mission-file-done"
                     elif is_locked:
-                        style_cls = "mission-file-btn mission-file-locked"
-                        label_markup = f"  [dim #64748b]🔒 {mission_item.id}.sh[/]"
+                        prefix = "[dim #64748b]🔒[/]  "
+                        text_style = "dim #64748b"
+                        style_cls = "mission-file-item mission-file-locked"
                     else:
-                        style_cls = "mission-file-btn"
-                        label_markup = f"  [#cbd5e1]📄 {mission_item.id}.sh[/]"
+                        prefix = "[#94a3b8]📄[/]  "
+                        text_style = "#cbd5e1"
+                        style_cls = "mission-file-item"
 
-                    if idx < len(buttons):
-                        btn = buttons[idx]
-                        btn.label = label_markup
-                        btn.classes = style_cls
-                        btn.mission_id = mission_item.id
-                        btn.display = True
+                    label_markup = f"{prefix} [{text_style}]{mission_item.id}.sh[/]"
+
+                    if idx < len(labels):
+                        lbl = labels[idx]
+                        lbl.update(label_markup)
+                        lbl.classes = style_cls
+                        lbl.mission_id = mission_item.id
+                        lbl.display = True
                 else:
-                    if idx < len(buttons):
-                        buttons[idx].display = False
+                    if idx < len(labels):
+                        labels[idx].display = False
+        except Exception:
+            pass
+
+        # Update Rules in processes box
+        try:
+            self.query_one("#box-rules", Static).update(
+                "[bold #10b981]• Ninja:[/]     [white]<5s sem dicas[/] [dim #64748b](100% XP + Streak)[/]\n"
+                "[bold #38bdf8]• Standard:[/]  [white]>5s de execução[/] [dim #64748b](70% de XP)[/]\n"
+                "[bold #fbbf24]• Dica:[/]      [white]Reduz XP proporcionalmente[/]\n"
+                "[bold #fb7185]• Gabarito:[/]  [white]Zera XP e quebra o streak[/]"
+            )
         except Exception:
             pass
 
@@ -719,10 +830,13 @@ class DevOpsHeroApp(App):
                 f"[bold #64748b]FileSize:[/]       [bold #10b981]+{m.xp} XP[/]\n"
                 f"[bold #64748b]FileModifyDate:[/] [dim #94a3b8]{cur_time}[/]\n"
                 f"[bold #64748b]Track:[/]          [bold #9e85ff]{track_name}[/]\n"
-                f"[bold #64748b]Difficulty:[/]     [bold #fbbf24]{m.difficulty.upper()}[/]"
+                f"[bold #64748b]Difficulty:[/]     [bold #fbbf24]{m.difficulty.upper()}[/]\n"
+                f"[bold #10b981]🎯 Objetivo:[/]    [bold white]{m.objective}[/]\n"
+                f"[bold #64748b]📖 Scenario:[/]    [dim #cbd5e1]{m.context}[/]"
             )
             self.query_one("#box-metadata-content", Static).update(meta_markup)
         except Exception:
+            pass
             pass
 
         # Update XP Progress bar in tray
@@ -967,6 +1081,84 @@ class DevOpsHeroApp(App):
             f"  🔥 Streak Atual: {self.progress.streak} (Recorde: {self.progress.max_streak})\n"
             f"  ✅ Missões Concluídas: {completed} / {total}\n"
         )
+
+    def update_sidebar_styles(self) -> None:
+        is_sidebar_focused = False
+        try:
+            is_sidebar_focused = self.query_one("#floci-sidebar").has_focus
+        except Exception:
+            pass
+
+        for idx, (item_id, item_type, target_val, label_text) in enumerate(SIDEBAR_ITEMS):
+            try:
+                lbl = self.query_one(f"#{item_id}", Label)
+                is_active = False
+                if item_type == "view":
+                    is_active = self.current_view == target_val
+                elif item_type == "track":
+                    is_active = self.progress.current_track_id == target_val and self.current_view == "terminal_lab"
+
+                is_cursor = idx == self.cursor_sidebar_idx and is_sidebar_focused
+
+                if is_active:
+                    lbl.classes = "sidebar-nav-item sidebar-active"
+                    lbl.update(f"[bold #00f2fe]❯ {label_text}[/]")
+                elif is_cursor:
+                    lbl.classes = "sidebar-nav-item sidebar-cursor"
+                    lbl.update(f"[bold #38bdf8]► {label_text}[/]")
+                else:
+                    lbl.classes = "sidebar-nav-item"
+                    lbl.update(f"  [#cbd5e1]{label_text}[/]")
+            except Exception:
+                pass
+
+    def cursor_prev_mission(self) -> None:
+        track = TRACKS_MAP.get(self.progress.current_track_id)
+        if not track or not track.missions:
+            return
+        self.cursor_mission_idx = max(0, self.cursor_mission_idx - 1)
+        self.render_mission_panel()
+
+    def cursor_next_mission(self) -> None:
+        track = TRACKS_MAP.get(self.progress.current_track_id)
+        if not track or not track.missions:
+            return
+        self.cursor_mission_idx = min(len(track.missions) - 1, self.cursor_mission_idx + 1)
+        self.render_mission_panel()
+
+    def select_cursor_mission(self) -> None:
+        track = TRACKS_MAP.get(self.progress.current_track_id)
+        if not track or not track.missions:
+            return
+        if 0 <= self.cursor_mission_idx < len(track.missions):
+            m = track.missions[self.cursor_mission_idx]
+            self.select_mission_by_id(m.id)
+
+    def cursor_prev_sidebar(self) -> None:
+        self.cursor_sidebar_idx = max(0, self.cursor_sidebar_idx - 1)
+        self.update_sidebar_styles()
+
+    def cursor_next_sidebar(self) -> None:
+        self.cursor_sidebar_idx = min(len(SIDEBAR_ITEMS) - 1, self.cursor_sidebar_idx + 1)
+        self.update_sidebar_styles()
+
+    def select_cursor_sidebar(self) -> None:
+        if 0 <= self.cursor_sidebar_idx < len(SIDEBAR_ITEMS):
+            item_id, item_type, target_val, label = SIDEBAR_ITEMS[self.cursor_sidebar_idx]
+            if item_type == "view":
+                self.switch_view(target_val)
+            elif item_type == "track":
+                self.select_track_by_id(target_val)
+
+    def activate_sidebar_item(self, target_id: str) -> None:
+        for idx, (item_id, item_type, target_val, label) in enumerate(SIDEBAR_ITEMS):
+            if target_id == item_id:
+                self.cursor_sidebar_idx = idx
+                if item_type == "view":
+                    self.switch_view(target_val)
+                elif item_type == "track":
+                    self.select_track_by_id(target_val)
+                return
 
     # Actions & Buttons
     def action_tracks(self) -> None:

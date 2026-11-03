@@ -160,6 +160,14 @@
   - **Regra de Não-Truncamento e Alinhamento**:
     - Jamais truncar ou quebrar palavras no meio de termos ou descrições em nenhuma janela da TUI.
     - Manter alinhamento horizontal e vertical preciso em todos os painéis e botões de ação.
+  - **Navegação por Tab e Filosofia Sem Clique (Keyboard-First TUI)**:
+    - O console terminal é estritamente orientado a teclado e navegação rápida via `Tab` / `Shift+Tab`.
+    - Eliminação de botões GUI que quebram layout ou aprisionam o foco:
+      - Cabeçalho superior: barra limpa de 1 linha interna com título da console, breadcrumb da trilha ativa e status de navegação.
+      - Painel de Clipboard: cheat-sheet elegante de atalhos globais (`[F3] Dica`, `[F4] Gabarito`, `[F5] Reset`, `[F2] Trilhas`, `[Tab] Painéis`).
+      - Navegação fluida entre os 6 painéis principais (`floci-sidebar` ⇄ `mission-panel` ⇄ `term-input` ⇄ `panel-processes` ⇄ `panel-metadata` ⇄ `panel-clipboard`).
+      - O painel focado recebe destaque imediato de borda iluminada (`:focus` / `:focus-within`).
+      - Nas listas (Sidebar e Missões), as teclas `↑` / `↓` (ou `k` / `j`) movem o cursor e `Enter` seleciona. No terminal, digitação direta no prompt com histórico.
 
 
 

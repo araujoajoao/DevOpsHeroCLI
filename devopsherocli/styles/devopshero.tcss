@@ -35,6 +35,10 @@ Screen {
     margin-right: 1;
 }
 
+#floci-sidebar:focus {
+    border: round #ff7b92;
+}
+
 #sidebar-scroll {
     height: 1fr;
     overflow-y: auto;
@@ -58,10 +62,11 @@ Screen {
     height: 1;
 }
 
+.sidebar-nav-item,
 .sidebar-nav-btn {
     width: 100%;
-    height: 2;
-    min-height: 2;
+    height: 1;
+    min-height: 1;
     background: transparent;
     border: none;
     color: #94a3b8;
@@ -70,15 +75,21 @@ Screen {
     margin: 0;
 }
 
+.sidebar-nav-item:hover,
 .sidebar-nav-btn:hover {
     background: #1e243e;
     color: #ffffff;
 }
 
 .sidebar-active {
-    background: #1e243e;
+    background: #1a233a;
     color: #00f2fe;
-    border-left: wide #00f2fe;
+    text-style: bold;
+}
+
+.sidebar-cursor {
+    background: #273559;
+    color: #ffffff;
     text-style: bold;
 }
 
@@ -122,7 +133,7 @@ Screen {
     background: #0f111a;
 }
 
-/* Top Header Bar */
+/* Top Header Bar (Clean Superfile Header - Zero Broken Pills) */
 #floci-top-header {
     dock: top;
     height: 3;
@@ -143,64 +154,46 @@ Screen {
 }
 
 #top-header-icon {
-    width: 3;
-    height: 1;
-    color: #9e85ff;
+    width: 2;
+    color: #38bdf8;
     margin-right: 1;
 }
 
-#top-header-text-col {
-    width: auto;
-    layout: horizontal;
-    align-vertical: middle;
+.top-brand-title {
+    color: #38bdf8;
+    text-style: bold;
+}
+
+.top-sep {
+    color: #334155;
+    margin: 0 1;
 }
 
 .top-main-title {
     color: #f8fafc;
     text-style: bold;
-    margin-right: 2;
 }
 
-.top-sub-title {
-    color: #64748b;
+.top-track-title {
+    color: #9e85ff;
+    text-style: bold;
 }
 
-#top-pills-row {
+#top-status-col {
     width: 1fr;
     layout: horizontal;
     align: right middle;
-    height: 2;
 }
 
-.top-filter-pill {
-    width: auto;
-    min-width: 0;
-    height: 2;
-    background: #1e243e;
-    border: round #272e4f;
-    color: #a5b4fc;
-    padding: 0 1;
-    margin-left: 1;
-    text-style: bold;
+#lbl-top-status {
+    color: #94a3b8;
 }
 
-.top-filter-pill:hover {
-    background: #272e4f;
-    border: round #9e85ff;
-    color: #ffffff;
-}
-
-.top-update-pill {
+.top-update-badge {
     display: none;
-    width: auto;
-    min-width: 0;
-    height: 2;
-    background: #272e4f;
-    border: round #fb7185;
     color: #fb7185;
-    padding: 0 1;
-    margin-left: 1;
     text-style: bold;
+    margin-left: 2;
 }
 
 /* Dynamic Views Container */
@@ -417,6 +410,10 @@ Screen {
     margin-right: 1;
 }
 
+#mission-panel:focus {
+    border: round #00f2fe;
+}
+
 #mission-search-row {
     height: 1;
     border-bottom: solid #272e4f;
@@ -439,6 +436,7 @@ Screen {
     layout: vertical;
 }
 
+.mission-file-item,
 .mission-file-btn {
     width: 100%;
     height: 1;
@@ -451,6 +449,7 @@ Screen {
     margin: 0;
 }
 
+.mission-file-item:hover,
 .mission-file-btn:hover {
     background: #1e243e;
     color: #ffffff;
@@ -458,6 +457,13 @@ Screen {
 
 .mission-file-active {
     color: #00f2fe;
+    background: #161f36;
+    text-style: bold;
+}
+
+.mission-file-cursor {
+    background: #1e294b;
+    color: #ffffff;
     text-style: bold;
 }
 
@@ -466,7 +472,7 @@ Screen {
 }
 
 .mission-file-locked {
-    color: #475569;
+    color: #64748b;
 }
 
 #mission-panel-meta-hidden {
@@ -535,6 +541,10 @@ Screen {
     border-subtitle-align: right;
     layout: vertical;
     padding: 0;
+}
+
+#terminal-panel:focus-within {
+    border: round #00f2fe;
 }
 
 #term-title-bar {
@@ -643,13 +653,31 @@ Input > .input--placeholder,
     margin-right: 1;
 }
 
+#panel-processes:focus {
+    border: round #10b981;
+}
+
 #panel-metadata {
     width: 38%;
     margin-right: 1;
 }
 
+#panel-metadata:focus {
+    border: round #9e85ff;
+}
+
 #panel-clipboard {
     width: 30%;
+}
+
+#panel-clipboard:focus {
+    border: round #fb7185;
+}
+
+.shortcuts-box {
+    height: auto;
+    color: #cbd5e1;
+    margin-bottom: 1;
 }
 
 .tray-header-label {
