@@ -1,6 +1,7 @@
 """Main Textual TUI Application for DevOpsHeroCLI."""
 from __future__ import annotations
 
+import random
 import time
 from typing import Optional
 
@@ -34,49 +35,76 @@ ensure_utf8_encoding()
 
 
 class TracksModal(ModalScreen):
-    """Modal dialog displaying all tracks and mission selector."""
+    """Modal dialog displaying all tracks for track-level selection (matching mobile)."""
 
     def __init__(self, progress: UserProgress):
         super().__init__()
         self.progress = progress
 
+    def _get_entry_mission(self, track: Track) -> Optional[Mission]:
+        uncompleted = [m for m in track.missions if m.id not in self.progress.completed_missions]
+        if uncompleted:
+            return random.choice(uncompleted)
+        return random.choice(track.missions) if track.missions else None
+
     def compose(self) -> ComposeResult:
         with Vertical(id="tracks-dialog"):
-            yield Label("🗺️ Trilhas de Aprendizado — Escolha uma Missão", classes="track-modal-header")
+            yield Label("🗺️ Trilhas de Aprendizado — Escolha uma Trilha", classes="track-modal-header")
+            yield Label("Selecione a trilha desejada para praticar suas missões sequencialmente.", classes="track-modal-sub")
             with VerticalScroll(id="tracks-list"):
                 for track in ALL_TRACKS:
                     is_unlocked = self.progress.is_track_unlocked(track)
                     completed_count = sum(1 for m in track.missions if m.id in self.progress.completed_missions)
                     total_count = len(track.missions)
+                    is_curr = track.id == self.progress.current_track_id
+
                     if is_unlocked:
-                        header_txt = f"\n{track.icon} {track.name} ({completed_count}/{total_count} Concluídas) — {track.description}"
-                    else:
-                        header_txt = f"\n🔒 {track.icon} {track.name} [BLOQUEADO] — Requer {track.required_seniority} ({track.required_xp} XP)"
-                    yield Label(header_txt, classes="track-group-title")
-                    for m in track.missions:
-                        is_done = m.id in self.progress.completed_missions
-                        is_curr = m.id == self.progress.current_mission_id
-                        if is_unlocked:
-                            status_ico = "✅" if is_done else ("👉" if is_curr else "⭕")
-                            btn_label = f"{status_ico} [{m.id}] {m.title} ({m.difficulty} · {m.xp} XP)"
-                            btn_classes = "mission-item-btn " + ("mission-item-done" if is_done else ("mission-item-curr" if is_curr else ""))
-                            btn = Button(btn_label, id=f"sel_m_{m.track_id}_{m.id}", classes=btn_classes)
+                        if completed_count == total_count:
+                            status_tag = "✅ [100% CONCLUÍDA]"
+                            btn_class = "track-card-btn track-card-done"
+                            action_txt = "Revisar Trilha ➔"
+                        elif is_curr:
+                            status_tag = f"👉 [TRILHA ATIVA · {completed_count}/{total_count}]"
+                            btn_class = "track-card-btn track-card-curr"
+                            action_txt = "Continuar Prática ➔"
+                        elif completed_count > 0:
+                            status_tag = f"⚡ [EM ANDAMENTO · {completed_count}/{total_count}]"
+                            btn_class = "track-card-btn track-card-progress"
+                            action_txt = "Continuar Trilha ➔"
                         else:
-                            btn_label = f"🔒 [{m.id}] {m.title} (Requer {track.required_xp} XP)"
-                            btn_classes = "mission-item-btn mission-item-locked"
-                            btn = Button(btn_label, id=f"locked_m_{m.track_id}_{m.id}", classes=btn_classes, disabled=True)
-                        yield btn
+                            status_tag = f"▶ [DISPONÍVEL · 0/{total_count}]"
+                            btn_class = "track-card-btn"
+                            action_txt = "Iniciar Trilha ➔"
+
+                        entry_m = self._get_entry_mission(track)
+                        entry_title = entry_m.title if entry_m else ""
+                        btn_label = (
+                            f"{status_tag}  {track.icon} {track.name.upper()}  •  {track.required_seniority}\n"
+                            f"   • {track.description}\n"
+                            f"   [{action_txt} · Próxima Missão: {entry_title}]"
+                        )
+                        btn = Button(btn_label, id=f"sel_track_{track.id}", classes=btn_class)
+                    else:
+                        btn_label = (
+                            f"🔒 [BLOQUEADO]  {track.icon} {track.name.upper()}  •  Requer {track.required_seniority} ({track.required_xp} XP)\n"
+                            f"   • {track.description}\n"
+                            f"   [🔒 Bloqueado: complete missões anteriores para desbloquear]"
+                        )
+                        btn = Button(btn_label, id=f"locked_track_{track.id}", classes="track-card-btn track-card-locked", disabled=True)
+                    yield btn
             yield Button("Fechar (Esc)", id="btn-close-modal")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         btn_id = event.button.id or ""
         if btn_id == "btn-close-modal":
             self.dismiss(None)
-        elif btn_id.startswith("sel_m_"):
-            parts = btn_id.replace("sel_m_", "").split("_")
-            track_id = parts[0]
-            mission_id = "_".join(parts[1:])
-            self.dismiss((track_id, mission_id))
+        elif btn_id.startswith("sel_track_"):
+            track_id = btn_id.replace("sel_track_", "")
+            track = TRACKS_MAP.get(track_id)
+            if track and self.progress.is_track_unlocked(track):
+                entry_m = self._get_entry_mission(track)
+                m_id = entry_m.id if entry_m else (track.missions[0].id if track.missions else "")
+                self.dismiss((track_id, m_id))
 
 
 class DevOpsHeroApp(App):
@@ -407,9 +435,24 @@ class DevOpsHeroApp(App):
     def advance_to_next_mission(self) -> None:
         if not self.current_mission:
             return
-        next_step = get_next_mission(self.current_mission.track_id, self.current_mission.id)
+        next_step = get_next_mission(
+            self.current_mission.track_id,
+            self.current_mission.id,
+            completed_missions=self.progress.completed_missions,
+            shuffle=True,
+        )
         if next_step:
             t_id, m_id = next_step
+            # If advancing to a new track, check if user has required seniority
+            if t_id != self.current_mission.track_id:
+                next_t = TRACKS_MAP.get(t_id)
+                if next_t and not self.progress.is_track_unlocked(next_t):
+                    log = self.query_one("#term-output-log", RichLog)
+                    log.write(f"\n[bold gold1]🎉 Trilha {self.current_mission.track_id.upper()} concluída com sucesso![/]")
+                    log.write(f"[bold #f87171]🔒 A próxima trilha ({next_t.name}) requer {next_t.required_seniority} ({next_t.required_xp} XP).[/]")
+                    log.write(f"[dim]Você possui {self.progress.xp} XP. Complete outras missões para elevar seu nível![/]\n")
+                    return
+
             self.progress.current_track_id = t_id
             self.progress.current_mission_id = m_id
             self.progress.save()

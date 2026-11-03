@@ -319,6 +319,46 @@ def show_doctor() -> None:
         ))
 
 
+def update_repo():
+    """Pulls latest changes from remote Git repository and updates installed package."""
+    import subprocess
+    from pathlib import Path
+
+    repo_dir = Path(__file__).resolve().parent.parent
+    git_dir = repo_dir / ".git"
+
+    if not git_dir.exists():
+        console.print("[bold yellow]⚠️  Repositório Git não detectado neste diretório.[/]")
+        console.print("[dim]Se você baixou o DevOpsHero como arquivo .ZIP, faça o download da versão mais recente no GitHub ou clone com 'git clone https://github.com/araujoajoao/DevOpsHeroCLI'.[/]")
+        return
+
+    console.print(Panel.fit(
+        "[bold cyan]⚡ DevOpsHeroCLI Updater[/]\n"
+        "[dim]Buscando e aplicando atualizações remotas do GitHub...[/]",
+        border_style="cyan"
+    ))
+
+    try:
+        console.print("➔ [cyan]Executando git pull origin main...[/]")
+        pull_res = subprocess.run(["git", "-C", str(repo_dir), "pull", "origin", "main"], capture_output=True, text=True)
+        if pull_res.returncode != 0:
+            console.print(f"[bold red]❌ Erro ao puxar atualizações do Git:[/] {pull_res.stderr.strip() or pull_res.stdout.strip()}")
+            return
+
+        console.print(f"[green]✓ Git pull concluído:[/] [dim]{pull_res.stdout.strip()}[/]")
+
+        console.print("➔ [cyan]Sincronizando dependências do ambiente virtual...[/]")
+        pip_res = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-e", str(repo_dir)], capture_output=True, text=True)
+        if pip_res.returncode == 0:
+            console.print("[bold green]✅ DevOpsHeroCLI atualizado com sucesso para a versão mais recente![/]")
+            console.print("[dim]Execute 'dh' para iniciar o simulador.[/]")
+        else:
+            console.print(f"[yellow]⚠️  Aviso ao atualizar pip:[/] {pip_res.stderr.strip()}")
+            console.print("[bold green]✅ Arquivos atualizados com sucesso via Git![/]")
+    except Exception as e:
+        console.print(f"[bold red]❌ Falha ao atualizar:[/] {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog="dh",
@@ -340,6 +380,7 @@ def main():
     subparsers.add_parser("reset", aliases=["clean"], help="Reseta todo o progresso do usuário (dh reset)")
     subparsers.add_parser("verify", aliases=["v", "check"], help="Executa auto-diagnóstico de todas as missões (dh v)")
     subparsers.add_parser("doctor", aliases=["d", "doc"], help="Verifica compatibilidade de SO e terminal (dh d)")
+    subparsers.add_parser("update", aliases=["u", "upgrade"], help="Atualiza o DevOpsHeroCLI para a versão mais recente do GitHub (dh update)")
 
     args = parser.parse_args()
 
@@ -368,6 +409,8 @@ def main():
             sys.exit(1)
     elif cmd in ("doctor", "d", "doc"):
         show_doctor()
+    elif cmd in ("update", "u", "upgrade"):
+        update_repo()
     else:
         # Default: Launch rich Textual TUI
         from devopsherocli.app import launch_app

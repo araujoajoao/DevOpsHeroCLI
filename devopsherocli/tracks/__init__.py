@@ -1,7 +1,7 @@
 """Tracks catalog registry for DevOpsHeroCLI."""
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 from devopsherocli.models import Mission, Track
 from devopsherocli.tracks.aws_track import AWS_TRACK
@@ -37,17 +37,32 @@ def get_mission(track_id: str, mission_id: str) -> Optional[Mission]:
     return None
 
 
-def get_next_mission(current_track_id: str, current_mission_id: str) -> Optional[Tuple[str, str]]:
+import random
+
+
+def get_next_mission(
+    current_track_id: str,
+    current_mission_id: str,
+    completed_missions: Optional[Set[str]] = None,
+    shuffle: bool = False,
+) -> Optional[Tuple[str, str]]:
     track = TRACKS_MAP.get(current_track_id)
     if not track:
         return None
 
-    # Try next mission in same track
-    for i, m in enumerate(track.missions):
-        if m.id == current_mission_id:
-            if i + 1 < len(track.missions):
-                return current_track_id, track.missions[i + 1].id
-            break
+    if shuffle:
+        completed = completed_missions or set()
+        uncompleted = [m for m in track.missions if m.id not in completed and m.id != current_mission_id]
+        if uncompleted:
+            chosen = random.choice(uncompleted)
+            return current_track_id, chosen.id
+    else:
+        # Try next mission in same track sequentially
+        for i, m in enumerate(track.missions):
+            if m.id == current_mission_id:
+                if i + 1 < len(track.missions):
+                    return current_track_id, track.missions[i + 1].id
+                break
 
     # If completed all missions in this track, jump to first mission of next track
     track_keys = [t.id for t in ALL_TRACKS]
@@ -56,6 +71,9 @@ def get_next_mission(current_track_id: str, current_mission_id: str) -> Optional
         if curr_idx + 1 < len(track_keys):
             next_t = ALL_TRACKS[curr_idx + 1]
             if next_t.missions:
+                if shuffle:
+                    chosen = random.choice(next_t.missions)
+                    return next_t.id, chosen.id
                 return next_t.id, next_t.missions[0].id
 
     return None

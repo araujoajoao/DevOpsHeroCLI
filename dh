@@ -56,7 +56,23 @@ if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ]; then
     echo ""
 fi
 
-# 3. Launch application
+# 3. Handle explicit update argument directly
+if [ "$1" = "update" ] || [ "$1" = "upgrade" ]; then
+    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Verificando e baixando atualizações do GitHub..."
+    if [ -d "$DIR/.git" ]; then
+        git -C "$DIR" pull origin main
+        echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Sincronizando ambiente Python..."
+        "$VENV_DIR/bin/pip" install -q -e "$DIR"
+        echo -e "\033[1;32m✓ [DevOpsHeroCLI]\033[0m DevOpsHero atualizado com sucesso!"
+        exit 0
+    else
+        echo -e "\033[1;33m[AVISO]\033[0m Diretório .git não encontrado (cópia baixada como ZIP)."
+        echo "Para atualizar, baixe a nova versão no GitHub ou clone com git clone."
+        exit 1
+    fi
+fi
+
+# 4. Launch application
 if [ -f "$VENV_DIR/bin/devopsherocli" ]; then
     exec "$VENV_DIR/bin/devopsherocli" "$@"
 else
