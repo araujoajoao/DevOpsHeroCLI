@@ -544,8 +544,8 @@ class DevOpsHeroApp(App):
                                     yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
                                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                                 with Horizontal(id="term-input-container"):
-                                    yield Label("5  ➜  ~ ", id="term-prompt")
-                                    yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
+                                    yield Label("➜  ~ ", id="term-prompt")
+                                    yield Input(placeholder="", id="term-input")
 
                         # Bottom Area: Tri-Panel Tray (Processes, Metadata, Clipboard)
                         with Horizontal(id="lab-bottom-tray"):
@@ -564,7 +564,7 @@ class DevOpsHeroApp(App):
 
                             # Panel 3: Clipboard
                             with ClipboardPanel(id="panel-clipboard", classes="tray-panel"):
-                                yield Label("⌨️ ATALHOS RÁPIDOS", classes="tray-header-label")
+                                yield Label("⚡ ATALHOS GLOBAIS", classes="tray-header-label")
                                 yield Static(
                                     " [bold #fbbf24][F3][/]  💡 [bold white]Dica[/]        [dim #64748b]revela auxílio progressivo[/]\n"
                                     " [bold #fb7185][F4][/]  👁️ [bold white]Gabarito[/]    [dim #64748b]revela comando solução[/]\n"
@@ -583,20 +583,16 @@ class DevOpsHeroApp(App):
 
     def on_mount(self) -> None:
         try:
-            self.query_one("#dh-sidebar").border_title = "📁 DevOpsHero"
-            self.query_one("#dh-sidebar").border_subtitle = "v1.1.0"
-            self.query_one("#dh-top-header").border_title = "☁️ DevOpsHero Console"
-            self.query_one("#dh-top-header").border_subtitle = "online"
-            self.query_one("#mission-panel").border_title = "📁 .../devopshero/tracks"
-            self.query_one("#mission-panel").border_subtitle = "👁 Browser"
-            self.query_one("#terminal-panel").border_title = "💻 terminal.sh"
-            self.query_one("#terminal-panel").border_subtitle = "● ONLINE"
-            self.query_one("#panel-processes").border_title = "Processes"
-            self.query_one("#panel-processes").border_subtitle = "1/4"
-            self.query_one("#panel-metadata").border_title = "Metadata"
-            self.query_one("#panel-metadata").border_subtitle = "1/3"
-            self.query_one("#panel-clipboard").border_title = "Clipboard"
-            self.query_one("#panel-clipboard").border_subtitle = "1/3"
+            self.query_one("#dh-sidebar").border_title = " DevOpsHero "
+            self.query_one("#dh-sidebar").border_subtitle = ""
+            self.query_one("#mission-panel").border_title = " devops "
+            self.query_one("#mission-panel").border_subtitle = ""
+            self.query_one("#panel-processes").border_title = " Processes "
+            self.query_one("#panel-processes").border_subtitle = ""
+            self.query_one("#panel-metadata").border_title = " Metadata "
+            self.query_one("#panel-metadata").border_subtitle = ""
+            self.query_one("#panel-clipboard").border_title = " Shortcuts "
+            self.query_one("#panel-clipboard").border_subtitle = ""
         except Exception:
             pass
 
@@ -743,7 +739,10 @@ class DevOpsHeroApp(App):
         try:
             log = self.query_one("#term-output-log", RichLog)
             log.write("")
-            log.write(f"[dim #8a94b8]1  # {self.current_mission.objective}[/]")
+            log.write(f"[dim #8a94b8]1  // DevOpsHero Lab - {track_name} Interactive Runtime[/]")
+            log.write(f"[dim #8a94b8]2  // Objetivo: {self.current_mission.objective}[/]")
+            log.write(f"[dim #8a94b8]3  // Cenário: {self.current_mission.context}[/]")
+            log.write("[dim #8a94b8]4  [/]")
         except Exception:
             pass
 
@@ -762,33 +761,27 @@ class DevOpsHeroApp(App):
             self.query_one("#lbl-xp-badge", Label).update(f"+{m.xp} XP")
             self.query_one("#box-context", Static).update(f"[bold #64748b]Scenario:[/] {m.context}")
             self.query_one("#box-objective", Static).update(f"[bold #10b981]🎯 Objetivo:[/] {m.objective}")
-            self.query_one("#lbl-top-track-title", Label).update(f"Trilha: {track_name}")
+            self.query_one("#lbl-top-track-title", Label).update(f"devops/{m.track_id}")
         except Exception:
             pass
 
         # Panel border titles & subtitles
         try:
             mission_panel = self.query_one("#mission-panel")
-            all_m = track.missions if track else [m]
-            cur_idx = next((i for i, item in enumerate(all_m) if item.id == m.id), 0)
-            mission_panel.border_title = f"📁 .../{m.track_id}"
-            mission_panel.border_subtitle = f"👁 Browser {cur_idx + 1}/{len(all_m)}"
+            mission_panel.border_title = f" devops/{m.track_id} "
+            mission_panel.border_subtitle = ""
 
-            term_panel = self.query_one("#terminal-panel")
-            term_panel.border_title = f"💻 {m.id}.sh"
-            term_panel.border_subtitle = "● ONLINE"
+            self.query_one("#panel-processes").border_title = " Processes "
+            self.query_one("#panel-processes").border_subtitle = ""
 
-            self.query_one("#panel-processes").border_title = "Processes"
-            self.query_one("#panel-processes").border_subtitle = "1/4"
+            self.query_one("#panel-metadata").border_title = " Metadata "
+            self.query_one("#panel-metadata").border_subtitle = ""
 
-            self.query_one("#panel-metadata").border_title = "Metadata"
-            self.query_one("#panel-metadata").border_subtitle = "1/3"
+            self.query_one("#panel-clipboard").border_title = " Shortcuts "
+            self.query_one("#panel-clipboard").border_subtitle = ""
 
-            self.query_one("#panel-clipboard").border_title = "Clipboard"
-            self.query_one("#panel-clipboard").border_subtitle = "1/3"
-
-            self.query_one("#dh-sidebar").border_title = "📁 DevOpsHero"
-            self.query_one("#dh-sidebar").border_subtitle = "v1.1.0"
+            self.query_one("#dh-sidebar").border_title = " DevOpsHero "
+            self.query_one("#dh-sidebar").border_subtitle = ""
         except Exception:
             pass
 
@@ -816,27 +809,31 @@ class DevOpsHeroApp(App):
                             is_locked = True
 
                     if is_active:
-                        prefix = "[bold #00f2fe]❯ 📄[/]"
-                        text_style = "bold #00f2fe"
+                        prefix = "[bold #c4b5fd]📄[/]"
+                        badge_markup = f"[bold #9e85ff]({idx + 1})[/]"
+                        text_style = "bold #ffffff"
                         style_cls = "mission-file-item mission-file-active"
+                        label_markup = f"  {prefix} [{text_style}]{mission_item.id}.sh[/]   {badge_markup}"
                     elif is_cursor:
                         prefix = "[bold #38bdf8]► 📄[/]"
                         text_style = "bold white"
                         style_cls = "mission-file-item mission-file-cursor"
+                        label_markup = f"  {prefix} [{text_style}]{mission_item.id}.sh[/]"
                     elif is_done:
                         prefix = "[bold #10b981]✓ 📄[/]"
                         text_style = "bold #10b981"
                         style_cls = "mission-file-item mission-file-done"
+                        label_markup = f"  {prefix} [{text_style}]{mission_item.id}.sh[/]"
                     elif is_locked:
                         prefix = "[dim #64748b]🔒[/]  "
                         text_style = "dim #64748b"
                         style_cls = "mission-file-item mission-file-locked"
+                        label_markup = f"  {prefix} [{text_style}]{mission_item.id}.sh[/]"
                     else:
                         prefix = "[#94a3b8]📄[/]  "
                         text_style = "#cbd5e1"
                         style_cls = "mission-file-item"
-
-                    label_markup = f"{prefix} [{text_style}]{mission_item.id}.sh[/]"
+                        label_markup = f"  {prefix} [{text_style}]{mission_item.id}.sh[/]"
 
                     if idx < len(labels):
                         lbl = labels[idx]
@@ -914,7 +911,7 @@ class DevOpsHeroApp(App):
     def update_header_stats(self) -> None:
         self.update_console_home_stats()
 
-    def get_ohmyzsh_prompt(self, success: bool = True) -> str:
+    def get_devopshero_prompt(self, success: bool = True) -> str:
         arrow_color = "#10b981" if success else "#fb7185"
         cwd = self.state.linux.cwd.replace("/home/devops", "~")
 
@@ -927,11 +924,24 @@ class DevOpsHeroApp(App):
         elif "git" in self.state.linux.cwd:
             git_segment = " [bold #00f2fe]git:([/][bold #fb7185]main[/][bold #00f2fe])[/]"
 
-        return f"[dim #8a94b8]2[/]  [bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
+        return f"[bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
+
+    def get_ohmyzsh_prompt(self, success: bool = True) -> str:
+        """Backward compatible prompt helper."""
+        return self.get_devopshero_prompt(success)
 
     def update_prompt(self) -> None:
-        prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
+        prompt_markup = self.get_devopshero_prompt(self.last_command_success)
         self.query_one("#term-prompt", Label).update(prompt_markup)
+
+    def action_command_palette(self) -> None:
+        """Activate quick command palette or search."""
+        try:
+            inp = self.query_one("#term-input", Input)
+            inp.focus()
+            inp.placeholder = ""
+        except Exception:
+            pass
 
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
@@ -971,7 +981,7 @@ class DevOpsHeroApp(App):
         self.progress.command_history.append(cmd_text)
         log = self.query_one("#term-output-log", RichLog)
 
-        prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
+        prompt_markup = self.get_devopshero_prompt(self.last_command_success)
         log.write(f"{prompt_markup}[bold #ffffff]{escape(cmd_text)}[/]")
 
         lower_cmd = cmd_text.lower()

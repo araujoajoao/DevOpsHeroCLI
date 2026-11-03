@@ -144,28 +144,43 @@
        - Temporizador regressivo de expiração do código e opção de reenvio (`Resend Code`).
        - Validação instantânea e persistência do operador na sessão do aplicativo (`isLoggedIn = true`).
 
-## 9. Arquitetura e Estilo da CLI Multi-Pane (DevOpsHero Terminal Architecture)
+## 9. Arquitetura e Estilo da CLI Cloud IDE (DevOpsHero Terminal Architecture)
+- **Referência Oficial**: Cloud IDE Terminal Interface (`media_1793736194810_bd1f8f6b.jpg`).
 - **Padrão Oficial da TUI (`devopsherocli`)**:
-  - **Paleta Obsidian & Neon DevOpsHero**: Fundo geral escuro `#0f111a`, sidebar `#0d0f17`, painéis `#131622` / `#161928`, bordas arredondadas semânticas (`round`).
-  - **Bordas com Títulos e Subtítulos Embutidos (`border: round <color>`)**:
-    - **Sidebar Esquerda**: Borda rose/coral `#fb7185`, título embutido `📁 DevOpsHero`, subtítulo `v1.1.0`. Navegação em lista com itens colapsáveis (`Pinned`, `Disks/Runtimes`).
-    - **Painel Explorador de Missões (Directory Pane)**: Borda lilás `#9e85ff`, título embutido `📁 .../{track.id}`, subtítulo `👁 Browser {idx}/{total}`. Campo de busca superior `🔍 (/) Filter missions or type...` e lista de missões em estilo arquivos executáveis (`❯ {id}.sh` ativo com chevron neon cyan, `✓ {id}.sh` concluído em verde esmeralda, `🔒 {id}.sh` bloqueado).
-    - **Painel Terminal & Code Window (Code Pane)**: Borda azure cyan `#38bdf8`, título embutido `💻 {mission.id}.sh`, subtítulo `⭐ +{xp} XP │ ● ONLINE`. Semáforos macOS `🔴 🟡 🟢` no topo, saída de terminal limpa com syntax highlighting e prompt de entrada integrado `➜ ~ `.
-  - **Tri-Panel Tray Inferior (Bandeja Tripla Modular)**: Três painéis lado a lado com `border: round #272e4f`:
-    - **Painel 1: `[ Processes ]`**: Monitor de Speed Score (Anti-Cola), barra de progresso visual de XP em gradiente e status de Streak.
+  - **Paleta Deep Obsidian-Violet DevOpsHero**: Fundo geral escuro `#0d0b1a`, sidebar `#0f0d1e`, cabeçalho `#120e24`, painéis `#141028` / `#1a1530`, acentos lilás `#8b5cf6` / `#9e85ff`, azure cyan `#38bdf8` e verde esmeralda neon `#10b981`.
+  - **Top Header Bar (Barra de Navegação Cloud IDE)**:
+    - Lado Esquerdo: Ícone menu `☰` e Branch Pill arredondado `[ ⎇ devops/{track.id} ]` em container `#1f1838` com borda `#3d2f66`.
+    - Centro: Barra de Busca e Command Palette em pílula arredondada `[ 🔍 Search or use commands (Ctrl+P / /)      ⌘P ]` com badge de atalho.
+    - Lado Direito: Pílula de sessão do operador `[ 👤 @devops │ ⭐ XP │ ● ONLINE ]` e botão de alternância `[ ⚙️ F2 ]`.
+  - **Barra Lateral Esquerda (Cloud IDE Explorer)**:
+    - Sub-abas no topo: `[ Explorer ]` (pílula ativa lilás `#2b1f4a` com borda `#8b5cf6`), `[ Tracks ]` e `[ System ]`.
+    - Cabeçalho de workspace: `WORKSPACE` com ícones de ação rápida `+` e `⋮`.
+    - Navegação em árvore:
+      - Arquivo ativo em container arredondado lilás `[ 📄 {m.id}.sh   ({idx}) ]` com badge de índice numérico.
+      - Indicadores de estado: concluído `✓`, bloqueado `🔒`, cursor ativo `►`.
+      - Pastas e arquivos complementares: `> 📁 configs`, `⚙️ .devopshero.yml`, `📝 README.md`.
+    - Rodapé da sidebar: `WORKSPACE: DEVOPSHERO-LABS` com pílulas de ação rápida `💡 Dica [F3]` e `👁️ Gabarito [F4]`.
+  - **Janela de Terminal e Editor de Código (Code & Terminal Window)**:
+    - Barra de Abas do Editor: Semáforos macOS `🔴 🟡 🟢`, aba ativa `[ 📄 {m.id}.sh (●) ✕ ]`, aba secundária inativa `[ 📝 briefing.md ✕ ]` e status lateral `⭐ +{xp} XP │ ● ONLINE`.
+    - Saída de Código e Terminal: Comentários com numeração de linhas:
+      - Linha 1: `// DevOpsHero Lab - {track.name} Interactive Runtime`
+      - Linha 2: `// Objetivo: {m.objective}`
+      - Linha 3: `// Cenário: {m.context}`
+      - Linha 4: em branco
+      - Linha 5: prompt dinâmico `5 ➜ ~ {cwd} $`
+  - **Tri-Panel Tray Inferior (Bandeja Tripla Modular)**: Três painéis lado a lado com `border: round #2f2352`:
+    - **Painel 1: `[ Processes ]`**: Monitor de Speed Score (Anti-Cola), barra de progresso visual de XP em gradiente e regras de pontuação.
     - **Painel 2: `[ Metadata ]`**: Metadados detalhados do arquivo/missão (`FileName`, `FileSize`, `FileModifyDate`, `Track`, `Difficulty`) e contextualização do cenário.
-    - **Painel 3: `[ Clipboard ]`**: Ações rápidas de suporte (`💡 Dica (F3)`, `👁️ Solução (F4)`, `🧹 Reset (F5)`, `🗺️ Trilhas (F2)`) e caixas dinâmicas de exibição de dicas progressivas e gabarito.
+    - **Painel 3: `[ Clipboard ]`**: Cheat-sheet elegante de atalhos globais (`[F3] Dica`, `[F4] Gabarito`, `[F5] Reset`, `[F2] Trilhas`, `[Tab] Painéis`) e caixas dinâmicas de exibição de dicas progressivas e gabarito.
   - **Regra de Não-Truncamento e Alinhamento**:
     - Jamais truncar ou quebrar palavras no meio de termos ou descrições em nenhuma janela da TUI.
     - Manter alinhamento horizontal e vertical preciso em todos os painéis e botões de ação.
   - **Navegação por Tab e Filosofia Sem Clique (Keyboard-First TUI)**:
     - O console terminal é estritamente orientado a teclado e navegação rápida via `Tab` / `Shift+Tab`.
-    - Eliminação de botões GUI que quebram layout ou aprisionam o foco:
-      - Cabeçalho superior: barra limpa de 1 linha interna com título da console, breadcrumb da trilha ativa e status de navegação.
-      - Painel de Clipboard: cheat-sheet elegante de atalhos globais (`[F3] Dica`, `[F4] Gabarito`, `[F5] Reset`, `[F2] Trilhas`, `[Tab] Painéis`).
-      - Navegação fluida entre os 6 painéis principais (`dh-sidebar` ⇄ `mission-panel` ⇄ `term-input` ⇄ `panel-processes` ⇄ `panel-metadata` ⇄ `panel-clipboard`).
-      - O painel focado recebe destaque imediato de borda iluminada (`:focus` / `:focus-within`).
-      - Nas listas (Sidebar e Missões), as teclas `↑` / `↓` (ou `k` / `j`) movem o cursor e `Enter` seleciona. No terminal, digitação direta no prompt com histórico.
+    - Atalho global `Ctrl+P` abre o command palette / foco de busca rápida.
+    - Navegação fluida entre os 6 painéis principais (`dh-sidebar` ⇄ `mission-panel` ⇄ `term-input` ⇄ `panel-processes` ⇄ `panel-metadata` ⇄ `panel-clipboard`).
+    - O painel focado recebe destaque imediato de borda iluminada (`:focus` / `:focus-within`).
+    - Nas listas (Sidebar e Missões), as teclas `↑` / `↓` (ou `k` / `j`) movem o cursor e `Enter` seleciona. No terminal, digitação direta no prompt com histórico.
 
 ## 10. Regra de Identidade Exclusiva DevOpsHero (Sem Menção a Outros Apps e Terminais)
 - É terminantemente proibido exibir ou mencionar nomes de outros aplicativos, ferramentas de terceiros ou emuladores de terminal (como Superfile, Flocí, iTerm2, Oh My Zsh, etc.) em qualquer interface, banner ASCII, títulos de borda, rodapés, logs ou prompts da CLI ou do Mobile.

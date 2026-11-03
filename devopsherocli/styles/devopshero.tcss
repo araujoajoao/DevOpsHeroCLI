@@ -1,10 +1,10 @@
 /* ==========================================================================
-   DevOpsHeroCLI - Modular Multi-Pane Architecture & Design Language
-   Character-box layout with border-titles and deep obsidian theme
+   DevOpsHeroCLI - Cloud IDE Terminal Architecture & Design Language
+   Atmospheric deep obsidian-violet theme with rounded pill components
    ========================================================================== */
 
 Screen {
-    background: #0f111a;
+    background: #0d0b1a;
     color: #f8fafc;
     layout: vertical;
     overflow-x: hidden;
@@ -14,28 +14,86 @@ Screen {
     width: 100%;
     height: 1fr;
     layout: horizontal;
-    background: #0f111a;
+    background: #0d0b1a;
     overflow-x: hidden;
     padding: 0 1;
 }
 
 /* ==========================================================================
-   1. Left Sidebar Navigation
+   1. Left Sidebar Navigation (Cloud IDE Explorer)
    ========================================================================== */
 #dh-sidebar {
-    width: 25;
+    width: 27;
     height: 100%;
-    background: #0f111a;
-    border: round #fb7185;
+    background: #0f0d1e;
+    border: round #3d2f66;
     border-title-align: left;
-    border-subtitle-align: right;
     layout: vertical;
     padding: 0;
     margin-right: 1;
 }
 
 #dh-sidebar:focus {
-    border: round #ff7b92;
+    border: round #9e85ff;
+}
+
+/* Sub-Tabs Row: [ Explorer ] [ Tracks ] [ System ] */
+#sidebar-subtabs-row {
+    height: 3;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+    border-bottom: solid #221a3e;
+    background: #141028;
+}
+
+.subtab-pill {
+    width: auto;
+    height: 1;
+    padding: 0 1;
+    margin-right: 1;
+    color: #94a3b8;
+    background: transparent;
+    text-style: bold;
+}
+
+.subtab-active {
+    background: #2b1f4a;
+    border: round #8b5cf6;
+    color: #ffffff;
+}
+
+.subtab-pill:hover {
+    color: #ffffff;
+}
+
+/* Workspace Section Header: WORKSPACE + ⋮ */
+#sidebar-workspace-header {
+    height: 2;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+    background: #0f0d1e;
+}
+
+.workspace-section-title {
+    color: #64748b;
+    text-style: bold;
+    width: auto;
+}
+
+.workspace-spacer {
+    width: 1fr;
+}
+
+.workspace-icon-btn {
+    width: 2;
+    color: #64748b;
+    text-style: bold;
+}
+
+.workspace-icon-btn:hover {
+    color: #c4b5fd;
 }
 
 #sidebar-scroll {
@@ -46,7 +104,7 @@ Screen {
 }
 
 .sidebar-category {
-    color: #fb7185;
+    color: #9e85ff;
     text-style: bold;
     margin-top: 1;
     margin-bottom: 0;
@@ -76,18 +134,18 @@ Screen {
 
 .sidebar-nav-item:hover,
 .sidebar-nav-btn:hover {
-    background: #1e243e;
+    background: #1e1738;
     color: #ffffff;
 }
 
 .sidebar-active {
-    background: #1a233a;
+    background: #241a45;
     color: #00f2fe;
     text-style: bold;
 }
 
 .sidebar-cursor {
-    background: #273559;
+    background: #2f2159;
     color: #ffffff;
     text-style: bold;
 }
@@ -103,12 +161,40 @@ Screen {
 }
 
 #sidebar-footer {
-    height: 3;
-    background: #0f111a;
-    border-top: round #272e4f;
+    height: 4;
+    background: #120e26;
+    border-top: solid #221a3e;
+    layout: vertical;
+    padding: 0 1;
+}
+
+.sidebar-workspace-sub {
+    color: #64748b;
+    text-style: bold;
+    height: 1;
+    margin-top: 0;
+}
+
+#sidebar-actions-row {
+    height: 2;
     layout: horizontal;
     align-vertical: middle;
+}
+
+.sidebar-action-btn-pill {
+    width: auto;
+    height: 1;
+    background: #201938;
+    border: round #3d2f66;
+    color: #c4b5fd;
     padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.sidebar-action-btn-pill:hover {
+    background: #2e2352;
+    color: #ffffff;
 }
 
 .sidebar-footer-text {
@@ -129,21 +215,141 @@ Screen {
     width: 1fr;
     height: 100%;
     layout: vertical;
-    background: #0f111a;
+    background: #0d0b1a;
 }
 
-/* Top Header Bar (Zero Broken Pills) */
+/* Top Header Bar (Modern Cloud IDE Navigation Bar) */
 #dh-top-header {
     dock: top;
     height: 3;
-    background: #0f111a;
-    border: round #272e4f;
+    background: #120e24;
+    border: round #2f2352;
     border-title-align: left;
     border-subtitle-align: right;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
     margin-bottom: 1;
+}
+
+#top-left-section {
+    width: auto;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.top-menu-btn {
+    width: 2;
+    color: #94a3b8;
+    margin-right: 1;
+}
+
+.top-menu-btn:hover {
+    color: #ffffff;
+}
+
+.top-branch-pill {
+    width: auto;
+    height: 1;
+    background: #1f1838;
+    border: round #3d2f66;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.top-branch-icon {
+    color: #8b5cf6;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.top-branch-name {
+    color: #e2e8f0;
+    text-style: bold;
+}
+
+#top-command-palette {
+    width: 1fr;
+    max-width: 56;
+    height: 1;
+    background: #1a1530;
+    border: round #382c61;
+    padding: 0 1;
+    margin: 0 2;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.palette-search-icon {
+    width: 2;
+    color: #64748b;
+}
+
+.palette-search-text {
+    width: 1fr;
+    color: #64748b;
+    text-style: italic;
+}
+
+.palette-hotkey-badge {
+    width: auto;
+    background: #261d47;
+    border: round #433575;
+    color: #c4b5fd;
+    padding: 0 1;
+    text-style: bold;
+}
+
+#top-right-section {
+    width: auto;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.top-operator-pill {
+    width: auto;
+    height: 1;
+    background: #1f1838;
+    border: round #3d2f66;
+    padding: 0 1;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.top-operator-name {
+    color: #cbd5e1;
+    text-style: bold;
+}
+
+.top-sep-subtle {
+    color: #3f3166;
+    margin: 0 1;
+}
+
+.top-xp-badge {
+    color: #fbbf24;
+    text-style: bold;
+}
+
+.top-status-online {
+    color: #10b981;
+    text-style: bold;
+}
+
+.top-settings-btn {
+    width: auto;
+    background: #1f1838;
+    border: round #3d2f66;
+    color: #94a3b8;
+    padding: 0 1;
+    margin-left: 1;
+    text-style: bold;
+}
+
+.top-settings-btn:hover {
+    color: #ffffff;
+    border: round #8b5cf6;
 }
 
 #top-title-col {
@@ -386,36 +592,36 @@ Screen {
     width: 100%;
     height: 100%;
     layout: vertical;
+    overflow: hidden;
 }
 
-/* Top Area: Workspace Columns (~68% height) */
+/* Top Area: Workspace Columns */
 #lab-workspace {
     width: 100%;
-    height: 68%;
+    height: 2fr;
     layout: horizontal;
     margin-bottom: 1;
 }
 
 /* Column 1: Missions Directory Browser (Directory Pane) */
 #mission-panel {
-    width: 32%;
+    width: 28;
     height: 100%;
-    background: #0f111a;
-    border: round #9e85ff;
+    background: #0f0d1e;
+    border: round #3d2f66;
     border-title-align: left;
-    border-subtitle-align: right;
     layout: vertical;
-    padding: 0 1;
+    padding: 0;
     margin-right: 1;
 }
 
 #mission-panel:focus {
-    border: round #00f2fe;
+    border: round #8b5cf6;
 }
 
 #mission-search-row {
     height: 1;
-    border-bottom: solid #272e4f;
+    border-bottom: solid #221a3e;
     margin-bottom: 1;
 }
 
@@ -444,24 +650,25 @@ Screen {
     border: none;
     color: #94a3b8;
     content-align: left middle;
-    padding: 0;
+    padding: 0 1;
     margin: 0;
 }
 
 .mission-file-item:hover,
 .mission-file-btn:hover {
-    background: #1e243e;
+    background: #1e1738;
     color: #ffffff;
 }
 
 .mission-file-active {
-    color: #00f2fe;
-    background: #161f36;
+    color: #ffffff;
+    background: #2b1f4a;
+    border: round #8b5cf6;
     text-style: bold;
 }
 
 .mission-file-cursor {
-    background: #1e294b;
+    background: #2f2159;
     color: #ffffff;
     text-style: bold;
 }
@@ -472,6 +679,25 @@ Screen {
 
 .mission-file-locked {
     color: #64748b;
+}
+
+#box-extra-files {
+    height: auto;
+    margin-top: 1;
+    padding-top: 1;
+    border-top: solid #221a3e;
+}
+
+.tree-folder-item {
+    color: #94a3b8;
+    height: 1;
+    padding: 0 1;
+}
+
+.tree-file-item {
+    color: #64748b;
+    height: 1;
+    padding: 0 1;
 }
 
 #mission-panel-meta-hidden {
@@ -534,21 +760,21 @@ Screen {
 #terminal-panel {
     width: 1fr;
     height: 100%;
-    background: #0f111a;
-    border: round #38bdf8;
+    background: #0f0d1e;
+    border: round #3d2f66;
     border-title-align: left;
-    border-subtitle-align: right;
     layout: vertical;
     padding: 0;
 }
 
 #terminal-panel:focus-within {
-    border: round #00f2fe;
+    border: round #8b5cf6;
 }
 
 #term-title-bar {
     height: 1;
-    background: #131728;
+    background: #141028;
+    border-bottom: solid #221a3e;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -556,6 +782,43 @@ Screen {
 
 .term-dots {
     width: 8;
+    margin-right: 1;
+}
+
+.ide-tab-pill {
+    width: auto;
+    height: 1;
+    layout: horizontal;
+    align-vertical: middle;
+    padding: 0 1;
+    margin-right: 1;
+}
+
+.ide-tab-active {
+    background: #2b1f4a;
+    border: round #8b5cf6;
+    color: #ffffff;
+    text-style: bold;
+}
+
+.ide-tab-inactive {
+    background: transparent;
+    color: #64748b;
+}
+
+.ide-tab-icon {
+    margin-right: 1;
+}
+
+.ide-tab-dirty {
+    color: #8b5cf6;
+    margin-left: 1;
+    text-style: bold;
+}
+
+.ide-tab-close {
+    color: #64748b;
+    margin-left: 1;
 }
 
 .term-tab-active {
@@ -566,8 +829,12 @@ Screen {
 }
 
 .term-tab-title {
-    color: #38bdf8;
+    color: #ffffff;
     text-style: bold;
+}
+
+.term-tab-title-muted {
+    color: #64748b;
 }
 
 .term-bar-spacer {
@@ -582,7 +849,7 @@ Screen {
 
 #term-output-log {
     height: 1fr;
-    background: #0f111a;
+    background: #0d0b1a;
     color: #f8fafc;
     padding: 0 1;
     overflow-y: auto;
@@ -590,9 +857,9 @@ Screen {
 }
 
 #term-input-container {
-    height: 2;
-    background: #131728;
-    border-top: solid #272e4f;
+    height: 1;
+    background: #0d0b1a;
+    border-top: solid #221a3e;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -602,10 +869,12 @@ Screen {
     width: auto;
     color: #10b981;
     text-style: bold;
+    margin-right: 1;
 }
 
 #term-input {
     width: 1fr;
+    height: 1;
     background: transparent;
     border: none;
     color: #f8fafc;
@@ -619,36 +888,36 @@ Screen {
 
 Input > .input--cursor,
 #term-input > .input--cursor {
-    background: transparent;
-    color: #00f2fe;
-    text-style: underline bold;
+    background: #00f2fe;
+    color: #0d0b1a;
+    text-style: bold;
 }
 
 Input > .input--placeholder,
 #term-input > .input--placeholder {
-    color: #64748b;
+    color: transparent;
+    text-style: none;
 }
 
 /* ==========================================================================
-   5. Bottom Tri-Panel Tray (Processes, Metadata, Clipboard) (~32% height)
+   5. Bottom Tri-Panel Tray (Processes, Metadata, Clipboard)
    ========================================================================== */
 #lab-bottom-tray {
     width: 100%;
-    height: 32%;
+    height: 1fr;
     layout: horizontal;
 }
 
 .tray-panel {
     height: 100%;
-    background: #0f111a;
-    border: round #272e4f;
+    background: #0f0d1e;
+    border: round #2f2352;
     border-title-align: left;
-    border-subtitle-align: right;
     padding: 0 1;
 }
 
 #panel-processes {
-    width: 32%;
+    width: 1fr;
     margin-right: 1;
 }
 
@@ -657,16 +926,16 @@ Input > .input--placeholder,
 }
 
 #panel-metadata {
-    width: 38%;
+    width: 1fr;
     margin-right: 1;
 }
 
 #panel-metadata:focus {
-    border: round #9e85ff;
+    border: round #8b5cf6;
 }
 
 #panel-clipboard {
-    width: 30%;
+    width: 1fr;
 }
 
 #panel-clipboard:focus {
@@ -798,9 +1067,9 @@ Input > .input--placeholder,
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #0f111a;
+    background: #0f0d1e;
     color: #64748b;
-    border-top: solid #272e4f;
+    border-top: solid #221a3e;
     padding: 0 1;
     content-align: center middle;
     overflow-x: hidden;
