@@ -342,8 +342,21 @@ class DevOpsHeroApp(App):
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="dh-root"):
-            # 1. Left Sidebar Navigation
+            # 1. Left Sidebar Navigation (Cloud IDE Explorer)
             with SidebarPanel(id="dh-sidebar"):
+                # Sub-Tabs Row (Explorer, Tracks, System)
+                with Horizontal(id="sidebar-subtabs-row"):
+                    yield Label("Explorer", id="tab-sub-explorer", classes="subtab-pill subtab-active")
+                    yield Label("Tracks", id="tab-sub-tracks", classes="subtab-pill")
+                    yield Label("System", id="tab-sub-system", classes="subtab-pill")
+
+                # Workspace Section Header
+                with Horizontal(id="sidebar-workspace-header"):
+                    yield Label("WORKSPACE", classes="workspace-section-title")
+                    yield Static("", classes="workspace-spacer")
+                    yield Label("+", classes="workspace-icon-btn")
+                    yield Label("⋮", classes="workspace-icon-btn")
+
                 with VerticalScroll(id="sidebar-scroll"):
                     yield Label("GENERAL", classes="sidebar-category")
                     yield Label("⊞ Console Home", id="nav-console-home", classes="sidebar-nav-item")
@@ -367,24 +380,38 @@ class DevOpsHeroApp(App):
                     yield Label("OBSERVABILITY", classes="sidebar-subcat")
                     yield Label("🐶 Datadog", id="nav-track-datadog", classes="sidebar-nav-item")
 
-                with Horizontal(id="sidebar-footer"):
-                    yield Label("DevOpsHero DevTools · Local", classes="sidebar-footer-text")
-                    yield Label("«", classes="sidebar-footer-collapse")
+                with Vertical(id="sidebar-footer"):
+                    yield Label("WORKSPACE: DEVOPSHERO-LABS", classes="sidebar-workspace-sub")
+                    with Horizontal(id="sidebar-actions-row"):
+                        yield Label("💡 Dica [F3]", classes="sidebar-action-btn-pill")
+                        yield Label("👁️ Gabarito [F4]", classes="sidebar-action-btn-pill")
 
             # 2. Main Column (Top Header + Views Container)
             with Vertical(id="dh-main-col"):
-                # Top Header Bar
+                # Top Header Bar (Modern Cloud IDE Header)
                 with Horizontal(id="dh-top-header"):
-                    with Horizontal(id="top-title-col"):
-                        yield Label("☁️", id="top-header-icon")
-                        yield Label("DevOpsHero Console", classes="top-brand-title")
-                        yield Label("│", classes="top-sep")
-                        yield Label("Terminal Lab", id="lbl-top-view-title", classes="top-main-title")
-                        yield Label("│", classes="top-sep")
-                        yield Label("Trilha: Linux", id="lbl-top-track-title", classes="top-track-title")
+                    # Left: Menu & Branch Pill
+                    with Horizontal(id="top-left-section"):
+                        yield Label("☰", id="top-header-icon", classes="top-menu-btn")
+                        with Horizontal(classes="top-branch-pill"):
+                            yield Label("⎇", classes="top-branch-icon")
+                            yield Label("main", id="lbl-top-track-title", classes="top-branch-name")
 
-                    with Horizontal(id="top-status-col"):
-                        yield Label("[dim #64748b]Navegação:[/] [bold #fbbf24]Tab[/] Alternar Painéis  │  [bold #10b981]● ONLINE[/]", id="lbl-top-status")
+                    # Center: Command Palette Pill
+                    with Horizontal(id="top-command-palette"):
+                        yield Label("🔍", classes="palette-search-icon")
+                        yield Label("Search or use commands (Ctrl+P / /)", id="lbl-top-search", classes="palette-search-text")
+                        yield Label("⌘P", classes="palette-hotkey-badge")
+
+                    # Right: Session, XP & Settings
+                    with Horizontal(id="top-right-section"):
+                        with Horizontal(classes="top-operator-pill"):
+                            yield Label("👤 @devops", classes="top-operator-name")
+                            yield Label("│", classes="top-sep-subtle")
+                            yield Label("⭐ XP", classes="top-xp-badge")
+                            yield Label("│", classes="top-sep-subtle")
+                            yield Label("● ONLINE", id="lbl-top-status", classes="top-status-online")
+                        yield Label("⚙️ F2", id="lbl-top-view-title", classes="top-settings-btn")
                         yield Label("", id="lbl-top-update", classes="top-update-badge")
 
                 # Dynamic Views Container
