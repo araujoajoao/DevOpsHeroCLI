@@ -1,108 +1,495 @@
-/* DevOpsHeroCLI - Cyber-Minimalist & Futuristic Bold TUI Theme */
+/* ==========================================================================
+   DevOpsHeroCLI - Flocí Cloud Console Architecture & Theme
+   Authentic replica of Flocí Local Cloud Runtime Console UI
+   ========================================================================== */
 
 Screen {
-    background: #06070a;
-    color: #e2e8f0;
+    background: #090c15;
+    color: #f8fafc;
     layout: vertical;
     overflow-x: hidden;
 }
 
 /* ==========================================================================
-   Header Bar (Top HUD)
+   Root Layout: Left Sidebar + Main Content Area
    ========================================================================== */
-#header-bar {
-    dock: top;
-    height: 4;
-    background: #090b10;
-    border-bottom: solid #141822;
-    padding: 0 1;
+#floci-root {
+    width: 100%;
+    height: 1fr;
     layout: horizontal;
-    align-vertical: middle;
+    background: #090c15;
     overflow-x: hidden;
 }
 
-.brand {
-    width: auto;
-    color: #00f2fe;
+/* ==========================================================================
+   1. Left Sidebar Navigation (Authentic Flocí Console Sidebar)
+   ========================================================================== */
+#floci-sidebar {
+    width: 25;
+    height: 100%;
+    background: #070913;
+    border-right: solid #141a2e;
+    layout: vertical;
+    padding: 0;
+}
+
+#sidebar-scroll {
+    height: 1fr;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 1;
+}
+
+.sidebar-category {
+    color: #475569;
     text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+    height: 1;
+}
+
+.sidebar-subcat {
+    color: #334155;
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+    height: 1;
+}
+
+.sidebar-nav-btn {
+    width: 100%;
+    height: 2;
+    min-height: 2;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
     content-align: left middle;
+    padding: 0 1;
+    margin: 0;
+}
+
+.sidebar-nav-btn:hover {
+    background: #13192f;
+    color: #ffffff;
+}
+
+.sidebar-active {
+    background: #17213d;
+    color: #38bdf8;
+    border-left: wide #38bdf8;
+    text-style: bold;
+}
+
+.sidebar-disabled {
+    color: #475569;
+}
+
+#sidebar-footer {
+    height: 3;
+    background: #070913;
+    border-top: solid #141a2e;
+    layout: horizontal;
+    align-vertical: middle;
+    padding: 0 1;
+}
+
+.sidebar-footer-text {
+    width: 1fr;
+    color: #475569;
+    text-style: bold;
+}
+
+.sidebar-footer-collapse {
+    width: auto;
+    color: #475569;
+}
+
+/* ==========================================================================
+   2. Main Column (Top Bar + Dynamic View Container)
+   ========================================================================== */
+#floci-main-col {
+    width: 1fr;
+    height: 100%;
+    layout: vertical;
+    background: #090c15;
+}
+
+/* Top Header Bar */
+#floci-top-header {
+    dock: top;
+    height: 3;
+    background: #0a0d1a;
+    border-bottom: solid #141a2e;
+    layout: horizontal;
+    align-vertical: middle;
+    padding: 0 2;
+}
+
+#top-title-col {
+    width: auto;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+#top-header-icon {
+    width: 3;
+    height: 1;
+    color: #38bdf8;
+    margin-right: 1;
+}
+
+#top-header-text-col {
+    width: auto;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+.top-main-title {
+    color: #f8fafc;
+    text-style: bold;
     margin-right: 2;
 }
 
-.level-box {
-    width: 15;
+.top-sub-title {
+    color: #64748b;
+}
+
+#top-pills-row {
+    width: 1fr;
+    layout: horizontal;
+    align: right middle;
+    height: 3;
+}
+
+.top-filter-pill {
+    width: auto;
+    min-width: 0;
+    height: 2;
+    background: #101528;
+    border: solid #1a223b;
+    color: #94a3b8;
+    padding: 0 1;
+    margin-left: 1;
+    text-style: bold;
+}
+
+.top-filter-pill:hover {
+    background: #18223d;
+    border: solid #38bdf8;
+    color: #ffffff;
+}
+
+.top-update-pill {
+    display: none;
+    width: auto;
+    min-width: 0;
+    height: 2;
+    background: #240a10;
+    border: solid #e05236;
+    color: #f87171;
+    padding: 0 1;
+    margin-left: 1;
+    text-style: bold;
+}
+
+/* Dynamic Views Container */
+#floci-views-container {
+    height: 1fr;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   3. Flocí Console Home View (Dashboard Layout from Screenshot)
+   ========================================================================== */
+#view-console-home {
+    width: 100%;
     height: auto;
     layout: vertical;
-    align-vertical: middle;
-    padding: 0;
-    margin-right: 2;
+    padding: 1 2;
 }
 
-.level-title {
-    color: #00ff87;
+/* Selected Runtime Hero Banner Card */
+#hero-banner-card {
+    width: 100%;
+    height: auto;
+    background: #11162a;
+    border: solid #1a223b;
+    border-left: wide #10b981; /* Emerald green left accent line */
+    padding: 1 2;
+    margin-bottom: 1;
+}
+
+#hero-header-row {
+    width: 100%;
+    height: auto;
+    layout: horizontal;
+    align-vertical: middle;
+}
+
+#hero-text-col {
+    width: 1fr;
+    layout: vertical;
+}
+
+.hero-tag-label {
+    color: #10b981;
     text-style: bold;
     height: 1;
 }
 
-.xp-bar-container {
+.hero-main-title {
+    color: #f8fafc;
+    text-style: bold;
     height: 1;
-    background: #11151f;
-    color: #00ff87;
 }
 
-.streak-box {
+.hero-desc {
+    color: #94a3b8;
+    height: auto;
+    margin-top: 1;
+}
+
+.hero-action-btn {
     width: auto;
     min-width: 0;
     height: 3;
-    content-align: center middle;
-    color: #fbbf24;
+    background: #18223d;
+    border: solid #38bdf8;
+    color: #38bdf8;
     text-style: bold;
-    background: #130f06;
-    border: round #3d2f10;
+    padding: 0 2;
+}
+
+.hero-action-btn:hover {
+    background: #38bdf8;
+    color: #0b0e1b;
+}
+
+/* Runtime Status Summary Bar (4 Cards) */
+#floci-metrics-row {
+    width: 100%;
+    height: auto;
+    layout: horizontal;
+    margin-bottom: 1;
+}
+
+.floci-stat-card {
+    width: 1fr;
+    height: 5;
+    background: #11162a;
+    border: solid #1a223b;
     padding: 0 1;
     margin-right: 1;
 }
 
-.nav-actions {
+.floci-stat-card:last-of-type {
+    margin-right: 0;
+}
+
+.stat-card-label {
+    color: #64748b;
+    text-style: bold;
+    height: 1;
+    margin-top: 0;
+}
+
+.stat-card-val {
+    color: #f8fafc;
+    text-style: bold;
+    height: 1;
+}
+
+.stat-val-green {
+    color: #10b981;
+}
+
+.stat-card-sub {
+    color: #64748b;
+    height: 1;
+}
+
+/* Micro Status Chips Row */
+#floci-chips-row {
+    width: 100%;
+    height: auto;
     layout: horizontal;
-    align: right middle;
+    margin-bottom: 1;
+}
+
+.floci-chip {
+    width: auto;
+    height: 1;
+    background: #0d1120;
+    border: solid #192038;
+    color: #818cf8;
+    padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+/* 4x2 Grid of Service Cards (Flocí Service Cards) */
+#floci-grid-container {
+    width: 100%;
+    height: auto;
+    layout: vertical;
+}
+
+.floci-grid-row {
+    width: 100%;
+    height: auto;
+    layout: horizontal;
+    margin-bottom: 1;
+}
+
+.service-card {
     width: 1fr;
+    height: 7;
+    background: #11172a;
+    border: solid #1a223b;
+    padding: 1 1;
+    margin-right: 1;
+    color: #f8fafc;
+    content-align: left top;
+}
+
+.service-card:last-of-type {
+    margin-right: 0;
+}
+
+.service-card:hover {
+    background: #17213d;
+    border: solid #38bdf8;
+}
+
+.service-card-disabled {
+    opacity: 0.6;
+    border: solid #141a2c;
+}
+
+/* ==========================================================================
+   4. Terminal Lab View (Split into Mission Briefing & Oh My Zsh Terminal)
+   ========================================================================== */
+#view-terminal-lab {
+    width: 100%;
+    height: 100%;
+    layout: horizontal;
     overflow-x: hidden;
 }
 
-/* Sleek Cyber-Minimalist Action Buttons */
+/* Left Mission Briefing Panel */
+#mission-panel {
+    width: 40%;
+    height: 100%;
+    background: #080a12;
+    border-right: solid #141a2e;
+    padding: 0 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.mission-track-badge {
+    height: auto;
+    color: #38bdf8;
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+}
+
+.mission-title {
+    height: auto;
+    color: #ffffff;
+    text-style: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.meta-row {
+    height: auto;
+    layout: horizontal;
+    margin-top: 1;
+    margin-bottom: 1;
+}
+
+.badge-diff {
+    height: auto;
+    background: #061c12;
+    border: round #0d3824;
+    color: #10b981;
+    padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.badge-xp {
+    height: auto;
+    background: #071626;
+    border: round #0f3052;
+    color: #38bdf8;
+    padding: 0 1;
+    margin-right: 1;
+    text-style: bold;
+}
+
+.badge-speed {
+    height: auto;
+    background: #181205;
+    border: round #382c0b;
+    color: #fbbf24;
+    padding: 0 1;
+    text-style: bold;
+}
+
+.section-label {
+    height: auto;
+    color: #64748b;
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 0;
+}
+
+.context-box {
+    height: auto;
+    background: #0c101e;
+    border: solid #161d33;
+    padding: 0 1;
+    color: #cbd5e1;
+    margin-bottom: 0;
+}
+
+.objective-box {
+    height: auto;
+    background: #081628;
+    border: round #00f2fe;
+    padding: 0 1;
+    color: #ffffff;
+    text-style: bold;
+    margin-bottom: 0;
+}
+
+.rules-box {
+    height: auto;
+    background: #0c101e;
+    border: solid #161d33;
+    padding: 0 1;
+    color: #94a3b8;
+    margin-bottom: 1;
+}
+
+.lab-quick-actions {
+    layout: horizontal;
+    height: auto;
+    margin-top: 1;
+    margin-bottom: 1;
+}
+
 .action-btn {
     width: auto;
     min-width: 0;
     height: 3;
     padding: 0 1;
-    margin: 0 0 0 1;
+    margin-right: 1;
     text-style: bold;
-}
-
-#btn-tracks {
-    background: #071321;
-    border: round #143254;
-    color: #38bdf8;
-}
-
-#btn-tracks:hover {
-    background: #0d233d;
-    border: round #38bdf8;
-    color: #ffffff;
-}
-
-#btn-update {
-    display: none; /* Oculto por padrao; exibido dinamicamente apenas quando ha atualizacao */
-    background: #240a10;
-    border: round #e05236;
-    color: #f87171;
-}
-
-#btn-update:hover {
-    background: #e05236;
-    border: round #ffffff;
-    color: #ffffff;
 }
 
 #btn-tip {
@@ -141,116 +528,16 @@ Screen {
     color: #ffffff;
 }
 
-/* ==========================================================================
-   Main Split View
-   ========================================================================== */
-#main-container {
-    height: 1fr;
-    layout: horizontal;
-    overflow-x: hidden;
-}
-
-/* Left Mission Panel (Mission Briefing Card) */
-#mission-panel {
-    width: 42%;
-    height: 100%;
-    background: #080a0f;
-    border-right: solid #141822;
-    padding: 0 2;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.mission-track-badge {
-    height: auto;
-    color: #00f2fe;
-    text-style: bold;
-    background: transparent;
-    padding: 0;
-    margin-top: 1;
-    margin-bottom: 0;
-    width: auto;
-}
-
-.mission-title {
-    height: auto;
-    color: #ffffff;
-    text-style: bold;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.meta-row {
-    height: auto;
-    layout: horizontal;
-    margin-top: 1;
-    margin-bottom: 1;
-}
-
-.badge-diff {
-    height: auto;
-    background: #061c12;
-    border: round #0d3824;
-    color: #00ff87;
-    padding: 0 1;
-    margin-right: 1;
-    text-style: bold;
-}
-
-.badge-xp {
-    height: auto;
-    background: #071626;
-    border: round #0f3052;
+#btn-tracks {
+    background: #071321;
+    border: round #143254;
     color: #38bdf8;
-    padding: 0 1;
-    margin-right: 1;
-    text-style: bold;
 }
 
-.badge-speed {
-    height: auto;
-    background: #181205;
-    border: round #382c0b;
-    color: #fbbf24;
-    padding: 0 1;
-    text-style: bold;
-}
-
-.section-label {
-    height: auto;
-    color: #64748b;
-    text-style: bold;
-    margin-top: 1;
-    margin-bottom: 0;
-}
-
-.context-box {
-    height: auto;
-    background: #0b0e14;
-    border: solid #161b26;
-    padding: 0 1;
-    margin-bottom: 0;
-    color: #cbd5e1;
-}
-
-/* Hero Element: Neon Focused Objective Card */
-.objective-box {
-    height: auto;
-    background: #05141c;
-    border: round #00f2fe;
-    padding: 0 1;
-    margin-bottom: 0;
+#btn-tracks:hover {
+    background: #0d233d;
+    border: round #38bdf8;
     color: #ffffff;
-    text-style: bold;
-}
-
-.rules-box {
-    height: auto;
-    background: #0b0e14;
-    border: solid #161b26;
-    padding: 0 1;
-    margin-bottom: 1;
-    color: #94a3b8;
 }
 
 .tip-box {
@@ -273,21 +560,19 @@ Screen {
     color: #fecdd3;
 }
 
-/* ==========================================================================
-   Right Terminal Panel (Obsidian Cyber-Terminal)
-   ========================================================================== */
+/* Right Terminal Window (iTerm2 Oh My Zsh) */
 #terminal-panel {
-    width: 58%;
+    width: 60%;
     height: 100%;
-    background: #06070a;
+    background: #06070c;
     layout: vertical;
     overflow-x: hidden;
 }
 
 #term-title-bar {
     height: 3;
-    background: #090b10;
-    border-bottom: solid #141822;
+    background: #0a0d1a;
+    border-bottom: solid #141a2e;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -301,10 +586,10 @@ Screen {
 .iterm-tab-active {
     width: auto;
     height: 100%;
-    background: #0e121a;
-    border-top: solid #00f2fe;
-    border-left: solid #181d2a;
-    border-right: solid #181d2a;
+    background: #0e1322;
+    border-top: solid #38bdf8;
+    border-left: solid #182035;
+    border-right: solid #182035;
     padding: 0 2;
     content-align: center middle;
     align: center middle;
@@ -321,14 +606,14 @@ Screen {
 
 .term-status-badge {
     width: auto;
-    color: #00ff87;
+    color: #10b981;
     text-style: bold;
     content-align: right middle;
 }
 
 #term-output-log {
     height: 1fr;
-    background: #06070a;
+    background: #06070c;
     color: #f8fafc;
     padding: 0 1;
     overflow-y: auto;
@@ -337,8 +622,8 @@ Screen {
 
 #term-input-container {
     height: 3;
-    background: #06070a;
-    border-top: solid #141822;
+    background: #06070c;
+    border-top: solid #141a2e;
     layout: horizontal;
     align-vertical: middle;
     padding: 0 1;
@@ -347,15 +632,15 @@ Screen {
 
 #term-prompt {
     width: auto;
-    color: #00ff87;
+    color: #10b981;
     text-style: bold;
     padding: 0 1 0 0;
-    background: #06070a;
+    background: #06070c;
 }
 
 #term-input {
     width: 1fr;
-    background: #06070a;
+    background: #06070c;
     border: none;
     color: #f8fafc;
     padding: 0;
@@ -363,7 +648,7 @@ Screen {
 
 #term-input:focus {
     border: none;
-    background: #06070a;
+    background: #06070c;
 }
 
 Input > .input--cursor,
@@ -379,21 +664,21 @@ Input > .input--placeholder,
 }
 
 /* ==========================================================================
-   Footer Shortcuts Bar
+   5. Footer Shortcuts Bar
    ========================================================================== */
 #footer-bar {
     dock: bottom;
     height: 1;
-    background: #07090d;
+    background: #070913;
     color: #64748b;
-    border-top: solid #141822;
+    border-top: solid #141a2e;
     padding: 0 1;
     content-align: center middle;
     overflow-x: hidden;
 }
 
 /* ==========================================================================
-   Tracks Modal Dialog (Cyberpunk Glass HUD)
+   6. Modals (TracksModal & AppUpdateModal)
    ========================================================================== */
 TracksModal {
     align: center middle;
@@ -403,8 +688,8 @@ TracksModal {
 #tracks-dialog {
     width: 82%;
     height: 82%;
-    background: #0a0d14;
-    border: round #00f2fe;
+    background: #0a0d18;
+    border: round #38bdf8;
     padding: 1 2;
     layout: vertical;
 }
@@ -418,7 +703,7 @@ TracksModal {
 }
 
 .track-modal-header {
-    color: #00f2fe;
+    color: #38bdf8;
     text-style: bold;
 }
 
@@ -431,16 +716,16 @@ TracksModal {
     margin: 0 0 1 0;
     width: 100%;
     height: 5;
-    background: #0e121a;
-    border: round #1e2536;
+    background: #0e1322;
+    border: round #1e2844;
     color: #e2e8f0;
     text-align: left;
     padding: 0 1;
 }
 
 .track-card-btn:hover {
-    background: #161e2e;
-    border: round #00f2fe;
+    background: #16203a;
+    border: round #38bdf8;
     color: #ffffff;
 }
 
@@ -451,127 +736,77 @@ TracksModal {
 }
 
 .track-card-progress {
-    background: #121929;
-    border: round #818cf8;
+    background: #1b1c2b;
+    border: round #8b5cf6;
     color: #ffffff;
 }
 
 .track-card-done {
-    background: #071f14;
-    border: round #00ff87;
-    color: #e2e8f0;
+    background: #071f15;
+    border: round #10b981;
+    color: #ffffff;
 }
 
 .track-card-locked {
-    background: #090c12;
-    border: round #141822;
-    color: #475569;
-}
-
-.track-group-title {
-    color: #fbbf24;
-    text-style: bold;
-    margin-top: 1;
-    margin-bottom: 0;
-}
-
-.mission-item-btn {
-    margin: 0 0 1 0;
-    width: 100%;
-    height: 3;
-    background: #0e121a;
-    border: round #1e2536;
-    color: #e2e8f0;
-    text-align: left;
-}
-
-.mission-item-btn:hover {
-    background: #161e2e;
-    border: round #00f2fe;
-    color: #ffffff;
-}
-
-.mission-item-done {
-    background: #071f14;
-    border: round #00ff87;
-    color: #00ff87;
-}
-
-.mission-item-curr {
-    background: #0d283d;
-    border: round #38bdf8;
-    color: #ffffff;
-    text-style: bold;
-}
-
-.mission-item-locked {
-    background: #090c12;
-    border: round #141822;
-    color: #475569;
+    background: #0d0f17;
+    border: round #1b1e2e;
+    color: #64748b;
 }
 
 #btn-close-modal {
-    width: 100%;
-    height: 3;
-    background: #240a10;
-    border: round #fb7185;
-    color: #fb7185;
-    text-style: bold;
+    margin-top: 1;
+    background: #141928;
+    border: round #27314d;
+    color: #cbd5e1;
 }
 
 #btn-close-modal:hover {
-    background: #3b1019;
-    border: round #f43f5e;
+    background: #1e253c;
+    border: round #38bdf8;
     color: #ffffff;
 }
 
-/* ==========================================================================
-   Modern App Update Modal (Crisp Card with Badge, Spinner & Actions)
-   ========================================================================== */
+/* App Update Modal */
 AppUpdateModal {
     align: center middle;
-    background: rgba(4, 5, 8, 0.88);
+    background: rgba(5, 7, 12, 0.85);
 }
 
 #update-card {
-    width: 72;
+    width: 64;
     height: auto;
-    max-height: 28;
-    background: #ffffff;
-    color: #0f172a;
-    border: round #cbd5e1;
+    max-height: 85%;
+    background: #0c101e;
+    border: round #38bdf8;
     padding: 1 2;
     layout: vertical;
 }
 
 #update-top-row {
-    height: 3;
-    width: 100%;
-    margin-bottom: 1;
+    height: 4;
+    layout: horizontal;
+    align-vertical: middle;
 }
 
 #update-icon-box {
-    width: 6;
+    width: 5;
     height: 3;
-    background: #e05236;
-    color: #ffffff;
     content-align: center middle;
-    text-style: bold;
-    margin-right: 1;
+    color: #38bdf8;
 }
 
 #update-title-col {
     width: 1fr;
-    height: 3;
+    layout: vertical;
 }
 
 #update-title-row {
     height: 1;
-    width: 100%;
+    layout: horizontal;
 }
 
 .update-app-title {
-    color: #0f172a;
+    color: #ffffff;
     text-style: bold;
     margin-right: 1;
 }
@@ -582,120 +817,110 @@ AppUpdateModal {
 }
 
 .update-pill-badge {
-    background: #e05236;
-    color: #ffffff;
+    background: #38bdf8;
+    color: #0b0e1b;
     text-style: bold;
     padding: 0 1;
 }
 
 .update-version-label {
-    color: #64748b;
-    height: 1;
+    color: #94a3b8;
+    margin-top: 1;
 }
 
 #btn-update-close {
     width: 4;
-    height: 1;
-    min-width: 4;
+    height: 3;
     background: transparent;
     border: none;
     color: #64748b;
-    text-style: bold;
-    padding: 0;
 }
 
 #btn-update-close:hover {
-    color: #e05236;
+    color: #ffffff;
 }
 
 #update-progress-row {
     height: auto;
     margin-top: 1;
     margin-bottom: 1;
-    layout: vertical;
 }
 
 .update-status-line {
     height: 1;
-    width: 100%;
+    layout: horizontal;
     margin-bottom: 1;
 }
 
 #lbl-update-spinner {
-    color: #0284c7;
-    text-style: bold;
-    margin-right: 1;
+    width: 2;
+    color: #38bdf8;
 }
 
 .update-status-msg {
-    color: #1e293b;
-    text-style: bold;
+    color: #94a3b8;
 }
 
 #update-progress-bar {
-    width: 100%;
     height: 1;
+    background: #141a2e;
+    color: #38bdf8;
 }
 
 #update-whats-new-box {
-    background: #f8fafc;
-    border: solid #e2e8f0;
-    padding: 1;
+    height: auto;
+    max-height: 12;
+    background: #090c15;
+    border: solid #161d33;
+    padding: 1 1;
     margin-top: 1;
     margin-bottom: 1;
-    max-height: 10;
-    color: #334155;
+    overflow-y: auto;
 }
 
 .whats-new-heading {
-    color: #0f172a;
+    color: #38bdf8;
     text-style: bold;
-    margin-bottom: 1;
 }
 
 .whats-new-item {
-    color: #334155;
-    margin-bottom: 0;
+    color: #cbd5e1;
+    margin-bottom: 1;
 }
 
 #update-divider-line {
-    width: 100%;
     height: 1;
-    border-bottom: solid #e2e8f0;
+    border-bottom: solid #161d33;
     margin-bottom: 1;
 }
 
 #update-footer-row {
     height: 3;
-    width: 100%;
-    align: right middle;
+    layout: horizontal;
+    align-vertical: middle;
 }
 
 #btn-whats-new {
+    width: auto;
     background: transparent;
     border: none;
-    color: #e05236;
-    text-style: underline bold;
-    padding: 0 1;
-    height: 3;
+    color: #38bdf8;
 }
 
 #btn-whats-new:hover {
-    color: #b91c1c;
+    color: #ffffff;
 }
 
 #btn-update-dismiss {
-    background: #ffffff;
-    border: solid #cbd5e1;
-    color: #475569;
+    width: auto;
+    background: #18223d;
+    border: solid #38bdf8;
+    color: #38bdf8;
     text-style: bold;
-    height: 3;
-    min-width: 14;
     margin-left: 2;
 }
 
 #btn-update-dismiss:hover {
-    background: #f1f5f9;
-    border: solid #94a3b8;
-    color: #0f172a;
+    background: #38bdf8;
+    color: #0b0e1b;
 }

@@ -1,4 +1,4 @@
-"""Main Textual TUI Application for DevOpsHeroCLI."""
+"""Main Textual TUI Application for DevOpsHeroCLI"""
 from __future__ import annotations
 
 import random
@@ -28,7 +28,7 @@ from devopsherocli.compat import (
     is_powershell,
 )
 from devopsherocli.engine.executor import CommandExecutor, EnvironmentState
-from devopsherocli.models import Mission, UserProgress
+from devopsherocli.models import Mission, Track, UserProgress
 from devopsherocli.tracks import ALL_TRACKS, TRACKS_MAP, get_mission, get_next_mission
 
 ensure_utf8_encoding()
@@ -79,7 +79,7 @@ def check_update_available() -> tuple[bool, str]:
 
 
 class TracksModal(ModalScreen):
-    """Modal dialog displaying all tracks for track-level selection (matching mobile)."""
+    """Modal dialog displaying all tracks for track-level selection."""
 
     def __init__(self, progress: UserProgress):
         super().__init__()
@@ -169,7 +169,6 @@ class AppUpdateModal(ModalScreen):
 
     def compose(self) -> ComposeResult:
         with Vertical(id="update-card"):
-            # Top row: Icon + App Name / Author / Pill + Close
             with Horizontal(id="update-top-row"):
                 yield Static("⚡", id="update-icon-box")
                 with Vertical(id="update-title-col"):
@@ -180,26 +179,21 @@ class AppUpdateModal(ModalScreen):
                     yield Label(f"{self.current_version} to {self.target_version}", classes="update-version-label")
                 yield Button("✕", id="btn-update-close")
 
-            # Middle: Status message + Progress
             with Vertical(id="update-progress-row"):
                 with Horizontal(classes="update-status-line"):
                     yield Label("⠋", id="lbl-update-spinner")
                     yield Label("Downloading and installing update...", id="lbl-update-status", classes="update-status-msg")
                 yield ProgressBar(total=100, show_eta=False, id="update-progress-bar")
 
-            # Expandable "What's new" section
             with VerticalScroll(id="update-whats-new-box"):
-                yield Label("[bold #0f172a]Novidades da versão 1.1.0:[/]\n", classes="whats-new-heading")
+                yield Label("[bold #38bdf8]Novidades da versão 1.1.0:[/]\n", classes="whats-new-heading")
+                yield Label("• Interface Flocí Cloud Console (Console Home & Terminal Lab)", classes="whats-new-item")
                 yield Label("• 8 Trilhas alinhadas com documentação oficial (Linux, Git, Docker, K8s, AWS, Terraform, Datadog)", classes="whats-new-item")
                 yield Label("• Bloqueio estrito de trilhas por Senioridade e XP (Recruta, Júnior, Pleno, Sênior, Staff)", classes="whats-new-item")
-                yield Label("• Seleção exclusiva por trilha com missões sorteadas (Shuffle dinâmico)", classes="whats-new-item")
                 yield Label("• Novo comando nativo 'dh update' para sincronizar com o GitHub em 1 clique", classes="whats-new-item")
-                yield Label("• Interface TUI aprimorada com animações e diagnósticos de terminal", classes="whats-new-item")
 
-            # Divider line
             yield Static(id="update-divider-line")
 
-            # Footer: "What's new" link button on left, "DISMISS" button on right
             with Horizontal(id="update-footer-row"):
                 yield Button("What's new", id="btn-whats-new")
                 yield Button("DISMISS", id="btn-update-dismiss")
@@ -225,7 +219,7 @@ class AppUpdateModal(ModalScreen):
             if self._timer:
                 self._timer.stop()
             self.query_one("#lbl-update-spinner", Label).update("✓")
-            self.query_one("#lbl-update-status", Label).update("[bold #16a34a]DevOpsHero v1.1.0 instalado com sucesso![/]")
+            self.query_one("#lbl-update-status", Label).update("[bold #10b981]DevOpsHero v1.1.0 instalado com sucesso![/]")
             self.query_one("#btn-update-dismiss", Button).label = "CONCLUIR"
 
     @on(Button.Pressed, "#btn-whats-new")
@@ -244,13 +238,13 @@ class AppUpdateModal(ModalScreen):
 
 
 class DevOpsHeroApp(App):
-    """Full-featured Terminal User Interface for DevOpsHeroCLI."""
+    """Full-featured Terminal User Interface for DevOpsHeroCLI (Flocí Cloud Console Style)."""
 
     CSS_PATH = "styles/devopshero.tcss"
 
     BINDINGS = [
         Binding("f1", "help", "Ajuda", show=True),
-        Binding("f2", "tracks", "Trilhas (F2)", show=True),
+        Binding("f2", "tracks", "Console Home (F2)", show=True),
         Binding("f3", "toggle_tip", "Dica (F3)", show=True),
         Binding("f4", "solution", "Gabarito (F4)", show=True),
         Binding("f5", "reset_lab", "Reset Lab (F5)", show=True),
@@ -271,64 +265,195 @@ class DevOpsHeroApp(App):
         self.tips_used: int = 0
         self.solution_used: bool = False
         self.last_command_success: bool = True
+        self.current_view: str = "terminal_lab"
 
     def compose(self) -> ComposeResult:
-        # Top Header Bar
-        with Horizontal(id="header-bar"):
-            yield Label("⚡ DEVOPS//HERO", classes="brand")
-            with Vertical(classes="level-box"):
-                yield Label("🌱 Lv.1 · 0 XP", id="lbl-level", classes="level-title")
-                yield ProgressBar(total=100, show_eta=False, id="xp-bar", classes="xp-bar-container")
-            yield Label("⚡ STREAK: 0", id="lbl-streak", classes="streak-box")
-            with Horizontal(classes="nav-actions"):
-                yield Button("🗺️ Trilhas", id="btn-tracks", classes="action-btn")
-                yield Button("🚀 Update", id="btn-update", classes="action-btn")
-                yield Button("💡 Dica", id="btn-tip", classes="action-btn")
-                yield Button("👁️ Solução", id="btn-solution", classes="action-btn")
-                yield Button("🧹 Reset", id="btn-reset", classes="action-btn")
+        with Horizontal(id="floci-root"):
+            # 1. Left Sidebar Navigation (Authentic Flocí Console Sidebar)
+            with Vertical(id="floci-sidebar"):
+                with VerticalScroll(id="sidebar-scroll"):
+                    yield Label("GENERAL", classes="sidebar-category")
+                    yield Button("⊞ Console Home", id="nav-console-home", classes="sidebar-nav-btn")
+                    yield Button("⚡ Terminal Lab", id="nav-terminal-lab", classes="sidebar-nav-btn sidebar-active")
 
-        # Main Body (Split into Mission Card & Terminal Screen)
-        with Horizontal(id="main-container"):
-            with VerticalScroll(id="mission-panel"):
-                yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
-                yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
-                with Horizontal(classes="meta-row"):
-                    yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
-                    yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
-                    yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
+                    yield Label("CLOUD SERVICES · DEVOPS", classes="sidebar-category")
 
-                yield Label("// CENÁRIO REAL", classes="section-label")
-                yield Static("", id="box-context", classes="context-box")
+                    yield Label("COMPUTE", classes="sidebar-subcat")
+                    yield Button("🐧 Linux Shell", id="nav-track-linux", classes="sidebar-nav-btn")
+                    yield Button("🐳 Docker", id="nav-track-docker", classes="sidebar-nav-btn")
+                    yield Button("☸️ Kubernetes", id="nav-track-k8s", classes="sidebar-nav-btn")
+                    yield Button("⚡ Serverless", id="nav-track-serverless", classes="sidebar-nav-btn sidebar-disabled", disabled=True)
 
-                yield Label("// OBJETIVO DA MISSÃO", classes="section-label")
-                yield Static("", id="box-objective", classes="objective-box")
+                    yield Label("STORAGE & VCS", classes="sidebar-subcat")
+                    yield Button("🔀 Git VCS", id="nav-track-git", classes="sidebar-nav-btn")
+                    yield Button("☁️ AWS Storage", id="nav-track-aws", classes="sidebar-nav-btn")
 
-                yield Label("// SPEED SCORE (ANTI-COLA)", classes="section-label")
-                yield Static(
-                    "⚡ [bold #fbbf24]100% XP[/]: Envie sem dicas nos primeiros [bold #00ff87]5 segundos[/]!\n"
-                    "⏱️ [dim]> 5 segundos sem dicas: 70% XP (tempo para busca externa)[/]\n"
-                    "💡 [dim #fbbf24]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
-                    id="box-rules",
-                    classes="rules-box",
-                )
+                    yield Label("PROVISIONING", classes="sidebar-subcat")
+                    yield Button("🏗️ Terraform", id="nav-track-terraform", classes="sidebar-nav-btn")
 
-                yield Static("", id="box-tip", classes="tip-box")
-                yield Static("", id="box-solution", classes="solution-box")
+                    yield Label("OBSERVABILITY", classes="sidebar-subcat")
+                    yield Button("🐶 Datadog", id="nav-track-datadog", classes="sidebar-nav-btn")
 
-            with Vertical(id="terminal-panel"):
-                with Horizontal(id="term-title-bar"):
-                    yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
-                    with Horizontal(classes="iterm-tab-active"):
-                        yield Label("devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
-                    yield Static("", classes="term-bar-spacer")
-                    yield Label("● ONLINE · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
-                yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
-                with Horizontal(id="term-input-container"):
-                    yield Label("➜  ~ ", id="term-prompt")
-                    yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
+                with Horizontal(id="sidebar-footer"):
+                    yield Label("Flocí DevTools · Local", classes="sidebar-footer-text")
+                    yield Label("«", classes="sidebar-footer-collapse")
 
-        with Horizontal(id="footer-bar"):
-            yield Label("[bold #00f2fe]F2[/] Trilhas  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #00f2fe]Ctrl+L[/] Limpar  │  [bold #64748b]Ctrl+Q[/] Sair")
+            # 2. Main Column (Top Header + Views Container)
+            with Vertical(id="floci-main-col"):
+                # Top Header Bar (Flocí Header)
+                with Horizontal(id="floci-top-header"):
+                    with Horizontal(id="top-title-col"):
+                        yield Label("☁️", id="top-header-icon")
+                        with Horizontal(id="top-header-text-col"):
+                            yield Label("Terminal Lab", id="lbl-top-view-title", classes="top-main-title")
+                            yield Label("Interactive DevOps & SRE learning runtime", id="lbl-top-view-sub", classes="top-sub-title")
+
+                    with Horizontal(id="top-pills-row"):
+                        yield Button("Linux", id="pill-filter-linux", classes="top-filter-pill")
+                        yield Button("Docker", id="pill-filter-docker", classes="top-filter-pill")
+                        yield Button("K8s", id="pill-filter-k8s", classes="top-filter-pill")
+                        yield Button("AWS", id="pill-filter-aws", classes="top-filter-pill")
+                        yield Button("IaC", id="pill-filter-terraform", classes="top-filter-pill")
+                        yield Button("Obs", id="pill-filter-datadog", classes="top-filter-pill")
+                        yield Button("🚀 Update", id="btn-update", classes="top-update-pill")
+
+                # Dynamic Views Container
+                with Vertical(id="floci-views-container"):
+                    # VIEW A: Flocí Console Home (Dashboard)
+                    with VerticalScroll(id="view-console-home"):
+                        # Hero Banner Card
+                        with Vertical(id="hero-banner-card"):
+                            with Horizontal(id="hero-header-row"):
+                                with Vertical(id="hero-text-col"):
+                                    yield Label("SELECTED RUNTIME", classes="hero-tag-label")
+                                    yield Label("Linux & Containers Local Runtime", id="hero-title-label", classes="hero-main-title")
+                                    yield Label("Storage, runtime infrastructure, and DevOps-specific tracks are backed by DevOpsHero Core.", id="hero-desc-label", classes="hero-desc")
+                                yield Button("▶ Iniciar Prática (Enter)", id="btn-hero-action", classes="hero-action-btn")
+
+                        # Runtime Status Summary Bar (4 Cards)
+                        with Horizontal(id="floci-metrics-row"):
+                            with Vertical(classes="floci-stat-card"):
+                                yield Label("CLOUD / WORKSPACE", classes="stat-card-label")
+                                yield Label("Docker · Linux", id="stat-workspace-title", classes="stat-card-val")
+                                yield Label("devops@ops-lab:/workspace", id="stat-workspace-sub", classes="stat-card-sub")
+
+                            with Vertical(classes="floci-stat-card"):
+                                yield Label("RUNTIME", classes="stat-card-label")
+                                yield Label("Runtime reachable ((•))", classes="stat-card-val stat-val-green")
+                                yield Label("Connected through Engine API", classes="stat-card-sub")
+
+                            with Vertical(classes="floci-stat-card"):
+                                yield Label("ACTIVE TRACKS", classes="stat-card-label")
+                                yield Label("7 Tracks", id="stat-tracks-val", classes="stat-card-val")
+                                yield Label("7 of 8 tracks available", id="stat-tracks-sub", classes="stat-card-sub")
+
+                            with Vertical(classes="floci-stat-card"):
+                                yield Label("RESOURCES / XP", classes="stat-card-label")
+                                yield Label("350 XP · Lv.2", id="stat-xp-val", classes="stat-card-val")
+                                yield Label("Streak 3 (+30% bonus)", id="stat-xp-sub", classes="stat-card-sub")
+
+                        # Micro Status Chips Row
+                        with Horizontal(id="floci-chips-row"):
+                            yield Label("☁ UI: Console Home", classes="floci-chip")
+                            yield Label("⚡ PROXY: /api/terminal", classes="floci-chip")
+                            yield Label("🛡 ADAPTER: Oh My Zsh", classes="floci-chip")
+                            yield Label("💾 RUNTIME: DevOpsHero Core", classes="floci-chip")
+
+                        # 4x2 Grid of Service Cards (Flocí Service Cards)
+                        with Vertical(id="floci-grid-container"):
+                            with Horizontal(classes="floci-grid-row"):
+                                yield Button(
+                                    "● 🐧 [bold white]Linux Shell[/]   [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-linux",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● 🐳 [bold white]Docker[/]        [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-docker",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● ☸️ [bold white]Kubernetes[/]    [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-k8s",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● ⚡ [bold white]Serverless[/]    [dim #64748b]● coming soon[/]\n\n[bold white]-[/]\n[dim #64748b]coming soon[/]",
+                                    id="card-track-serverless",
+                                    classes="service-card service-card-disabled",
+                                )
+
+                            with Horizontal(classes="floci-grid-row"):
+                                yield Button(
+                                    "● 🔀 [bold white]Git VCS[/]       [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-git",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● ☁️ [bold white]AWS SRE[/]       [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-aws",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● 🏗️ [bold white]Terraform[/]     [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-terraform",
+                                    classes="service-card",
+                                )
+                                yield Button(
+                                    "● 🐶 [bold white]Datadog[/]       [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
+                                    id="card-track-datadog",
+                                    classes="service-card",
+                                )
+
+                    # VIEW B: Terminal Lab View (Split into Mission Briefing & Terminal Screen)
+                    with Horizontal(id="view-terminal-lab"):
+                        with VerticalScroll(id="mission-panel"):
+                            yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
+                            yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
+                            with Horizontal(classes="meta-row"):
+                                yield Label("Iniciante", id="lbl-diff-badge", classes="badge-diff")
+                                yield Label("+100 XP", id="lbl-xp-badge", classes="badge-xp")
+                                yield Label("⚡ 100% até 5s", id="lbl-speed-badge", classes="badge-speed")
+
+                            yield Label("// CENÁRIO REAL", classes="section-label")
+                            yield Static("", id="box-context", classes="context-box")
+
+                            yield Label("// OBJETIVO DA MISSÃO", classes="section-label")
+                            yield Static("", id="box-objective", classes="objective-box")
+
+                            yield Label("// SPEED SCORE (ANTI-COLA)", classes="section-label")
+                            yield Static(
+                                "⚡ [bold #fbbf24]100% XP[/]: Envie sem dicas nos primeiros [bold #10b981]5 segundos[/]!\n"
+                                "⏱️ [dim]> 5 segundos sem dicas: 70% XP (tempo para busca externa)[/]\n"
+                                "💡 [dim #fbbf24]A cada dica usada: pontuação reduzida (-60%, -80%...)[/]",
+                                id="box-rules",
+                                classes="rules-box",
+                            )
+
+                            with Horizontal(classes="lab-quick-actions"):
+                                yield Button("💡 Dica (F3)", id="btn-tip", classes="action-btn")
+                                yield Button("👁️ Solução (F4)", id="btn-solution", classes="action-btn")
+                                yield Button("🧹 Reset (F5)", id="btn-reset", classes="action-btn")
+                                yield Button("🗺️ Trilhas (F2)", id="btn-tracks", classes="action-btn")
+
+                            yield Static("", id="box-tip", classes="tip-box")
+                            yield Static("", id="box-solution", classes="solution-box")
+
+                        with Vertical(id="terminal-panel"):
+                            with Horizontal(id="term-title-bar"):
+                                yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
+                                with Horizontal(classes="iterm-tab-active"):
+                                    yield Label("devops@ops-lab (zsh)", id="lbl-term-tab-title", classes="iterm-tab-title")
+                                yield Static("", classes="term-bar-spacer")
+                                yield Label("● ONLINE · 80x24", id="lbl-term-status-badge", classes="term-status-badge")
+                            yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
+                            with Horizontal(id="term-input-container"):
+                                yield Label("➜  ~ ", id="term-prompt")
+                                yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
+
+                # Footer
+                with Horizontal(id="footer-bar"):
+                    yield Label("[bold #00f2fe]F2[/] Console Home  │  [bold #38bdf8]Enter[/] Terminal Lab  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
         if is_powershell():
@@ -341,8 +466,76 @@ class DevOpsHeroApp(App):
         self.update_header_stats()
         self.update_prompt()
         self.print_welcome_message()
-        self.query_one("#term-input", Input).focus()
+        self.switch_view("terminal_lab")
         self.run_worker(self._async_check_update, thread=True)
+
+    def switch_view(self, view_name: str) -> None:
+        self.current_view = view_name
+        console_home = self.query_one("#view-console-home")
+        terminal_lab = self.query_one("#view-terminal-lab")
+        lbl_title = self.query_one("#lbl-top-view-title", Label)
+        lbl_sub = self.query_one("#lbl-top-view-sub", Label)
+
+        btn_nav_home = self.query_one("#nav-console-home", Button)
+        btn_nav_lab = self.query_one("#nav-terminal-lab", Button)
+
+        if view_name == "console_home":
+            console_home.display = True
+            terminal_lab.display = False
+            lbl_title.update("Console Home")
+            lbl_sub.update("Cloud-aware local runtime overview")
+            btn_nav_home.add_class("sidebar-active")
+            btn_nav_lab.remove_class("sidebar-active")
+            self.update_console_home_stats()
+        else:
+            console_home.display = False
+            terminal_lab.display = True
+            lbl_title.update("Terminal Lab")
+            lbl_sub.update("Interactive DevOps & SRE learning runtime")
+            btn_nav_home.remove_class("sidebar-active")
+            btn_nav_lab.add_class("sidebar-active")
+            try:
+                self.query_one("#term-input", Input).focus()
+            except Exception:
+                pass
+
+    def select_track_by_id(self, track_id: str) -> None:
+        track = TRACKS_MAP.get(track_id)
+        if track:
+            self.progress.current_track_id = track_id
+            uncompleted = [m for m in track.missions if m.id not in self.progress.completed_missions]
+            entry_m = uncompleted[0] if uncompleted else (track.missions[0] if track.missions else None)
+            if entry_m:
+                self.progress.current_mission_id = entry_m.id
+            self.progress.save()
+            self.load_active_mission()
+            self.switch_view("terminal_lab")
+
+    def update_console_home_stats(self) -> None:
+        try:
+            track = TRACKS_MAP.get(self.progress.current_track_id) or ALL_TRACKS[0]
+
+            # Hero Banner
+            self.query_one("#hero-title-label", Label).update(f"{track.name} Local Runtime")
+            self.query_one("#hero-desc-label", Label).update(f"Ambiente local, {track.description.lower()} Desafios e validação DevOpsHero Core.")
+            self.query_one("#btn-hero-action", Button).label = f"▶ Iniciar Missão: {track.name} (Enter)"
+
+            # Stat card 1: Workspace
+            self.query_one("#stat-workspace-title", Label).update(f"{track.name}")
+            self.query_one("#stat-workspace-sub", Label).update(f"devops@ops-lab:/{track.id}")
+
+            # Stat card 3: Active tracks
+            unlocked_count = sum(1 for t in ALL_TRACKS if self.progress.is_track_unlocked(t))
+            self.query_one("#stat-tracks-val", Label).update(f"{unlocked_count} Trilhas Ativas")
+            self.query_one("#stat-tracks-sub", Label).update(f"{unlocked_count} de {len(ALL_TRACKS)} trilhas disponíveis")
+
+            # Stat card 4: Resources / XP
+            lvl, _, _, _, _ = self.progress.get_level_info()
+            bonus = self.progress.get_streak_bonus_pct()
+            self.query_one("#stat-xp-val", Label).update(f"{self.progress.xp} XP · Lv.{lvl}")
+            self.query_one("#stat-xp-sub", Label).update(f"Streak {self.progress.streak} (+{bonus}% bônus)")
+        except Exception:
+            pass
 
     def _async_check_update(self) -> None:
         has_update, remote_ver = check_update_available()
@@ -362,7 +555,6 @@ class DevOpsHeroApp(App):
         mission_id = self.progress.current_mission_id
         self.current_mission = get_mission(track_id, mission_id) or ALL_TRACKS[0].missions[0]
 
-        # Execute setup if any
         if self.current_mission.initial_setup:
             self.current_mission.initial_setup(self.state)
 
@@ -388,7 +580,6 @@ class DevOpsHeroApp(App):
         self.query_one("#box-context", Static).update(m.context)
         self.query_one("#box-objective", Static).update(f"🎯 {m.objective}")
 
-        # Tip box
         tip_box = self.query_one("#box-tip", Static)
         if self.show_tip:
             tip_box.display = True
@@ -396,7 +587,6 @@ class DevOpsHeroApp(App):
         else:
             tip_box.display = False
 
-        # Solution box
         sol_box = self.query_one("#box-solution", Static)
         if self.show_solution:
             sol_box.display = True
@@ -405,20 +595,10 @@ class DevOpsHeroApp(App):
             sol_box.display = False
 
     def update_header_stats(self) -> None:
-        lvl, title, icon, min_xp, next_xp = self.progress.get_level_info()
-        xp_span = max(1, next_xp - min_xp)
-        xp_curr = max(0, self.progress.xp - min_xp)
-        pct = min(100, int((xp_curr / xp_span) * 100))
-
-        self.query_one("#lbl-level", Label).update(f"{icon} Lv.{lvl} · {self.progress.xp} XP")
-        self.query_one("#xp-bar", ProgressBar).update(progress=pct)
-
-        bonus = self.progress.get_streak_bonus_pct()
-        streak_txt = f"⚡ STREAK: {self.progress.streak}" + (f" (+{bonus}%)" if bonus > 0 else "")
-        self.query_one("#lbl-streak", Label).update(streak_txt)
+        self.update_console_home_stats()
 
     def get_ohmyzsh_prompt(self, success: bool = True) -> str:
-        arrow_color = "#00ff87" if success else "#fb7185"
+        arrow_color = "#10b981" if success else "#fb7185"
         cwd = self.state.linux.cwd.replace("/home/devops", "~")
 
         git_segment = ""
@@ -439,7 +619,7 @@ class DevOpsHeroApp(App):
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
         cur_time = time.strftime("%a %b %d %H:%M:%S")
-        log.write(f"[dim #64748b]Last login: {cur_time} on ttys001 (iTerm2)[/]")
+        log.write(f"[dim #64748b]Last login: {cur_time} on ttys001 (Flocí Cloud Console · iTerm2)[/]")
 
         if is_powershell():
             log.write(Panel(
@@ -447,12 +627,6 @@ class DevOpsHeroApp(App):
                 title="[bold #fbbf24]⚠️  PowerShell Easter Egg[/]",
                 border_style="#fbbf24",
             ))
-            self.notify(
-                "Você realmente chama isso de terminal?! 😂 Recomendamos um de verdade longe do Windows... Mas relaxa, o DevOpsHero roda suave até aqui!",
-                title="⚠️ PowerShell Detectado!",
-                severity="warning",
-                timeout=8.0,
-            )
 
         omz_lines = [
             "         __                                     __",
@@ -460,12 +634,12 @@ class DevOpsHeroApp(App):
             " / __ \\/ __ \\   / __ `__ \\/ / / /  /_  / / ___/ __ \\",
             "/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /",
             "\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/",
-            "                        /____/     v5.9 (iTerm2 · Oh My Zsh)",
+            "                        /____/     v5.9 (Flocí Cloud Console · Oh My Zsh)",
         ]
         for line in omz_lines:
-            log.write(Text(line, style="bold #00ff87"))
-        log.write("[#64748b]• Theme: [bold #fbbf24]robbyrussell[/]  │  Plugins: [bold #38bdf8]git[/], [bold #38bdf8]docker[/], [bold #38bdf8]kubectl[/], [bold #38bdf8]aws[/], [bold #38bdf8]terraform[/], [bold #38bdf8]datadog[/][/]")
-        log.write("[#64748b]• Comandos: [bold #00f2fe]'h'[/]elp, [bold #fbbf24]'d'[/]ica, [bold #fb7185]'s'[/]olução, [bold #00ff87]'r'[/]eset, [bold #00f2fe]'t'[/]rilhas, [bold #00ff87]'n'[/]ext[/]\n")
+            log.write(Text(line, style="bold #10b981"))
+        log.write("[#64748b]• Runtime: [bold #38bdf8]Flocí AWS Core[/]  │  Services: [bold #10b981]19 of 21 available[/]  │  Shell: [bold #38bdf8]zsh[/][/]")
+        log.write("[#64748b]• Atalhos: [bold #38bdf8]F2[/] Console Home, [bold #fbbf24]F3[/] dica, [bold #fb7185]F4[/] gabarito, [bold #10b981]F5[/] reset, [bold #38bdf8]Ctrl+Q[/] sair[/]\n")
 
     @on(Input.Submitted, "#term-input")
     def handle_terminal_input(self, event: Input.Submitted) -> None:
@@ -479,23 +653,28 @@ class DevOpsHeroApp(App):
         self.progress.command_history.append(cmd_text)
         log = self.query_one("#term-output-log", RichLog)
 
-        # Print prompt line in authentic Oh My Zsh style
         prompt_markup = self.get_ohmyzsh_prompt(self.last_command_success)
         log.write(f"{prompt_markup}[bold #ffffff]{escape(cmd_text)}[/]")
 
-        # Handle built-in meta commands
         lower_cmd = cmd_text.lower()
-        if lower_cmd == "help":
+        if lower_cmd in ("console", "home", "floci"):
+            self.last_command_success = True
+            self.switch_view("console_home")
+            log.write("[bold #38bdf8]➔ Alternando para Console Home (Flocí Dashboard)...[/]")
+            self.update_prompt()
+            return
+        elif lower_cmd == "help":
             self.last_command_success = True
             log.write(
-                "[bold yellow]Comandos de apoio do DevOpsHeroCLI:[/]\n"
-                "  [bold cyan]dica[/]       - Revela a dica da missão atual (F3)\n"
-                "  [bold cyan]solucao[/]    - Revela o comando gabarito da missão (F4 - zera streak)\n"
-                "  [bold cyan]trilhas[/]    - Abre a seleção de trilhas e missões (F2)\n"
-                "  [bold cyan]reset[/]      - Restaura o ambiente da missão atual para o estado inicial\n"
-                "  [bold cyan]clear[/]      - Limpa a tela do terminal (Ctrl+L)\n"
-                "  [bold cyan]stats[/]      - Mostra seu perfil, XP e conquistas\n"
-                "  [bold cyan]proxima[/]    - Pula para a próxima missão\n"
+                "[bold yellow]Comandos de apoio do DevOpsHeroCLI (Flocí Console):[/]\n"
+                "  [bold cyan]home[/] / [bold cyan]console[/] - Abre o Console Home Flocí Dashboard (F2)\n"
+                "  [bold cyan]dica[/]          - Revela a dica da missão atual (F3)\n"
+                "  [bold cyan]solucao[/]       - Revela o comando gabarito da missão (F4 - zera streak)\n"
+                "  [bold cyan]trilhas[/]       - Abre a seleção de trilhas e missões (F2)\n"
+                "  [bold cyan]reset[/]         - Restaura o ambiente da missão atual para o estado inicial\n"
+                "  [bold cyan]clear[/]         - Limpa a tela do terminal (Ctrl+L)\n"
+                "  [bold cyan]stats[/]         - Mostra seu perfil, XP e conquistas\n"
+                "  [bold cyan]proxima[/]       - Pula para a próxima missão\n"
             )
             self.update_prompt()
             return
@@ -519,7 +698,7 @@ class DevOpsHeroApp(App):
             self.action_reset_lab()
             self.update_prompt()
             return
-        elif lower_cmd == "clear":
+        elif lower_cmd in ("clear", "cls"):
             self.last_command_success = True
             self.action_clear_screen()
             self.update_prompt()
@@ -552,9 +731,8 @@ class DevOpsHeroApp(App):
 
         self.update_prompt()
 
-        # Check mission completion
         if self.current_mission and self.current_mission.check_completion:
-            completed, feedback = self.current_mission.check_completion(self.state, cmd_text, output)
+            completed, _ = self.current_mission.check_completion(self.state, cmd_text, output)
             if completed:
                 elapsed = max(0.1, round(time.time() - self.mission_start_time, 1))
                 award = self.progress.award_mission(
@@ -565,23 +743,21 @@ class DevOpsHeroApp(App):
                 )
                 self.update_header_stats()
 
-                # Bell ring & celebratory banner
                 self.bell()
                 log.write("")
-                log.write("[bold #30d158]╭─────────────────────────────────────────────────────────────────╮[/]")
-                log.write("[bold #30d158]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]")
-                log.write(f"[bold #30d158]│[/] [bold #ffd60a]+{award.xp} XP Conquistados![/] · {award.tier_name}")
-                log.write(f"[bold #30d158]│[/] ⏱️ [bold cyan]Tempo:[/] {elapsed}s  │  💡 [bold yellow]Dicas:[/] {self.tips_used}  │  🔥 [bold #ff453a]Streak:[/] {self.progress.streak} (+{award.streak_bonus_pct}%)")
+                log.write("[bold #10b981]╭─────────────────────────────────────────────────────────────────╮[/]")
+                log.write("[bold #10b981]│[/] [bold #ffffff]🎉 PARABÉNS! MISSÃO CONCLUÍDA COM SUCESSO![/]")
+                log.write(f"[bold #10b981]│[/] [bold #ffd60a]+{award.xp} XP Conquistados![/] · {award.tier_name}")
+                log.write(f"[bold #10b981]│[/] ⏱️ [bold cyan]Tempo:[/] {elapsed}s  │  💡 [bold yellow]Dicas:[/] {self.tips_used}  │  🔥 [bold #ff453a]Streak:[/] {self.progress.streak} (+{award.streak_bonus_pct}%)")
                 if award.is_ninja:
-                    log.write("[bold #30d158]│[/] [bold #30d158]⚡ 100% DOS PONTOS! Executado em <5s sem dicas ou cola de IA![/]")
+                    log.write("[bold #10b981]│[/] [bold #10b981]⚡ 100% DOS PONTOS! Executado em <5s sem dicas![/]")
                 elif self.tips_used > 0:
-                    log.write(f"[bold #30d158]│[/] [dim yellow]⚠️ Dicas utilizadas: Pontuação reduzida ({int(award.factor*100)}% de XP).[/]")
+                    log.write(f"[bold #10b981]│[/] [dim yellow]⚠️ Dicas utilizadas: Pontuação reduzida ({int(award.factor*100)}% de XP).[/]")
                 elif elapsed > 5.0:
-                    log.write("[bold #30d158]│[/] [dim]ℹ️ Tempo > 5s: 70% de XP (Regra anti-cola de Google/IA).[/]")
-                log.write("[bold #30d158]╰─────────────────────────────────────────────────────────────────╯[/]")
+                    log.write("[bold #10b981]│[/] [dim]ℹ️ Tempo > 5s: 70% de XP.[/]")
+                log.write("[bold #10b981]╰─────────────────────────────────────────────────────────────────╯[/]")
                 log.write("[dim]Avançando para a próxima missão...[/]\n")
 
-                # Auto advance
                 self.set_timer(2.2, self.advance_to_next_mission)
 
     def advance_to_next_mission(self) -> None:
@@ -595,7 +771,6 @@ class DevOpsHeroApp(App):
         )
         if next_step:
             t_id, m_id = next_step
-            # If advancing to a new track, check if user has required seniority
             if t_id != self.current_mission.track_id:
                 next_t = TRACKS_MAP.get(t_id)
                 if next_t and not self.progress.is_track_unlocked(next_t):
@@ -611,7 +786,7 @@ class DevOpsHeroApp(App):
             self.load_active_mission()
 
             log = self.query_one("#term-output-log", RichLog)
-            log.write(f"[bold #ffd60a]👉 Nova Missão:[/] [bold #5ac8fa]{self.current_mission.title}[/]")
+            log.write(f"[bold #ffd60a]👉 Nova Missão:[/] [bold #38bdf8]{self.current_mission.title}[/]")
             log.write("[dim]Confira os objetivos e detalhes no painel à esquerda.[/dim]\n")
         else:
             log = self.query_one("#term-output-log", RichLog)
@@ -622,7 +797,7 @@ class DevOpsHeroApp(App):
         completed = len(self.progress.completed_missions)
         total = sum(len(t.missions) for t in ALL_TRACKS)
         log.write(
-            f"[bold cyan]Perfil DevOps do Usuário:[/]\n"
+            f"[bold cyan]Perfil DevOps do Usuário (Flocí Runtime):[/]\n"
             f"  {icon} [bold]{title}[/]\n"
             f"  ⭐ XP Total: {self.progress.xp} XP\n"
             f"  🔥 Streak Atual: {self.progress.streak} (Recorde: {self.progress.max_streak})\n"
@@ -631,15 +806,10 @@ class DevOpsHeroApp(App):
 
     # Actions & Buttons
     def action_tracks(self) -> None:
-        def on_selection(result):
-            if result:
-                track_id, mission_id = result
-                self.progress.current_track_id = track_id
-                self.progress.current_mission_id = mission_id
-                self.progress.save()
-                self.load_active_mission()
-
-        self.push_screen(TracksModal(self.progress), on_selection)
+        if self.current_view == "console_home":
+            self.switch_view("terminal_lab")
+        else:
+            self.switch_view("console_home")
 
     def action_toggle_tip(self) -> None:
         self.show_tip = not self.show_tip
@@ -666,7 +836,7 @@ class DevOpsHeroApp(App):
         self.tips_used = 0
         self.solution_used = False
         log = self.query_one("#term-output-log", RichLog)
-        log.write("[bold green]🧹 Ambiente simulado restaurado para o estado inicial. Cronômetro zerado![/]")
+        log.write("[bold #10b981]🧹 Ambiente simulado restaurado para o estado inicial. Cronômetro zerado![/]")
 
     def action_clear_screen(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
@@ -694,6 +864,59 @@ class DevOpsHeroApp(App):
     @on(Button.Pressed, "#btn-reset")
     def on_btn_reset(self) -> None:
         self.action_reset_lab()
+
+    @on(Button.Pressed, "#nav-console-home")
+    def on_nav_console_home(self) -> None:
+        self.switch_view("console_home")
+
+    @on(Button.Pressed, "#nav-terminal-lab")
+    def on_nav_terminal_lab(self) -> None:
+        self.switch_view("terminal_lab")
+
+    @on(Button.Pressed, "#btn-hero-action")
+    def on_btn_hero_action(self) -> None:
+        self.switch_view("terminal_lab")
+
+    @on(Button.Pressed, "#nav-track-linux")
+    @on(Button.Pressed, "#card-track-linux")
+    @on(Button.Pressed, "#pill-filter-linux")
+    def on_select_linux(self) -> None:
+        self.select_track_by_id("linux")
+
+    @on(Button.Pressed, "#nav-track-docker")
+    @on(Button.Pressed, "#card-track-docker")
+    @on(Button.Pressed, "#pill-filter-docker")
+    def on_select_docker(self) -> None:
+        self.select_track_by_id("docker")
+
+    @on(Button.Pressed, "#nav-track-k8s")
+    @on(Button.Pressed, "#card-track-k8s")
+    @on(Button.Pressed, "#pill-filter-k8s")
+    def on_select_k8s(self) -> None:
+        self.select_track_by_id("k8s")
+
+    @on(Button.Pressed, "#nav-track-git")
+    @on(Button.Pressed, "#card-track-git")
+    def on_select_git(self) -> None:
+        self.select_track_by_id("git")
+
+    @on(Button.Pressed, "#nav-track-aws")
+    @on(Button.Pressed, "#card-track-aws")
+    @on(Button.Pressed, "#pill-filter-aws")
+    def on_select_aws(self) -> None:
+        self.select_track_by_id("aws")
+
+    @on(Button.Pressed, "#nav-track-terraform")
+    @on(Button.Pressed, "#card-track-terraform")
+    @on(Button.Pressed, "#pill-filter-terraform")
+    def on_select_terraform(self) -> None:
+        self.select_track_by_id("terraform")
+
+    @on(Button.Pressed, "#nav-track-datadog")
+    @on(Button.Pressed, "#card-track-datadog")
+    @on(Button.Pressed, "#pill-filter-datadog")
+    def on_select_datadog(self) -> None:
+        self.select_track_by_id("datadog")
 
 
 def launch_app():
