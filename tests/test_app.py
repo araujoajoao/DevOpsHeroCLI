@@ -109,6 +109,50 @@ class TestDevOpsHeroAppTUI(unittest.IsolatedAsyncioTestCase):
                 self.assertIn("PowerShell", str(status_badge.render()))
                 self.assertTrue(app.is_running)
 
+    async def test_app_mouse_clicks_and_navigation(self):
+        from textual.widgets import Label
+        app = DevOpsHeroApp()
+        app.progress = UserProgress(storage_path=self.storage_file)
+        async with app.run_test(size=(120, 35)) as pilot:
+            await pilot.pause()
+
+            # Click track in sidebar
+            await pilot.click("#nav-track-git")
+            await pilot.pause()
+            self.assertEqual(app.progress.current_track_id, "git")
+
+            # Click tip action pill in sidebar
+            await pilot.click("#btn-sidebar-tip")
+            await pilot.pause()
+            self.assertTrue(app.show_tip)
+
+            # Click solution action pill in sidebar
+            await pilot.click("#btn-sidebar-solution")
+            await pilot.pause()
+            self.assertTrue(app.solution_used)
+
+            # Click console home in sidebar
+            await pilot.click("#nav-console-home")
+            await pilot.pause()
+            self.assertEqual(app.current_view, "console_home")
+
+            # Click terminal lab in sidebar
+            await pilot.click("#nav-terminal-lab")
+            await pilot.pause()
+            self.assertEqual(app.current_view, "terminal_lab")
+
+            # Click first mission in tree
+            tree = app.query_one("#box-missions-list")
+            lbl = tree.query(Label).first()
+            await pilot.click(lbl)
+            await pilot.pause()
+            self.assertTrue(app.is_running)
+
+            # Click prompt focuses terminal input
+            await pilot.click("#term-prompt")
+            await pilot.pause()
+            self.assertTrue(app.query_one("#term-input").has_focus)
+
 
 if __name__ == "__main__":
     unittest.main()

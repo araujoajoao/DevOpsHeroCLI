@@ -266,9 +266,31 @@ class SidebarPanel(Vertical):
             event.stop()
 
     def on_click(self, event: events.Click) -> None:
-        target = event.target
-        target_id = getattr(target, "id", "") or ""
-        self.app.activate_sidebar_item(target_id)
+        widget = getattr(event, "widget", None) or getattr(event, "control", None)
+        curr = widget
+        while curr and curr != self:
+            c_id = getattr(curr, "id", "") or ""
+            if any(item[0] == c_id for item in SIDEBAR_ITEMS):
+                self.app.activate_sidebar_item(c_id)
+                event.stop()
+                return
+            if c_id == "btn-sidebar-tip":
+                self.app.action_toggle_tip()
+                event.stop()
+                return
+            if c_id == "btn-sidebar-solution":
+                self.app.action_solution()
+                event.stop()
+                return
+            if c_id in ("tab-sub-tracks", "tab-sub-system"):
+                self.app.switch_view("console_home")
+                event.stop()
+                return
+            if c_id == "tab-sub-explorer":
+                self.app.switch_view("terminal_lab")
+                event.stop()
+                return
+            curr = getattr(curr, "parent", None)
 
 
 class MissionPanel(Vertical):
@@ -287,10 +309,21 @@ class MissionPanel(Vertical):
             event.stop()
 
     def on_click(self, event: events.Click) -> None:
-        target = event.target
-        m_id = getattr(target, "mission_id", None)
-        if m_id:
-            self.app.select_mission_by_id(m_id)
+        widget = getattr(event, "widget", None) or getattr(event, "control", None)
+        curr = widget
+        while curr and curr != self:
+            m_id = getattr(curr, "mission_id", None)
+            if m_id:
+                self.app.select_mission_by_id(m_id)
+                event.stop()
+                return
+            c_id = getattr(curr, "id", "") or ""
+            if c_id.startswith("btn-m-") and not c_id.startswith("btn-m-slot-"):
+                m_id = c_id.replace("btn-m-", "")
+                self.app.select_mission_by_id(m_id)
+                event.stop()
+                return
+            curr = getattr(curr, "parent", None)
 
 
 class ProcessesPanel(Vertical):
@@ -384,8 +417,8 @@ class DevOpsHeroApp(App):
                 with Vertical(id="sidebar-footer"):
                     yield Label("WORKSPACE: DEVOPSHERO-LABS", classes="sidebar-workspace-sub")
                     with Horizontal(id="sidebar-actions-row"):
-                        yield Label("💡 Dica [F3]", classes="sidebar-action-btn-pill")
-                        yield Label("👁️ Gabarito [F4]", classes="sidebar-action-btn-pill")
+                        yield Label("💡 Dica [F3]", id="btn-sidebar-tip", classes="sidebar-action-btn-pill")
+                        yield Label("👁️ Gabarito [F4]", id="btn-sidebar-solution", classes="sidebar-action-btn-pill")
 
             # 2. Main Column (Top Header + Views Container)
             with Vertical(id="dh-main-col"):
@@ -1334,6 +1367,32 @@ class DevOpsHeroApp(App):
         if btn_id.startswith("btn-m-") and not btn_id.startswith("btn-m-slot-"):
             m_id = btn_id.replace("btn-m-", "")
             self.select_mission_by_id(m_id)
+
+    def on_click(self, event: events.Click) -> None:
+        widget = getattr(event, "widget", None) or getattr(event, "control", None)
+        curr = widget
+        while curr and curr != self:
+            c_id = getattr(curr, "id", "") or ""
+            if c_id in ("term-prompt", "term-input-container", "lbl-term-tab-title"):
+                try:
+                    self.query_one("#term-input", Input).focus()
+                    event.stop()
+                    return
+                except Exception:
+                    pass
+            elif c_id == "lbl-top-view-title":
+                self.action_tracks()
+                event.stop()
+                return
+            elif c_id in ("lbl-top-search", "top-command-palette", "lbl-mission-search"):
+                self.action_command_palette()
+                event.stop()
+                return
+            elif c_id == "lbl-top-update":
+                self.action_show_update()
+                event.stop()
+                return
+            curr = getattr(curr, "parent", None)
 
 
 def launch_app():

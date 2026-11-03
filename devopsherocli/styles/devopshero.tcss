@@ -59,8 +59,9 @@ Screen {
 
 .subtab-active {
     background: #2b1f4a;
-    border: round #8b5cf6;
+    border: none;
     color: #ffffff;
+    text-style: bold;
 }
 
 .subtab-pill:hover {
@@ -185,7 +186,7 @@ Screen {
     width: auto;
     height: 1;
     background: #201938;
-    border: round #3d2f66;
+    border: none;
     color: #c4b5fd;
     padding: 0 1;
     margin-right: 1;
@@ -252,7 +253,7 @@ Screen {
     width: auto;
     height: 1;
     background: #1f1838;
-    border: round #3d2f66;
+    border: none;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -271,12 +272,13 @@ Screen {
 
 #top-command-palette {
     width: 1fr;
-    max-width: 56;
+    min-width: 16;
+    max-width: 52;
     height: 1;
     background: #1a1530;
-    border: round #382c61;
+    border: none;
     padding: 0 1;
-    margin: 0 2;
+    margin: 0 1;
     layout: horizontal;
     align-vertical: middle;
 }
@@ -295,7 +297,7 @@ Screen {
 .palette-hotkey-badge {
     width: auto;
     background: #261d47;
-    border: round #433575;
+    border: none;
     color: #c4b5fd;
     padding: 0 1;
     text-style: bold;
@@ -311,7 +313,7 @@ Screen {
     width: auto;
     height: 1;
     background: #1f1838;
-    border: round #3d2f66;
+    border: none;
     padding: 0 1;
     layout: horizontal;
     align-vertical: middle;
@@ -339,8 +341,9 @@ Screen {
 
 .top-settings-btn {
     width: auto;
+    height: 1;
     background: #1f1838;
-    border: round #3d2f66;
+    border: none;
     color: #94a3b8;
     padding: 0 1;
     margin-left: 1;
@@ -349,7 +352,7 @@ Screen {
 
 .top-settings-btn:hover {
     color: #ffffff;
-    border: round #8b5cf6;
+    background: #2b1f4a;
 }
 
 #top-title-col {
@@ -795,8 +798,8 @@ Screen {
 }
 
 .ide-tab-active {
-    background: #2b1f4a;
-    border: round #8b5cf6;
+    background: #3b2a6b;
+    border: none;
     color: #ffffff;
     text-style: bold;
 }
