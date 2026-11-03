@@ -132,7 +132,7 @@ class TracksModal(ModalScreen):
                         btn_label = (
                             f"🔒 [BLOQUEADO]  {track.icon} {track.name.upper()}  •  Requer {track.required_seniority} ({track.required_xp} XP)\n"
                             f"   • {track.description}\n"
-                            f"   [🔒 Bloqueado: complete missões anteriores para desbloquear]"
+                            f"   [Requer conclusão das missões anteriores para desbloquear]"
                         )
                         btn = Button(btn_label, id=f"locked_track_{track.id}", classes="track-card-btn track-card-locked", disabled=True)
                     yield btn
