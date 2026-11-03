@@ -34,6 +34,50 @@ from devopsherocli.tracks import ALL_TRACKS, TRACKS_MAP, get_mission, get_next_m
 ensure_utf8_encoding()
 
 
+def check_update_available() -> tuple[bool, str]:
+    """Checks whether an update is available (via git remote or GitHub version).
+    Returns (has_update, latest_version).
+    """
+    import re
+    import urllib.request
+    from pathlib import Path
+
+    repo_dir = Path(__file__).resolve().parent.parent
+    git_dir = repo_dir / ".git"
+
+    # 1. Local Git tracking check
+    if git_dir.exists():
+        try:
+            head_ref_file = git_dir / "refs" / "heads" / "main"
+            remote_ref_file = git_dir / "refs" / "remotes" / "origin" / "main"
+            if head_ref_file.exists() and remote_ref_file.exists():
+                local_sha = head_ref_file.read_text().strip()
+                remote_sha = remote_ref_file.read_text().strip()
+                if local_sha != remote_sha:
+                    return True, "v1.1.0"
+        except Exception:
+            pass
+
+    # 2. Remote GitHub repository check
+    try:
+        url = "https://raw.githubusercontent.com/araujoajoao/DevOpsHeroCLI/main/pyproject.toml"
+        req = urllib.request.Request(url, headers={"User-Agent": "DevOpsHeroCLI-Checker"})
+        with urllib.request.urlopen(req, timeout=1.5) as resp:
+            content = resp.read().decode("utf-8", errors="ignore")
+            match = re.search(r'version\s*=\s*["\']([^"\']+)["\']', content)
+            if match:
+                remote_ver = match.group(1)
+                from devopsherocli import __version__ as local_ver
+                r_parts = [int(p) for p in remote_ver.lstrip('v').split('.')]
+                l_parts = [int(p) for p in local_ver.lstrip('v').split('.')]
+                if r_parts > l_parts:
+                    return True, f"v{remote_ver}"
+    except Exception:
+        pass
+
+    return False, ""
+
+
 class TracksModal(ModalScreen):
     """Modal dialog displaying all tracks for track-level selection (matching mobile)."""
 
@@ -107,6 +151,98 @@ class TracksModal(ModalScreen):
                 self.dismiss((track_id, m_id))
 
 
+class AppUpdateModal(ModalScreen):
+    """Modern Desktop-style Update Card with App Icon, Version, Spinner, What's New & Dismiss."""
+
+    BINDINGS = [
+        Binding("escape", "dismiss_modal", "Fechar", show=False),
+    ]
+
+    def __init__(self, current_version: str = "v1.0.0", target_version: str = "0.21.0"):
+        super().__init__()
+        self.current_version = current_version
+        self.target_version = target_version
+        self.progress_val: float = 0.0
+        self.is_done: bool = False
+        self.showing_whats_new: bool = False
+        self._timer = None
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="update-card"):
+            # Top row: Icon + App Name / Author / Pill + Close
+            with Horizontal(id="update-top-row"):
+                yield Static("⚡", id="update-icon-box")
+                with Vertical(id="update-title-col"):
+                    with Horizontal(id="update-title-row"):
+                        yield Label("DevOpsHero", classes="update-app-title")
+                        yield Label("by @araujoajoao", classes="update-by-author")
+                        yield Label("UPDATE", classes="update-pill-badge")
+                    yield Label(f"{self.current_version} to {self.target_version}", classes="update-version-label")
+                yield Button("✕", id="btn-update-close")
+
+            # Middle: Status message + Progress
+            with Vertical(id="update-progress-row"):
+                with Horizontal(classes="update-status-line"):
+                    yield Label("⠋", id="lbl-update-spinner")
+                    yield Label("Downloading and installing update...", id="lbl-update-status", classes="update-status-msg")
+                yield ProgressBar(total=100, show_eta=False, id="update-progress-bar")
+
+            # Expandable "What's new" section
+            with VerticalScroll(id="update-whats-new-box"):
+                yield Label("[bold #0f172a]Novidades da versão 1.1.0:[/]\n", classes="whats-new-heading")
+                yield Label("• 8 Trilhas alinhadas com documentação oficial (Linux, Git, Docker, K8s, AWS, Terraform, Datadog)", classes="whats-new-item")
+                yield Label("• Bloqueio estrito de trilhas por Senioridade e XP (Recruta, Júnior, Pleno, Sênior, Staff)", classes="whats-new-item")
+                yield Label("• Seleção exclusiva por trilha com missões sorteadas (Shuffle dinâmico)", classes="whats-new-item")
+                yield Label("• Novo comando nativo 'dh update' para sincronizar com o GitHub em 1 clique", classes="whats-new-item")
+                yield Label("• Interface TUI aprimorada com animações e diagnósticos de terminal", classes="whats-new-item")
+
+            # Divider line
+            yield Static(id="update-divider-line")
+
+            # Footer: "What's new" link button on left, "DISMISS" button on right
+            with Horizontal(id="update-footer-row"):
+                yield Button("What's new", id="btn-whats-new")
+                yield Button("DISMISS", id="btn-update-dismiss")
+
+    def on_mount(self) -> None:
+        whats_new = self.query_one("#update-whats-new-box")
+        whats_new.display = False
+        self._timer = self.set_interval(0.08, self._step_progress)
+
+    def _step_progress(self) -> None:
+        if self.is_done:
+            return
+        self.progress_val += 3.5
+        spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+        idx = int(self.progress_val // 3) % len(spinner_chars)
+        self.query_one("#lbl-update-spinner", Label).update(spinner_chars[idx])
+
+        bar = self.query_one("#update-progress-bar", ProgressBar)
+        bar.progress = min(100.0, self.progress_val)
+
+        if self.progress_val >= 100.0:
+            self.is_done = True
+            if self._timer:
+                self._timer.stop()
+            self.query_one("#lbl-update-spinner", Label).update("✓")
+            self.query_one("#lbl-update-status", Label).update("[bold #16a34a]DevOpsHero v1.1.0 instalado com sucesso![/]")
+            self.query_one("#btn-update-dismiss", Button).label = "CONCLUIR"
+
+    @on(Button.Pressed, "#btn-whats-new")
+    def toggle_whats_new(self) -> None:
+        self.showing_whats_new = not self.showing_whats_new
+        box = self.query_one("#update-whats-new-box")
+        box.display = self.showing_whats_new
+
+    @on(Button.Pressed, "#btn-update-close")
+    @on(Button.Pressed, "#btn-update-dismiss")
+    def on_close(self) -> None:
+        self.dismiss(None)
+
+    def action_dismiss_modal(self) -> None:
+        self.dismiss(None)
+
+
 class DevOpsHeroApp(App):
     """Full-featured Terminal User Interface for DevOpsHeroCLI."""
 
@@ -118,6 +254,7 @@ class DevOpsHeroApp(App):
         Binding("f3", "toggle_tip", "Dica (F3)", show=True),
         Binding("f4", "solution", "Gabarito (F4)", show=True),
         Binding("f5", "reset_lab", "Reset Lab (F5)", show=True),
+        Binding("f6", "check_update", "Update (F6)", show=True),
         Binding("ctrl+l", "clear_screen", "Limpar", show=False),
         Binding("ctrl+q", "quit", "Sair", show=True),
     ]
@@ -145,6 +282,7 @@ class DevOpsHeroApp(App):
             yield Label("⚡ STREAK: 0", id="lbl-streak", classes="streak-box")
             with Horizontal(classes="nav-actions"):
                 yield Button("🗺️ Trilhas", id="btn-tracks", classes="action-btn")
+                yield Button("🚀 Update", id="btn-update", classes="action-btn")
                 yield Button("💡 Dica", id="btn-tip", classes="action-btn")
                 yield Button("👁️ Solução", id="btn-solution", classes="action-btn")
                 yield Button("🧹 Reset", id="btn-reset", classes="action-btn")
@@ -204,6 +342,20 @@ class DevOpsHeroApp(App):
         self.update_prompt()
         self.print_welcome_message()
         self.query_one("#term-input", Input).focus()
+        self.run_worker(self._async_check_update, thread=True)
+
+    def _async_check_update(self) -> None:
+        has_update, remote_ver = check_update_available()
+        if has_update:
+            def show_update_btn():
+                try:
+                    btn = self.query_one("#btn-update", Button)
+                    btn.display = True
+                    if remote_ver:
+                        btn.label = f"🚀 Update ({remote_ver})"
+                except Exception:
+                    pass
+            self.call_from_thread(show_update_btn)
 
     def load_active_mission(self) -> None:
         track_id = self.progress.current_track_id
@@ -523,6 +675,13 @@ class DevOpsHeroApp(App):
     @on(Button.Pressed, "#btn-tracks")
     def on_btn_tracks(self) -> None:
         self.action_tracks()
+
+    @on(Button.Pressed, "#btn-update")
+    def on_btn_update(self) -> None:
+        self.action_check_update()
+
+    def action_check_update(self) -> None:
+        self.push_screen(AppUpdateModal())
 
     @on(Button.Pressed, "#btn-tip")
     def on_btn_tip(self) -> None:
