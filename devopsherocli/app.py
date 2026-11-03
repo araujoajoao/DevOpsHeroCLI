@@ -320,6 +320,7 @@ class DevOpsHeroApp(App):
         Binding("f4", "solution", "Gabarito (F4)", show=True),
         Binding("f5", "reset_lab", "Reset Lab (F5)", show=True),
         Binding("f6", "check_update", "Update (F6)", show=True),
+        Binding("ctrl+p", "command_palette", "Paleta (Ctrl+P)", show=False),
         Binding("ctrl+l", "clear_screen", "Limpar", show=False),
         Binding("ctrl+q", "quit", "Sair", show=True),
     ]
@@ -514,6 +515,10 @@ class DevOpsHeroApp(App):
                                     with Vertical(id="box-missions-list"):
                                         for slot_i in range(10):
                                             yield Label("", id=f"btn-m-slot-{slot_i}", classes="mission-file-item")
+                                    with Vertical(id="box-extra-files"):
+                                        yield Label(" > 📁 configs", classes="tree-folder-item")
+                                        yield Label(" ⚙️ .devopshero.yml", classes="tree-file-item")
+                                        yield Label(" 📝 README.md", classes="tree-file-item")
                                 with Horizontal(id="mission-panel-meta-hidden"):
                                     yield Label("// TRILHA: LINUX ESSENCIAL", id="lbl-mission-track", classes="mission-track-badge")
                                     yield Label("Missão 1: Navegação Básica", id="lbl-mission-title", classes="mission-title")
@@ -526,13 +531,20 @@ class DevOpsHeroApp(App):
                             with Vertical(id="terminal-panel"):
                                 with Horizontal(id="term-title-bar"):
                                     yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
-                                    with Horizontal(classes="term-tab-active"):
+                                    with Horizontal(classes="ide-tab-pill ide-tab-active"):
+                                        yield Label("📄", classes="ide-tab-icon")
                                         yield Label("linux-01.sh", id="lbl-term-tab-title", classes="term-tab-title")
+                                        yield Label("(●)", id="lbl-term-tab-dirty", classes="ide-tab-dirty")
+                                        yield Label("✕", classes="ide-tab-close")
+                                    with Horizontal(classes="ide-tab-pill ide-tab-inactive"):
+                                        yield Label("📝", classes="ide-tab-icon")
+                                        yield Label("briefing.md", classes="term-tab-title-muted")
+                                        yield Label("✕", classes="ide-tab-close")
                                     yield Static("", classes="term-bar-spacer")
                                     yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
                                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
                                 with Horizontal(id="term-input-container"):
-                                    yield Label("2  ➜  ~ ", id="term-prompt")
+                                    yield Label("5  ➜  ~ ", id="term-prompt")
                                     yield Input(placeholder="Digite aqui (ex: ls, pwd, git status, docker ps, kubectl get...)", id="term-input")
 
                         # Bottom Area: Tri-Panel Tray (Processes, Metadata, Clipboard)
@@ -567,7 +579,7 @@ class DevOpsHeroApp(App):
 
                 # Footer
                 with Horizontal(id="footer-bar"):
-                    yield Label("[bold #fbbf24]Tab[/] Alternar Painéis  │  [bold #00f2fe]F2[/] Console Home  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
+                    yield Label("[bold #fbbf24]Tab[/] Alternar Painéis  │  [bold #8b5cf6]Ctrl+P[/] Paleta  │  [bold #00f2fe]F2[/] Console Home  │  [bold #fbbf24]F3[/] Dica  │  [bold #fb7185]F4[/] Solução  │  [bold #94a3b8]F5[/] Reset  │  [bold #64748b]Ctrl+Q[/] Sair")
 
     def on_mount(self) -> None:
         try:
