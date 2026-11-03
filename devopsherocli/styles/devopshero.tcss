@@ -1,7 +1,6 @@
 /* ==========================================================================
-   DevOpsHeroCLI - Superfile Modular Architecture & Design Language
-   Authentic replica of Superfile Lipgloss / Bubbletea TUI Style
-   Modular character-box layout with border-titles and deep obsidian theme
+   DevOpsHeroCLI - Modular Multi-Pane Architecture & Design Language
+   Character-box layout with border-titles and deep obsidian theme
    ========================================================================== */
 
 Screen {
@@ -11,7 +10,7 @@ Screen {
     overflow-x: hidden;
 }
 
-#floci-root {
+#dh-root {
     width: 100%;
     height: 1fr;
     layout: horizontal;
@@ -21,9 +20,9 @@ Screen {
 }
 
 /* ==========================================================================
-   1. Left Sidebar Navigation (Superfile Leftmost Column)
+   1. Left Sidebar Navigation
    ========================================================================== */
-#floci-sidebar {
+#dh-sidebar {
     width: 25;
     height: 100%;
     background: #0f111a;
@@ -35,7 +34,7 @@ Screen {
     margin-right: 1;
 }
 
-#floci-sidebar:focus {
+#dh-sidebar:focus {
     border: round #ff7b92;
 }
 
@@ -126,15 +125,15 @@ Screen {
 /* ==========================================================================
    2. Main Column (Top Header + Dynamic View Container)
    ========================================================================== */
-#floci-main-col {
+#dh-main-col {
     width: 1fr;
     height: 100%;
     layout: vertical;
     background: #0f111a;
 }
 
-/* Top Header Bar (Clean Superfile Header - Zero Broken Pills) */
-#floci-top-header {
+/* Top Header Bar (Zero Broken Pills) */
+#dh-top-header {
     dock: top;
     height: 3;
     background: #0f111a;
@@ -197,14 +196,14 @@ Screen {
 }
 
 /* Dynamic Views Container */
-#floci-views-container {
+#dh-views-container {
     height: 1fr;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 /* ==========================================================================
-   3. Superfile Console Home View (Dashboard Layout)
+   3. Console Home View (Dashboard Layout)
    ========================================================================== */
 #view-console-home {
     width: 100%;
@@ -274,14 +273,14 @@ Screen {
 }
 
 /* Runtime Status Summary Bar (4 Cards) */
-#floci-metrics-row {
+#dh-metrics-row {
     width: 100%;
     height: auto;
     layout: horizontal;
     margin-bottom: 1;
 }
 
-.floci-stat-card {
+.dh-stat-card {
     width: 1fr;
     height: 5;
     background: #131728;
@@ -292,7 +291,7 @@ Screen {
     margin-right: 1;
 }
 
-.floci-stat-card:last-of-type {
+.dh-stat-card:last-of-type {
     margin-right: 0;
 }
 
@@ -319,14 +318,14 @@ Screen {
 }
 
 /* Micro Status Chips Row */
-#floci-chips-row {
+#dh-chips-row {
     width: 100%;
     height: auto;
     layout: horizontal;
     margin-bottom: 1;
 }
 
-.floci-chip {
+.dh-chip {
     width: auto;
     height: 1;
     background: #131728;
@@ -337,14 +336,14 @@ Screen {
     text-style: bold;
 }
 
-/* 4x2 Grid of Service Cards (Superfile Cards) */
-#floci-grid-container {
+/* 4x2 Grid of Service Cards */
+#dh-grid-container {
     width: 100%;
     height: auto;
     layout: vertical;
 }
 
-.floci-grid-row {
+.dh-grid-row {
     width: 100%;
     height: auto;
     layout: horizontal;
@@ -379,7 +378,7 @@ Screen {
 }
 
 /* ==========================================================================
-   4. Terminal Lab View (Superfile Multi-Pane Architecture)
+   4. Terminal Lab View (Multi-Pane Architecture)
    Top: Missions Browser Column + Code/Terminal Column
    Bottom: Tri-Panel Tray (Processes, Metadata, Clipboard)
    ========================================================================== */
@@ -397,7 +396,7 @@ Screen {
     margin-bottom: 1;
 }
 
-/* Column 1: Missions Directory Browser (superfile directory pane) */
+/* Column 1: Missions Directory Browser (Directory Pane) */
 #mission-panel {
     width: 32%;
     height: 100%;
@@ -559,14 +558,14 @@ Screen {
     width: 8;
 }
 
-.iterm-tab-active {
+.term-tab-active {
     width: auto;
     height: 1;
     background: transparent;
     padding: 0 1;
 }
 
-.iterm-tab-title {
+.term-tab-title {
     color: #38bdf8;
     text-style: bold;
 }
@@ -639,7 +638,7 @@ Input > .input--placeholder,
     layout: horizontal;
 }
 
-.superfile-tray-panel {
+.tray-panel {
     height: 100%;
     background: #0f111a;
     border: round #272e4f;

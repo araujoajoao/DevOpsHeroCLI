@@ -48,20 +48,19 @@
       - **Ativa / Próxima**: Ícone play (`▶`) em lilás (`#9E85FF`).
     - Ao tocar em uma missão desbloqueada, o laboratório prático é aberto imediatamente no terminal CLI da missão selecionada.
 
-## 6. Arquitetura e Estilo da CLI (Flocí Cloud Console TUI)
-- **Referência Oficial**: Console Flocí (`media_1793712818825_196aa998.jpg`) e Estilo macOS Window (`media_1793714309288_cf334ed3.png`).
+## 6. Arquitetura e Estilo da CLI (DevOpsHero Cloud Console TUI)
 - **Padrão Oficial da TUI (`devopsherocli`)**:
   - **Paleta Slate-Navy**: Fundo geral `#131627`, sidebar `#0F1220`, cabeçalho `#181D33`, painéis `#161B2E` / `#1E243E` e bordas `#272E4F`.
   - **Barra Lateral Esquerda (Sidebar)**:
     - Categorias técnicas em caixa alta (`GENERAL`, `CLOUD SERVICES · DEVOPS`, `COMPUTE`, `STORAGE & VCS`, `PROVISIONING`, `OBSERVABILITY`).
     - Itens de navegação: `⊞ Console Home`, `⚡ Terminal Lab` e acesso direto às trilhas com ícones técnicos.
-    - Rodapé: `Flocí DevTools · Local «`.
+    - Rodapé: `DevOpsHero DevTools · Local «`.
   - **Barra Superior (Top Header)**:
     - Ícone e título dinâmico (`Console Home` / `Terminal Lab`), subtítulo e pílulas de filtro rápido de trilhas (`Linux`, `Docker`, `K8s`, `AWS`, `IaC`, `Obs`) e pílula dinâmica de `Update`.
   - **Modo Console Home (Dashboard)**:
     - **Hero Banner Card**: Fundo `#1E243E`, borda esquerda contínua em verde esmeralda neon (`#10B981`), tag `SELECTED RUNTIME`, título da trilha selecionada, descrição completa sem cortes e botão de ação `▶ Iniciar Prática (Enter)`.
     - **Barra de Métricas de Runtime**: 4 cartões com `CLOUD / WORKSPACE`, `RUNTIME (Reachable ((•)))`, `ACTIVE TRACKS` e `RESOURCES / XP`.
-    - **Chips Micro-Status**: `UI: Console Home`, `PROXY: /api/terminal`, `ADAPTER: Oh My Zsh`, `RUNTIME: DevOpsHero Core`.
+    - **Chips Micro-Status**: `UI: Console Home`, `PROXY: /api/terminal`, `ADAPTER: DevOpsHero Shell`, `RUNTIME: DevOpsHero Core`.
     - **Grid de Cartões de Serviço**: Grid 4 colunas x 2 linhas de cards com ícone em badge escuro, nome do serviço, indicador `● available` (verde) ou `● coming soon` (cinza), contagem de missões e subtexto.
   - **Modo Terminal Lab (Prática Interativa)**:
     - **Painel Esquerdo (Briefing)**: Cenário, objetivo da missão (borda arredondada lilás `#9E85FF`), regras speed score e botões de auxílio centralizados.
@@ -145,12 +144,11 @@
        - Temporizador regressivo de expiração do código e opção de reenvio (`Resend Code`).
        - Validação instantânea e persistência do operador na sessão do aplicativo (`isLoggedIn = true`).
 
-## 9. Arquitetura e Estilo da CLI Superfile (Multi-Pane Terminal Architecture)
-- **Referência Oficial**: Superfile TUI (`media_1793725195504_2eedbd64.jpg`).
+## 9. Arquitetura e Estilo da CLI Multi-Pane (DevOpsHero Terminal Architecture)
 - **Padrão Oficial da TUI (`devopsherocli`)**:
-  - **Paleta Obsidian & Neon Superfile**: Fundo geral escuro `#0f111a`, sidebar `#0d0f17`, painéis `#131622` / `#161928`, bordas arredondadas semânticas (`round`).
+  - **Paleta Obsidian & Neon DevOpsHero**: Fundo geral escuro `#0f111a`, sidebar `#0d0f17`, painéis `#131622` / `#161928`, bordas arredondadas semânticas (`round`).
   - **Bordas com Títulos e Subtítulos Embutidos (`border: round <color>`)**:
-    - **Sidebar Esquerda**: Borda rose/coral `#fb7185`, título embutido `📁 Super File`, subtítulo `v1.1.0`. Navegação em lista com itens colapsáveis (`Pinned`, `Disks/Runtimes`).
+    - **Sidebar Esquerda**: Borda rose/coral `#fb7185`, título embutido `📁 DevOpsHero`, subtítulo `v1.1.0`. Navegação em lista com itens colapsáveis (`Pinned`, `Disks/Runtimes`).
     - **Painel Explorador de Missões (Directory Pane)**: Borda lilás `#9e85ff`, título embutido `📁 .../{track.id}`, subtítulo `👁 Browser {idx}/{total}`. Campo de busca superior `🔍 (/) Filter missions or type...` e lista de missões em estilo arquivos executáveis (`❯ {id}.sh` ativo com chevron neon cyan, `✓ {id}.sh` concluído em verde esmeralda, `🔒 {id}.sh` bloqueado).
     - **Painel Terminal & Code Window (Code Pane)**: Borda azure cyan `#38bdf8`, título embutido `💻 {mission.id}.sh`, subtítulo `⭐ +{xp} XP │ ● ONLINE`. Semáforos macOS `🔴 🟡 🟢` no topo, saída de terminal limpa com syntax highlighting e prompt de entrada integrado `➜ ~ `.
   - **Tri-Panel Tray Inferior (Bandeja Tripla Modular)**: Três painéis lado a lado com `border: round #272e4f`:
@@ -165,9 +163,13 @@
     - Eliminação de botões GUI que quebram layout ou aprisionam o foco:
       - Cabeçalho superior: barra limpa de 1 linha interna com título da console, breadcrumb da trilha ativa e status de navegação.
       - Painel de Clipboard: cheat-sheet elegante de atalhos globais (`[F3] Dica`, `[F4] Gabarito`, `[F5] Reset`, `[F2] Trilhas`, `[Tab] Painéis`).
-      - Navegação fluida entre os 6 painéis principais (`floci-sidebar` ⇄ `mission-panel` ⇄ `term-input` ⇄ `panel-processes` ⇄ `panel-metadata` ⇄ `panel-clipboard`).
+      - Navegação fluida entre os 6 painéis principais (`dh-sidebar` ⇄ `mission-panel` ⇄ `term-input` ⇄ `panel-processes` ⇄ `panel-metadata` ⇄ `panel-clipboard`).
       - O painel focado recebe destaque imediato de borda iluminada (`:focus` / `:focus-within`).
       - Nas listas (Sidebar e Missões), as teclas `↑` / `↓` (ou `k` / `j`) movem o cursor e `Enter` seleciona. No terminal, digitação direta no prompt com histórico.
+
+## 10. Regra de Identidade Exclusiva DevOpsHero (Sem Menção a Outros Apps e Terminais)
+- É terminantemente proibido exibir ou mencionar nomes de outros aplicativos, ferramentas de terceiros ou emuladores de terminal (como Superfile, Flocí, iTerm2, Oh My Zsh, etc.) em qualquer interface, banner ASCII, títulos de borda, rodapés, logs ou prompts da CLI ou do Mobile.
+- Aplica-se integralmente a ideia conceitual (arquitetura multi-pane modular, paleta obsidian/neon, atalhos de teclado, janelas de código com semáforos, cards de serviço e badges técnicos), porém a identidade, marca, banners e nomenclatura pertencem 100% e exclusivamente ao **DevOpsHero**.
 
 
 

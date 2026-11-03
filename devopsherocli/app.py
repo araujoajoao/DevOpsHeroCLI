@@ -341,9 +341,9 @@ class DevOpsHeroApp(App):
         self.cursor_sidebar_idx: int = 1
 
     def compose(self) -> ComposeResult:
-        with Horizontal(id="floci-root"):
+        with Horizontal(id="dh-root"):
             # 1. Left Sidebar Navigation
-            with SidebarPanel(id="floci-sidebar"):
+            with SidebarPanel(id="dh-sidebar"):
                 with VerticalScroll(id="sidebar-scroll"):
                     yield Label("GENERAL", classes="sidebar-category")
                     yield Label("⊞ Console Home", id="nav-console-home", classes="sidebar-nav-item")
@@ -372,9 +372,9 @@ class DevOpsHeroApp(App):
                     yield Label("«", classes="sidebar-footer-collapse")
 
             # 2. Main Column (Top Header + Views Container)
-            with Vertical(id="floci-main-col"):
+            with Vertical(id="dh-main-col"):
                 # Top Header Bar
-                with Horizontal(id="floci-top-header"):
+                with Horizontal(id="dh-top-header"):
                     with Horizontal(id="top-title-col"):
                         yield Label("☁️", id="top-header-icon")
                         yield Label("DevOpsHero Console", classes="top-brand-title")
@@ -388,7 +388,7 @@ class DevOpsHeroApp(App):
                         yield Label("", id="lbl-top-update", classes="top-update-badge")
 
                 # Dynamic Views Container
-                with Vertical(id="floci-views-container"):
+                with Vertical(id="dh-views-container"):
                     # VIEW A: Console Home (Dashboard)
                     with VerticalScroll(id="view-console-home"):
                         # Hero Banner Card
@@ -401,37 +401,37 @@ class DevOpsHeroApp(App):
                                 yield Button("▶ Iniciar Prática (Enter)", id="btn-hero-action", classes="hero-action-btn")
 
                         # Runtime Status Summary Bar (4 Cards)
-                        with Horizontal(id="floci-metrics-row"):
-                            with Vertical(classes="floci-stat-card"):
+                        with Horizontal(id="dh-metrics-row"):
+                            with Vertical(classes="dh-stat-card"):
                                 yield Label("CLOUD / WORKSPACE", classes="stat-card-label")
                                 yield Label("Docker · Linux", id="stat-workspace-title", classes="stat-card-val")
                                 yield Label("devops@ops-lab:/workspace", id="stat-workspace-sub", classes="stat-card-sub")
 
-                            with Vertical(classes="floci-stat-card"):
+                            with Vertical(classes="dh-stat-card"):
                                 yield Label("RUNTIME", classes="stat-card-label")
                                 yield Label("Runtime reachable ((•))", classes="stat-card-val stat-val-green")
                                 yield Label("Connected through Engine API", classes="stat-card-sub")
 
-                            with Vertical(classes="floci-stat-card"):
+                            with Vertical(classes="dh-stat-card"):
                                 yield Label("ACTIVE TRACKS", classes="stat-card-label")
                                 yield Label("7 Tracks", id="stat-tracks-val", classes="stat-card-val")
                                 yield Label("7 of 8 tracks available", id="stat-tracks-sub", classes="stat-card-sub")
 
-                            with Vertical(classes="floci-stat-card"):
+                            with Vertical(classes="dh-stat-card"):
                                 yield Label("RESOURCES / XP", classes="stat-card-label")
                                 yield Label("350 XP · Lv.2", id="stat-xp-val", classes="stat-card-val")
                                 yield Label("Streak 3 (+30% bonus)", id="stat-xp-sub", classes="stat-card-sub")
 
                         # Micro Status Chips Row
-                        with Horizontal(id="floci-chips-row"):
-                            yield Label("☁ UI: Console Home", classes="floci-chip")
-                            yield Label("⚡ PROXY: /api/terminal", classes="floci-chip")
-                            yield Label("🛡 ADAPTER: DevOpsHero Shell", classes="floci-chip")
-                            yield Label("💾 RUNTIME: DevOpsHero Core", classes="floci-chip")
+                        with Horizontal(id="dh-chips-row"):
+                            yield Label("☁ UI: Console Home", classes="dh-chip")
+                            yield Label("⚡ PROXY: /api/terminal", classes="dh-chip")
+                            yield Label("🛡 ADAPTER: DevOpsHero Shell", classes="dh-chip")
+                            yield Label("💾 RUNTIME: DevOpsHero Core", classes="dh-chip")
 
                         # 4x2 Grid of Service Cards
-                        with Vertical(id="floci-grid-container"):
-                            with Horizontal(classes="floci-grid-row"):
+                        with Vertical(id="dh-grid-container"):
+                            with Horizontal(classes="dh-grid-row"):
                                 yield Button(
                                     "● 🐧 [bold white]Linux Shell[/]   [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
                                     id="card-track-linux",
@@ -453,7 +453,7 @@ class DevOpsHeroApp(App):
                                     classes="service-card service-card-disabled",
                                 )
 
-                            with Horizontal(classes="floci-grid-row"):
+                            with Horizontal(classes="dh-grid-row"):
                                 yield Button(
                                     "● 🔀 [bold white]Git VCS[/]       [bold #10b981]● available[/]\n\n[bold white]10[/]\n[dim #64748b]missões[/]",
                                     id="card-track-git",
@@ -544,10 +544,10 @@ class DevOpsHeroApp(App):
 
     def on_mount(self) -> None:
         try:
-            self.query_one("#floci-sidebar").border_title = "📁 DevOpsHero"
-            self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
-            self.query_one("#floci-top-header").border_title = "☁️ DevOpsHero Console"
-            self.query_one("#floci-top-header").border_subtitle = "online"
+            self.query_one("#dh-sidebar").border_title = "📁 DevOpsHero"
+            self.query_one("#dh-sidebar").border_subtitle = "v1.1.0"
+            self.query_one("#dh-top-header").border_title = "☁️ DevOpsHero Console"
+            self.query_one("#dh-top-header").border_subtitle = "online"
             self.query_one("#mission-panel").border_title = "📁 .../devopshero/tracks"
             self.query_one("#mission-panel").border_subtitle = "👁 Browser"
             self.query_one("#terminal-panel").border_title = "💻 terminal.sh"
@@ -727,7 +727,7 @@ class DevOpsHeroApp(App):
         except Exception:
             pass
 
-        # Superfile border titles & subtitles
+        # Panel border titles & subtitles
         try:
             mission_panel = self.query_one("#mission-panel")
             all_m = track.missions if track else [m]
@@ -748,12 +748,12 @@ class DevOpsHeroApp(App):
             self.query_one("#panel-clipboard").border_title = "Clipboard"
             self.query_one("#panel-clipboard").border_subtitle = "1/3"
 
-            self.query_one("#floci-sidebar").border_title = "📁 DevOpsHero"
-            self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
+            self.query_one("#dh-sidebar").border_title = "📁 DevOpsHero"
+            self.query_one("#dh-sidebar").border_subtitle = "v1.1.0"
         except Exception:
             pass
 
-        # Update Superfile file tree in #box-missions-list
+        # Update missions file tree in #box-missions-list
         try:
             tree_box = self.query_one("#box-missions-list", Vertical)
             all_m = track.missions if track else [m]
@@ -897,7 +897,7 @@ class DevOpsHeroApp(App):
     def print_welcome_message(self) -> None:
         log = self.query_one("#term-output-log", RichLog)
         cur_time = time.strftime("%a %b %d %H:%M:%S")
-        log.write(f"[dim #64748b]Last login: {cur_time} on ttys001 (Flocí Cloud Console · iTerm2)[/]")
+        log.write(f"[dim #64748b]Last login: {cur_time} on ttys001 (DevOpsHero Cloud Console)[/]")
 
         if is_powershell():
             log.write(Panel(
@@ -906,17 +906,18 @@ class DevOpsHeroApp(App):
                 border_style="#fbbf24",
             ))
 
-        omz_lines = [
-            "         __                                     __",
-            "  ____  / /_     ____ ___  __  __   ____  _____/ /_",
-            " / __ \\/ __ \\   / __ `__ \\/ / / /  /_  / / ___/ __ \\",
-            "/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /",
-            "\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/",
-            "                        /____/     v5.9 (Flocí Cloud Console · Oh My Zsh)",
+        hero_banner_lines = [
+            r"    ____             ____             __  __                 ",
+            r"   / __ \___ _   __ / __ \____  _____/ / / /___  _________   ",
+            r"  / / / / _ \ | / // / / / __ \/ ___/ /_/ / _ \/ ___/ __ \  ",
+            r" / /_/ /  __/ |/ // /_/ / /_/ (__  ) __  /  __/ /  / /_/ /  ",
+            r"/_____/\___/|___(_)____/ .___/____/_/ /_/\___/_/   \____/   ",
+            r"                      /_/                                    ",
         ]
-        for line in omz_lines:
+        for line in hero_banner_lines:
             log.write(Text(line, style="bold #10b981"))
-        log.write("[#64748b]• Runtime: [bold #38bdf8]Flocí AWS Core[/]  │  Services: [bold #10b981]19 of 21 available[/]  │  Shell: [bold #38bdf8]zsh[/][/]")
+        log.write("[bold #38bdf8]DevOpsHero Cloud Console[/] [dim #64748b]• v1.1.0 (Interactive Terminal Lab)[/]")
+        log.write("[#64748b]• Runtime: [bold #38bdf8]DevOpsHero Core Engine[/]  │  Services: [bold #10b981]19 of 21 available[/]  │  Shell: [bold #38bdf8]zsh[/][/]")
         log.write("[#64748b]• Atalhos: [bold #38bdf8]F2[/] Console Home, [bold #fbbf24]F3[/] dica, [bold #fb7185]F4[/] gabarito, [bold #10b981]F5[/] reset, [bold #38bdf8]Ctrl+Q[/] sair[/]\n")
 
     @on(Input.Submitted, "#term-input")
@@ -935,17 +936,17 @@ class DevOpsHeroApp(App):
         log.write(f"{prompt_markup}[bold #ffffff]{escape(cmd_text)}[/]")
 
         lower_cmd = cmd_text.lower()
-        if lower_cmd in ("console", "home", "floci"):
+        if lower_cmd in ("console", "home", "dh", "dashboard"):
             self.last_command_success = True
             self.switch_view("console_home")
-            log.write("[bold #38bdf8]➔ Alternando para Console Home (Flocí Dashboard)...[/]")
+            log.write("[bold #38bdf8]➔ Alternando para Console Home (DevOpsHero Dashboard)...[/]")
             self.update_prompt()
             return
         elif lower_cmd == "help":
             self.last_command_success = True
             log.write(
-                "[bold yellow]Comandos de apoio do DevOpsHeroCLI (Flocí Console):[/]\n"
-                "  [bold cyan]home[/] / [bold cyan]console[/] - Abre o Console Home Flocí Dashboard (F2)\n"
+                "[bold yellow]Comandos de apoio do DevOpsHeroCLI (Console Home):[/]\n"
+                "  [bold cyan]home[/] / [bold cyan]console[/] - Abre o Console Home Dashboard (F2)\n"
                 "  [bold cyan]dica[/]          - Revela a dica da missão atual (F3)\n"
                 "  [bold cyan]solucao[/]       - Revela o comando gabarito da missão (F4 - zera streak)\n"
                 "  [bold cyan]trilhas[/]       - Abre a seleção de trilhas e missões (F2)\n"
@@ -1075,7 +1076,7 @@ class DevOpsHeroApp(App):
         completed = len(self.progress.completed_missions)
         total = sum(len(t.missions) for t in ALL_TRACKS)
         log.write(
-            f"[bold cyan]Perfil DevOps do Usuário (Flocí Runtime):[/]\n"
+            f"[bold cyan]Perfil DevOps do Usuário (DevOpsHero Runtime):[/]\n"
             f"  {icon} [bold]{title}[/]\n"
             f"  ⭐ XP Total: {self.progress.xp} XP\n"
             f"  🔥 Streak Atual: {self.progress.streak} (Recorde: {self.progress.max_streak})\n"
@@ -1085,7 +1086,7 @@ class DevOpsHeroApp(App):
     def update_sidebar_styles(self) -> None:
         is_sidebar_focused = False
         try:
-            is_sidebar_focused = self.query_one("#floci-sidebar").has_focus
+            is_sidebar_focused = self.query_one("#dh-sidebar").has_focus
         except Exception:
             pass
 

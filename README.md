@@ -10,13 +10,13 @@
 [![AI Code Review](https://img.shields.io/badge/AI%20Review-AppSec%20%26%20Clean%20Code-00f2fe.svg)](#-revisão-automática-por-ia-no-github)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Terminal: iTerm2 + Oh My Zsh](https://img.shields.io/badge/Terminal-iTerm2%20%2B%20Oh%20My%20Zsh-30d158.svg)](#-o-que-%C3%A9-o-devopsherocli)
+[![Terminal: DevOpsHero Terminal Lab](https://img.shields.io/badge/Terminal-DevOpsHero%20Lab-30d158.svg)](#-o-que-%C3%A9-o-devopsherocli)
 [![Gamification: 80 Missões](https://img.shields.io/badge/Missões-80%20Desafios-orange.svg)](#️-trilhas-de-aprendizado-80-missões)
 
 **Aprenda Linux, SysAdmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais em um terminal interativo com gamificação.**  
 *Sem precisar de nuvem, sem pagar contas e sem risco de quebrar sua máquina física.*
 
-> **English Overview:** *DevOpsHeroCLI is an interactive, gamified terminal simulator designed to teach **Linux, Sysadmin, Git, Docker, Kubernetes, AWS CLI, Terraform, and Datadog** through hands-on CLI practice. Features an authentic **iTerm2 + Oh My Zsh** interface, in-memory virtual state engines, and anti-cheat speed scoring.*
+> **English Overview:** *DevOpsHeroCLI is an interactive, gamified terminal simulator designed to teach **Linux, Sysadmin, Git, Docker, Kubernetes, AWS CLI, Terraform, and Datadog** through hands-on CLI practice. Features an authentic **DevOpsHero Interactive Terminal** interface, in-memory virtual state engines, and anti-cheat speed scoring.*
 
 [Como Rodar](#-como-rodar-localmente-em-1-minuto) •
 [App macOS](#app-macos) •
@@ -29,7 +29,7 @@
 
 <br/>
 
-<img src="assets/terminal_preview.png" width="100%" alt="DevOpsHeroCLI iTerm2 + Oh My Zsh Interface Preview" />
+<img src="assets/terminal_preview.png" width="100%" alt="DevOpsHeroCLI Terminal Lab Preview" />
 
 </div>
 
@@ -138,7 +138,7 @@ make dmg
 
 > **Instalação**: Ao abrir a imagem de disco, basta arrastar o ícone **DevOpsHero** para a pasta **Applications**. O jogo fica imediatamente disponível no seu **Launchpad**, **Spotlight** e **Dock** com o ícone oficial!
 
-##### Opção 2.2 — Pelo Terminal (iTerm2 ou Terminal.app)
+##### Opção 2.2 — Pelo Terminal (CLI)
 Se você prefere jogar direto dentro da sua janela de terminal existente:
 ```bash
 cd DevOpsHeroCLI
@@ -220,7 +220,7 @@ docker run -it --rm devopshero
 
 | Atalho Ultra-Rápido | Comando Completo | Descrição |
 |---|---|---|
-| **`dh`** | `./dh` ou `devopshero` | **Interface TUI Completa**: Tela dividida estilo iTerm2/macOS com card de missão, barra de XP, streak e terminal. |
+| **`dh`** | `./dh` ou `devopshero` | **Interface TUI Completa**: Terminal interativo multi-pane com Console Home, explorer de missões, barra de XP, streak e Terminal Lab. |
 | **`dh r`** | `./dh r` ou `devopshero repl` | **Modo Prompt Rápido**: Pratique direto na linha de comando com histórico de setas e autocomplete. |
 | **`dh l`** | `./dh l` ou `devopshero list` | **Catálogo de Missões**: Lista todas as **80 missões** e status concluído/pendente. |
 | **`dh s`** | `./dh s` ou `devopshero stats` | **Perfil & Estatísticas**: Exibe seu nível, XP acumulado, sequência (streak) e histórico. |
