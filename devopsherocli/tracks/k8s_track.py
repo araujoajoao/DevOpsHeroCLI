@@ -86,6 +86,8 @@ K8S_TRACK = Track(
     name="Kubernetes Orquestração",
     icon="☸️",
     description="Aprenda a operar clusters, Pods, Deployments, Services e ConfigMaps.",
+    required_xp=4000,
+    required_seniority="Nível 7 · Cluster Commander",
     missions=[
         Mission(
             id="k8s-01",

@@ -45,16 +45,26 @@ class TracksModal(ModalScreen):
             yield Label("🗺️ Trilhas de Aprendizado — Escolha uma Missão", classes="track-modal-header")
             with VerticalScroll(id="tracks-list"):
                 for track in ALL_TRACKS:
+                    is_unlocked = self.progress.is_track_unlocked(track)
                     completed_count = sum(1 for m in track.missions if m.id in self.progress.completed_missions)
                     total_count = len(track.missions)
-                    yield Label(f"\n{track.icon} {track.name} ({completed_count}/{total_count} Concluídas) — {track.description}", classes="track-group-title")
+                    if is_unlocked:
+                        header_txt = f"\n{track.icon} {track.name} ({completed_count}/{total_count} Concluídas) — {track.description}"
+                    else:
+                        header_txt = f"\n🔒 {track.icon} {track.name} [BLOQUEADO] — Requer {track.required_seniority} ({track.required_xp} XP)"
+                    yield Label(header_txt, classes="track-group-title")
                     for m in track.missions:
                         is_done = m.id in self.progress.completed_missions
                         is_curr = m.id == self.progress.current_mission_id
-                        status_ico = "✅" if is_done else ("👉" if is_curr else "⭕")
-                        btn_label = f"{status_ico} [{m.id}] {m.title} ({m.difficulty} · {m.xp} XP)"
-                        btn_classes = "mission-item-btn " + ("mission-item-done" if is_done else ("mission-item-curr" if is_curr else ""))
-                        btn = Button(btn_label, id=f"sel_m_{m.track_id}_{m.id}", classes=btn_classes)
+                        if is_unlocked:
+                            status_ico = "✅" if is_done else ("👉" if is_curr else "⭕")
+                            btn_label = f"{status_ico} [{m.id}] {m.title} ({m.difficulty} · {m.xp} XP)"
+                            btn_classes = "mission-item-btn " + ("mission-item-done" if is_done else ("mission-item-curr" if is_curr else ""))
+                            btn = Button(btn_label, id=f"sel_m_{m.track_id}_{m.id}", classes=btn_classes)
+                        else:
+                            btn_label = f"🔒 [{m.id}] {m.title} (Requer {track.required_xp} XP)"
+                            btn_classes = "mission-item-btn mission-item-locked"
+                            btn = Button(btn_label, id=f"locked_m_{m.track_id}_{m.id}", classes=btn_classes, disabled=True)
                         yield btn
             yield Button("Fechar (Esc)", id="btn-close-modal")
 

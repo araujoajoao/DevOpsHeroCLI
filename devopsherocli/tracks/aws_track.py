@@ -217,5 +217,7 @@ AWS_TRACK = Track(
     name="AWS Cloud & Infraestrutura",
     icon="☁️",
     description="Gerencie serviços essenciais da AWS (S3, EC2, IAM, Lambda e STS) direto pela linha de comando.",
+    required_xp=1800,
+    required_seniority="Nível 5 · Cloud Architect",
     missions=AWS_MISSIONS,
 )

@@ -88,6 +88,8 @@ SYSADMIN_TRACK = Track(
     name="Sysadmin Básico",
     icon="🛠️",
     description="Aprenda administração de servidores: systemd, serviços, usuários, crontab, sockets e backups.",
+    required_xp=250,
+    required_seniority="Nível 2 · Sysadmin Júnior",
     missions=[
         Mission(
             id="sysadmin-01",

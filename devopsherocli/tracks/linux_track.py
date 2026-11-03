@@ -84,6 +84,8 @@ LINUX_TRACK = Track(
     name="Linux Essencial",
     icon="🐧",
     description="Domine o terminal Linux, navegação no sistema, permissões, processos e manipulação de arquivos.",
+    required_xp=0,
+    required_seniority="Nível 1 · Recruta",
     missions=[
         Mission(
             id="linux-01",

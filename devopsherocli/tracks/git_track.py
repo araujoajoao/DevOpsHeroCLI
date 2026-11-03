@@ -252,5 +252,7 @@ GIT_TRACK = Track(
     name="Git Controle de Versão",
     icon="🌿",
     description="Domine branching, commits, histórico, merge, stash e tags como um profissional.",
+    required_xp=600,
+    required_seniority="Nível 3 · Git Apprentice",
     missions=GIT_MISSIONS,
 )

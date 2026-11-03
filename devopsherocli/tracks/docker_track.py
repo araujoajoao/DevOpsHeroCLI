@@ -80,6 +80,8 @@ DOCKER_TRACK = Track(
     name="Docker & Contêineres",
     icon="🐳",
     description="Aprenda a criar, inspecionar, depurar e orquestrar contêineres Docker.",
+    required_xp=1100,
+    required_seniority="Nível 4 · Container Captain",
     missions=[
         Mission(
             id="docker-01",

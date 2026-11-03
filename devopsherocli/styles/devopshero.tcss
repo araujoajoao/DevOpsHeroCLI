@@ -445,6 +445,12 @@ TracksModal {
     text-style: bold;
 }
 
+.mission-item-locked {
+    background: #090c12;
+    border: round #141822;
+    color: #475569;
+}
+
 #btn-close-modal {
     width: 100%;
     height: 3;

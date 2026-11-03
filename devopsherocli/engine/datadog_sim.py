@@ -49,6 +49,8 @@ class DatadogSimulator:
             "flare": self.flare,
             "health": self.health,
             "config": self.config,
+            "configcheck": self.configcheck,
+            "diagnose": self.diagnose,
             "help": self.help,
             "--help": self.help,
         }
@@ -186,4 +188,24 @@ class DatadogSimulator:
             "apm_config:\n"
             "  enabled: true\n"
             "  apm_non_local_traffic: true"
+        )
+
+    def configcheck(self, args: List[str]) -> str:
+        return (
+            "=== Configuration Check ===\n"
+            "Configuration files parsed successfully (0 errors, 0 warnings).\n"
+            "  - datadog.yaml: valid\n"
+            "  - conf.d/disk.d/conf.yaml: valid\n"
+            "  - conf.d/docker.d/conf.yaml: valid\n"
+            "  - conf.d/kubernetes.d/conf.yaml: valid\n"
+            "All checks are configured properly and active."
+        )
+
+    def diagnose(self, args: List[str]) -> str:
+        return (
+            "=== Diagnostics Suite ===\n"
+            "Connectivity: OK (https://api.datadoghq.com reachable)\n"
+            "Permissions: OK (Access to Docker socket and host /proc)\n"
+            "Secrets backend: OK\n"
+            "Overall diagnostics: PASS"
         )

@@ -30,20 +30,22 @@ class Track:
     name: str
     icon: str
     description: str
+    required_xp: int = 0
+    required_seniority: str = "Nível 1 · Recruta"
     missions: List[Mission] = field(default_factory=list)
 
 
 LEVELS = [
     (0, "Nível 1 · Recruta DevOps", "🌱"),
-    (250, "Nível 2 · Sysadmin Básico", "🛠️"),
-    (600, "Nível 3 · Linux Explorer", "🐧"),
-    (1100, "Nível 4 · Git Codecrafter", "🌿"),
-    (1700, "Nível 5 · Container Captain", "🐳"),
-    (2500, "Nível 6 · Cluster Commander", "☸️"),
-    (3500, "Nível 7 · Cloud Architect", "☁️"),
-    (4700, "Nível 8 · IaC Master", "🏗️"),
-    (6200, "Nível 9 · Observability Guru", "🐕"),
-    (8000, "Nível 10 · DevOps Titan", "⚡"),
+    (250, "Nível 2 · Sysadmin Júnior", "🛠️"),
+    (600, "Nível 3 · Git Apprentice", "🌿"),
+    (1100, "Nível 4 · Container Captain (Docker)", "🐳"),
+    (1800, "Nível 5 · Cloud Architect (AWS)", "☁️"),
+    (2800, "Nível 6 · IaC Master (Terraform)", "🏗️"),
+    (4000, "Nível 7 · Cluster Commander (Kubernetes)", "☸️"),
+    (5500, "Nível 8 · SRE & Observability Guru (Datadog)", "🐕"),
+    (7500, "Nível 9 · DevOps Sênior Lead", "⚡"),
+    (9500, "Nível 10 · DevOps Titan / Principal SRE", "🏆"),
 ]
 
 
@@ -122,6 +124,10 @@ class UserProgress:
                 break
 
         return current_lvl, current_title, current_icon, current_min, next_min
+
+    def is_track_unlocked(self, track: Track) -> bool:
+        """Returns True if user has achieved the required XP/seniority for this track."""
+        return self.xp >= track.required_xp
 
     def get_streak_bonus_pct(self) -> int:
         if self.streak <= 1:

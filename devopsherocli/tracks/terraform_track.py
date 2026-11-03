@@ -223,5 +223,7 @@ TERRAFORM_TRACK = Track(
     name="Terraform Infraestrutura como Código",
     icon="🏗️",
     description="Domine o ciclo completo de IaC: init, fmt, validate, plan, apply, state e outputs.",
+    required_xp=2800,
+    required_seniority="Nível 6 · IaC Master",
     missions=TERRAFORM_MISSIONS,
 )

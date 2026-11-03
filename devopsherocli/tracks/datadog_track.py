@@ -62,9 +62,9 @@ def check_dd09(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
 
 
 def check_dd10(state: EnvironmentState, cmd: str, out: str) -> Tuple[bool, str]:
-    if "datadog-agent config" in cmd or "agent config" in cmd:
+    if any(k in cmd for k in ["datadog-agent config", "agent config", "datadog-agent configcheck", "agent configcheck"]):
         return True, "Parabéns! Você concluiu a trilha de Observabilidade com Datadog!"
-    return False, "Exiba a configuração em execução do Datadog Agent."
+    return False, "Exiba a configuração em execução ou valide as configurações do Datadog Agent."
 
 
 DATADOG_TRACK = Track(
@@ -72,6 +72,8 @@ DATADOG_TRACK = Track(
     name="Datadog Observabilidade",
     icon="🐕",
     description="Aprenda a operar o Datadog Agent, executar checks, gerar flares e configurar tags unificadas.",
+    required_xp=5500,
+    required_seniority="Nível 8 · SRE & Observability Guru",
     missions=[
         Mission(
             id="datadog-01",
