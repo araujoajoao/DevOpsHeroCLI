@@ -43,12 +43,13 @@ def run_repl():
     executor = CommandExecutor(state)
 
     console.print(Panel.fit(
-        "[bold green]         __                                     __[/]\n"
-        "[bold green]  ____  / /_     ____ ___  __  __   ____  _____/ /_[/]\n"
-        "[bold green] / __ \\/ __ \\   / __ `__ \\/ / / /  /_  / / ___/ __ \\[/]\n"
-        "[bold green]/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /[/]\n"
-        "[bold green]\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/[/]\n"
-        "[bold green]                        /____/[/]     [bold cyan]⚡ iTerm2 · Oh My Zsh REPL[/]\n"
+        "[bold green]    ____             ____             __  __                 [/]\n"
+        "[bold green]   / __ \\___ _   __ / __ \\____  _____/ / / /___  _________   [/]\n"
+        "[bold green]  / / / / _ \\ | / // / / / __ \\/ ___/ /_/ / _ \\/ ___/ __ \\  [/]\n"
+        "[bold green] / /_/ /  __/ |/ // /_/ / /_/ (__  ) __  /  __/ /  / /_/ /  [/]\n"
+        "[bold green]/_____/\\___/|___(_)____/ .___/____/_/ /_/\\___/_/   \\____/   [/]\n"
+        "[bold green]                      /_/                                    [/]\n"
+        "     [bold cyan]⚡ DevOpsHero Interactive Terminal Lab[/]\n"
         "[dim]Linux · Sysadmin · Git · Docker · Kubernetes · AWS · Terraform · Datadog[/dim]\n"
         "Atalhos ultra-rápidos: [bold yellow]d[/] (dica), [bold red]s[/] (solução), [bold cyan]n[/] (próxima), [bold cyan]r[/] (reset), [bold cyan]q[/] (sair)",
         border_style="cyan"

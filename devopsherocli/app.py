@@ -187,7 +187,7 @@ class AppUpdateModal(ModalScreen):
 
             with VerticalScroll(id="update-whats-new-box"):
                 yield Label("[bold #38bdf8]Novidades da versão 1.1.0:[/]\n", classes="whats-new-heading")
-                yield Label("• Interface Flocí Cloud Console (Console Home & Terminal Lab)", classes="whats-new-item")
+                yield Label("• Interface DevOpsHero Cloud Console (Console Home & Terminal Lab)", classes="whats-new-item")
                 yield Label("• 8 Trilhas alinhadas com documentação oficial (Linux, Git, Docker, K8s, AWS, Terraform, Datadog)", classes="whats-new-item")
                 yield Label("• Bloqueio estrito de trilhas por Senioridade e XP (Recruta, Júnior, Pleno, Sênior, Staff)", classes="whats-new-item")
                 yield Label("• Novo comando nativo 'dh update' para sincronizar com o GitHub em 1 clique", classes="whats-new-item")
@@ -309,7 +309,7 @@ class ClipboardPanel(Vertical):
 
 
 class DevOpsHeroApp(App):
-    """Full-featured Terminal User Interface for DevOpsHeroCLI (Flocí Cloud Console Style)."""
+    """Full-featured Terminal User Interface for DevOpsHeroCLI."""
 
     CSS_PATH = "styles/devopshero.tcss"
 
@@ -342,7 +342,7 @@ class DevOpsHeroApp(App):
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="floci-root"):
-            # 1. Left Sidebar Navigation (Authentic Superfile Sidebar)
+            # 1. Left Sidebar Navigation
             with SidebarPanel(id="floci-sidebar"):
                 with VerticalScroll(id="sidebar-scroll"):
                     yield Label("GENERAL", classes="sidebar-category")
@@ -368,12 +368,12 @@ class DevOpsHeroApp(App):
                     yield Label("🐶 Datadog", id="nav-track-datadog", classes="sidebar-nav-item")
 
                 with Horizontal(id="sidebar-footer"):
-                    yield Label("Flocí DevTools · Local", classes="sidebar-footer-text")
+                    yield Label("DevOpsHero DevTools · Local", classes="sidebar-footer-text")
                     yield Label("«", classes="sidebar-footer-collapse")
 
             # 2. Main Column (Top Header + Views Container)
             with Vertical(id="floci-main-col"):
-                # Top Header Bar (Clean Superfile Header - Zero Broken Pills)
+                # Top Header Bar
                 with Horizontal(id="floci-top-header"):
                     with Horizontal(id="top-title-col"):
                         yield Label("☁️", id="top-header-icon")
@@ -389,7 +389,7 @@ class DevOpsHeroApp(App):
 
                 # Dynamic Views Container
                 with Vertical(id="floci-views-container"):
-                    # VIEW A: Flocí Console Home (Dashboard)
+                    # VIEW A: Console Home (Dashboard)
                     with VerticalScroll(id="view-console-home"):
                         # Hero Banner Card
                         with Vertical(id="hero-banner-card"):
@@ -426,10 +426,10 @@ class DevOpsHeroApp(App):
                         with Horizontal(id="floci-chips-row"):
                             yield Label("☁ UI: Console Home", classes="floci-chip")
                             yield Label("⚡ PROXY: /api/terminal", classes="floci-chip")
-                            yield Label("🛡 ADAPTER: Oh My Zsh", classes="floci-chip")
+                            yield Label("🛡 ADAPTER: DevOpsHero Shell", classes="floci-chip")
                             yield Label("💾 RUNTIME: DevOpsHero Core", classes="floci-chip")
 
-                        # 4x2 Grid of Service Cards (Flocí Service Cards)
+                        # 4x2 Grid of Service Cards
                         with Vertical(id="floci-grid-container"):
                             with Horizontal(classes="floci-grid-row"):
                                 yield Button(
@@ -475,11 +475,11 @@ class DevOpsHeroApp(App):
                                     classes="service-card",
                                 )
 
-                    # VIEW B: Terminal Lab View (Superfile Multi-Pane Architecture)
+                    # VIEW B: Terminal Lab View (Multi-Pane Architecture)
                     with Vertical(id="view-terminal-lab"):
                         # Top Workspace: Directory/Missions Browser Column + Terminal Code Editor Column
                         with Horizontal(id="lab-workspace"):
-                            # Missions Browser Column (superfile directory pane)
+                            # Missions Browser Column (Directory Pane)
                             with MissionPanel(id="mission-panel"):
                                 with Horizontal(id="mission-search-row"):
                                     yield Label("🔍 (/) Filter missions or type...", id="lbl-mission-search")
@@ -499,8 +499,8 @@ class DevOpsHeroApp(App):
                             with Vertical(id="terminal-panel"):
                                 with Horizontal(id="term-title-bar"):
                                     yield Label("[#ff5f56]●[/] [#ffbd2e]●[/] [#27c93f]●[/]", classes="term-dots")
-                                    with Horizontal(classes="iterm-tab-active"):
-                                        yield Label("linux-01.sh", id="lbl-term-tab-title", classes="iterm-tab-title")
+                                    with Horizontal(classes="term-tab-active"):
+                                        yield Label("linux-01.sh", id="lbl-term-tab-title", classes="term-tab-title")
                                     yield Static("", classes="term-bar-spacer")
                                     yield Label("⭐ +100 XP  │  ● ONLINE", id="lbl-term-status-badge", classes="term-status-badge")
                                 yield RichLog(id="term-output-log", highlight=True, markup=True, wrap=True)
@@ -511,20 +511,20 @@ class DevOpsHeroApp(App):
                         # Bottom Area: Tri-Panel Tray (Processes, Metadata, Clipboard)
                         with Horizontal(id="lab-bottom-tray"):
                             # Panel 1: Processes
-                            with ProcessesPanel(id="panel-processes", classes="superfile-tray-panel"):
+                            with ProcessesPanel(id="panel-processes", classes="tray-panel"):
                                 yield Label("⚡ SPEED SCORE & REGRAS", classes="tray-header-label")
                                 yield Static("", id="box-rules", classes="rules-box")
                                 yield Label("PROGRESSO DE XP NA TRILHA", classes="tray-header-label")
                                 yield ProgressBar(total=100, show_eta=False, id="lab-xp-bar")
 
                             # Panel 2: Metadata
-                            with MetadataPanel(id="panel-metadata", classes="superfile-tray-panel"):
+                            with MetadataPanel(id="panel-metadata", classes="tray-panel"):
                                 yield Static("", id="box-metadata-content", classes="metadata-content-box")
                                 yield Static("", id="box-objective", classes="objective-box")
                                 yield Static("", id="box-context", classes="context-box")
 
                             # Panel 3: Clipboard
-                            with ClipboardPanel(id="panel-clipboard", classes="superfile-tray-panel"):
+                            with ClipboardPanel(id="panel-clipboard", classes="tray-panel"):
                                 yield Label("⌨️ ATALHOS RÁPIDOS", classes="tray-header-label")
                                 yield Static(
                                     " [bold #fbbf24][F3][/]  💡 [bold white]Dica[/]        [dim #64748b]revela auxílio progressivo[/]\n"
@@ -544,7 +544,7 @@ class DevOpsHeroApp(App):
 
     def on_mount(self) -> None:
         try:
-            self.query_one("#floci-sidebar").border_title = "📁 Super File"
+            self.query_one("#floci-sidebar").border_title = "📁 DevOpsHero"
             self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
             self.query_one("#floci-top-header").border_title = "☁️ DevOpsHero Console"
             self.query_one("#floci-top-header").border_subtitle = "online"
@@ -748,7 +748,7 @@ class DevOpsHeroApp(App):
             self.query_one("#panel-clipboard").border_title = "Clipboard"
             self.query_one("#panel-clipboard").border_subtitle = "1/3"
 
-            self.query_one("#floci-sidebar").border_title = "📁 Super File"
+            self.query_one("#floci-sidebar").border_title = "📁 DevOpsHero"
             self.query_one("#floci-sidebar").border_subtitle = "v1.1.0"
         except Exception:
             pass
