@@ -1,4 +1,14 @@
 {
+  "name": "devopshero",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cd devopshero-mobile && npx expo start --clear",
+    "mobile": "cd devopshero-mobile && npx expo start --clear",
+    "mobile:ios": "cd devopshero-mobile && npx expo run:ios",
+    "swift": "open devopshero-ios-swiftui/DevOpsHero.xcodeproj",
+    "xcode": "open devopshero-ios-swiftui/DevOpsHero.xcodeproj"
+  },
   "dependencies": {
     "expo": "~58.0.23"
   },

@@ -1,10 +1,12 @@
-.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico icons
+.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico icons mobile swift xcode
 
 all: run
 
 help:
 	@echo "⚡ DevOpsHeroCLI (dh) - Atalhos de Execução Rápida"
 	@echo "  make (ou make run) - Inicia a interface visual completa (./dh)"
+	@echo "  make mobile        - Inicia o app mobile Expo com cache limpo (devopshero-mobile)"
+	@echo "  make swift         - Abre o projeto nativo SwiftUI no Xcode"
 	@echo "  make r             - Inicia o modo REPL rápido (./dh r)"
 	@echo "  make s             - Exibe estatísticas e XP do perfil (./dh s)"
 	@echo "  make l             - Lista o catálogo das 80 missões (./dh l)"
@@ -17,6 +19,12 @@ help:
 	@echo "  make test          - Executa a suíte de testes unitários"
 	@echo "  make docker        - Executa em contêiner Docker isolado"
 	@echo "  make clean         - Limpa arquivos temporários e caches"
+
+mobile:
+	cd devopshero-mobile && npx expo start --clear
+
+swift xcode:
+	open devopshero-ios-swiftui/DevOpsHero.xcodeproj
 
 install:
 	./dh --help >/dev/null
