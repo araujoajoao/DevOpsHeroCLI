@@ -1,6 +1,7 @@
 """Tracks catalog registry for DevOpsHeroCLI."""
 from __future__ import annotations
 
+import random
 from typing import Dict, List, Optional, Set, Tuple
 
 from devopsherocli.models import Mission, Track
@@ -35,9 +36,6 @@ def get_mission(track_id: str, mission_id: str) -> Optional[Mission]:
         if m.id == mission_id:
             return m
     return None
-
-
-import random
 
 
 def get_next_mission(

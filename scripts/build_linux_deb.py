@@ -4,10 +4,10 @@ scripts/build_linux_deb.py - Gera pacote nativo Debian/Ubuntu (.deb) para DevOps
 """
 import io
 import os
-import sys
 import tarfile
 import time
 from pathlib import Path
+
 
 def create_ar_archive(members: list[tuple[str, bytes]], output_path: str):
     """
@@ -32,7 +32,7 @@ def create_ar_archive(members: list[tuple[str, bytes]], output_path: str):
             mode_field = "100644".ljust(8)[:8]
             size_field = str(len(data)).ljust(10)[:10]
             header = f"{name_field}{mtime_field}{uid_field}{gid_field}{mode_field}{size_field}`\n".encode("ascii")
-            
+
             f.write(header)
             f.write(data)
             # ar exige alinhamento em 2 bytes

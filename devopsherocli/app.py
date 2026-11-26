@@ -769,6 +769,7 @@ class DevOpsHeroApp(App):
         self.solution_used = False
         self.mission_start_time = time.time()
         self.render_mission_panel()
+        track_name = track.name if track else track_id
         try:
             log = self.query_one("#term-output-log", RichLog)
             log.write("")
@@ -959,7 +960,7 @@ class DevOpsHeroApp(App):
 
         return f"[bold {arrow_color}]➜[/]  [bold #38bdf8]{cwd}[/]{git_segment} "
 
-    def get_ohmyzsh_prompt(self, success: bool = True) -> str:
+    def get_shell_prompt(self, success: bool = True) -> str:
         """Backward compatible prompt helper."""
         return self.get_devopshero_prompt(success)
 
