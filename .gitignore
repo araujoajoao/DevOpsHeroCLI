@@ -44,6 +44,7 @@ venv.bak/
 *.png
 !assets/*.png
 !assets/*.svg
+!assets/icons/*.svg
 !assets/*.icns
 !assets/*.ico
 # Mobile app assets (React Native + SwiftUI) are source, not build output

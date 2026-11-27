@@ -1,8 +1,8 @@
-# ⚡ DevOpsHeroCLI
+# <img src="assets/logo.png" width="44" height="44" alt="DevOpsHero logo" /> DevOpsHeroCLI
 
 <div align="center">
 
-<img src="devopshero-mobile/assets/icon.png" width="220" height="220" alt="DevOpsHero Icon" />
+<img src="assets/logo.png" width="220" height="220" alt="DevOpsHero logo" />
 
 [![GitHub release](https://img.shields.io/github/v/release/araujoajoao/DevOpsHeroCLI?color=blue)](https://github.com/araujoajoao/DevOpsHeroCLI/releases)
 [![CI](https://github.com/araujoajoao/DevOpsHeroCLI/actions/workflows/ci.yml/badge.svg)](https://github.com/araujoajoao/DevOpsHeroCLI/actions/workflows/ci.yml)
@@ -82,7 +82,7 @@ cd DevOpsHeroCLI
 
 Then follow the steps for your operating system.
 
-#### 🐧 1. Linux (Ubuntu, Debian, Fedora, Arch) or WSL
+#### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux (Ubuntu, Debian, Fedora, Arch) or WSL
 
 ##### Option 1.1: run in the terminal (recommended)
 Open your terminal (**Bash** or **Zsh**) and run the official launcher:
@@ -126,7 +126,7 @@ make install-linux   # Creates an app menu shortcut and adds 'dh' to PATH
 ```
 
 <a id="en-macos"></a>
-#### 🍎 2. macOS (MacBook, iMac, Mac mini)
+#### <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> 2. macOS (MacBook, iMac, Mac mini)
 
 ##### Option 2.1 (recommended): native app (.dmg)
 The graphical installer is built automatically for every version and published on **[GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest)**:
@@ -154,7 +154,7 @@ make dmg
 ./dh r          # Quick REPL prompt
 ```
 
-#### 🪟 3. Windows (10 and 11)
+#### <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> 3. Windows (10 and 11)
 
 > **Download without Git**: get [`DevOpsHero-windows.zip`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) from the latest release, extract it, and run the commands below inside the `DevOpsHero` folder. To update, download the newest `.zip`.
 
@@ -182,7 +182,7 @@ dh.bat r        # Quick REPL mode
 > [!TIP]
 > **WSL users**: open your Linux terminal (Ubuntu/Debian) and run `./dh`.
 
-#### 📦 4. Global install with pip (any OS)
+#### <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> 4. Global install with pip (any OS)
 
 To make **`dh`** available from any folder:
 
@@ -200,7 +200,7 @@ dh d            # OS and compatibility check
 ---
 
 <a id="en-releases"></a>
-## 🔄 Updates, versions & releases
+## <img src="assets/icons/github.svg" width="20" height="20" alt="GitHub" /> Updates, versions & releases
 
 - **One source of truth**: the version lives in `devopsherocli/__init__.py` (`__version__`) and in `pyproject.toml`. A test checks that both match, and the Linux, macOS and Windows packages read the version from there.
 - **Checking for updates**: the TUI shows the `Update` pill **only** when your copy is behind `origin/main` or when a newer version is published. It never appears when you are ahead with unpushed commits.
@@ -216,14 +216,14 @@ dh d            # OS and compatibility check
 ---
 
 <a id="en-mobile"></a>
-## 📱 Mobile apps
+## <img src="assets/icons/ios.svg" width="20" height="20" alt="iOS" /> <img src="assets/icons/expo.svg" width="20" height="20" alt="Expo" /> Mobile apps
 
 The same 80 missions are available on mobile, generated from the CLI tracks:
 
 | Project | Stack | Run |
 |---|---|---|
-| [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` or `cd devopshero-mobile && npx expo start` |
-| [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | Native SwiftUI (Xcode) | `make swift` (macOS) |
+| <img src="assets/icons/expo.svg" width="16" height="16" alt="Expo" /> [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` or `cd devopshero-mobile && npx expo start` |
+| <img src="assets/icons/swift.svg" width="16" height="16" alt="Swift" /> [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | Native SwiftUI (Xcode) | `make swift` (macOS) |
 
 To sync missions after changing the CLI tracks:
 ```bash
@@ -262,7 +262,7 @@ This rewrites `missions.json` for both apps.
 ---
 
 <a id="en-docker"></a>
-## 🐳 Run with Docker (no Python needed)
+## <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> Run with Docker (no Python needed)
 
 ```bash
 # Docker Compose with persistent progress:
@@ -283,7 +283,7 @@ The image runs as an unprivileged `devops` user.
 <a id="en-tracks"></a>
 ## 🗺️ Learning tracks (80 missions)
 
-### 🐧 1. Linux Essentials (10 missions)
+### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux Essentials (10 missions)
 1. **Basic navigation**: find and print the current working directory.
 2. **Detailed listing**: list permissions, owners and sizes, including hidden files.
 3. **Creating directories and files**: create nested structures and empty log files.
@@ -295,7 +295,7 @@ The image runs as an unprivileged `devops` user.
 9. **Resource diagnostics**: check free disk space and available RAM.
 10. **Safe cleanup**: remove temporary files safely.
 
-### 🛠️ 2. Sysadmin Basics (10 missions)
+### <img src="assets/icons/gnubash.svg" width="20" height="20" alt="Bash" /> 2. Sysadmin Basics (10 missions)
 1. **Diagnosing systemd services**: check the health and PID of the Nginx web server.
 2. **Restarting database services**: apply new credentials by restarting PostgreSQL.
 3. **Starting on boot**: enable essential services to start with the OS.
@@ -307,7 +307,7 @@ The image runs as an unprivileged `devops` user.
 9. **System load and uptime**: monitor uptime and load average.
 10. **Admin privileges (sudo)**: grant superuser rights by adding members to the sudo group.
 
-### 🌿 3. Git Version Control (10 missions)
+### <img src="assets/icons/git.svg" width="20" height="20" alt="Git" /> 3. Git Version Control (10 missions)
 1. **Initializing the repository**: create a clean Git repository for the application.
 2. **Inspecting state**: check the working tree status and pending files.
 3. **Staging area**: stage modified files before committing.
@@ -319,7 +319,7 @@ The image runs as an unprivileged `devops` user.
 9. **Temporary stash**: stash pending changes to switch context quickly.
 10. **Version tags**: create immutable tags for official production releases.
 
-### 🐳 4. Docker & Containers (10 missions)
+### <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> 4. Docker & Containers (10 missions)
 1. **First web container**: run web servers in the background with port mapping.
 2. **Auditing running containers**: list running containers with IDs and ports.
 3. **Inspecting application logs**: watch stdout/stderr of running microservices.
@@ -331,7 +331,7 @@ The image runs as an unprivileged `devops` user.
 9. **Resource metrics**: watch CPU and memory usage live with `docker stats`.
 10. **Cleanup**: remove stale containers to free host resources.
 
-### ☸️ 5. Kubernetes Orchestration (10 missions)
+### <img src="assets/icons/kubernetes.svg" width="20" height="20" alt="Kubernetes" /> 5. Kubernetes Orchestration (10 missions)
 1. **Inspecting cluster nodes**: check the status and roles of control-plane and worker nodes.
 2. **Standalone Pods**: create quick Pods for connectivity tests.
 3. **All namespaces at a glance**: list workloads across every namespace.
@@ -343,7 +343,7 @@ The image runs as an unprivileged `devops` user.
 9. **Collecting Pod logs**: read startup and request logs in Kubernetes.
 10. **Clean deletion**: stop and remove stale Pods and resources safely.
 
-### ☁️ 6. AWS Cloud & Infrastructure (10 missions)
+### <img src="assets/icons/aws.svg" width="20" height="20" alt="AWS" /> 6. AWS Cloud & Infrastructure (10 missions)
 1. **Identity audit**: confirm your account and authenticated user with AWS STS.
 2. **Listing S3 buckets**: inspect the available object storage buckets.
 3. **Creating buckets**: provision new S3 buckets for backups and logs.
@@ -355,7 +355,7 @@ The image runs as an unprivileged `devops` user.
 9. **Provisioning service accounts**: create new IAM identities for CI/CD pipelines.
 10. **Lambda inventory**: list active serverless functions in the AWS region.
 
-### 🏗️ 7. Terraform Infrastructure as Code (10 missions)
+### <img src="assets/icons/terraform.svg" width="20" height="20" alt="Terraform" /> 7. Terraform Infrastructure as Code (10 missions)
 1. **Initializing the project**: install providers and configure backends.
 2. **Code formatting**: reformat HCL manifests to the official HashiCorp style.
 3. **Static validation**: validate syntax and arguments before touching cloud resources.
@@ -367,7 +367,7 @@ The image runs as an unprivileged `devops` user.
 9. **Reading outputs**: extract useful output values produced by provisioning.
 10. **Controlled destroy**: remove all managed resources to stop test costs.
 
-### 🐕 8. Datadog Observability (10 missions)
+### <img src="assets/icons/datadog.svg" width="20" height="20" alt="Datadog" /> 8. Datadog Observability (10 missions)
 1. **Agent diagnostics**: check the overall health of collectors, metrics and APM.
 2. **Daemon health check**: run quick integrity tests of the monitoring process.
 3. **Version audit**: identify the exact Datadog Agent version installed.
@@ -394,14 +394,14 @@ The image runs as an unprivileged `devops` user.
   - **👁️ Solution revealed (F4 / `solucao`)**: zero XP for the mission and the streak resets to 0.
 - **XP and levels (10 ranks)**:
   - 🌱 **Level 1 · DevOps Recruit** (0–249 XP)
-  - 🛠️ **Level 2 · Sysadmin Basics** (250–599 XP)
-  - 🐧 **Level 3 · Linux Explorer** (600–1099 XP)
-  - 🌿 **Level 4 · Git Codecrafter** (1100–1699 XP)
-  - 🐳 **Level 5 · Container Captain** (1700–2499 XP)
-  - ☸️ **Level 6 · Cluster Commander** (2500–3499 XP)
-  - ☁️ **Level 7 · Cloud Architect** (3500–4699 XP)
-  - 🏗️ **Level 8 · IaC Master** (4700–6199 XP)
-  - 🐕 **Level 9 · Observability Guru** (6200–7999 XP)
+  - <img src="assets/icons/gnubash.svg" width="16" height="16" alt="Bash" /> **Level 2 · Sysadmin Basics** (250–599 XP)
+  - <img src="assets/icons/linux.svg" width="16" height="16" alt="Linux" /> **Level 3 · Linux Explorer** (600–1099 XP)
+  - <img src="assets/icons/git.svg" width="16" height="16" alt="Git" /> **Level 4 · Git Codecrafter** (1100–1699 XP)
+  - <img src="assets/icons/docker.svg" width="16" height="16" alt="Docker" /> **Level 5 · Container Captain** (1700–2499 XP)
+  - <img src="assets/icons/kubernetes.svg" width="16" height="16" alt="Kubernetes" /> **Level 6 · Cluster Commander** (2500–3499 XP)
+  - <img src="assets/icons/aws.svg" width="16" height="16" alt="AWS" /> **Level 7 · Cloud Architect** (3500–4699 XP)
+  - <img src="assets/icons/terraform.svg" width="16" height="16" alt="Terraform" /> **Level 8 · IaC Master** (4700–6199 XP)
+  - <img src="assets/icons/datadog.svg" width="16" height="16" alt="Datadog" /> **Level 9 · Observability Guru** (6200–7999 XP)
   - ⚡ **Level 10 · DevOps Titan** (8000+ XP)
 - **Streak 🔥**: consecutive correct answers without revealing the solution give up to **+50% bonus XP**.
 - **Automatic local save**: progress is stored in `~/.devopsherocli/progress.json`.
@@ -427,9 +427,11 @@ The image runs as an unprivileged `devops` user.
 <a id="en-icons"></a>
 ## 🎨 Visual identity & icons
 
-<img src="devopshero-mobile/assets/icon.png" width="96" height="96" alt="DevOpsHero Icon" />
+<img src="assets/logo.png" width="96" height="96" alt="DevOpsHero logo" />
 
-The official DevOpsHero icon is the mobile app icon: [devopshero-mobile/assets/icon.png](devopshero-mobile/assets/icon.png). It is 1024×1024 and identical to the SwiftUI app's `AppIcon-1024.png`. This icon is used in this README and in the iOS/Android apps.
+The official DevOpsHero logo (graduation cap, laptop and the DevOps ∞ loop) is [assets/logo.png](assets/logo.png): the mobile app icon with a transparent background. The full app icon with its rounded background is [devopshero-mobile/assets/icon.png](devopshero-mobile/assets/icon.png), identical to the SwiftUI app's `AppIcon-1024.png`.
+
+Technology and platform logos used in this README live in [assets/icons/](assets/icons) as brand-colored SVGs (from [Simple Icons](https://simpleicons.org), CC0; AWS from [Devicon](https://devicon.dev), MIT; Windows drawn from its four-pane mark). Black marks are drawn in neutral gray so they stay visible in light and dark themes. Each logo is a trademark of its owner.
 
 Native desktop icons (macOS Dock/Launchpad and the Windows shortcut) are generated from the vector [assets/icon.svg](assets/icon.svg), following Apple's macOS Human Interface Guidelines:
 - **Geometry**: continuous superellipse (an 824×824 *squircle* centered on a 1024×1024 canvas).
@@ -446,7 +448,7 @@ make icons
 ---
 
 <a id="en-tests"></a>
-## 🧪 Automated tests
+## <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> Automated tests
 
 ```bash
 make test
@@ -461,7 +463,7 @@ CI runs the suite on Linux, macOS and Windows with Python 3.9 to 3.13.
 ---
 
 <a id="en-ai-review"></a>
-## 🤖 Automated AI review on GitHub
+## <img src="assets/icons/githubactions.svg" width="20" height="20" alt="GitHub Actions" /> Automated AI review on GitHub
 
 Every pull request goes through an automated GitHub Actions pipeline ([`ai_code_review.yml`](.github/workflows/ai_code_review.yml)) that checks:
 - 🔒 **AppSec**: exposed credentials, command/SQL injection, path traversal and excessive permissions.
@@ -552,7 +554,7 @@ cd DevOpsHeroCLI
 
 Depois siga os passos do seu sistema operacional.
 
-#### 🐧 1. Linux (Ubuntu, Debian, Fedora, Arch) ou WSL
+#### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux (Ubuntu, Debian, Fedora, Arch) ou WSL
 
 ##### Opção 1.1: executar no terminal (recomendado)
 Abra seu terminal (**Bash** ou **Zsh**) e execute o launcher oficial:
@@ -596,7 +598,7 @@ make install-linux   # Cria atalho no menu de aplicativos e adiciona 'dh' ao PAT
 ```
 
 <a id="pt-macos"></a>
-#### 🍎 2. macOS (MacBook, iMac, Mac mini)
+#### <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> 2. macOS (MacBook, iMac, Mac mini)
 
 ##### Opção 2.1 (recomendada): aplicativo nativo (.dmg)
 O instalador gráfico é gerado automaticamente a cada versão e publicado nos **[GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest)**:
@@ -624,7 +626,7 @@ make dmg
 ./dh r          # Prompt REPL rápido
 ```
 
-#### 🪟 3. Windows (10 e 11)
+#### <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> 3. Windows (10 e 11)
 
 > **Download sem Git**: baixe o [`DevOpsHero-windows.zip`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) do release mais recente, extraia e rode os comandos abaixo dentro da pasta `DevOpsHero`. Para atualizar, baixe o `.zip` mais novo.
 
@@ -652,7 +654,7 @@ dh.bat r        # Modo REPL rápido
 > [!TIP]
 > **Usuários de WSL**: abra seu terminal Linux (Ubuntu/Debian) e rode `./dh`.
 
-#### 📦 4. Instalação global via pip (qualquer SO)
+#### <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> 4. Instalação global via pip (qualquer SO)
 
 Para que o comando **`dh`** funcione em qualquer pasta:
 
@@ -670,7 +672,7 @@ dh d            # Diagnóstico de SO e compatibilidade
 ---
 
 <a id="pt-releases"></a>
-## 🔄 Atualizações, versões e releases
+## <img src="assets/icons/github.svg" width="20" height="20" alt="GitHub" /> Atualizações, versões e releases
 
 - **Fonte única de versão**: a versão fica em `devopsherocli/__init__.py` (`__version__`) e no `pyproject.toml`. Um teste garante que as duas batem, e os pacotes de Linux, macOS e Windows leem a versão de lá.
 - **Verificação de updates**: a TUI mostra a pílula `Update` **somente** quando sua cópia está atrás do `origin/main` ou quando existe uma versão publicada mais nova. Ela nunca aparece quando você está à frente, com commits ainda não enviados.
@@ -686,14 +688,14 @@ dh d            # Diagnóstico de SO e compatibilidade
 ---
 
 <a id="pt-mobile"></a>
-## 📱 Apps mobile
+## <img src="assets/icons/ios.svg" width="20" height="20" alt="iOS" /> <img src="assets/icons/expo.svg" width="20" height="20" alt="Expo" /> Apps mobile
 
 As mesmas 80 missões estão disponíveis no mobile, geradas a partir das trilhas da CLI:
 
 | Projeto | Stack | Como rodar |
 |---|---|---|
-| [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` ou `cd devopshero-mobile && npx expo start` |
-| [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | SwiftUI nativo (Xcode) | `make swift` (macOS) |
+| <img src="assets/icons/expo.svg" width="16" height="16" alt="Expo" /> [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` ou `cd devopshero-mobile && npx expo start` |
+| <img src="assets/icons/swift.svg" width="16" height="16" alt="Swift" /> [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | SwiftUI nativo (Xcode) | `make swift` (macOS) |
 
 Para sincronizar as missões depois de alterar as trilhas da CLI:
 ```bash
@@ -732,7 +734,7 @@ Isso regrava o `missions.json` dos dois apps.
 ---
 
 <a id="pt-docker"></a>
-## 🐳 Executando com Docker (sem instalar Python)
+## <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> Executando com Docker (sem instalar Python)
 
 ```bash
 # Docker Compose com persistência de progresso:
@@ -753,7 +755,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 <a id="pt-tracks"></a>
 ## 🗺️ Trilhas de aprendizado (80 missões)
 
-### 🐧 1. Linux Essencial (10 missões)
+### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux Essencial (10 missões)
 1. **Navegação básica**: descubra e exiba o diretório de trabalho atual.
 2. **Listagem detalhada**: liste permissões, donos e tamanhos, incluindo arquivos ocultos.
 3. **Criação de diretórios e arquivos**: crie estruturas aninhadas e arquivos de log vazios.
@@ -765,7 +767,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Diagnóstico de recursos**: analise o espaço livre em disco e a RAM disponível.
 10. **Remoção segura**: elimine arquivos temporários com segurança.
 
-### 🛠️ 2. Sysadmin Básico (10 missões)
+### <img src="assets/icons/gnubash.svg" width="20" height="20" alt="Bash" /> 2. Sysadmin Básico (10 missões)
 1. **Diagnóstico de serviços systemd**: verifique a saúde e o PID do servidor web Nginx.
 2. **Reinício de serviços de banco**: aplique novas credenciais reiniciando o PostgreSQL.
 3. **Persistência no boot**: habilite serviços essenciais para iniciar com o SO.
@@ -777,7 +779,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Carga e uptime**: monitore o tempo de atividade e o load average.
 10. **Privilégios administrativos (sudo)**: conceda poderes de superusuário adicionando membros ao grupo sudo.
 
-### 🌿 3. Git Controle de Versão (10 missões)
+### <img src="assets/icons/git.svg" width="20" height="20" alt="Git" /> 3. Git Controle de Versão (10 missões)
 1. **Inicializando o repositório**: crie um repositório Git limpo para a aplicação.
 2. **Inspecionando o estado**: consulte o status da árvore de trabalho e os arquivos pendentes.
 3. **Área de staging**: mova arquivos modificados para a staging area antes do commit.
@@ -789,7 +791,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Stash temporário**: guarde alterações pendentes no stash para trocar de contexto.
 10. **Tags de versão**: crie tags imutáveis para releases oficiais de produção.
 
-### 🐳 4. Docker & Contêineres (10 missões)
+### <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> 4. Docker & Contêineres (10 missões)
 1. **Primeiro contêiner web**: execute servidores web em background mapeando portas.
 2. **Auditoria de contêineres ativos**: liste contêineres em execução com IDs e portas.
 3. **Inspeção de logs da aplicação**: acompanhe stdout/stderr de microsserviços em execução.
@@ -801,7 +803,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Métricas de recursos**: acompanhe CPU e memória em tempo real com `docker stats`.
 10. **Limpeza**: remova contêineres obsoletos para liberar recursos do host.
 
-### ☸️ 5. Kubernetes Orquestração (10 missões)
+### <img src="assets/icons/kubernetes.svg" width="20" height="20" alt="Kubernetes" /> 5. Kubernetes Orquestração (10 missões)
 1. **Inspeção dos nós do cluster**: verifique o status e o papel dos nós control-plane e worker.
 2. **Pods standalone**: crie Pods rápidos para testes de conectividade.
 3. **Visão de todos os namespaces**: liste cargas de trabalho em todos os namespaces.
@@ -813,7 +815,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Coleta de logs de Pods**: leia logs de inicialização e de requisições no Kubernetes.
 10. **Remoção limpa**: encerre e remova Pods e recursos obsoletos com segurança.
 
-### ☁️ 6. AWS Cloud & Infraestrutura (10 missões)
+### <img src="assets/icons/aws.svg" width="20" height="20" alt="AWS" /> 6. AWS Cloud & Infraestrutura (10 missões)
 1. **Auditoria de identidade**: confirme sua conta e o usuário autenticado com o AWS STS.
 2. **Listagem de buckets S3**: inspecione os buckets de armazenamento disponíveis.
 3. **Criação de buckets**: provisione novos buckets S3 para backups e logs.
@@ -825,7 +827,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Provisionando contas de serviço**: crie novas identidades IAM para esteiras de CI/CD.
 10. **Inventário Lambda**: liste as funções serverless ativas na região AWS.
 
-### 🏗️ 7. Terraform Infraestrutura como Código (10 missões)
+### <img src="assets/icons/terraform.svg" width="20" height="20" alt="Terraform" /> 7. Terraform Infraestrutura como Código (10 missões)
 1. **Inicialização do projeto**: instale provedores e configure backends.
 2. **Padronização de código**: reformate manifestos HCL no padrão oficial da HashiCorp.
 3. **Validação estática**: valide sintaxe e argumentos antes de tocar nos recursos de nuvem.
@@ -837,7 +839,7 @@ A imagem roda com o usuário sem privilégios `devops`.
 9. **Consultando outputs**: extraia os valores de saída gerados pelo provisionamento.
 10. **Destruição controlada**: remova todos os recursos gerenciados para zerar custos de teste.
 
-### 🐕 8. Datadog Observabilidade (10 missões)
+### <img src="assets/icons/datadog.svg" width="20" height="20" alt="Datadog" /> 8. Datadog Observabilidade (10 missões)
 1. **Diagnóstico do Agent**: verifique a saúde geral de coletores, métricas e APM.
 2. **Health check do daemon**: rode testes rápidos de integridade do processo de monitoramento.
 3. **Auditoria de versão**: identifique a versão exata do Datadog Agent instalada.
@@ -864,14 +866,14 @@ A imagem roda com o usuário sem privilégios `devops`.
   - **👁️ Gabarito revelado (F4 / `solucao`)**: zera o XP da missão e o streak volta a 0.
 - **XP e níveis (10 patentes)**:
   - 🌱 **Nível 1 · Recruta DevOps** (0–249 XP)
-  - 🛠️ **Nível 2 · Sysadmin Básico** (250–599 XP)
-  - 🐧 **Nível 3 · Linux Explorer** (600–1099 XP)
-  - 🌿 **Nível 4 · Git Codecrafter** (1100–1699 XP)
-  - 🐳 **Nível 5 · Container Captain** (1700–2499 XP)
-  - ☸️ **Nível 6 · Cluster Commander** (2500–3499 XP)
-  - ☁️ **Nível 7 · Cloud Architect** (3500–4699 XP)
-  - 🏗️ **Nível 8 · IaC Master** (4700–6199 XP)
-  - 🐕 **Nível 9 · Observability Guru** (6200–7999 XP)
+  - <img src="assets/icons/gnubash.svg" width="16" height="16" alt="Bash" /> **Nível 2 · Sysadmin Básico** (250–599 XP)
+  - <img src="assets/icons/linux.svg" width="16" height="16" alt="Linux" /> **Nível 3 · Linux Explorer** (600–1099 XP)
+  - <img src="assets/icons/git.svg" width="16" height="16" alt="Git" /> **Nível 4 · Git Codecrafter** (1100–1699 XP)
+  - <img src="assets/icons/docker.svg" width="16" height="16" alt="Docker" /> **Nível 5 · Container Captain** (1700–2499 XP)
+  - <img src="assets/icons/kubernetes.svg" width="16" height="16" alt="Kubernetes" /> **Nível 6 · Cluster Commander** (2500–3499 XP)
+  - <img src="assets/icons/aws.svg" width="16" height="16" alt="AWS" /> **Nível 7 · Cloud Architect** (3500–4699 XP)
+  - <img src="assets/icons/terraform.svg" width="16" height="16" alt="Terraform" /> **Nível 8 · IaC Master** (4700–6199 XP)
+  - <img src="assets/icons/datadog.svg" width="16" height="16" alt="Datadog" /> **Nível 9 · Observability Guru** (6200–7999 XP)
   - ⚡ **Nível 10 · DevOps Titan** (8000+ XP)
 - **Sequência (streak 🔥)**: acertos seguidos sem revelar o gabarito dão até **+50% de bônus de XP**.
 - **Salvamento local automático**: o progresso fica em `~/.devopsherocli/progress.json`.
@@ -897,9 +899,11 @@ A imagem roda com o usuário sem privilégios `devops`.
 <a id="pt-icons"></a>
 ## 🎨 Identidade visual e ícones
 
-<img src="devopshero-mobile/assets/icon.png" width="96" height="96" alt="DevOpsHero Icon" />
+<img src="assets/logo.png" width="96" height="96" alt="DevOpsHero logo" />
 
-O ícone oficial do DevOpsHero é o ícone do app mobile: [devopshero-mobile/assets/icon.png](devopshero-mobile/assets/icon.png). Ele tem 1024×1024 e é idêntico ao `AppIcon-1024.png` do app SwiftUI. Este ícone é usado neste README e nos apps iOS/Android.
+O logo oficial do DevOpsHero (capelo, laptop e o laço ∞ do DevOps) é o [assets/logo.png](assets/logo.png): o ícone do app mobile com fundo transparente. O ícone completo do app, com fundo arredondado, é o [devopshero-mobile/assets/icon.png](devopshero-mobile/assets/icon.png), idêntico ao `AppIcon-1024.png` do app SwiftUI.
+
+Os logos de tecnologias e plataformas usados neste README ficam em [assets/icons/](assets/icons), como SVGs nas cores oficiais das marcas (do [Simple Icons](https://simpleicons.org), CC0; AWS do [Devicon](https://devicon.dev), MIT; Windows desenhado a partir da marca de quatro painéis). Marcas pretas são desenhadas em cinza neutro para continuarem visíveis nos temas claro e escuro. Cada logo é marca registrada do respectivo dono.
 
 Os ícones nativos de desktop (Dock/Launchpad no macOS e atalho no Windows) são gerados a partir do vetor [assets/icon.svg](assets/icon.svg), seguindo as Human Interface Guidelines da Apple para macOS:
 - **Geometria**: superelipse contínua (*squircle* de 824×824 centralizado em canvas de 1024×1024).
@@ -916,7 +920,7 @@ make icons
 ---
 
 <a id="pt-tests"></a>
-## 🧪 Testes automatizados
+## <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> Testes automatizados
 
 ```bash
 make test
@@ -931,7 +935,7 @@ O CI roda a suíte em Linux, macOS e Windows com Python 3.9 a 3.13.
 ---
 
 <a id="pt-ai-review"></a>
-## 🤖 Revisão automática por IA no GitHub
+## <img src="assets/icons/githubactions.svg" width="20" height="20" alt="GitHub Actions" /> Revisão automática por IA no GitHub
 
 Todo pull request passa por uma esteira automatizada no GitHub Actions ([`ai_code_review.yml`](.github/workflows/ai_code_review.yml)) que verifica:
 - 🔒 **AppSec**: credenciais expostas, injeção de comando/SQL, path traversal e permissões indevidas.
