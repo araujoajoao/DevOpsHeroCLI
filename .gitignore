@@ -10,8 +10,11 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/*
-!dist/DevOpsHero.deb
+dist/
+# Installers are published as GitHub Release assets (see .github/workflows/release.yml)
+/DevOpsHero.dmg
+*.deb
+*.dmg
 downloads/
 eggs/
 .eggs/
@@ -43,6 +46,11 @@ venv.bak/
 !assets/*.svg
 !assets/*.icns
 !assets/*.ico
+# Mobile app assets (React Native + SwiftUI) are source, not build output
+!devopshero-mobile/assets/**/*.png
+!devopshero-mobile/assets/**/*.jpg
+!devopshero-ios-swiftui/Sources/Resources/**/*.png
+!devopshero-ios-swiftui/Sources/Resources/**/*.svg
 
 # macOS specific
 .DS_Store
@@ -75,12 +83,22 @@ htmlcov/
 Thumbs.db
 ehthumbs.db
 desktop.ini
-
-# Mobile Applications (Deploy to iOS/Android only, isolated from CLI GitHub repo)
-/devopshero-mobile/
-/devopshero-ios-swiftui/
-
 node_modules
 
 # Expo local state
 .expo/
+
+# Expo / React Native (see also devopshero-mobile/.gitignore)
+/devopshero-mobile/ios/
+/devopshero-mobile/android/
+
+# SwiftUI / Xcode / SwiftPM
+/devopshero-ios-swiftui/.build/
+/devopshero-ios-swiftui/.swiftpm/
+*.bak
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# Claude Code local settings
+.claude/settings.local.json

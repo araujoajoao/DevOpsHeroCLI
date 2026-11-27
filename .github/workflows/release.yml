@@ -1,0 +1,166 @@
+name: Release
+
+# Publish Linux (.deb), macOS (.dmg) and Windows (.zip) packages for every version tag.
+# Usage: bump __version__ (devopsherocli/__init__.py) + pyproject.toml, then
+#   git tag vX.Y.Z && git push origin vX.Y.Z
+on:
+  push:
+    tags: [ "v*.*.*" ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to (re)build, e.g. v1.0.1"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify version & tests
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+      tag: ${{ steps.ver.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check tag matches __version__ and pyproject.toml
+        id: ver
+        env:
+          REF_NAME: ${{ inputs.tag || github.ref_name }}
+        run: |
+          PKG_VER=$(python -c "import re,pathlib;print(re.search(r'^__version__\s*=\s*[\"\']([^\"\']+)', pathlib.Path('devopsherocli/__init__.py').read_text(), re.M).group(1))")
+          TOML_VER=$(python -c "import re,pathlib;print(re.search(r'^version\s*=\s*[\"\']([^\"\']+)', pathlib.Path('pyproject.toml').read_text(), re.M).group(1))")
+          TAG_VER="${REF_NAME#v}"
+          echo "tag=$TAG_VER package=$PKG_VER pyproject=$TOML_VER"
+          if [ "$TAG_VER" != "$PKG_VER" ] || [ "$TAG_VER" != "$TOML_VER" ]; then
+            echo "::error::Tag ($TAG_VER), __version__ ($PKG_VER) and pyproject.toml ($TOML_VER) must match"
+            exit 1
+          fi
+          echo "version=$PKG_VER" >> "$GITHUB_OUTPUT"
+          echo "tag=$REF_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Run test suite
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          python -m unittest discover tests
+
+  linux-deb:
+    name: Build Linux .deb
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify.outputs.tag }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build package
+        run: |
+          python scripts/build_linux_deb.py
+          dpkg-deb --info dist/DevOpsHero.deb | grep -q "Version: ${{ needs.verify.outputs.version }}"
+          cp dist/DevOpsHero.deb "dist/DevOpsHero_${{ needs.verify.outputs.version }}_all.deb"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-deb
+          path: dist/DevOpsHero_*_all.deb
+          if-no-files-found: error
+
+  macos-dmg:
+    name: Build macOS .dmg
+    needs: verify
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify.outputs.tag }}
+      - name: Build app bundle and disk image
+        run: |
+          ./scripts/build_macos_app.sh
+          /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" dist/DevOpsHero.app/Contents/Info.plist \
+            | grep -qx "${{ needs.verify.outputs.version }}"
+          cp dist/DevOpsHero.dmg "dist/DevOpsHero_${{ needs.verify.outputs.version }}.dmg"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-dmg
+          path: dist/DevOpsHero_*.dmg
+          if-no-files-found: error
+
+  windows-zip:
+    name: Build Windows .zip
+    needs: verify
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify.outputs.tag }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Package launcher, sources and shortcut installer
+        shell: pwsh
+        run: |
+          $ver = "${{ needs.verify.outputs.version }}"
+          $stage = "DevOpsHero"
+          New-Item -ItemType Directory -Path "$stage\scripts" -Force | Out-Null
+          Copy-Item -Recurse devopsherocli, assets -Destination $stage
+          Copy-Item pyproject.toml, README.md, LICENSE, dh.ps1, dh.bat -Destination $stage
+          Copy-Item scripts\install_windows.ps1 -Destination "$stage\scripts"
+          Get-ChildItem -Path $stage -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force
+          # Smoke test: the packaged launcher bootstraps its venv and reports the right version
+          $out = & pwsh -NoProfile -File "$stage\dh.ps1" --version
+          if (-not ($out -match [regex]::Escape($ver))) { throw "dh.ps1 --version did not report $ver" }
+          Remove-Item -Recurse -Force "$stage\.venv", "$stage\*.egg-info" -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          Compress-Archive -Path $stage -DestinationPath "dist\DevOpsHero-windows_$ver.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-zip
+          path: dist/DevOpsHero-windows_*.zip
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub Release
+    needs: [ verify, linux-deb, macos-dmg, windows-zip ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Add stable download names and checksums
+        working-directory: out
+        run: |
+          cp DevOpsHero_*_all.deb DevOpsHero.deb
+          cp DevOpsHero_*.dmg DevOpsHero.dmg
+          cp DevOpsHero-windows_*.zip DevOpsHero-windows.zip
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.verify.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/* --clobber
+          else
+            gh release create "$TAG" out/* --title "DevOpsHeroCLI $TAG" --generate-notes --verify-tag
+          fi
