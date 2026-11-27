@@ -21,6 +21,13 @@ ICNS_FILE="$DIR/assets/DevOpsHero.icns"
 
 mkdir -p "$DIST_DIR"
 
+# Versão única: devopsherocli/__init__.py (__version__)
+APP_VERSION=$(sed -n 's/^__version__[[:space:]]*=[[:space:]]*["'"'"']\([^"'"'"']*\)["'"'"'].*/\1/p' "$DIR/devopsherocli/__init__.py")
+if [ -z "$APP_VERSION" ]; then
+    echo -e "\033[1;31m[ERRO]\033[0m __version__ não encontrado em devopsherocli/__init__.py"
+    exit 1
+fi
+
 # 2. Gerar/Atualizar ícones oficiais via pipeline Apple Swift
 "$DIR/scripts/build_icons.sh"
 
@@ -61,9 +68,9 @@ cat <<EOF > "$APP_BUNDLE/Contents/Info.plist"
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>${APP_VERSION}</string>
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>${APP_VERSION}</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.15</string>
     <key>NSHighResolutionCapable</key>

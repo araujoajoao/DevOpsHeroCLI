@@ -41,9 +41,30 @@ if [ ! -w "$DIR" ]; then
     mkdir -p "$HOME/.devopsherocli"
 fi
 
-if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ]; then
-    echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Primeira execução detectada. Criando ambiente isolado..."
-    "$PYTHON_BIN" -m venv "$VENV_DIR"
+# Recreate the venv when missing or broken (e.g. copied from another machine/OS,
+# where bin/python points to an interpreter that does not exist here).
+venv_ok() {
+    [ -x "$VENV_DIR/bin/python" ] && "$VENV_DIR/bin/python" -c 'import sys' >/dev/null 2>&1
+}
+
+if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ] || ! venv_ok; then
+    if [ -d "$VENV_DIR" ]; then
+        echo -e "\033[1;33m⚡ [DevOpsHeroCLI]\033[0m Ambiente isolado inválido para este sistema. Recriando..."
+    else
+        echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Primeira execução detectada. Criando ambiente isolado..."
+    fi
+    if ! "$PYTHON_BIN" -m venv --clear "$VENV_DIR" >/dev/null 2>&1; then
+        # Debian/Ubuntu ship Python without ensurepip unless python3-venv is installed.
+        if command -v uv >/dev/null 2>&1; then
+            rm -rf "$VENV_DIR"
+            uv venv --seed --quiet -p "$(command -v "$PYTHON_BIN")" "$VENV_DIR"
+        else
+            echo -e "\033[1;31m[ERRO]\033[0m Não foi possível criar o ambiente virtual (ensurepip ausente)."
+            echo "  • Ubuntu / Debian:    sudo apt install -y python3-venv"
+            echo "  • Alternativa:        instale o uv (https://docs.astral.sh/uv/) e rode ./dh novamente"
+            exit 1
+        fi
+    fi
     
     echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Instalando dependências (Textual, Rich, Prompt Toolkit)..."
     "$VENV_DIR/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
@@ -60,7 +81,7 @@ fi
 if [ "$1" = "update" ] || [ "$1" = "upgrade" ]; then
     echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Verificando e baixando atualizações do GitHub..."
     if [ -d "$DIR/.git" ]; then
-        git -C "$DIR" pull origin main
+        git -C "$DIR" pull --ff-only origin main
         echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Sincronizando ambiente Python..."
         "$VENV_DIR/bin/pip" install -q -e "$DIR"
         echo -e "\033[1;32m✓ [DevOpsHeroCLI]\033[0m DevOpsHero atualizado com sucesso!"

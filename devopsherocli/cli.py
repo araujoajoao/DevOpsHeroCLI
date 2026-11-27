@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from devopsherocli import __version__
 from devopsherocli.compat import (
     ensure_utf8_encoding,
     get_platform_info,
@@ -321,43 +322,21 @@ def show_doctor() -> None:
 
 
 def update_repo():
-    """Pulls latest changes from remote Git repository and updates installed package."""
-    import subprocess
-    from pathlib import Path
-
-    repo_dir = Path(__file__).resolve().parent.parent
-    git_dir = repo_dir / ".git"
-
-    if not git_dir.exists():
-        console.print("[bold yellow]⚠️  Repositório Git não detectado neste diretório.[/]")
-        console.print("[dim]Se você baixou o DevOpsHero como arquivo .ZIP, faça o download da versão mais recente no GitHub ou clone com 'git clone https://github.com/araujoajoao/DevOpsHeroCLI'.[/]")
-        return
+    """Pulls latest changes (fast-forward only) and reinstalls; packaged installs get the installer link."""
+    from devopsherocli.updater import perform_update
 
     console.print(Panel.fit(
         "[bold cyan]⚡ DevOpsHeroCLI Updater[/]\n"
-        "[dim]Buscando e aplicando atualizações remotas do GitHub...[/]",
+        f"[dim]Versão atual: v{__version__} · buscando atualizações no GitHub...[/]",
         border_style="cyan"
     ))
-
-    try:
-        console.print("➔ [cyan]Executando git pull origin main...[/]")
-        pull_res = subprocess.run(["git", "-C", str(repo_dir), "pull", "origin", "main"], capture_output=True, text=True)
-        if pull_res.returncode != 0:
-            console.print(f"[bold red]❌ Erro ao puxar atualizações do Git:[/] {pull_res.stderr.strip() or pull_res.stdout.strip()}")
-            return
-
-        console.print(f"[green]✓ Git pull concluído:[/] [dim]{pull_res.stdout.strip()}[/]")
-
-        console.print("➔ [cyan]Sincronizando dependências do ambiente virtual...[/]")
-        pip_res = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-e", str(repo_dir)], capture_output=True, text=True)
-        if pip_res.returncode == 0:
-            console.print("[bold green]✅ DevOpsHeroCLI atualizado com sucesso para a versão mais recente![/]")
-            console.print("[dim]Execute 'dh' para iniciar o simulador.[/]")
-        else:
-            console.print(f"[yellow]⚠️  Aviso ao atualizar pip:[/] {pip_res.stderr.strip()}")
-            console.print("[bold green]✅ Arquivos atualizados com sucesso via Git![/]")
-    except Exception as e:
-        console.print(f"[bold red]❌ Falha ao atualizar:[/] {e}")
+    result = perform_update()
+    color = "green" if result.ok else "yellow"
+    console.print(f"[bold {color}]{'✅' if result.ok else '⚠️ '} {result.message}[/]")
+    if result.details:
+        console.print(result.details, style="dim", markup=False, highlight=False)
+    if not result.ok:
+        sys.exit(1)
 
 
 def main():
@@ -365,7 +344,7 @@ def main():
         prog="dh",
         description="⚡ DevOpsHeroCLI (dh): Aprenda Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog no terminal",
     )
-    parser.add_argument("-v", "--version", action="version", version="devopsherocli 1.0.0 (dh)")
+    parser.add_argument("-v", "--version", action="version", version=f"devopsherocli {__version__} (dh)")
     subparsers = parser.add_subparsers(dest="command")
 
     tui_p = subparsers.add_parser("tui", aliases=["t"], help="Interface visual completa (Padrão: basta digitar 'dh')")

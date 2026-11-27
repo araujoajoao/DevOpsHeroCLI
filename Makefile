@@ -1,4 +1,4 @@
-.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico icons mobile swift xcode
+.PHONY: all run repl test install docker clean help r s l v d app dmg macos deb install-linux ico icons mobile mobile-ios swift xcode
 
 all: run
 
@@ -6,6 +6,7 @@ help:
 	@echo "⚡ DevOpsHeroCLI (dh) - Atalhos de Execução Rápida"
 	@echo "  make (ou make run) - Inicia a interface visual completa (./dh)"
 	@echo "  make mobile        - Inicia o app mobile Expo com cache limpo (devopshero-mobile)"
+	@echo "  make mobile-ios    - Compila e roda o app Expo no simulador iOS (macOS)"
 	@echo "  make swift         - Abre o projeto nativo SwiftUI no Xcode"
 	@echo "  make r             - Inicia o modo REPL rápido (./dh r)"
 	@echo "  make s             - Exibe estatísticas e XP do perfil (./dh s)"
@@ -13,7 +14,7 @@ help:
 	@echo "  make v             - Executa validação de todas as missões (./dh v)"
 	@echo "  make d             - Diagnóstico de SO e compatibilidade (./dh d)"
 	@echo "  make icons         - Compila .icns e .ico a partir de assets/icon.svg via Swift"
-	@echo "  make dmg (ou app)  - Gera instalador macOS (DevOpsHero.dmg na raiz)"
+	@echo "  make dmg (ou app)  - Gera instalador macOS (dist/DevOpsHero.dmg)"
 	@echo "  make deb           - Gera instalador Debian/Ubuntu (.deb) em dist/"
 	@echo "  make install-linux - Instala atalho oficial no menu e PATH no Linux"
 	@echo "  make test          - Executa a suíte de testes unitários"
@@ -22,6 +23,9 @@ help:
 
 mobile:
 	cd devopshero-mobile && npx expo start --clear
+
+mobile-ios:
+	cd devopshero-mobile && npx expo run:ios
 
 swift xcode:
 	open devopshero-ios-swiftui/DevOpsHero.xcodeproj
@@ -48,7 +52,8 @@ v verify:
 	./dh v
 
 test:
-	@if [ -d ".venv" ]; then \
+	@./dh --help >/dev/null 2>&1 || true
+	@if .venv/bin/python -c 'import sys' >/dev/null 2>&1; then \
 		.venv/bin/python -m unittest discover tests; \
 	else \
 		python3 -m unittest discover tests; \

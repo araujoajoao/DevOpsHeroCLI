@@ -64,10 +64,16 @@ $VenvPip = if ($IsWindows -or ($env:OS -like "*Windows*")) {
     Join-Path $VenvDir "bin/pip"
 }
 
-# Configura ambiente virtual se não existir
-if (-not (Test-Path $VenvPython)) {
+# Configura ambiente virtual se não existir ou estiver quebrado (ex.: copiado de outro SO)
+$VenvOk = $false
+if (Test-Path $VenvPython) {
+    & $VenvPython -c "import sys" 2>$null
+    $VenvOk = ($LASTEXITCODE -eq 0)
+}
+
+if (-not $VenvOk) {
     Write-Host "[DevOpsHeroCLI] Configurando ambiente virtual (.venv)..." -ForegroundColor Cyan
-    & $PythonCmd.Source -m venv $VenvDir
+    & $PythonCmd.Source -m venv --clear $VenvDir
     if ($LASTEXITCODE -ne 0) {
         Write-Host "[ERRO] Falha ao criar ambiente virtual." -ForegroundColor Red
         exit 1

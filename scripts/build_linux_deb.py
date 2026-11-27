@@ -4,6 +4,7 @@ scripts/build_linux_deb.py - Gera pacote nativo Debian/Ubuntu (.deb) para DevOps
 """
 import io
 import os
+import re
 import tarfile
 import time
 from pathlib import Path
@@ -39,8 +40,18 @@ def create_ar_archive(members: list[tuple[str, bytes]], output_path: str):
             if len(data) % 2 != 0:
                 f.write(b"\n")
 
+def read_version(repo_root: Path) -> str:
+    """Single source of truth: devopsherocli/__init__.py (__version__)."""
+    init_py = (repo_root / "devopsherocli" / "__init__.py").read_text(encoding="utf-8")
+    match = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', init_py, re.MULTILINE)
+    if not match:
+        raise SystemExit("__version__ não encontrado em devopsherocli/__init__.py")
+    return match.group(1)
+
+
 def build_deb():
     repo_root = Path(__file__).resolve().parent.parent
+    version = read_version(repo_root)
     dist_dir = repo_root / "dist"
     dist_dir.mkdir(exist_ok=True)
     deb_output = dist_dir / "DevOpsHero.deb"
@@ -51,8 +62,8 @@ def build_deb():
     deb_binary = b"2.0\n"
 
     # 2. control.tar.gz
-    control_content = """Package: devopshero
-Version: 1.0.0
+    control_content = f"""Package: devopshero
+Version: {version}
 Section: games
 Priority: optional
 Architecture: all

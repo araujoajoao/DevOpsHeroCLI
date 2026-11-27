@@ -22,6 +22,7 @@ from textual.widgets import (
     Static,
 )
 
+from devopsherocli import __version__
 from devopsherocli.compat import (
     ensure_utf8_encoding,
     get_powershell_humor_message,
@@ -34,44 +35,70 @@ from devopsherocli.tracks import ALL_TRACKS, TRACKS_MAP, get_mission, get_next_m
 ensure_utf8_encoding()
 
 
-def check_update_available() -> tuple[bool, str]:
-    """Checks whether an update is available (via git remote or GitHub version).
-    Returns (has_update, latest_version).
-    """
+def _parse_version(ver: str) -> tuple[int, ...]:
+    """Parses 'v1.2.3' / '1.2.3' into (1, 2, 3); non-numeric suffixes are ignored."""
     import re
+
+    parts = []
+    for chunk in ver.strip().lstrip("vV").split("."):
+        m = re.match(r"\d+", chunk)
+        if not m:
+            break
+        parts.append(int(m.group(0)))
+    return tuple(parts)
+
+
+def _extract_pyproject_version(content: str) -> str:
+    import re
+
+    match = re.search(r'^version\s*=\s*["\']([^"\']+)["\']', content, re.MULTILINE)
+    return match.group(1) if match else ""
+
+
+def check_update_available() -> tuple[bool, str]:
+    """Checks whether a newer version exists upstream.
+
+    Returns (has_update, latest_version). Only reports an update when the local
+    copy is *behind* the remote (never when it is ahead with unpushed commits).
+    Works for git checkouts (Linux/macOS/WSL) and for packaged installs
+    (.deb / .app), which fall back to comparing versions over HTTPS.
+    """
+    import shutil
+    import subprocess
     import urllib.request
     from pathlib import Path
 
-    repo_dir = Path(__file__).resolve().parent.parent
-    git_dir = repo_dir / ".git"
+    from devopsherocli import __version__ as local_ver
 
-    # 1. Local Git tracking check
-    if git_dir.exists():
+    repo_dir = Path(__file__).resolve().parent.parent
+
+    # 1. Git checkout: count commits on origin/main that are not in HEAD.
+    if (repo_dir / ".git").exists() and shutil.which("git"):
         try:
-            head_ref_file = git_dir / "refs" / "heads" / "main"
-            remote_ref_file = git_dir / "refs" / "remotes" / "origin" / "main"
-            if head_ref_file.exists() and remote_ref_file.exists():
-                local_sha = head_ref_file.read_text().strip()
-                remote_sha = remote_ref_file.read_text().strip()
-                if local_sha != remote_sha:
-                    return True, "v1.1.0"
-        except Exception:
+            behind = subprocess.run(
+                ["git", "-C", str(repo_dir), "rev-list", "--count", "HEAD..origin/main"],
+                capture_output=True, text=True, timeout=3, check=True,
+            ).stdout.strip()
+            if behind.isdigit() and int(behind) > 0:
+                remote_toml = subprocess.run(
+                    ["git", "-C", str(repo_dir), "show", "origin/main:pyproject.toml"],
+                    capture_output=True, text=True, timeout=3, check=False,
+                ).stdout
+                remote_ver = _extract_pyproject_version(remote_toml)
+                if remote_ver and _parse_version(remote_ver) > _parse_version(local_ver):
+                    return True, f"v{remote_ver}"
+                return True, f"+{behind} commit{'s' if int(behind) > 1 else ''}"
+        except (OSError, subprocess.SubprocessError):
             pass
 
-    # 2. Remote GitHub repository check
+    # 2. Published version on GitHub (covers .deb / .app installs without .git).
     try:
         url = "https://raw.githubusercontent.com/araujoajoao/DevOpsHeroCLI/main/pyproject.toml"
         req = urllib.request.Request(url, headers={"User-Agent": "DevOpsHeroCLI-Checker"})
-        with urllib.request.urlopen(req, timeout=1.5) as resp:
-            content = resp.read().decode("utf-8", errors="ignore")
-            match = re.search(r'version\s*=\s*["\']([^"\']+)["\']', content)
-            if match:
-                remote_ver = match.group(1)
-                from devopsherocli import __version__ as local_ver
-                r_parts = [int(p) for p in remote_ver.lstrip('v').split('.')]
-                l_parts = [int(p) for p in local_ver.lstrip('v').split('.')]
-                if r_parts > l_parts:
-                    return True, f"v{remote_ver}"
+        with urllib.request.urlopen(req, timeout=1.5) as resp:  # nosec B310 - fixed https URL
+            remote_ver = _extract_pyproject_version(resp.read().decode("utf-8", errors="ignore"))
+        if remote_ver and _parse_version(remote_ver) > _parse_version(local_ver):
+            return True, f"v{remote_ver}"
     except Exception:
         pass
 
@@ -158,10 +185,10 @@ class AppUpdateModal(ModalScreen):
         Binding("escape", "dismiss_modal", "Fechar", show=False),
     ]
 
-    def __init__(self, current_version: str = "v1.0.0", target_version: str = "0.21.0"):
+    def __init__(self, target_version: str = ""):
         super().__init__()
-        self.current_version = current_version
-        self.target_version = target_version
+        self.current_version = f"v{__version__}"
+        self.target_version = target_version or "latest"
         self.progress_val: float = 0.0
         self.is_done: bool = False
         self.showing_whats_new: bool = False
@@ -182,11 +209,11 @@ class AppUpdateModal(ModalScreen):
             with Vertical(id="update-progress-row"):
                 with Horizontal(classes="update-status-line"):
                     yield Label("⠋", id="lbl-update-spinner")
-                    yield Label("Downloading and installing update...", id="lbl-update-status", classes="update-status-msg")
+                    yield Label("Buscando e aplicando atualização...", id="lbl-update-status", classes="update-status-msg")
                 yield ProgressBar(total=100, show_eta=False, id="update-progress-bar")
 
             with VerticalScroll(id="update-whats-new-box"):
-                yield Label("[bold #38bdf8]Novidades da versão 1.1.0:[/]\n", classes="whats-new-heading")
+                yield Label(f"[bold #38bdf8]Novidades da versão {__version__}:[/]\n", classes="whats-new-heading")
                 yield Label("• Interface DevOpsHero Cloud Console (Console Home & Terminal Lab)", classes="whats-new-item")
                 yield Label("• 8 Trilhas alinhadas com documentação oficial (Linux, Git, Docker, K8s, AWS, Terraform, Datadog)", classes="whats-new-item")
                 yield Label("• Bloqueio estrito de trilhas por Senioridade e XP (Recruta, Júnior, Pleno, Sênior, Staff)", classes="whats-new-item")
@@ -202,25 +229,41 @@ class AppUpdateModal(ModalScreen):
         whats_new = self.query_one("#update-whats-new-box")
         whats_new.display = False
         self._timer = self.set_interval(0.08, self._step_progress)
+        self.run_worker(self._run_update, thread=True, exclusive=True)
 
     def _step_progress(self) -> None:
+        """Spinner + indeterminate progress until the real update finishes."""
         if self.is_done:
             return
-        self.progress_val += 3.5
+        self.progress_val = min(90.0, self.progress_val + 1.5)
         spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
-        idx = int(self.progress_val // 3) % len(spinner_chars)
+        idx = int(self.progress_val // 1.5) % len(spinner_chars)
         self.query_one("#lbl-update-spinner", Label).update(spinner_chars[idx])
+        self.query_one("#update-progress-bar", ProgressBar).progress = self.progress_val
 
-        bar = self.query_one("#update-progress-bar", ProgressBar)
-        bar.progress = min(100.0, self.progress_val)
+    def _run_update(self) -> None:
+        from devopsherocli.updater import perform_update
 
-        if self.progress_val >= 100.0:
-            self.is_done = True
-            if self._timer:
-                self._timer.stop()
-            self.query_one("#lbl-update-spinner", Label).update("✓")
-            self.query_one("#lbl-update-status", Label).update("[bold #10b981]DevOpsHero v1.1.0 instalado com sucesso![/]")
-            self.query_one("#btn-update-dismiss", Button).label = "CONCLUIR"
+        result = perform_update()
+        self.app.call_from_thread(self._finish_update, result)
+
+    def _finish_update(self, result) -> None:
+        from rich.markup import escape
+
+        self.is_done = True
+        if self._timer:
+            self._timer.stop()
+        self.query_one("#update-progress-bar", ProgressBar).progress = 100.0
+        spinner = self.query_one("#lbl-update-spinner", Label)
+        status = self.query_one("#lbl-update-status", Label)
+        if result.ok:
+            spinner.update("✓")
+            status.update(f"[bold #10b981]{escape(result.message)}[/]")
+        else:
+            spinner.update("!")
+            detail = f"\n[#94a3b8]{escape(result.details)}[/]" if result.details else ""
+            status.update(f"[bold #fbbf24]{escape(result.message)}[/]{detail}")
+        self.query_one("#btn-update-dismiss", Button).label = "CONCLUIR"
 
     @on(Button.Pressed, "#btn-whats-new")
     def toggle_whats_new(self) -> None:
@@ -737,6 +780,7 @@ class DevOpsHeroApp(App):
 
     def _async_check_update(self) -> None:
         has_update, remote_ver = check_update_available()
+        self.latest_version = remote_ver if has_update else ""
         if has_update:
             def show_update_badge():
                 try:
@@ -999,7 +1043,7 @@ class DevOpsHeroApp(App):
         ]
         for line in hero_banner_lines:
             log.write(Text(line, style="bold #10b981"))
-        log.write("[bold #38bdf8]DevOpsHero Cloud Console[/] [dim #64748b]• v1.1.0 (Interactive Terminal Lab)[/]")
+        log.write(f"[bold #38bdf8]DevOpsHero Cloud Console[/] [dim #64748b]• v{__version__} (Interactive Terminal Lab)[/]")
         log.write("[#64748b]• Runtime: [bold #38bdf8]DevOpsHero Core Engine[/]  │  Services: [bold #10b981]19 of 21 available[/]  │  Shell: [bold #38bdf8]zsh[/][/]")
         log.write("[#64748b]• Atalhos: [bold #38bdf8]F2[/] Console Home, [bold #fbbf24]F3[/] dica, [bold #fb7185]F4[/] gabarito, [bold #10b981]F5[/] reset, [bold #38bdf8]Ctrl+Q[/] sair[/]\n")
 
@@ -1291,7 +1335,7 @@ class DevOpsHeroApp(App):
         self.action_check_update()
 
     def action_check_update(self) -> None:
-        self.push_screen(AppUpdateModal())
+        self.push_screen(AppUpdateModal(getattr(self, "latest_version", "")))
 
     @on(Button.Pressed, "#btn-tip")
     def on_btn_tip(self) -> None:
