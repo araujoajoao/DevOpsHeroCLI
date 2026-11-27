@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "devopsherocli"
-version = "1.1.0"
+version = "1.1.1"
 description = "DevOpsHeroCLI: Simulador de terminal interativo para aprender Linux, Sysadmin, Git, Docker, Kubernetes, AWS, Terraform e Datadog digitando comandos reais."
 readme = "README.md"
 requires-python = ">=3.9"
