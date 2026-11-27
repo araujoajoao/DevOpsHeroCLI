@@ -87,6 +87,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ needs.verify.outputs.tag }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install icon pipeline dependencies
+        run: python -m pip install --upgrade pillow
       - name: Build app bundle and disk image
         run: |
           ./scripts/build_macos_app.sh
