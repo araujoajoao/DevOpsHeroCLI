@@ -30,15 +30,13 @@
 
 *No cloud account, no bills, and no risk of breaking your own machine.*
 
-[Quick start](#en-run) •
-[macOS app](#en-macos) •
-[Updates & versions](#en-releases) •
-[Mobile apps](#en-mobile) •
+[Download](#en-download) •
+[Mobile](#en-mobile) •
+[Updates](#en-releases) •
 [Tracks & missions](#en-tracks) •
 [Gamification](#en-gamification) •
 [Shortcuts](#en-shortcuts) •
-[Docker](#en-docker) •
-[Tests](#en-tests)
+[Commands](#en-commands)
 
 <a id="en-what"></a>
 ## 💡 What is DevOpsHeroCLI?
@@ -53,183 +51,37 @@ Unlike multiple-choice quizzes or static tutorials, **DevOpsHeroCLI** simulates 
 
 ---
 
-<a id="en-run"></a>
-## 🚀 Run it locally in 1 minute
+<a id="en-download"></a>
+## ⬇️ Download
 
-### ⚡ Recommended: run directly (no clone)
+Direct downloads of the latest version. No build or clone needed.
 
-If you just want to play and learn without downloading the whole repository:
-
-```bash
-# With pipx (creates an isolated environment and runs instantly):
-pipx run --spec git+https://github.com/araujoajoao/DevOpsHeroCLI.git dh
-
-# Or install with pip:
-pip install git+https://github.com/araujoajoao/DevOpsHeroCLI.git
-dh              # Full visual interface
-dh r            # Quick REPL mode
-```
-
-### 📂 From the Git repository (step by step per OS)
-
-If you prefer to clone the source code to run locally or contribute:
-
-```bash
-# Shallow clone (current state only, without the full history)
-git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
-cd DevOpsHeroCLI
-```
-
-Then follow the steps for your operating system.
-
-#### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux (Ubuntu, Debian, Fedora, Arch) or WSL
-
-##### Option 1.1: run in the terminal (recommended)
-Open your terminal (**Bash** or **Zsh**) and run the official launcher:
-
-```bash
-./dh            # Full TUI
-./dh r          # Quick REPL prompt (no split panes)
-./dh s          # Profile stats and earned XP
-./dh l          # Catalog of all 80 missions
-./dh d          # OS and terminal compatibility check
-./dh update     # Update to the latest version (fast-forward only)
-```
+| Platform | Download | How to install |
+|---|---|---|
+| <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> **Linux** (Debian, Ubuntu, Mint, Pop!_OS) | [**DevOpsHero.deb**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.deb) | `sudo apt install ./DevOpsHero.deb`, then run `dh` (or open it from the app menu) |
+| <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> **macOS** | [**DevOpsHero.dmg**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.dmg) | Open the `.dmg` and drag **DevOpsHero** into **Applications** |
+| <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> **Windows** 10 / 11 | [**DevOpsHero-windows.zip**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) | Extract, open the `DevOpsHero` folder and run `.\dh.ps1` in PowerShell (or `dh.bat`). Optional shortcuts: `scripts\install_windows.ps1` |
 
 > [!NOTE]
-> On first run, `./dh` creates the `.venv` virtual environment and installs dependencies automatically. If the environment is broken (for example, copied from another OS), `./dh` recreates it. On Debian/Ubuntu without `python3-venv`, it falls back to [`uv`](https://docs.astral.sh/uv/) when available.
+> The desktop apps need **Python 3.9+** (already on most Linux and macOS systems; on Windows install it from [python.org](https://www.python.org/downloads/) and tick *Add python.exe to PATH*). On first launch DevOpsHero sets up its own isolated environment automatically.
 
-##### Option 1.2: native Debian / Ubuntu package (.deb)
-On **Ubuntu, Debian, Linux Mint or Pop!_OS**, install the official package with a menu shortcut and native icon:
-
-```bash
-# Download the latest version from GitHub Releases:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.deb
-
-# (Recommended) Verify integrity with the SHA256SUMS.txt from the same release:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt
-sha256sum --ignore-missing -c SHA256SUMS.txt
-
-# Install from the terminal (or double-click the file in your file manager):
-sudo apt install ./DevOpsHero.deb
-
-# (Optional) Build the .deb from source (creates dist/DevOpsHero.deb):
-make deb
-```
-
-> **Updating**: install the `.deb` from the latest release over the current version. The TUI's `Update` pill tells you when a new version is available.
-
-##### Option 1.3: add a menu shortcut (any distribution)
-For GNOME, KDE, XFCE or Cinnamon:
-```bash
-make install-linux   # Creates an app menu shortcut and adds 'dh' to PATH
-```
-
-<a id="en-macos"></a>
-#### <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> 2. macOS (MacBook, iMac, Mac mini)
-
-##### Option 2.1 (recommended): native app (.dmg)
-The graphical installer is built automatically for every version and published on **[GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest)**:
-
-```bash
-# 1. Download the latest version:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.dmg
-
-# (Recommended) Verify integrity with the SHA256SUMS.txt from the same release:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt
-shasum -a 256 --ignore-missing -c SHA256SUMS.txt
-
-# 2. Open the disk image in Finder:
-open DevOpsHero.dmg
-
-# (Optional) Build the installer from source (creates dist/DevOpsHero.dmg):
-make dmg
-```
-
-> **Installing**: open the disk image and drag **DevOpsHero** into **Applications**. It then shows up in **Launchpad**, **Spotlight** and the **Dock**.
-
-##### Option 2.2: from the terminal
-```bash
-./dh            # Full interface in your current terminal
-./dh r          # Quick REPL prompt
-```
-
-#### <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> 3. Windows (10 and 11)
-
-> **Download without Git**: get [`DevOpsHero-windows.zip`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) from the latest release, extract it, and run the commands below inside the `DevOpsHero` folder. To update, download the newest `.zip`.
-
-##### Option 3.1: PowerShell (recommended)
-```powershell
-.\dh.ps1        # Full TUI
-.\dh.ps1 r      # Quick REPL prompt
-.\dh.ps1 s      # Profile stats and XP
-.\dh.ps1 l      # Catalog of all 80 missions
-.\dh.ps1 d      # OS and compatibility check
-```
-
-##### Option 3.2: desktop and Start menu shortcuts
-To pin DevOpsHero to the desktop and Start menu with the official `.ico`:
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\install_windows.ps1
-```
-
-##### Option 3.3: classic Command Prompt (CMD)
-```cmd
-dh.bat          # Full interface
-dh.bat r        # Quick REPL mode
-```
-
-> [!TIP]
-> **WSL users**: open your Linux terminal (Ubuntu/Debian) and run `./dh`.
-
-#### <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> 4. Global install with pip (any OS)
-
-To make **`dh`** available from any folder:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate       # Windows: .venv\Scripts\Activate.ps1
-pip install -e .
-
-dh              # Run the interface from any folder
-dh r            # Quick interactive prompt
-dh s            # Profile stats and XP
-dh d            # OS and compatibility check
-```
-
----
-
-<a id="en-releases"></a>
-## <img src="assets/icons/github.svg" width="20" height="20" alt="GitHub" /> Updates, versions & releases
-
-- **One source of truth**: the version lives in `devopsherocli/__init__.py` (`__version__`) and in `pyproject.toml`. A test checks that both match, and the Linux, macOS and Windows packages read the version from there.
-- **Checking for updates**: the TUI shows the `Update` pill **only** when your copy is behind `origin/main` or when a newer version is published. It never appears when you are ahead with unpushed commits.
-- **Applying updates**:
-  - Git checkout (Linux, macOS, WSL): `dh update` or `F6` in the TUI runs `git pull --ff-only` and reinstalls the package. It never creates merge commits on your machine.
-  - `.deb` / `.dmg` / Windows `.zip` installs: download the latest package from [Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest). `dh update` shows the right link for your OS.
-- **Publishing a release** (maintainers): bump the version in `devopsherocli/__init__.py` and `pyproject.toml`, then:
-  ```bash
-  git tag vX.Y.Z && git push origin vX.Y.Z
-  ```
-  The [`release.yml`](.github/workflows/release.yml) workflow checks that the tag matches the code and runs the tests. It then builds the `.deb` (Ubuntu), the `.dmg` (macOS) and the Windows `.zip`, and attaches them, along with `SHA256SUMS.txt`, to the GitHub Release.
-
----
+Integrity check: every release includes [`SHA256SUMS.txt`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt) (`sha256sum --ignore-missing -c SHA256SUMS.txt`). All versions: [GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases).
 
 <a id="en-mobile"></a>
-## <img src="assets/icons/ios.svg" width="20" height="20" alt="iOS" /> <img src="assets/icons/expo.svg" width="20" height="20" alt="Expo" /> Mobile apps
+### 📱 Mobile: 🚧 work in progress
 
-The same 80 missions are available on mobile, generated from the CLI tracks:
+The Android and iOS apps (same 80 missions) are being prepared for the stores.
 
-| Project | Stack | Run |
-|---|---|---|
-| <img src="assets/icons/expo.svg" width="16" height="16" alt="Expo" /> [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` or `cd devopshero-mobile && npx expo start` |
-| <img src="assets/icons/swift.svg" width="16" height="16" alt="Swift" /> [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | Native SwiftUI (Xcode) | `make swift` (macOS) |
+| Android | iOS |
+|:---:|:---:|
+| <img src="assets/badges/google-play.png" height="56" alt="Google Play" /> | <img src="assets/badges/app-store.svg" height="40" alt="App Store" /> |
+| 🚧 **Coming soon** to Google Play | 🚧 **Coming soon** to the App Store |
 
-To sync missions after changing the CLI tracks:
-```bash
-.venv/bin/python devopshero-mobile/scripts/export_mobile_dataset.py
-```
-This rewrites `missions.json` for both apps.
+<a id="en-releases"></a>
+## 🔄 Updates
+
+- The TUI shows an `Update` pill (`F6`) **only** when a newer version is available.
+- To update, download the latest installer from the links above and install it over the current version. On Linux, `.deb` upgrades are picked up automatically on the next launch.
 
 ---
 
@@ -238,15 +90,17 @@ This rewrites `missions.json` for both apps.
 
 | Shortcut | Full command | Description |
 |---|---|---|
-| **`dh`** | `./dh` or `devopshero` | **Full TUI**: multi-pane interactive terminal with Console Home, mission explorer, XP bar, streak and Terminal Lab. |
-| **`dh r`** | `./dh r` or `devopshero repl` | **Quick prompt**: practice directly on the command line with arrow-key history and autocomplete. |
-| **`dh l`** | `./dh l` or `devopshero list` | **Mission catalog**: lists all **80 missions** and whether each is done. |
-| **`dh s`** | `./dh s` or `devopshero stats` | **Profile & stats**: your level, total XP, streak and history. |
-| **`dh v`** | `./dh v` or `devopshero verify` | **Integrity check**: runs a sandboxed self-test of all **80 missions**. |
-| **`dh d`** | `./dh d` or `devopshero doctor` | **OS & terminal check**: compatibility (Linux, macOS, Windows, WSL), UTF-8 and the active terminal. |
-| **`dh update`** | `./dh update` or `devopshero update` | **Update**: fast-forward to the latest version (git installs) or show the installer link. |
-| **`dh reset`** | `./dh reset` or `devopshero reset` | **Reset progress**: start your journey from scratch. |
+| **`dh`** | `devopshero` | **Full TUI**: multi-pane interactive terminal with Console Home, mission explorer, XP bar, streak and Terminal Lab. |
+| **`dh r`** | `devopshero repl` | **Quick prompt**: practice directly on the command line with arrow-key history and autocomplete. |
+| **`dh l`** | `devopshero list` | **Mission catalog**: lists all **80 missions** and whether each is done. |
+| **`dh s`** | `devopshero stats` | **Profile & stats**: your level, total XP, streak and history. |
+| **`dh v`** | `devopshero verify` | **Integrity check**: runs a sandboxed self-test of all **80 missions**. |
+| **`dh d`** | `devopshero doctor` | **OS & terminal check**: compatibility (Linux, macOS, Windows, WSL), UTF-8 and the active terminal. |
+| **`dh update`** | `devopshero update` | **Update**: fast-forward to the latest version (git installs) or show the installer link. |
+| **`dh reset`** | `devopshero reset` | **Reset progress**: start your journey from scratch. |
 | **`dh -v`** | `devopshero --version` | Shows the installed version. |
+
+> On Windows, run the same commands through the launcher: `.\dh.ps1 r`, `.\dh.ps1 l`, `.\dh.ps1 s`…
 
 ### ⚡ One-letter shortcuts in REPL mode
 
@@ -258,25 +112,6 @@ This rewrites `missions.json` for both apps.
 | **`r`** | `reset` | Restore the current mission's lab environment |
 | **`c`** | `clear` | Clear the terminal |
 | **`q`** | `sair` / `exit` | Save progress and quit |
-
----
-
-<a id="en-docker"></a>
-## <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> Run with Docker (no Python needed)
-
-```bash
-# Docker Compose with persistent progress:
-docker compose -f docker/docker-compose.yml run --rm devopshero
-
-# Or via Makefile:
-make docker
-
-# Or build the image manually:
-docker build -f docker/Dockerfile -t devopshero .
-docker run -it --rm devopshero
-```
-
-The image runs as an unprivileged `devops` user.
 
 ---
 
@@ -440,37 +275,6 @@ Native desktop icons (macOS Dock/Launchpad and the Windows shortcut) are generat
   - `assets/DevOpsHero.icns` (10 Retina sizes, 16px to 1024px)
   - `assets/DevOpsHero.ico` (multi-size, for Windows)
 
-To rebuild every desktop icon from the SVG (macOS):
-```bash
-make icons
-```
-
----
-
-<a id="en-tests"></a>
-## <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> Automated tests
-
-```bash
-make test
-# Or the full integrity check of all 80 missions:
-make verify
-# Or directly with Python:
-.venv/bin/python -m unittest discover tests
-```
-
-CI runs the suite on Linux, macOS and Windows with Python 3.9 to 3.13.
-
----
-
-<a id="en-ai-review"></a>
-## <img src="assets/icons/githubactions.svg" width="20" height="20" alt="GitHub Actions" /> Automated AI review on GitHub
-
-Every pull request goes through an automated GitHub Actions pipeline ([`ai_code_review.yml`](.github/workflows/ai_code_review.yml)) that checks:
-- 🔒 **AppSec**: exposed credentials, command/SQL injection, path traversal and excessive permissions.
-- 📐 **Code quality**: clean code, typing, exception handling and readability in any language.
-- 🌿 **Git standards**: Conventional Commits and change scope.
-- 💬 **Feedback on the PR**: an automated verdict (`LGTM` or `Changes required`) with inline suggestions.
-
 ---
 
 <a id="en-contributing"></a>
@@ -478,7 +282,7 @@ Every pull request goes through an automated GitHub Actions pipeline ([`ai_code_
 
 Contributions are very welcome!
 
-1. Read the guide in [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+1. Read [CONTRIBUTING.md](.github/CONTRIBUTING.md): it covers running from source, tests, building installers, the mobile apps and releases.
 2. Create a topic branch from `main` (`git checkout -b feat/new-track` or `fix/bug-name`).
 3. Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`).
 4. Run the tests locally (`make test`).
@@ -502,15 +306,13 @@ Built by **[João Araújo](https://github.com/araujoajoao)**.
 
 *Sem precisar de nuvem, sem pagar contas e sem risco de quebrar sua máquina.*
 
-[Como rodar](#pt-run) •
-[App macOS](#pt-macos) •
-[Atualizações e versões](#pt-releases) •
-[Apps mobile](#pt-mobile) •
+[Download](#pt-download) •
+[Mobile](#pt-mobile) •
+[Atualizações](#pt-releases) •
 [Trilhas e missões](#pt-tracks) •
 [Gamificação](#pt-gamification) •
 [Atalhos](#pt-shortcuts) •
-[Docker](#pt-docker) •
-[Testes](#pt-tests)
+[Comandos](#pt-commands)
 
 <a id="pt-what"></a>
 ## 💡 O que é o DevOpsHeroCLI?
@@ -525,183 +327,37 @@ Diferente de quizzes de múltipla escolha ou tutoriais estáticos, o **DevOpsHer
 
 ---
 
-<a id="pt-run"></a>
-## 🚀 Como rodar localmente em 1 minuto
+<a id="pt-download"></a>
+## ⬇️ Download
 
-### ⚡ Recomendado: execução direta (sem clonar)
+Downloads diretos da versão mais recente. Não precisa compilar nem clonar nada.
 
-Se você quer apenas jogar e aprender sem baixar o repositório completo:
-
-```bash
-# Usando pipx (cria ambiente isolado e executa na hora):
-pipx run --spec git+https://github.com/araujoajoao/DevOpsHeroCLI.git dh
-
-# Ou instalando via pip:
-pip install git+https://github.com/araujoajoao/DevOpsHeroCLI.git
-dh              # Interface visual completa
-dh r            # Modo REPL rápido
-```
-
-### 📂 Pelo repositório Git (passo a passo por sistema operacional)
-
-Se preferir clonar o código-fonte para rodar localmente ou contribuir:
-
-```bash
-# Clone leve (apenas o estado atual, sem o histórico completo)
-git clone --depth=1 https://github.com/araujoajoao/DevOpsHeroCLI.git
-cd DevOpsHeroCLI
-```
-
-Depois siga os passos do seu sistema operacional.
-
-#### <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> 1. Linux (Ubuntu, Debian, Fedora, Arch) ou WSL
-
-##### Opção 1.1: executar no terminal (recomendado)
-Abra seu terminal (**Bash** ou **Zsh**) e execute o launcher oficial:
-
-```bash
-./dh            # Interface TUI completa
-./dh r          # Prompt REPL rápido (sem divisão de tela)
-./dh s          # Estatísticas do perfil e XP acumulado
-./dh l          # Catálogo das 80 missões
-./dh d          # Diagnóstico do SO e compatibilidade do terminal
-./dh update     # Atualiza para a versão mais recente (somente fast-forward)
-```
+| Plataforma | Download | Como instalar |
+|---|---|---|
+| <img src="assets/icons/linux.svg" width="20" height="20" alt="Linux" /> **Linux** (Debian, Ubuntu, Mint, Pop!_OS) | [**DevOpsHero.deb**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.deb) | `sudo apt install ./DevOpsHero.deb` e depois rode `dh` (ou abra pelo menu de aplicativos) |
+| <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> **macOS** | [**DevOpsHero.dmg**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.dmg) | Abra o `.dmg` e arraste o **DevOpsHero** para **Applications** |
+| <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> **Windows** 10 / 11 | [**DevOpsHero-windows.zip**](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) | Extraia, abra a pasta `DevOpsHero` e rode `.\dh.ps1` no PowerShell (ou `dh.bat`). Atalhos opcionais: `scripts\install_windows.ps1` |
 
 > [!NOTE]
-> Na primeira execução, o `./dh` cria o ambiente virtual `.venv` e instala as dependências automaticamente. Se o ambiente estiver quebrado (por exemplo, copiado de outro SO), o `./dh` o recria. No Debian/Ubuntu sem `python3-venv`, ele usa o [`uv`](https://docs.astral.sh/uv/) quando disponível.
+> Os apps de desktop precisam do **Python 3.9+** (já presente na maioria dos Linux e macOS; no Windows, instale pelo [python.org](https://www.python.org/downloads/) marcando *Add python.exe to PATH*). Na primeira execução o DevOpsHero configura sozinho o próprio ambiente isolado.
 
-##### Opção 1.2: pacote nativo Debian / Ubuntu (.deb)
-No **Ubuntu, Debian, Linux Mint ou Pop!_OS**, instale o pacote oficial com atalho no menu e ícone nativo:
-
-```bash
-# Baixe a versão mais recente publicada nos GitHub Releases:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.deb
-
-# (Recomendado) Confira a integridade com o SHA256SUMS.txt do mesmo release:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt
-sha256sum --ignore-missing -c SHA256SUMS.txt
-
-# Instale via terminal (ou dê duplo clique no arquivo pelo gerenciador de arquivos):
-sudo apt install ./DevOpsHero.deb
-
-# (Opcional) Para compilar o .deb a partir do código-fonte (gera dist/DevOpsHero.deb):
-make deb
-```
-
-> **Atualização**: instale o `.deb` do release mais recente por cima da versão atual. A pílula `Update` da TUI avisa quando houver uma nova versão.
-
-##### Opção 1.3: atalho no menu (qualquer distribuição)
-Para GNOME, KDE, XFCE ou Cinnamon:
-```bash
-make install-linux   # Cria atalho no menu de aplicativos e adiciona 'dh' ao PATH
-```
-
-<a id="pt-macos"></a>
-#### <img src="assets/icons/apple.svg" width="20" height="20" alt="Apple" /> 2. macOS (MacBook, iMac, Mac mini)
-
-##### Opção 2.1 (recomendada): aplicativo nativo (.dmg)
-O instalador gráfico é gerado automaticamente a cada versão e publicado nos **[GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest)**:
-
-```bash
-# 1. Baixe a versão mais recente:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero.dmg
-
-# (Recomendado) Confira a integridade com o SHA256SUMS.txt do mesmo release:
-curl -fLO https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt
-shasum -a 256 --ignore-missing -c SHA256SUMS.txt
-
-# 2. Abra a imagem de disco no Finder:
-open DevOpsHero.dmg
-
-# (Opcional) Para compilar o instalador a partir do código-fonte (gera dist/DevOpsHero.dmg):
-make dmg
-```
-
-> **Instalação**: abra a imagem de disco e arraste o **DevOpsHero** para **Applications**. Ele passa a aparecer no **Launchpad**, no **Spotlight** e no **Dock**.
-
-##### Opção 2.2: pelo terminal
-```bash
-./dh            # Interface completa no terminal atual
-./dh r          # Prompt REPL rápido
-```
-
-#### <img src="assets/icons/windows.svg" width="20" height="20" alt="Windows" /> 3. Windows (10 e 11)
-
-> **Download sem Git**: baixe o [`DevOpsHero-windows.zip`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/DevOpsHero-windows.zip) do release mais recente, extraia e rode os comandos abaixo dentro da pasta `DevOpsHero`. Para atualizar, baixe o `.zip` mais novo.
-
-##### Opção 3.1: PowerShell (recomendado)
-```powershell
-.\dh.ps1        # Interface TUI completa
-.\dh.ps1 r      # Prompt REPL rápido
-.\dh.ps1 s      # Estatísticas do perfil e XP
-.\dh.ps1 l      # Catálogo das 80 missões
-.\dh.ps1 d      # Diagnóstico do SO e compatibilidade
-```
-
-##### Opção 3.2: atalhos na Área de Trabalho e no Menu Iniciar
-Para fixar o DevOpsHero na Área de Trabalho e no Menu Iniciar com o `.ico` oficial:
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\install_windows.ps1
-```
-
-##### Opção 3.3: Prompt de Comando clássico (CMD)
-```cmd
-dh.bat          # Interface completa
-dh.bat r        # Modo REPL rápido
-```
-
-> [!TIP]
-> **Usuários de WSL**: abra seu terminal Linux (Ubuntu/Debian) e rode `./dh`.
-
-#### <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> 4. Instalação global via pip (qualquer SO)
-
-Para que o comando **`dh`** funcione em qualquer pasta:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate       # Windows: .venv\Scripts\Activate.ps1
-pip install -e .
-
-dh              # Executa a interface de qualquer pasta
-dh r            # Prompt interativo rápido
-dh s            # Estatísticas do perfil e XP
-dh d            # Diagnóstico de SO e compatibilidade
-```
-
----
-
-<a id="pt-releases"></a>
-## <img src="assets/icons/github.svg" width="20" height="20" alt="GitHub" /> Atualizações, versões e releases
-
-- **Fonte única de versão**: a versão fica em `devopsherocli/__init__.py` (`__version__`) e no `pyproject.toml`. Um teste garante que as duas batem, e os pacotes de Linux, macOS e Windows leem a versão de lá.
-- **Verificação de updates**: a TUI mostra a pílula `Update` **somente** quando sua cópia está atrás do `origin/main` ou quando existe uma versão publicada mais nova. Ela nunca aparece quando você está à frente, com commits ainda não enviados.
-- **Aplicando a atualização**:
-  - Checkout Git (Linux, macOS, WSL): `dh update` ou `F6` na TUI executa `git pull --ff-only` e reinstala o pacote. Nunca cria merge commits na sua máquina.
-  - Instalações `.deb` / `.dmg` / `.zip` do Windows: baixe o pacote mais recente em [Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest). O `dh update` mostra o link certo para o seu SO.
-- **Publicando um release** (mantenedores): atualize a versão em `devopsherocli/__init__.py` e `pyproject.toml` e depois rode:
-  ```bash
-  git tag vX.Y.Z && git push origin vX.Y.Z
-  ```
-  O workflow [`release.yml`](.github/workflows/release.yml) confere se a tag bate com o código e roda os testes. Em seguida, gera o `.deb` (Ubuntu), o `.dmg` (macOS) e o `.zip` do Windows e os anexa ao GitHub Release, junto com o `SHA256SUMS.txt`.
-
----
+Verificação de integridade: todo release inclui o [`SHA256SUMS.txt`](https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest/download/SHA256SUMS.txt) (`sha256sum --ignore-missing -c SHA256SUMS.txt`). Todas as versões: [GitHub Releases](https://github.com/araujoajoao/DevOpsHeroCLI/releases).
 
 <a id="pt-mobile"></a>
-## <img src="assets/icons/ios.svg" width="20" height="20" alt="iOS" /> <img src="assets/icons/expo.svg" width="20" height="20" alt="Expo" /> Apps mobile
+### 📱 Mobile: 🚧 em desenvolvimento
 
-As mesmas 80 missões estão disponíveis no mobile, geradas a partir das trilhas da CLI:
+Os apps Android e iOS (com as mesmas 80 missões) estão sendo preparados para as lojas.
 
-| Projeto | Stack | Como rodar |
-|---|---|---|
-| <img src="assets/icons/expo.svg" width="16" height="16" alt="Expo" /> [`devopshero-mobile`](devopshero-mobile) | React Native (Expo SDK 58, TypeScript) | `make mobile` ou `cd devopshero-mobile && npx expo start` |
-| <img src="assets/icons/swift.svg" width="16" height="16" alt="Swift" /> [`devopshero-ios-swiftui`](devopshero-ios-swiftui) | SwiftUI nativo (Xcode) | `make swift` (macOS) |
+| Android | iOS |
+|:---:|:---:|
+| <img src="assets/badges/google-play.png" height="56" alt="Google Play" /> | <img src="assets/badges/app-store.svg" height="40" alt="App Store" /> |
+| 🚧 **Em breve** na Google Play | 🚧 **Em breve** na App Store |
 
-Para sincronizar as missões depois de alterar as trilhas da CLI:
-```bash
-.venv/bin/python devopshero-mobile/scripts/export_mobile_dataset.py
-```
-Isso regrava o `missions.json` dos dois apps.
+<a id="pt-releases"></a>
+## 🔄 Atualizações
+
+- A TUI mostra a pílula `Update` (`F6`) **somente** quando existe uma versão mais nova.
+- Para atualizar, baixe o instalador mais recente pelos links acima e instale por cima da versão atual. No Linux, o upgrade do `.deb` é aplicado automaticamente na próxima execução.
 
 ---
 
@@ -710,15 +366,17 @@ Isso regrava o `missions.json` dos dois apps.
 
 | Atalho | Comando completo | Descrição |
 |---|---|---|
-| **`dh`** | `./dh` ou `devopshero` | **Interface TUI completa**: terminal interativo multi-painel com Console Home, explorer de missões, barra de XP, streak e Terminal Lab. |
-| **`dh r`** | `./dh r` ou `devopshero repl` | **Prompt rápido**: pratique direto na linha de comando com histórico pelas setas e autocomplete. |
-| **`dh l`** | `./dh l` ou `devopshero list` | **Catálogo de missões**: lista as **80 missões** e o status de cada uma. |
-| **`dh s`** | `./dh s` ou `devopshero stats` | **Perfil e estatísticas**: nível, XP acumulado, sequência (streak) e histórico. |
-| **`dh v`** | `./dh v` ou `devopshero verify` | **Diagnóstico de integridade**: autoteste em sandbox de todas as **80 missões**. |
-| **`dh d`** | `./dh d` ou `devopshero doctor` | **Diagnóstico de SO e terminal**: compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
-| **`dh update`** | `./dh update` ou `devopshero update` | **Atualização**: avança para a versão mais recente (instalações via git) ou mostra o link do instalador. |
-| **`dh reset`** | `./dh reset` ou `devopshero reset` | **Reset de progresso**: recomeça a jornada do zero. |
+| **`dh`** | `devopshero` | **Interface TUI completa**: terminal interativo multi-painel com Console Home, explorer de missões, barra de XP, streak e Terminal Lab. |
+| **`dh r`** | `devopshero repl` | **Prompt rápido**: pratique direto na linha de comando com histórico pelas setas e autocomplete. |
+| **`dh l`** | `devopshero list` | **Catálogo de missões**: lista as **80 missões** e o status de cada uma. |
+| **`dh s`** | `devopshero stats` | **Perfil e estatísticas**: nível, XP acumulado, sequência (streak) e histórico. |
+| **`dh v`** | `devopshero verify` | **Diagnóstico de integridade**: autoteste em sandbox de todas as **80 missões**. |
+| **`dh d`** | `devopshero doctor` | **Diagnóstico de SO e terminal**: compatibilidade (Linux, macOS, Windows, WSL), UTF-8 e terminal ativo. |
+| **`dh update`** | `devopshero update` | **Atualização**: avança para a versão mais recente (instalações via git) ou mostra o link do instalador. |
+| **`dh reset`** | `devopshero reset` | **Reset de progresso**: recomeça a jornada do zero. |
 | **`dh -v`** | `devopshero --version` | Mostra a versão instalada. |
+
+> No Windows, use os mesmos comandos pelo launcher: `.\dh.ps1 r`, `.\dh.ps1 l`, `.\dh.ps1 s`…
 
 ### ⚡ Atalhos de 1 letra no modo REPL
 
@@ -730,25 +388,6 @@ Isso regrava o `missions.json` dos dois apps.
 | **`r`** | `reset` | Restaura o laboratório da missão atual |
 | **`c`** | `clear` | Limpa a tela do terminal |
 | **`q`** | `sair` / `exit` | Salva o progresso e encerra |
-
----
-
-<a id="pt-docker"></a>
-## <img src="assets/icons/docker.svg" width="20" height="20" alt="Docker" /> Executando com Docker (sem instalar Python)
-
-```bash
-# Docker Compose com persistência de progresso:
-docker compose -f docker/docker-compose.yml run --rm devopshero
-
-# Ou via Makefile:
-make docker
-
-# Ou construindo a imagem manualmente:
-docker build -f docker/Dockerfile -t devopshero .
-docker run -it --rm devopshero
-```
-
-A imagem roda com o usuário sem privilégios `devops`.
 
 ---
 
@@ -912,37 +551,6 @@ Os ícones nativos de desktop (Dock/Launchpad no macOS e atalho no Windows) são
   - `assets/DevOpsHero.icns` (10 resoluções Retina, de 16px a 1024px)
   - `assets/DevOpsHero.ico` (múltiplas resoluções, para Windows)
 
-Para recompilar todos os ícones de desktop a partir do SVG (macOS):
-```bash
-make icons
-```
-
----
-
-<a id="pt-tests"></a>
-## <img src="assets/icons/python.svg" width="20" height="20" alt="Python" /> Testes automatizados
-
-```bash
-make test
-# Ou o diagnóstico completo de integridade das 80 missões:
-make verify
-# Ou diretamente via Python:
-.venv/bin/python -m unittest discover tests
-```
-
-O CI roda a suíte em Linux, macOS e Windows com Python 3.9 a 3.13.
-
----
-
-<a id="pt-ai-review"></a>
-## <img src="assets/icons/githubactions.svg" width="20" height="20" alt="GitHub Actions" /> Revisão automática por IA no GitHub
-
-Todo pull request passa por uma esteira automatizada no GitHub Actions ([`ai_code_review.yml`](.github/workflows/ai_code_review.yml)) que verifica:
-- 🔒 **AppSec**: credenciais expostas, injeção de comando/SQL, path traversal e permissões indevidas.
-- 📐 **Qualidade de código**: clean code, tipagem, tratamento de exceções e legibilidade em qualquer linguagem.
-- 🌿 **Padrões Git**: Conventional Commits e escopo das alterações.
-- 💬 **Feedback no PR**: parecer automatizado (`LGTM` ou `Alterações necessárias`) com sugestões inline.
-
 ---
 
 <a id="pt-contributing"></a>
@@ -950,7 +558,7 @@ Todo pull request passa por uma esteira automatizada no GitHub Actions ([`ai_cod
 
 Contribuições são muito bem-vindas!
 
-1. Leia o guia em [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+1. Leia o [CONTRIBUTING.md](.github/CONTRIBUTING.md): ele explica como rodar do código-fonte, testes, build dos instaladores, apps mobile e releases.
 2. Crie uma branch temática a partir da `main` (`git checkout -b feat/nova-trilha` ou `fix/nome-do-bug`).
 3. Siga o padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`).
 4. Rode os testes localmente (`make test`).

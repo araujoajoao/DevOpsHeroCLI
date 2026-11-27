@@ -82,6 +82,52 @@ Todos os testes devem passar com status `OK`.
 
 ---
 
+## 🛠️ Ambiente de Desenvolvimento (build local)
+
+> Usuários finais não precisam de nada desta seção: o [README](../README.md) tem apenas os links diretos de download. Esta seção é para quem desenvolve o projeto.
+
+### CLI (Python 3.9+)
+```bash
+./dh            # Linux / macOS / WSL: cria o .venv e roda a TUI a partir do código-fonte
+.\dh.ps1        # Windows PowerShell (ou dh.bat no CMD)
+make test       # Suíte de testes
+make verify     # Autoteste das 80 missões
+```
+O `./dh` recria o `.venv` se estiver quebrado (ex.: copiado de outro SO) e, no Debian/Ubuntu sem `python3-venv`, usa o [`uv`](https://docs.astral.sh/uv/) quando disponível.
+
+### Instaladores
+| Comando | Saída | Requisito |
+|---|---|---|
+| `make deb` | `dist/DevOpsHero.deb` | Python 3 |
+| `make dmg` | `dist/DevOpsHero.dmg` | macOS (Swift, `iconutil`, `hdiutil`) + Pillow |
+| `make icons` | `assets/DevOpsHero.icns` / `.ico` a partir de `assets/icon.svg` | macOS + Pillow |
+| `make install-linux` | Atalho no menu e `dh` no PATH | Linux |
+| `scripts\install_windows.ps1` | Atalhos na Área de Trabalho e Menu Iniciar | Windows |
+| `make docker` | Contêiner isolado (`docker/`) | Docker |
+
+### Apps mobile
+| Projeto | Rodar | Validar |
+|---|---|---|
+| `devopshero-mobile` (Expo SDK 58) | `make mobile` · `npx expo run:android` · `make mobile-ios` | `npm run typecheck` · `npx expo-doctor` · `npm run export:check` |
+| `devopshero-ios-swiftui` | `make swift` (Xcode) | `xcodebuild -scheme DevOpsHero -sdk iphonesimulator build` |
+
+Depois de alterar as trilhas da CLI, sincronize as missões dos dois apps:
+```bash
+.venv/bin/python devopshero-mobile/scripts/export_mobile_dataset.py
+```
+
+Builds para as lojas usam o EAS (`devopshero-mobile/eas.json`): perfil `preview` (APK interno / simulador iOS) e `production` (AAB para Google Play, IPA para App Store). A publicação nas lojas ainda está em andamento.
+
+### Publicando uma versão
+1. Atualize a versão em `devopsherocli/__init__.py` e `pyproject.toml` (um teste garante que são iguais).
+2. `git tag vX.Y.Z && git push origin vX.Y.Z`
+3. O workflow [`release.yml`](workflows/release.yml) confere a tag, roda os testes, gera e **testa a instalação** do `.deb` (Ubuntu), `.dmg` (macOS) e `.zip` (Windows) e publica tudo no GitHub Release com `SHA256SUMS.txt`.
+
+### Segredos
+Este é um projeto de aprendizado: **nenhuma chave, token ou credencial** (ex.: Datadog API/APP key, AWS) pode entrar no repositório, e o projeto é publicado **somente** neste GitHub. O job `Secret scan (gitleaks)` do CI varre todo o histórico em cada push e PR.
+
+---
+
 ## 🚀 Abrindo o Pull Request
 
 1. Envie seus commits para o seu fork:
