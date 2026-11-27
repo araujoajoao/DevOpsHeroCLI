@@ -1,0 +1,4456 @@
+{
+  "app_title": "DevOpsHero",
+  "tagline": "Aprenda DevOps, Linux, Docker, Kubernetes, AWS, Terraform e Datadog na prática",
+  "total_tracks": 8,
+  "total_missions": 80,
+  "tracks": [
+    {
+      "id": "linux",
+      "name": "Linux Essencial",
+      "icon": "🐧",
+      "description": "Domine o terminal Linux, navegação no sistema, permissões, processos e manipulação de arquivos.",
+      "required_xp": 0,
+      "required_seniority": "Nível 1 · Recruta",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "linux-01",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Diretório de Trabalho Atual",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Você acabou de acessar o servidor de produção da empresa através de uma sessão remota. Antes de realizar qualquer alteração, você precisa se situar no sistema de arquivos.",
+          "objective": "Descubra e exiba no terminal o caminho absoluto do diretório atual onde você está situado.",
+          "tip": "O comando para imprimir o diretório de trabalho atual (Print Working Directory) é 'pwd'.",
+          "solution": "pwd",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "pwd"
+              ],
+              "chips": [
+                "-rf",
+                "pwd",
+                "ls",
+                "-la",
+                "grep"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "____",
+              "correct_choice": "pwd",
+              "choices": [
+                "uname",
+                "cat",
+                "755",
+                "pwd"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Descubra e exiba no terminal o caminho absoluto do diretório atual onde você está situado.",
+              "options": [
+                "-rf",
+                "ls",
+                "pwd",
+                "grep"
+              ],
+              "correct_index": 2,
+              "explanation": "O comando para imprimir o diretório de trabalho atual (Print Working Directory) é 'pwd'."
+            }
+          }
+        },
+        {
+          "id": "linux-02",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Listagem Detalhada e Ocultos",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Agora que você já sabe onde está, a equipe precisa verificar quais arquivos existem na pasta, incluindo possíveis arquivos de configuração ocultos iniciados por ponto.",
+          "objective": "Liste todos os arquivos do diretório atual em formato longo e detalhado, revelando também os arquivos ocultos.",
+          "tip": "O comando 'ls' com as opções '-l' (long format) e '-a' (all/ocultos) atende a esse objetivo: 'ls -la'.",
+          "solution": "ls -la",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "ls",
+                "-la"
+              ],
+              "chips": [
+                "-la",
+                "grep",
+                "ls",
+                "uptime",
+                "head",
+                "rm"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "ls ____",
+              "correct_choice": "-la",
+              "choices": [
+                "chmod",
+                "-h",
+                "-la",
+                "head"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste todos os arquivos do diretório atual em formato longo e detalhado, revelando também os arquivos ocultos.",
+              "options": [
+                "ls rm",
+                "ls uptime",
+                "ls head",
+                "ls -la"
+              ],
+              "correct_index": 3,
+              "explanation": "O comando 'ls' com as opções '-l' (long format) e '-a' (all/ocultos) atende a esse objetivo: 'ls -la'."
+            }
+          }
+        },
+        {
+          "id": "linux-03",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Criando Pastas e Arquivos",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "A equipe de desenvolvimento precisa de um local centralizado para guardar logs da API.",
+          "objective": "Crie a estrutura de diretórios '/app/logs' e dentro dela crie um arquivo vazio com o nome 'access.log'.",
+          "tip": "Crie o diretório com 'mkdir -p /app/logs' e gere o arquivo vazio com 'touch /app/logs/access.log'.",
+          "solution": "mkdir -p /app/logs && touch /app/logs/access.log",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "mkdir",
+                "-p",
+                "/app/logs",
+                "&&",
+                "touch",
+                "/app/logs/access.log"
+              ],
+              "chips": [
+                "cat",
+                "-p",
+                "/app/logs",
+                "/app/logs/access.log",
+                "&&",
+                "uname",
+                "sudo",
+                "600",
+                "mkdir",
+                "touch"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "mkdir ____ /app/logs && touch /app/logs/access.log",
+              "correct_choice": "-p",
+              "choices": [
+                "600",
+                "cd",
+                "-la",
+                "-p"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie a estrutura de diretórios '/app/logs' e dentro dela crie um arquivo vazio com o nome 'access.log'.",
+              "options": [
+                "mkdir cat /app/logs && touch /app/logs/access.log",
+                "mkdir uname /app/logs && touch /app/logs/access.log",
+                "mkdir -p /app/logs && touch /app/logs/access.log",
+                "mkdir 600 /app/logs && touch /app/logs/access.log"
+              ],
+              "correct_index": 2,
+              "explanation": "Crie o diretório com 'mkdir -p /app/logs' e gere o arquivo vazio com 'touch /app/logs/access.log'."
+            }
+          }
+        },
+        {
+          "id": "linux-04",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Investigação de Logs com Filtro",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "O suporte abriu um chamado informando que a aplicação parou de responder às 10h. O log do sistema contém centenas de linhas e precisamos isolar o erro.",
+          "objective": "Filtre e exiba apenas as mensagens de erro no arquivo '/var/log/syslog' que contenham a palavra 'ERROR'.",
+          "tip": "Utilize o comando 'grep' para filtrar ocorrências de texto: 'grep ERROR /var/log/syslog'.",
+          "solution": "grep ERROR /var/log/syslog",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "grep",
+                "ERROR",
+                "/var/log/syslog"
+              ],
+              "chips": [
+                "cat",
+                "grep",
+                "600",
+                "head",
+                "ERROR",
+                "/var/log/syslog",
+                "-rf"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "grep ____ /var/log/syslog",
+              "correct_choice": "ERROR",
+              "choices": [
+                "cd",
+                "mkdir",
+                "ERROR",
+                "-rf"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Filtre e exiba apenas as mensagens de erro no arquivo '/var/log/syslog' que contenham a palavra 'ERROR'.",
+              "options": [
+                "grep 600 /var/log/syslog",
+                "grep ERROR /var/log/syslog",
+                "grep cat /var/log/syslog",
+                "grep -rf /var/log/syslog"
+              ],
+              "correct_index": 1,
+              "explanation": "Utilize o comando 'grep' para filtrar ocorrências de texto: 'grep ERROR /var/log/syslog'."
+            }
+          }
+        },
+        {
+          "id": "linux-05",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Permissões de Segurança de Chaves",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "Uma chave SSH privada foi colocada em '/home/devops/id_rsa', porém o cliente SSH recusa a conexão porque as permissões estão abertas a outros usuários.",
+          "objective": "Altere as permissões do arquivo '/home/devops/id_rsa' para que apenas o proprietário tenha permissão de leitura e escrita.",
+          "tip": "A representação octal para leitura e escrita exclusivas do dono é 600: 'chmod 600 id_rsa'.",
+          "solution": "chmod 600 id_rsa",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "chmod",
+                "600",
+                "id_rsa"
+              ],
+              "chips": [
+                "600",
+                "ls",
+                "head",
+                "rm",
+                "-h",
+                "id_rsa",
+                "chmod"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "chmod ____ id_rsa",
+              "correct_choice": "600",
+              "choices": [
+                "600",
+                "-h",
+                "mkdir",
+                "whoami"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Altere as permissões do arquivo '/home/devops/id_rsa' para que apenas o proprietário tenha permissão de leitura e escrita.",
+              "options": [
+                "chmod ls id_rsa",
+                "chmod 600 id_rsa",
+                "chmod rm id_rsa",
+                "chmod -h id_rsa"
+              ],
+              "correct_index": 1,
+              "explanation": "A representação octal para leitura e escrita exclusivas do dono é 600: 'chmod 600 id_rsa'."
+            }
+          }
+        },
+        {
+          "id": "linux-06",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Caça aos Processos Maliciosos",
+          "difficulty": "Intermediário",
+          "xp": 150,
+          "scenario": "O alerta de infraestrutura disparou indicando 100% de CPU. Há um processo suspeito não autorizado consumindo os recursos da máquina.",
+          "objective": "Inspecione a lista de processos do sistema, localize o processo de alta CPU com PID 1337 e encerre-o imediatamente.",
+          "tip": "Liste os processos com 'ps aux' e envie o sinal de finalização com 'kill 1337'.",
+          "solution": "kill 1337",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kill",
+                "1337"
+              ],
+              "chips": [
+                "kill",
+                "1337",
+                "rm",
+                "whoami",
+                "uname",
+                "-la"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kill ____",
+              "correct_choice": "1337",
+              "choices": [
+                "sudo",
+                "rm",
+                "1337",
+                "grep"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inspecione a lista de processos do sistema, localize o processo de alta CPU com PID 1337 e encerre-o imediatamente.",
+              "options": [
+                "kill rm",
+                "kill whoami",
+                "kill uname",
+                "kill 1337"
+              ],
+              "correct_index": 3,
+              "explanation": "Liste os processos com 'ps aux' e envie o sinal de finalização com 'kill 1337'."
+            }
+          }
+        },
+        {
+          "id": "linux-07",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Redirecionamento de Saída",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Antes de iniciar a aplicação, precisamos gravar o arquivo de variáveis de ambiente com o apontamento para produção.",
+          "objective": "Grave exatamente o conteúdo 'ENV=production' dentro do arquivo '/app/.env' utilizando redirecionamento de fluxo no terminal.",
+          "tip": "Utilize 'echo' com o operador de redirecionamento '>': 'echo \"ENV=production\" > /app/.env'.",
+          "solution": "echo \"ENV=production\" > /app/.env",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "echo",
+                "ENV=production",
+                ">",
+                "/app/.env"
+              ],
+              "chips": [
+                "ENV=production",
+                "/app/.env",
+                "cd",
+                "echo",
+                "chmod",
+                ">",
+                "600",
+                "whoami"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "echo ____ > /app/.env",
+              "correct_choice": "ENV=production",
+              "choices": [
+                "-h",
+                "-la",
+                "whoami",
+                "ENV=production"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Grave exatamente o conteúdo 'ENV=production' dentro do arquivo '/app/.env' utilizando redirecionamento de fluxo no terminal.",
+              "options": [
+                "echo cd > /app/.env",
+                "echo \"ENV=production\" > /app/.env",
+                "echo chmod > /app/.env",
+                "echo 600 > /app/.env"
+              ],
+              "correct_index": 1,
+              "explanation": "Utilize 'echo' com o operador de redirecionamento '>': 'echo \"ENV=production\" > /app/.env'."
+            }
+          }
+        },
+        {
+          "id": "linux-08",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Backup de Arquivos do Sistema",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Antes de reiniciar o nó, é recomendável manter uma cópia estática do arquivo de log do sistema para auditoria posterior.",
+          "objective": "Copie o arquivo '/var/log/syslog' criando uma cópia em '/app/logs/syslog.bak'.",
+          "tip": "O utilitário de cópia de arquivos é 'cp': 'cp /var/log/syslog /app/logs/syslog.bak'.",
+          "solution": "cp /var/log/syslog /app/logs/syslog.bak",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "cp",
+                "/var/log/syslog",
+                "/app/logs/syslog.bak"
+              ],
+              "chips": [
+                "tail",
+                "-la",
+                "uname",
+                "/var/log/syslog",
+                "/app/logs/syslog.bak",
+                "touch",
+                "cp"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "cp ____ /app/logs/syslog.bak",
+              "correct_choice": "/var/log/syslog",
+              "choices": [
+                "tail",
+                "touch",
+                "whoami",
+                "/var/log/syslog"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Copie o arquivo '/var/log/syslog' criando uma cópia em '/app/logs/syslog.bak'.",
+              "options": [
+                "cp -la /app/logs/syslog.bak",
+                "cp tail /app/logs/syslog.bak",
+                "cp /var/log/syslog /app/logs/syslog.bak",
+                "cp touch /app/logs/syslog.bak"
+              ],
+              "correct_index": 2,
+              "explanation": "O utilitário de cópia de arquivos é 'cp': 'cp /var/log/syslog /app/logs/syslog.bak'."
+            }
+          }
+        },
+        {
+          "id": "linux-09",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Diagnóstico de Armazenamento",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O time de operações solicitou um levantamento rápido do espaço em disco ocupado e livre nas partições do servidor.",
+          "objective": "Exiba o relatório de uso de disco de todas as partições do sistema em formato legível para humanos.",
+          "tip": "O utilitário 'df' com o parâmetro '-h' (human-readable) exibe os tamanhos em megabytes/gigabytes: 'df -h'.",
+          "solution": "df -h",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "df",
+                "-h"
+              ],
+              "chips": [
+                "chmod",
+                "ls",
+                "-rf",
+                "df",
+                "rm",
+                "-h"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "df ____",
+              "correct_choice": "-h",
+              "choices": [
+                "-h",
+                "grep",
+                "uname",
+                "cd"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba o relatório de uso de disco de todas as partições do sistema em formato legível para humanos.",
+              "options": [
+                "df -h",
+                "df -rf",
+                "df rm",
+                "df chmod"
+              ],
+              "correct_index": 0,
+              "explanation": "O utilitário 'df' com o parâmetro '-h' (human-readable) exibe os tamanhos em megabytes/gigabytes: 'df -h'."
+            }
+          }
+        },
+        {
+          "id": "linux-10",
+          "track_id": "linux",
+          "track_name": "Linux Essencial",
+          "track_icon": "🐧",
+          "title": "Inspeção de Resposta HTTP",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Precisamos checar se o servidor web local está ativo e respondendo na porta padrão 8080 sem baixar o corpo completo da página.",
+          "objective": "Faça uma requisição ao endereço 'http://localhost:8080' solicitando exclusivamente os cabeçalhos de resposta HTTP.",
+          "tip": "Com 'curl', a flag '-I' (ou '--head') traz apenas o cabeçalho HTTP: 'curl -I http://localhost:8080'.",
+          "solution": "curl -I http://localhost:8080",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "curl",
+                "-I",
+                "http://localhost:8080"
+              ],
+              "chips": [
+                "curl",
+                "-I",
+                "whoami",
+                "-rf",
+                "http://localhost:8080",
+                "uptime",
+                "mkdir"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "curl ____ http://localhost:8080",
+              "correct_choice": "-I",
+              "choices": [
+                "rm",
+                "uname",
+                "cat",
+                "-I"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Faça uma requisição ao endereço 'http://localhost:8080' solicitando exclusivamente os cabeçalhos de resposta HTTP.",
+              "options": [
+                "curl uptime http://localhost:8080",
+                "curl -I http://localhost:8080",
+                "curl whoami http://localhost:8080",
+                "curl mkdir http://localhost:8080"
+              ],
+              "correct_index": 1,
+              "explanation": "Com 'curl', a flag '-I' (ou '--head') traz apenas o cabeçalho HTTP: 'curl -I http://localhost:8080'."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sysadmin",
+      "name": "Sysadmin Básico",
+      "icon": "🛠️",
+      "description": "Aprenda administração de servidores: systemd, serviços, usuários, crontab, sockets e backups.",
+      "required_xp": 250,
+      "required_seniority": "Nível 2 · Sysadmin Júnior",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "sysadmin-01",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Diagnóstico de Serviços (systemctl)",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O proxy reverso parece instável. Você precisa verificar se o serviço do Nginx está ativo e funcionando.",
+          "objective": "Inspecione o status do serviço usando `systemctl status nginx`.",
+          "tip": "Use `systemctl status nginx`.",
+          "solution": "systemctl status nginx",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "systemctl",
+                "status",
+                "nginx"
+              ],
+              "chips": [
+                "nginx",
+                "journalctl",
+                "df",
+                "restart",
+                "free",
+                "status",
+                "systemctl"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "systemctl ____ nginx",
+              "correct_choice": "status",
+              "choices": [
+                "ps",
+                "stop",
+                "status",
+                "free"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inspecione o status do serviço usando `systemctl status nginx`.",
+              "options": [
+                "systemctl restart nginx",
+                "systemctl journalctl nginx",
+                "systemctl status nginx",
+                "systemctl df nginx"
+              ],
+              "correct_index": 2,
+              "explanation": "Use `systemctl status nginx`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-02",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Reiniciando Serviços Críticos",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O DBA alterou os limites de conexão do PostgreSQL e solicitou o reinício gracioso do daemon.",
+          "objective": "Reinicie o serviço do PostgreSQL usando `systemctl restart postgresql`.",
+          "tip": "Use `systemctl restart postgresql`.",
+          "solution": "systemctl restart postgresql",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "systemctl",
+                "restart",
+                "postgresql"
+              ],
+              "chips": [
+                "systemctl",
+                "disable",
+                "restart",
+                "crontab",
+                "postgresql",
+                "-tulpn",
+                "status"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "systemctl ____ postgresql",
+              "correct_choice": "restart",
+              "choices": [
+                "free",
+                "status",
+                "top",
+                "restart"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Reinicie o serviço do PostgreSQL usando `systemctl restart postgresql`.",
+              "options": [
+                "systemctl -tulpn postgresql",
+                "systemctl status postgresql",
+                "systemctl restart postgresql",
+                "systemctl disable postgresql"
+              ],
+              "correct_index": 2,
+              "explanation": "Use `systemctl restart postgresql`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-03",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Habilitando Serviço no Boot",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Se a máquina virtual reiniciar após um patch de segurança, o Nginx precisa subir automaticamente.",
+          "objective": "Habilite o serviço do Nginx para iniciar automaticamente no boot.",
+          "tip": "Use `systemctl enable nginx`.",
+          "solution": "systemctl enable nginx",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "systemctl",
+                "enable",
+                "nginx"
+              ],
+              "chips": [
+                "kill",
+                "systemctl",
+                "disable",
+                "nginx",
+                "ps",
+                "-u",
+                "enable"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "systemctl ____ nginx",
+              "correct_choice": "enable",
+              "choices": [
+                "status",
+                "ps",
+                "ss",
+                "enable"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Habilite o serviço do Nginx para iniciar automaticamente no boot.",
+              "options": [
+                "systemctl -u nginx",
+                "systemctl disable nginx",
+                "systemctl kill nginx",
+                "systemctl enable nginx"
+              ],
+              "correct_index": 3,
+              "explanation": "Use `systemctl enable nginx`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-04",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Auditoria de Portas e Sockets",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "Antes de liberar o firewall, o time de segurança quer um relatório de todas as portas TCP e UDP em modo LISTEN.",
+          "objective": "Exiba os sockets em escuta no servidor usando `ss -tulpn`.",
+          "tip": "Use `ss -tulpn` ou `netstat -tuln`.",
+          "solution": "ss -tulpn",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "ss",
+                "-tulpn"
+              ],
+              "chips": [
+                "df",
+                "top",
+                "status",
+                "-tulpn",
+                "ss",
+                "start"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "ss ____",
+              "correct_choice": "-tulpn",
+              "choices": [
+                "-tulpn",
+                "enable",
+                "free",
+                "crontab"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba os sockets em escuta no servidor usando `ss -tulpn`.",
+              "options": [
+                "ss df",
+                "ss start",
+                "ss -tulpn",
+                "ss top"
+              ],
+              "correct_index": 2,
+              "explanation": "Use `ss -tulpn` ou `netstat -tuln`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-05",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Criação de Usuário de Sistema",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "A esteira de CI/CD precisa de uma conta de serviço chamada `deployer` com diretório home e shell `/bin/bash`.",
+          "objective": "Crie o usuário `deployer` com a flag `-m` (home) e `-s /bin/bash`.",
+          "tip": "Use `useradd -m -s /bin/bash deployer`.",
+          "solution": "useradd -m -s /bin/bash deployer",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "useradd",
+                "-m",
+                "-s",
+                "/bin/bash",
+                "deployer"
+              ],
+              "chips": [
+                "/bin/bash",
+                "-m",
+                "stop",
+                "deployer",
+                "journalctl",
+                "-s",
+                "ps",
+                "useradd",
+                "crontab"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "useradd ____ -s /bin/bash deployer",
+              "correct_choice": "-m",
+              "choices": [
+                "top",
+                "disable",
+                "crontab",
+                "-m"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie o usuário `deployer` com a flag `-m` (home) e `-s /bin/bash`.",
+              "options": [
+                "useradd journalctl -s /bin/bash deployer",
+                "useradd stop -s /bin/bash deployer",
+                "useradd -m -s /bin/bash deployer",
+                "useradd ps -s /bin/bash deployer"
+              ],
+              "correct_index": 2,
+              "explanation": "Use `useradd -m -s /bin/bash deployer`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-06",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Auditoria do Agendador Crontab",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Precisamos checar quais scripts de rotina estão programados para rodar automaticamente no servidor.",
+          "objective": "Liste as entradas de agendamento do usuário atual com `crontab -l`.",
+          "tip": "Use `crontab -l`.",
+          "solution": "crontab -l",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "crontab",
+                "-l"
+              ],
+              "chips": [
+                "ps",
+                "free",
+                "start",
+                "crontab",
+                "journalctl",
+                "-l"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "crontab ____",
+              "correct_choice": "-l",
+              "choices": [
+                "ss",
+                "df",
+                "-l",
+                "kill"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste as entradas de agendamento do usuário atual com `crontab -l`.",
+              "options": [
+                "crontab -l",
+                "crontab free",
+                "crontab journalctl",
+                "crontab start"
+              ],
+              "correct_index": 0,
+              "explanation": "Use `crontab -l`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-07",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Compactação de Diretórios com Tar",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Antes da migração de versão, precisamos empacotar todo o diretório `/app` em um arquivo compactado `.tar.gz`.",
+          "objective": "Crie um arquivo tar.gz do diretório `/app` salvando em `/tmp/app-backup.tar.gz`.",
+          "tip": "Use `tar -czvf /tmp/app-backup.tar.gz /app`.",
+          "solution": "tar -czvf /tmp/app-backup.tar.gz /app",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "tar",
+                "-czvf",
+                "/tmp/app-backup.tar.gz",
+                "/app"
+              ],
+              "chips": [
+                "disable",
+                "/tmp/app-backup.tar.gz",
+                "ps",
+                "ss",
+                "enable",
+                "/app",
+                "tar",
+                "-czvf"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "tar ____ /tmp/app-backup.tar.gz /app",
+              "correct_choice": "-czvf",
+              "choices": [
+                "top",
+                "enable",
+                "-czvf",
+                "-u"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um arquivo tar.gz do diretório `/app` salvando em `/tmp/app-backup.tar.gz`.",
+              "options": [
+                "tar ss /tmp/app-backup.tar.gz /app",
+                "tar -czvf /tmp/app-backup.tar.gz /app",
+                "tar enable /tmp/app-backup.tar.gz /app",
+                "tar ps /tmp/app-backup.tar.gz /app"
+              ],
+              "correct_index": 1,
+              "explanation": "Use `tar -czvf /tmp/app-backup.tar.gz /app`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-08",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Auditoria de Logs com Journalctl",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "O serviço do Nginx teve um reload recente. Precisamos verificar os registros do journald.",
+          "objective": "Inspecione os logs do systemd filtrados pela unit do Nginx (`-u nginx`).",
+          "tip": "Use `journalctl -u nginx`.",
+          "solution": "journalctl -u nginx",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "journalctl",
+                "-u",
+                "nginx"
+              ],
+              "chips": [
+                "top",
+                "-u",
+                "df",
+                "journalctl",
+                "kill",
+                "-tulpn",
+                "nginx"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "journalctl ____ nginx",
+              "correct_choice": "-u",
+              "choices": [
+                "enable",
+                "status",
+                "-u",
+                "top"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inspecione os logs do systemd filtrados pela unit do Nginx (`-u nginx`).",
+              "options": [
+                "journalctl -u nginx",
+                "journalctl -tulpn nginx",
+                "journalctl kill nginx",
+                "journalctl top nginx"
+              ],
+              "correct_index": 0,
+              "explanation": "Use `journalctl -u nginx`."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-09",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Uptime e Carga da Máquina",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O time quer saber há quanto tempo o host está ativo sem reiniciar e qual o Load Average atual.",
+          "objective": "Execute o comando `uptime`.",
+          "tip": "Digite `uptime` no terminal.",
+          "solution": "uptime",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "uptime"
+              ],
+              "chips": [
+                "top",
+                "uptime",
+                "stop",
+                "crontab",
+                "kill"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "____",
+              "correct_choice": "uptime",
+              "choices": [
+                "df",
+                "restart",
+                "-u",
+                "uptime"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Execute o comando `uptime`.",
+              "options": [
+                "uptime",
+                "crontab",
+                "kill",
+                "stop"
+              ],
+              "correct_index": 0,
+              "explanation": "Digite `uptime` no terminal."
+            }
+          }
+        },
+        {
+          "id": "sysadmin-10",
+          "track_id": "sysadmin",
+          "track_name": "Sysadmin Básico",
+          "track_icon": "🛠️",
+          "title": "Privilégios Administrativos (Sudo)",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Para que o usuário `deployer` possa reiniciar serviços, adicione-o ao grupo suplementar `sudo`.",
+          "objective": "Adicione o usuário `deployer` ao grupo `sudo` usando `usermod -aG sudo deployer`.",
+          "tip": "Use `usermod -aG sudo deployer`.",
+          "solution": "usermod -aG sudo deployer",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "usermod",
+                "-aG",
+                "sudo",
+                "deployer"
+              ],
+              "chips": [
+                "sudo",
+                "deployer",
+                "disable",
+                "ss",
+                "-aG",
+                "df",
+                "-u",
+                "usermod"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "usermod ____ sudo deployer",
+              "correct_choice": "-aG",
+              "choices": [
+                "journalctl",
+                "-aG",
+                "df",
+                "enable"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Adicione o usuário `deployer` ao grupo `sudo` usando `usermod -aG sudo deployer`.",
+              "options": [
+                "usermod disable sudo deployer",
+                "usermod df sudo deployer",
+                "usermod -aG sudo deployer",
+                "usermod ss sudo deployer"
+              ],
+              "correct_index": 2,
+              "explanation": "Use `usermod -aG sudo deployer`."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "git",
+      "name": "Git Controle de Versão",
+      "icon": "🌿",
+      "description": "Domine branching, commits, histórico, merge, stash e tags como um profissional.",
+      "required_xp": 600,
+      "required_seniority": "Nível 3 · Git Apprentice",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "git_01",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Inicializando o Repositório de Código",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Você acabou de entrar em um novo projeto e precisa começar a versionar o código-fonte da aplicação no diretório atual.",
+          "objective": "Inicialize um repositório Git limpo no diretório de trabalho.",
+          "tip": "O comando para criar um repositório vazio no diretório atual é 'git init'.",
+          "solution": "git init",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "init"
+              ],
+              "chips": [
+                "-m",
+                "push",
+                "git",
+                "init",
+                "reset",
+                "checkout"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____",
+              "correct_choice": "init",
+              "choices": [
+                "log",
+                "checkout",
+                "branch",
+                "init"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inicialize um repositório Git limpo no diretório de trabalho.",
+              "options": [
+                "git push",
+                "git init",
+                "git checkout",
+                "git reset"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando para criar um repositório vazio no diretório atual é 'git init'."
+            }
+          }
+        },
+        {
+          "id": "git_02",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Inspecionando o Estado da Árvore de Trabalho",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Arquivos foram criados e modificados por outros membros do time e você precisa verificar quais estão rastreados ou pendentes.",
+          "objective": "Verifique o estado atual do repositório, identificando arquivos não rastreados.",
+          "tip": "O comando de status mostra o branch atual e o estado dos arquivos.",
+          "solution": "git status",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "status"
+              ],
+              "chips": [
+                "-m",
+                "reset",
+                "status",
+                "main",
+                "commit",
+                "git"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____",
+              "correct_choice": "status",
+              "choices": [
+                "merge",
+                "status",
+                "branch",
+                "stash"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Verifique o estado atual do repositório, identificando arquivos não rastreados.",
+              "options": [
+                "git reset",
+                "git commit",
+                "git status",
+                "git -m"
+              ],
+              "correct_index": 2,
+              "explanation": "O comando de status mostra o branch atual e o estado dos arquivos."
+            }
+          }
+        },
+        {
+          "id": "git_03",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Adicionando Arquivos à Área de Staging",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Novos arquivos foram implementados e precisam ser preparados para inclusão no próximo commit do projeto.",
+          "objective": "Prepare todos os arquivos pendentes movendo-os para a área de staging.",
+          "tip": "Você pode preparar todos os arquivos de uma vez passando o ponto '.' como alvo do comando de adição.",
+          "solution": "git add .",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "add",
+                "."
+              ],
+              "chips": [
+                "git",
+                "add",
+                "checkout",
+                "reset",
+                "pull",
+                ".",
+                "status"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ .",
+              "correct_choice": "add",
+              "choices": [
+                "add",
+                "pull",
+                "status",
+                "init"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Prepare todos os arquivos pendentes movendo-os para a área de staging.",
+              "options": [
+                "git checkout .",
+                "git reset .",
+                "git pull .",
+                "git add ."
+              ],
+              "correct_index": 3,
+              "explanation": "Você pode preparar todos os arquivos de uma vez passando o ponto '.' como alvo do comando de adição."
+            }
+          }
+        },
+        {
+          "id": "git_04",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Gravando o Primeiro Commit da Aplicação",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "Os arquivos já estão na staging area e você precisa criar um ponto de restauração oficial no histórico com mensagem descritiva.",
+          "objective": "Grave um commit com uma mensagem explicando as alterações realizadas.",
+          "tip": "Utilize a flag '-m' para passar o texto explicativo do commit diretamente.",
+          "solution": "git commit -m \"feat: initial commit\"",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "commit",
+                "-m",
+                "feat: initial commit"
+              ],
+              "chips": [
+                "commit",
+                "reset",
+                "-m",
+                "feat: initial commit",
+                "git",
+                "--staged",
+                "checkout",
+                "stash"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ -m feat: initial commit",
+              "correct_choice": "commit",
+              "choices": [
+                "pull",
+                "init",
+                "commit",
+                "reset"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Grave um commit com uma mensagem explicando as alterações realizadas.",
+              "options": [
+                "git stash -m feat: initial commit",
+                "git commit -m \"feat: initial commit\"",
+                "git checkout -m feat: initial commit",
+                "git reset -m feat: initial commit"
+              ],
+              "correct_index": 1,
+              "explanation": "Utilize a flag '-m' para passar o texto explicativo do commit diretamente."
+            }
+          }
+        },
+        {
+          "id": "git_05",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Auditoria do Histórico de Commits",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "A equipe de segurança precisa auditar os últimos commits aplicados para identificar autores e mensagens de entrega.",
+          "objective": "Exiba o histórico de commits do repositório atual.",
+          "tip": "O comando de histórico do Git é 'git log'.",
+          "solution": "git log",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "log"
+              ],
+              "chips": [
+                "--staged",
+                "log",
+                "-m",
+                "pull",
+                "-b",
+                "git"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____",
+              "correct_choice": "log",
+              "choices": [
+                "-b",
+                "log",
+                "origin",
+                "checkout"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba o histórico de commits do repositório atual.",
+              "options": [
+                "git log",
+                "git -m",
+                "git pull",
+                "git -b"
+              ],
+              "correct_index": 0,
+              "explanation": "O comando de histórico do Git é 'git log'."
+            }
+          }
+        },
+        {
+          "id": "git_06",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Isolamento em Branch de Feature",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Para não alterar a branch principal diretamente, você deve criar uma branch isolada para implementar o módulo de autenticação.",
+          "objective": "Crie e mude imediatamente para uma nova branch chamada 'feature/auth-service'.",
+          "tip": "O comando checkout com a flag '-b' ou o comando switch com a flag '-c' criam e ativam uma branch simultaneamente.",
+          "solution": "git checkout -b feature/auth-service",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "checkout",
+                "-b",
+                "feature/auth-service"
+              ],
+              "chips": [
+                "add",
+                "reset",
+                "checkout",
+                "-b",
+                "git",
+                "origin",
+                "feature/auth-service",
+                "main"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ -b feature/auth-service",
+              "correct_choice": "checkout",
+              "choices": [
+                "checkout",
+                "origin",
+                "branch",
+                "stash"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie e mude imediatamente para uma nova branch chamada 'feature/auth-service'.",
+              "options": [
+                "git main -b feature/auth-service",
+                "git checkout -b feature/auth-service",
+                "git reset -b feature/auth-service",
+                "git add -b feature/auth-service"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando checkout com a flag '-b' ou o comando switch com a flag '-c' criam e ativam uma branch simultaneamente."
+            }
+          }
+        },
+        {
+          "id": "git_07",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Mesclando Branches com Merge",
+          "difficulty": "Intermediário",
+          "xp": 140,
+          "scenario": "O desenvolvimento na branch secundária 'feature/auth-service' foi finalizado e aprovado no code review.",
+          "objective": "Estando na branch principal, mescle as alterações da branch 'feature/auth-service'.",
+          "tip": "O comando para integrar alterações de outra branch no branch ativo é 'git merge <nome-da-branch>'.",
+          "solution": "git merge feature/auth-service",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "merge",
+                "feature/auth-service"
+              ],
+              "chips": [
+                "reset",
+                "main",
+                "--staged",
+                "feature/auth-service",
+                "git",
+                "log",
+                "merge"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ feature/auth-service",
+              "correct_choice": "merge",
+              "choices": [
+                "merge",
+                "reset",
+                "stash",
+                "add"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Estando na branch principal, mescle as alterações da branch 'feature/auth-service'.",
+              "options": [
+                "git log feature/auth-service",
+                "git reset feature/auth-service",
+                "git merge feature/auth-service",
+                "git --staged feature/auth-service"
+              ],
+              "correct_index": 2,
+              "explanation": "O comando para integrar alterações de outra branch no branch ativo é 'git merge <nome-da-branch>'."
+            }
+          }
+        },
+        {
+          "id": "git_08",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Vinculando Repositório Remoto",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Você precisa conectar seu repositório local ao servidor central no GitHub para sincronizar código com a equipe.",
+          "objective": "Adicione um repositório remoto denominado 'origin' apontando para 'https://github.com/empresa/app.git'.",
+          "tip": "Utilize o subcomando 'remote add' com o nome e a URL desejada.",
+          "solution": "git remote add origin https://github.com/empresa/app.git",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "remote",
+                "add",
+                "origin",
+                "https://github.com/empresa/app.git"
+              ],
+              "chips": [
+                "git",
+                "--staged",
+                "add",
+                "merge",
+                "https://github.com/empresa/app.git",
+                "init",
+                "origin",
+                "push",
+                "remote"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ add origin https://github.com/empresa/app.git",
+              "correct_choice": "remote",
+              "choices": [
+                "push",
+                "remote",
+                "branch",
+                "merge"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Adicione um repositório remoto denominado 'origin' apontando para 'https://github.com/empresa/app.git'.",
+              "options": [
+                "git --staged add origin https://github.com/empresa/app.git",
+                "git push add origin https://github.com/empresa/app.git",
+                "git init add origin https://github.com/empresa/app.git",
+                "git remote add origin https://github.com/empresa/app.git"
+              ],
+              "correct_index": 3,
+              "explanation": "Utilize o subcomando 'remote add' com o nome e a URL desejada."
+            }
+          }
+        },
+        {
+          "id": "git_09",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Guardando Alterações Temporárias no Stash",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Você está no meio de uma alteração e precisa trocar de contexto urgente sem fazer um commit incompleto.",
+          "objective": "Guarde as alterações pendentes no stash temporário deixando a árvore de trabalho limpa.",
+          "tip": "O comando 'stash' salva o estado de trabalho sem criar um commit definitivo.",
+          "solution": "git stash",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "stash"
+              ],
+              "chips": [
+                "pull",
+                "merge",
+                "origin",
+                "stash",
+                "git",
+                "main"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____",
+              "correct_choice": "stash",
+              "choices": [
+                "stash",
+                "branch",
+                "push",
+                "main"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Guarde as alterações pendentes no stash temporário deixando a árvore de trabalho limpa.",
+              "options": [
+                "git main",
+                "git pull",
+                "git stash",
+                "git origin"
+              ],
+              "correct_index": 2,
+              "explanation": "O comando 'stash' salva o estado de trabalho sem criar um commit definitivo."
+            }
+          }
+        },
+        {
+          "id": "git_10",
+          "track_id": "git",
+          "track_name": "Git Controle de Versão",
+          "track_icon": "🌿",
+          "title": "Criando Tag de Release para Produção",
+          "difficulty": "Intermediário",
+          "xp": 140,
+          "scenario": "O pipeline de deploy precisa de uma tag de versão imutável para disparar a publicação do pacote v1.0.0 em produção.",
+          "objective": "Crie uma tag de versão nomeada 'v1.0.0' no commit atual.",
+          "tip": "O comando 'git tag <nome>' cria um marcador de versão estático.",
+          "solution": "git tag v1.0.0",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "git",
+                "tag",
+                "v1.0.0"
+              ],
+              "chips": [
+                "tag",
+                "git",
+                "merge",
+                "stash",
+                "v1.0.0",
+                "main",
+                "commit"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "git ____ v1.0.0",
+              "correct_choice": "tag",
+              "choices": [
+                "status",
+                "merge",
+                "tag",
+                "stash"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie uma tag de versão nomeada 'v1.0.0' no commit atual.",
+              "options": [
+                "git main v1.0.0",
+                "git tag v1.0.0",
+                "git stash v1.0.0",
+                "git merge v1.0.0"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando 'git tag <nome>' cria um marcador de versão estático."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker & Contêineres",
+      "icon": "🐳",
+      "description": "Aprenda a criar, inspecionar, depurar e orquestrar contêineres Docker.",
+      "required_xp": 1100,
+      "required_seniority": "Nível 4 · Container Captain",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "docker-01",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Seu Primeiro Contêiner",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O time de produto solicitou a inicialização de um servidor web leve Nginx para atender requisições na porta 8080.",
+          "objective": "Inicie um contêiner em segundo plano chamado 'web-server' com a imagem 'nginx:alpine', mapeando a porta 8080 do host para a porta 80 interna do contêiner.",
+          "tip": "Use: 'docker run -d --name web-server -p 8080:80 nginx:alpine'.",
+          "solution": "docker run -d --name web-server -p 8080:80 nginx:alpine",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "run",
+                "-d",
+                "--name",
+                "web-server",
+                "-p",
+                "8080:80",
+                "nginx:alpine"
+              ],
+              "chips": [
+                "-p",
+                "docker",
+                "build",
+                "nginx:alpine",
+                "web-server",
+                "stop",
+                "restart",
+                "8080:80",
+                "run",
+                "--name",
+                "-d",
+                "logs"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ -d --name web-server -p 8080:80 nginx:alpine",
+              "correct_choice": "run",
+              "choices": [
+                "pull",
+                "stop",
+                "logs",
+                "run"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inicie um contêiner em segundo plano chamado 'web-server' com a imagem 'nginx:alpine', mapeando a porta 8080 do host para a porta 80 interna do contêiner.",
+              "options": [
+                "docker restart -d --name web-server -p 8080:80 nginx:alpine",
+                "docker build -d --name web-server -p 8080:80 nginx:alpine",
+                "docker run -d --name web-server -p 8080:80 nginx:alpine",
+                "docker stop -d --name web-server -p 8080:80 nginx:alpine"
+              ],
+              "correct_index": 2,
+              "explanation": "Use: 'docker run -d --name web-server -p 8080:80 nginx:alpine'."
+            }
+          }
+        },
+        {
+          "id": "docker-02",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Inspecionando Contêineres Ativos",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Você precisa auditar quais contêineres estão ativos no host e verificar as portas expostas por cada um.",
+          "objective": "Exiba a lista de todos os contêineres que estão atualmente em execução no host.",
+          "tip": "O comando para listar contêineres em execução é 'docker ps'.",
+          "solution": "docker ps",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "ps"
+              ],
+              "chips": [
+                "-p",
+                "docker",
+                "latest",
+                "ps",
+                "alpine",
+                "--rm"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____",
+              "correct_choice": "ps",
+              "choices": [
+                "-d",
+                "alpine",
+                "-it",
+                "ps"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba a lista de todos os contêineres que estão atualmente em execução no host.",
+              "options": [
+                "docker -p",
+                "docker ps",
+                "docker --rm",
+                "docker alpine"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando para listar contêineres em execução é 'docker ps'."
+            }
+          }
+        },
+        {
+          "id": "docker-03",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Leitura de Logs de Contêiner",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "Recebemos um alerta sobre erros na conexão com o banco. Precisamos ver o que o contêiner do postgres está cuspindo no stdout.",
+          "objective": "Inspecione e exiba as mensagens de log emitidas pelo contêiner 'postgres-db'.",
+          "tip": "Use 'docker logs postgres-db'.",
+          "solution": "docker logs postgres-db",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "logs",
+                "postgres-db"
+              ],
+              "chips": [
+                "postgres-db",
+                "logs",
+                "-p",
+                "-it",
+                "stop",
+                "latest",
+                "docker"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ postgres-db",
+              "correct_choice": "logs",
+              "choices": [
+                "images",
+                "latest",
+                "stop",
+                "logs"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inspecione e exiba as mensagens de log emitidas pelo contêiner 'postgres-db'.",
+              "options": [
+                "docker -p postgres-db",
+                "docker latest postgres-db",
+                "docker logs postgres-db",
+                "docker stop postgres-db"
+              ],
+              "correct_index": 2,
+              "explanation": "Use 'docker logs postgres-db'."
+            }
+          }
+        },
+        {
+          "id": "docker-04",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Executando Comandos no Contêiner",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Para validar a configuração injetada, precisamos inspecionar as variáveis de ambiente ativas dentro do contêiner.",
+          "objective": "Execute a listagem das variáveis de ambiente ('env') dentro do contêiner ativo 'web-server' sem abrir uma sessão interativa manual.",
+          "tip": "Use 'docker exec web-server env'.",
+          "solution": "docker exec web-server env",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "exec",
+                "web-server",
+                "env"
+              ],
+              "chips": [
+                "logs",
+                "restart",
+                "exec",
+                "docker",
+                "web-server",
+                "env",
+                "--rm",
+                "--name"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ web-server env",
+              "correct_choice": "exec",
+              "choices": [
+                "ps",
+                "build",
+                "-v",
+                "exec"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Execute a listagem das variáveis de ambiente ('env') dentro do contêiner ativo 'web-server' sem abrir uma sessão interativa manual.",
+              "options": [
+                "docker --name web-server env",
+                "docker restart web-server env",
+                "docker --rm web-server env",
+                "docker exec web-server env"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'docker exec web-server env'."
+            }
+          }
+        },
+        {
+          "id": "docker-05",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Parando um Serviço",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Vamos aplicar uma atualização de segurança e precisamos parar o contêiner 'web-server' de forma graciosa.",
+          "objective": "Interrompa a execução do contêiner 'web-server'.",
+          "tip": "Use 'docker stop web-server'.",
+          "solution": "docker stop web-server",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "stop",
+                "web-server"
+              ],
+              "chips": [
+                "rm",
+                "web-server",
+                "images",
+                "stop",
+                "docker",
+                "build",
+                "run"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ web-server",
+              "correct_choice": "stop",
+              "choices": [
+                "exec",
+                "-v",
+                "-p",
+                "stop"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Interrompa a execução do contêiner 'web-server'.",
+              "options": [
+                "docker run web-server",
+                "docker build web-server",
+                "docker rm web-server",
+                "docker stop web-server"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'docker stop web-server'."
+            }
+          }
+        },
+        {
+          "id": "docker-06",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Isolamento com Redes Customizadas",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Por padrão o Docker usa a rede bridge padrão, que não possui resolução automática de nomes por DNS. Precisamos de uma rede isolada para o backend.",
+          "objective": "Crie uma nova rede de contêineres chamada 'backend-net'.",
+          "tip": "Use 'docker network create backend-net'.",
+          "solution": "docker network create backend-net",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "network",
+                "create",
+                "backend-net"
+              ],
+              "chips": [
+                "--name",
+                "-v",
+                "create",
+                "pull",
+                "network",
+                "-it",
+                "docker",
+                "backend-net"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ create backend-net",
+              "correct_choice": "network",
+              "choices": [
+                "network",
+                "build",
+                "ps",
+                "--name"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie uma nova rede de contêineres chamada 'backend-net'.",
+              "options": [
+                "docker pull create backend-net",
+                "docker -it create backend-net",
+                "docker -v create backend-net",
+                "docker network create backend-net"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'docker network create backend-net'."
+            }
+          }
+        },
+        {
+          "id": "docker-07",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Garantindo Persistência com Volumes",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Contêineres são efêmeros! Se o contêiner morrer, os uploads serão perdidos se não estiverem em um volume gerenciado.",
+          "objective": "Crie um volume de armazenamento gerenciado chamado 'app_storage'.",
+          "tip": "Use 'docker volume create app_storage'.",
+          "solution": "docker volume create app_storage",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "volume",
+                "create",
+                "app_storage"
+              ],
+              "chips": [
+                "ps",
+                "docker",
+                "run",
+                "volume",
+                "app_storage",
+                "--rm",
+                "create",
+                "latest"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ create app_storage",
+              "correct_choice": "volume",
+              "choices": [
+                "volume",
+                "-d",
+                "pull",
+                "latest"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um volume de armazenamento gerenciado chamado 'app_storage'.",
+              "options": [
+                "docker run create app_storage",
+                "docker latest create app_storage",
+                "docker volume create app_storage",
+                "docker --rm create app_storage"
+              ],
+              "correct_index": 2,
+              "explanation": "Use 'docker volume create app_storage'."
+            }
+          }
+        },
+        {
+          "id": "docker-08",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Construindo Imagens com Dockerfile",
+          "difficulty": "Intermediário",
+          "xp": 140,
+          "scenario": "O código fonte da nova API foi finalizado no diretório atual e precisamos empacotá-lo em uma imagem pronta para distribuição.",
+          "objective": "Construa uma nova imagem a partir do Dockerfile do diretório atual, definindo a tag como 'minha-api:v1'.",
+          "tip": "Use 'docker build -t minha-api:v1 .'.",
+          "solution": "docker build -t minha-api:v1 .",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "build",
+                "-t",
+                "minha-api:v1",
+                "."
+              ],
+              "chips": [
+                ".",
+                "build",
+                "-it",
+                "--rm",
+                "minha-api:v1",
+                "docker",
+                "-t",
+                "latest",
+                "stop"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ -t minha-api:v1 .",
+              "correct_choice": "build",
+              "choices": [
+                "build",
+                "--rm",
+                "logs",
+                "-v"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Construa uma nova imagem a partir do Dockerfile do diretório atual, definindo a tag como 'minha-api:v1'.",
+              "options": [
+                "docker -it -t minha-api:v1 .",
+                "docker build -t minha-api:v1 .",
+                "docker stop -t minha-api:v1 .",
+                "docker latest -t minha-api:v1 ."
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'docker build -t minha-api:v1 .'."
+            }
+          }
+        },
+        {
+          "id": "docker-09",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Auditoria de Consumo de Recursos",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "O time de operações quer analisar o percentual de CPU e memória consumido pelos contêineres ativos.",
+          "objective": "Abra a tabela de estatísticas em tempo real de consumo de recursos dos contêineres.",
+          "tip": "O comando para estatísticas de consumo é 'docker stats'.",
+          "solution": "docker stats",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "stats"
+              ],
+              "chips": [
+                "stats",
+                "docker",
+                "pull",
+                "images",
+                "exec",
+                "build"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____",
+              "correct_choice": "stats",
+              "choices": [
+                "restart",
+                "latest",
+                "alpine",
+                "stats"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Abra a tabela de estatísticas em tempo real de consumo de recursos dos contêineres.",
+              "options": [
+                "docker exec",
+                "docker stats",
+                "docker images",
+                "docker pull"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando para estatísticas de consumo é 'docker stats'."
+            }
+          }
+        },
+        {
+          "id": "docker-10",
+          "track_id": "docker",
+          "track_name": "Docker & Contêineres",
+          "track_icon": "🐳",
+          "title": "Faxina de Contêineres Órfãos",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O contêiner 'web-server' já não é mais necessário e está ocupando recursos de nome no daemon.",
+          "objective": "Exclua definitivamente o contêiner 'web-server'.",
+          "tip": "Use 'docker rm -f web-server'.",
+          "solution": "docker rm -f web-server",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "docker",
+                "rm",
+                "-f",
+                "web-server"
+              ],
+              "chips": [
+                "docker",
+                "-d",
+                "rm",
+                "-f",
+                "-p",
+                "-it",
+                "web-server",
+                "-v"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "docker ____ -f web-server",
+              "correct_choice": "rm",
+              "choices": [
+                "stop",
+                "-p",
+                "rm",
+                "-it"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exclua definitivamente o contêiner 'web-server'.",
+              "options": [
+                "docker -p -f web-server",
+                "docker -d -f web-server",
+                "docker rm -f web-server",
+                "docker -v -f web-server"
+              ],
+              "correct_index": 2,
+              "explanation": "Use 'docker rm -f web-server'."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "AWS Cloud & Infraestrutura",
+      "icon": "☁️",
+      "description": "Gerencie serviços essenciais da AWS (S3, EC2, IAM, Lambda e STS) direto pela linha de comando.",
+      "required_xp": 1800,
+      "required_seniority": "Nível 5 · Cloud Architect",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "aws_01",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Auditoria de Identidade e Conta AWS",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Antes de executar operações em nuvem, você precisa validar em qual conta AWS e com qual ARN de usuário suas credenciais estão ativas.",
+          "objective": "Consulte sua identidade atual de execução na AWS usando o serviço STS.",
+          "tip": "O Security Token Service possui o subcomando 'get-caller-identity'.",
+          "solution": "aws sts get-caller-identity",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "sts",
+                "get-caller-identity"
+              ],
+              "chips": [
+                "sts",
+                "ls",
+                "aws",
+                "get-caller-identity",
+                "cp",
+                "json",
+                "--region"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ get-caller-identity",
+              "correct_choice": "sts",
+              "choices": [
+                "ls",
+                "sts",
+                "mb",
+                "cp"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Consulte sua identidade atual de execução na AWS usando o serviço STS.",
+              "options": [
+                "aws json get-caller-identity",
+                "aws sts get-caller-identity",
+                "aws --region get-caller-identity",
+                "aws ls get-caller-identity"
+              ],
+              "correct_index": 1,
+              "explanation": "O Security Token Service possui o subcomando 'get-caller-identity'."
+            }
+          }
+        },
+        {
+          "id": "aws_02",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Listagem de Buckets no Amazon S3",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "A equipe de infraestrutura precisa levantar todos os buckets de armazenamento de objetos criados na conta.",
+          "objective": "Liste todos os buckets disponíveis no serviço Amazon S3.",
+          "tip": "O subcomando de listagem rápida de buckets no S3 é 'ls'.",
+          "solution": "aws s3 ls",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "s3",
+                "ls"
+              ],
+              "chips": [
+                "sts",
+                "s3",
+                "ls",
+                "us-east-1",
+                "aws",
+                "ec2",
+                "mb"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ ls",
+              "correct_choice": "s3",
+              "choices": [
+                "--region",
+                "--output",
+                "s3",
+                "json"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste todos os buckets disponíveis no serviço Amazon S3.",
+              "options": [
+                "aws mb ls",
+                "aws s3 ls",
+                "aws ec2 ls",
+                "aws us-east-1 ls"
+              ],
+              "correct_index": 1,
+              "explanation": "O subcomando de listagem rápida de buckets no S3 é 'ls'."
+            }
+          }
+        },
+        {
+          "id": "aws_03",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Criando Bucket para Backups",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "Um novo serviço de arquivamento requer um bucket S3 exclusivo para retenção de relatórios de auditoria.",
+          "objective": "Crie um novo bucket S3 nomeado 's3://company-db-backups-2026'.",
+          "tip": "O subcomando 'mb' (make bucket) cria novos repositórios de objetos no Amazon S3.",
+          "solution": "aws s3 mb s3://company-db-backups-2026",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "s3",
+                "mb",
+                "s3://company-db-backups-2026"
+              ],
+              "chips": [
+                "get-caller-identity",
+                "s3://company-db-backups-2026",
+                "json",
+                "mb",
+                "iam",
+                "--region",
+                "s3",
+                "aws"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ mb s3://company-db-backups-2026",
+              "correct_choice": "s3",
+              "choices": [
+                "s3",
+                "get-caller-identity",
+                "us-east-1",
+                "iam"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um novo bucket S3 nomeado 's3://company-db-backups-2026'.",
+              "options": [
+                "aws s3 mb s3://company-db-backups-2026",
+                "aws get-caller-identity mb s3://company-db-backups-2026",
+                "aws iam mb s3://company-db-backups-2026",
+                "aws --region mb s3://company-db-backups-2026"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando 'mb' (make bucket) cria novos repositórios de objetos no Amazon S3."
+            }
+          }
+        },
+        {
+          "id": "aws_04",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Upload de Artefato para o S3",
+          "difficulty": "Iniciante",
+          "xp": 120,
+          "scenario": "O pacote de release gerado localmente precisa ser disponibilizado no repositório de artefatos em nuvem.",
+          "objective": "Faça o upload do arquivo local 'release.tar.gz' para o bucket 's3://company-app-artifacts/'.",
+          "tip": "Use o subcomando 'cp' informando o arquivo local e o URI do S3 de destino.",
+          "solution": "aws s3 cp release.tar.gz s3://company-app-artifacts/",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "s3",
+                "cp",
+                "release.tar.gz",
+                "s3://company-app-artifacts/"
+              ],
+              "chips": [
+                "get-caller-identity",
+                "s3://company-app-artifacts/",
+                "mb",
+                "aws",
+                "cp",
+                "ec2",
+                "--output",
+                "release.tar.gz",
+                "s3"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ cp release.tar.gz s3://company-app-artifacts/",
+              "correct_choice": "s3",
+              "choices": [
+                "us-east-1",
+                "iam",
+                "s3",
+                "sts"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Faça o upload do arquivo local 'release.tar.gz' para o bucket 's3://company-app-artifacts/'.",
+              "options": [
+                "aws s3 cp release.tar.gz s3://company-app-artifacts/",
+                "aws --output cp release.tar.gz s3://company-app-artifacts/",
+                "aws get-caller-identity cp release.tar.gz s3://company-app-artifacts/",
+                "aws mb cp release.tar.gz s3://company-app-artifacts/"
+              ],
+              "correct_index": 0,
+              "explanation": "Use o subcomando 'cp' informando o arquivo local e o URI do S3 de destino."
+            }
+          }
+        },
+        {
+          "id": "aws_05",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Auditoria de Instâncias EC2",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Durante um plantão de suporte, você precisa levantar quais servidores virtuais estão em execução ou parados.",
+          "objective": "Descreva o status de todas as instâncias EC2 presentes na região.",
+          "tip": "O subcomando do serviço EC2 para consultar instâncias é 'describe-instances'.",
+          "solution": "aws ec2 describe-instances",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "ec2",
+                "describe-instances"
+              ],
+              "chips": [
+                "ec2",
+                "s3",
+                "json",
+                "aws",
+                "cp",
+                "describe-instances",
+                "ls"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ describe-instances",
+              "correct_choice": "ec2",
+              "choices": [
+                "cp",
+                "--output",
+                "ec2",
+                "ls"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Descreva o status de todas as instâncias EC2 presentes na região.",
+              "options": [
+                "aws s3 describe-instances",
+                "aws ec2 describe-instances",
+                "aws ls describe-instances",
+                "aws cp describe-instances"
+              ],
+              "correct_index": 1,
+              "explanation": "O subcomando do serviço EC2 para consultar instâncias é 'describe-instances'."
+            }
+          }
+        },
+        {
+          "id": "aws_06",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Iniciando Servidor de Processamento Batch",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "A fila de processamento aumentou e você precisa reativar o worker de staging 'i-0f9e8d7c6b5a43210' que estava desligado.",
+          "objective": "Inicie a instância EC2 com o ID 'i-0f9e8d7c6b5a43210'.",
+          "tip": "Utilize o subcomando 'start-instances' passando a flag '--instance-ids'.",
+          "solution": "aws ec2 start-instances --instance-ids i-0f9e8d7c6b5a43210",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "ec2",
+                "start-instances",
+                "--instance-ids",
+                "i-0f9e8d7c6b5a43210"
+              ],
+              "chips": [
+                "s3",
+                "cp",
+                "ec2",
+                "iam",
+                "start-instances",
+                "--instance-ids",
+                "aws",
+                "sts",
+                "i-0f9e8d7c6b5a43210"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ start-instances --instance-ids i-0f9e8d7c6b5a43210",
+              "correct_choice": "ec2",
+              "choices": [
+                "us-east-1",
+                "iam",
+                "get-caller-identity",
+                "ec2"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inicie a instância EC2 com o ID 'i-0f9e8d7c6b5a43210'.",
+              "options": [
+                "aws iam start-instances --instance-ids i-0f9e8d7c6b5a43210",
+                "aws sts start-instances --instance-ids i-0f9e8d7c6b5a43210",
+                "aws ec2 start-instances --instance-ids i-0f9e8d7c6b5a43210",
+                "aws s3 start-instances --instance-ids i-0f9e8d7c6b5a43210"
+              ],
+              "correct_index": 2,
+              "explanation": "Utilize o subcomando 'start-instances' passando a flag '--instance-ids'."
+            }
+          }
+        },
+        {
+          "id": "aws_07",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Contenção de Custos: Parando Servidores Ociosos",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Ao final do expediente, instâncias de teste devem ser desligadas para evitar custos desnecessários.",
+          "objective": "Interrompa a instância EC2 'i-0a1b2c3d4e5f67890'.",
+          "tip": "O subcomando para parar instâncias preservando os volumes EBS é 'stop-instances'.",
+          "solution": "aws ec2 stop-instances --instance-ids i-0a1b2c3d4e5f67890",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "ec2",
+                "stop-instances",
+                "--instance-ids",
+                "i-0a1b2c3d4e5f67890"
+              ],
+              "chips": [
+                "stop-instances",
+                "us-east-1",
+                "ls",
+                "s3",
+                "--instance-ids",
+                "ec2",
+                "--output",
+                "aws",
+                "i-0a1b2c3d4e5f67890"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ stop-instances --instance-ids i-0a1b2c3d4e5f67890",
+              "correct_choice": "ec2",
+              "choices": [
+                "get-caller-identity",
+                "describe-instances",
+                "us-east-1",
+                "ec2"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Interrompa a instância EC2 'i-0a1b2c3d4e5f67890'.",
+              "options": [
+                "aws ec2 stop-instances --instance-ids i-0a1b2c3d4e5f67890",
+                "aws --output stop-instances --instance-ids i-0a1b2c3d4e5f67890",
+                "aws ls stop-instances --instance-ids i-0a1b2c3d4e5f67890",
+                "aws us-east-1 stop-instances --instance-ids i-0a1b2c3d4e5f67890"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando para parar instâncias preservando os volumes EBS é 'stop-instances'."
+            }
+          }
+        },
+        {
+          "id": "aws_08",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Auditoria de Acesso: Usuários do IAM",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "O time de compliance exige uma lista consolidada de todas as identidades de usuários cadastradas no AWS IAM.",
+          "objective": "Liste todos os usuários cadastrados no Identity and Access Management (IAM).",
+          "tip": "O subcomando do IAM para listar identidades é 'list-users'.",
+          "solution": "aws iam list-users",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "iam",
+                "list-users"
+              ],
+              "chips": [
+                "aws",
+                "iam",
+                "ec2",
+                "list-users",
+                "mb",
+                "sts",
+                "--output"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ list-users",
+              "correct_choice": "iam",
+              "choices": [
+                "get-caller-identity",
+                "s3",
+                "--region",
+                "iam"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste todos os usuários cadastrados no Identity and Access Management (IAM).",
+              "options": [
+                "aws sts list-users",
+                "aws --output list-users",
+                "aws iam list-users",
+                "aws ec2 list-users"
+              ],
+              "correct_index": 2,
+              "explanation": "O subcomando do IAM para listar identidades é 'list-users'."
+            }
+          }
+        },
+        {
+          "id": "aws_09",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Provisionando Usuário de Serviço no IAM",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Uma nova esteira de CI/CD precisa de uma conta de serviço dedicada para publicar releases.",
+          "objective": "Crie um novo usuário no IAM com o nome de usuário 'github-actions-deployer'.",
+          "tip": "Utilize 'create-user' passando a flag '--user-name'.",
+          "solution": "aws iam create-user --user-name github-actions-deployer",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "iam",
+                "create-user",
+                "--user-name",
+                "github-actions-deployer"
+              ],
+              "chips": [
+                "json",
+                "get-caller-identity",
+                "--region",
+                "--user-name",
+                "create-user",
+                "github-actions-deployer",
+                "iam",
+                "aws",
+                "s3"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ create-user --user-name github-actions-deployer",
+              "correct_choice": "iam",
+              "choices": [
+                "iam",
+                "ls",
+                "cp",
+                "s3"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um novo usuário no IAM com o nome de usuário 'github-actions-deployer'.",
+              "options": [
+                "aws --region create-user --user-name github-actions-deployer",
+                "aws s3 create-user --user-name github-actions-deployer",
+                "aws iam create-user --user-name github-actions-deployer",
+                "aws json create-user --user-name github-actions-deployer"
+              ],
+              "correct_index": 2,
+              "explanation": "Utilize 'create-user' passando a flag '--user-name'."
+            }
+          }
+        },
+        {
+          "id": "aws_10",
+          "track_id": "aws",
+          "track_name": "AWS Cloud & Infraestrutura",
+          "track_icon": "☁️",
+          "title": "Inventário de Microsserviços Serverless Lambda",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "A aplicação processa webhooks assíncronos e você precisa listar as funções serverless ativas no cluster.",
+          "objective": "Liste todas as funções AWS Lambda criadas no ambiente.",
+          "tip": "O serviço lambda disponibiliza o subcomando 'list-functions'.",
+          "solution": "aws lambda list-functions",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "aws",
+                "lambda",
+                "list-functions"
+              ],
+              "chips": [
+                "lambda",
+                "iam",
+                "sts",
+                "us-east-1",
+                "aws",
+                "--region",
+                "list-functions"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "aws ____ list-functions",
+              "correct_choice": "lambda",
+              "choices": [
+                "lambda",
+                "describe-instances",
+                "json",
+                "ec2"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste todas as funções AWS Lambda criadas no ambiente.",
+              "options": [
+                "aws lambda list-functions",
+                "aws sts list-functions",
+                "aws us-east-1 list-functions",
+                "aws --region list-functions"
+              ],
+              "correct_index": 0,
+              "explanation": "O serviço lambda disponibiliza o subcomando 'list-functions'."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terraform",
+      "name": "Terraform Infraestrutura como Código",
+      "icon": "🏗️",
+      "description": "Domine o ciclo completo de IaC: init, fmt, validate, plan, apply, state e outputs.",
+      "required_xp": 2800,
+      "required_seniority": "Nível 6 · IaC Master",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "tf_01",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Inicializando o Projeto Terraform",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Você baixou um novo repositório de Infraestrutura como Código (IaC) e precisa configurar o backend e baixar os provedores de nuvem.",
+          "objective": "Inicialize o diretório de trabalho do Terraform instalando provedores necessários.",
+          "tip": "O subcomando inicial do Terraform é 'init'.",
+          "solution": "terraform init",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "init"
+              ],
+              "chips": [
+                "-auto-approve",
+                "destroy",
+                "terraform",
+                "-target",
+                "init",
+                "validate"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "init",
+              "choices": [
+                "-var",
+                "output",
+                "init",
+                "show"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inicialize o diretório de trabalho do Terraform instalando provedores necessários.",
+              "options": [
+                "terraform init",
+                "terraform -auto-approve",
+                "terraform -target",
+                "terraform validate"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando inicial do Terraform é 'init'."
+            }
+          }
+        },
+        {
+          "id": "tf_02",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Padronização de Código HCL com Fmt",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Antes de abrir um Pull Request, é obrigatório formatar os arquivos de manifesto conforme o padrão oficial da HashiCorp.",
+          "objective": "Reformatar todos os arquivos '.tf' do diretório atual de acordo com o padrão canônico.",
+          "tip": "O comando para formatar arquivos de manifesto HCL é 'fmt'.",
+          "solution": "terraform fmt",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "fmt"
+              ],
+              "chips": [
+                "terraform",
+                "-var",
+                "fmt",
+                "-auto-approve",
+                "main.tf",
+                "apply"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "fmt",
+              "choices": [
+                "-target",
+                "fmt",
+                "output",
+                "destroy"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Reformatar todos os arquivos '.tf' do diretório atual de acordo com o padrão canônico.",
+              "options": [
+                "terraform fmt",
+                "terraform apply",
+                "terraform -var",
+                "terraform -auto-approve"
+              ],
+              "correct_index": 0,
+              "explanation": "O comando para formatar arquivos de manifesto HCL é 'fmt'."
+            }
+          }
+        },
+        {
+          "id": "tf_03",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Validação Estática de Sintaxe e Tipos",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "A esteira de CI executa uma etapa de verificação para garantir que variáveis e argumentos obrigatórios estejam corretos sem tocar na nuvem.",
+          "objective": "Valide a consistência interna e sintaxe dos manifestos Terraform.",
+          "tip": "O subcomando que verifica a integridade estática dos manifestos é 'validate'.",
+          "solution": "terraform validate",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "validate"
+              ],
+              "chips": [
+                "-target",
+                "apply",
+                "-auto-approve",
+                "output",
+                "validate",
+                "terraform"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "validate",
+              "choices": [
+                "plan",
+                "-auto-approve",
+                "-var",
+                "validate"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Valide a consistência interna e sintaxe dos manifestos Terraform.",
+              "options": [
+                "terraform output",
+                "terraform validate",
+                "terraform -target",
+                "terraform apply"
+              ],
+              "correct_index": 1,
+              "explanation": "O subcomando que verifica a integridade estática dos manifestos é 'validate'."
+            }
+          }
+        },
+        {
+          "id": "tf_04",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Planejamento de Mudanças de Infraestrutura",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Novos recursos (Bucket S3 e Instância EC2) foram declarados e você precisa prever o impacto exato antes de aplicar.",
+          "objective": "Gere e analise o plano de execução demonstrando o que será criado, modificado ou destruído.",
+          "tip": "O comando que calcula o diff entre o código e a nuvem é 'plan'.",
+          "solution": "terraform plan",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "plan"
+              ],
+              "chips": [
+                "show",
+                "apply",
+                "plan",
+                "terraform",
+                "-auto-approve",
+                "fmt"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "plan",
+              "choices": [
+                "show",
+                "-var",
+                "-auto-approve",
+                "plan"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Gere e analise o plano de execução demonstrando o que será criado, modificado ou destruído.",
+              "options": [
+                "terraform plan",
+                "terraform fmt",
+                "terraform -auto-approve",
+                "terraform apply"
+              ],
+              "correct_index": 0,
+              "explanation": "O comando que calcula o diff entre o código e a nuvem é 'plan'."
+            }
+          }
+        },
+        {
+          "id": "tf_05",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Provisionando Recursos com Apply",
+          "difficulty": "Intermediário",
+          "xp": 140,
+          "scenario": "O plano de execução foi aprovado pelo líder técnico e os recursos devem ser provisionados na conta em nuvem.",
+          "objective": "Aplique as alterações declaradas para provisionar a infraestrutura e atualizar o estado.",
+          "tip": "O comando que executa o provisionamento oficial é 'apply'. Pode ser usado com '-auto-approve'.",
+          "solution": "terraform apply -auto-approve",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "apply",
+                "-auto-approve"
+              ],
+              "chips": [
+                "-auto-approve",
+                "apply",
+                "plan",
+                "validate",
+                "terraform",
+                "output",
+                "init"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____ -auto-approve",
+              "correct_choice": "apply",
+              "choices": [
+                "show",
+                "-target",
+                "init",
+                "apply"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Aplique as alterações declaradas para provisionar a infraestrutura e atualizar o estado.",
+              "options": [
+                "terraform output -auto-approve",
+                "terraform apply -auto-approve",
+                "terraform validate -auto-approve",
+                "terraform plan -auto-approve"
+              ],
+              "correct_index": 1,
+              "explanation": "O comando que executa o provisionamento oficial é 'apply'. Pode ser usado com '-auto-approve'."
+            }
+          }
+        },
+        {
+          "id": "tf_06",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Inspecionando o Estado com Show",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Para fins de documentação e diagnóstico, você precisa de uma visão legível de todos os atributos dos recursos no estado atual.",
+          "objective": "Exiba o arquivo de estado em formato de texto legível.",
+          "tip": "O subcomando para inspecionar o estado consolidado é 'show'.",
+          "solution": "terraform show",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "show"
+              ],
+              "chips": [
+                "-var",
+                "output",
+                "destroy",
+                "terraform",
+                "apply",
+                "show"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "show",
+              "choices": [
+                "destroy",
+                "-auto-approve",
+                "show",
+                "main.tf"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba o arquivo de estado em formato de texto legível.",
+              "options": [
+                "terraform show",
+                "terraform output",
+                "terraform destroy",
+                "terraform -var"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando para inspecionar o estado consolidado é 'show'."
+            }
+          }
+        },
+        {
+          "id": "tf_07",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Inventário de Recursos no Estado",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Você precisa identificar rapidamente os identificadores de todos os recursos gerenciados para montar um script de auditoria.",
+          "objective": "Liste apenas os nomes e identificadores dos recursos presentes no estado do Terraform.",
+          "tip": "O subcomando 'state list' exibe uma lista limpa dos recursos gerenciados.",
+          "solution": "terraform state list",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "state",
+                "list"
+              ],
+              "chips": [
+                "main.tf",
+                "list",
+                "validate",
+                "terraform",
+                "state",
+                "init",
+                "output"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____ list",
+              "correct_choice": "state",
+              "choices": [
+                "state",
+                "show",
+                "-var",
+                "validate"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste apenas os nomes e identificadores dos recursos presentes no estado do Terraform.",
+              "options": [
+                "terraform state list",
+                "terraform init list",
+                "terraform output list",
+                "terraform main.tf list"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando 'state list' exibe uma lista limpa dos recursos gerenciados."
+            }
+          }
+        },
+        {
+          "id": "tf_08",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Detalhamento Específico de Recurso no Estado",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Você precisa extrair o ID e os parâmetros específicos da VPC principal sem abrir o arquivo JSON bruto de estado.",
+          "objective": "Exiba os detalhes completos do recurso 'aws_vpc.main' diretamente do estado.",
+          "tip": "Utilize o subcomando 'state show' informando o endereço do recurso.",
+          "solution": "terraform state show aws_vpc.main",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "state",
+                "show",
+                "aws_vpc.main"
+              ],
+              "chips": [
+                "output",
+                "fmt",
+                "state",
+                "aws_vpc.main",
+                "terraform",
+                "show",
+                "destroy",
+                "plan"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____ show aws_vpc.main",
+              "correct_choice": "state",
+              "choices": [
+                "-auto-approve",
+                "main.tf",
+                "state",
+                "init"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba os detalhes completos do recurso 'aws_vpc.main' diretamente do estado.",
+              "options": [
+                "terraform output show aws_vpc.main",
+                "terraform state show aws_vpc.main",
+                "terraform destroy show aws_vpc.main",
+                "terraform plan show aws_vpc.main"
+              ],
+              "correct_index": 1,
+              "explanation": "Utilize o subcomando 'state show' informando o endereço do recurso."
+            }
+          }
+        },
+        {
+          "id": "tf_09",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Consultando Valores de Saída (Outputs)",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "A aplicação frontend precisa saber o IP público da API e o ID da VPC provisionados para configurar suas variáveis de ambiente.",
+          "objective": "Consulte e exiba todos os valores de saída (outputs) definidos no módulo raiz.",
+          "tip": "O subcomando para listar variáveis de saída do Terraform é 'output'.",
+          "solution": "terraform output",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "output"
+              ],
+              "chips": [
+                "validate",
+                "apply",
+                "output",
+                "main.tf",
+                "terraform",
+                "plan"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____",
+              "correct_choice": "output",
+              "choices": [
+                "apply",
+                "fmt",
+                "main.tf",
+                "output"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Consulte e exiba todos os valores de saída (outputs) definidos no módulo raiz.",
+              "options": [
+                "terraform main.tf",
+                "terraform validate",
+                "terraform output",
+                "terraform apply"
+              ],
+              "correct_index": 2,
+              "explanation": "O subcomando para listar variáveis de saída do Terraform é 'output'."
+            }
+          }
+        },
+        {
+          "id": "tf_10",
+          "track_id": "terraform",
+          "track_name": "Terraform Infraestrutura como Código",
+          "track_icon": "🏗️",
+          "title": "Destruição Limpa de Infraestrutura de Testes",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Os testes de carga foram concluídos no ambiente efêmero e toda a infraestrutura deve ser completamente destruída.",
+          "objective": "Destrua todos os recursos gerenciados pelo módulo para zerar custos de nuvem.",
+          "tip": "O subcomando para encerrar e remover todos os recursos gerenciados é 'destroy'.",
+          "solution": "terraform destroy -auto-approve",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "terraform",
+                "destroy",
+                "-auto-approve"
+              ],
+              "chips": [
+                "terraform",
+                "apply",
+                "fmt",
+                "show",
+                "destroy",
+                "-auto-approve",
+                "main.tf"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "terraform ____ -auto-approve",
+              "correct_choice": "destroy",
+              "choices": [
+                "show",
+                "plan",
+                "-var",
+                "destroy"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Destrua todos os recursos gerenciados pelo módulo para zerar custos de nuvem.",
+              "options": [
+                "terraform destroy -auto-approve",
+                "terraform apply -auto-approve",
+                "terraform main.tf -auto-approve",
+                "terraform show -auto-approve"
+              ],
+              "correct_index": 0,
+              "explanation": "O subcomando para encerrar e remover todos os recursos gerenciados é 'destroy'."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "k8s",
+      "name": "Kubernetes Orquestração",
+      "icon": "☸️",
+      "description": "Aprenda a operar clusters, Pods, Deployments, Services e ConfigMaps.",
+      "required_xp": 4000,
+      "required_seniority": "Nível 7 · Cluster Commander",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "k8s-01",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Explorando os Nós do Cluster",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Você acabou de receber o kubeconfig da infraestrutura e precisa validar a saúde e capacidade do cluster.",
+          "objective": "Liste todos os nós do cluster para confirmar se estão com status 'Ready'.",
+          "tip": "Use 'kubectl get nodes'.",
+          "solution": "kubectl get nodes",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "get",
+                "nodes"
+              ],
+              "chips": [
+                "describe",
+                "get",
+                "exec",
+                "nodes",
+                "apply",
+                "kubectl",
+                "services"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ nodes",
+              "correct_choice": "get",
+              "choices": [
+                "-f",
+                "-A",
+                "get",
+                "services"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste todos os nós do cluster para confirmar se estão com status 'Ready'.",
+              "options": [
+                "kubectl services nodes",
+                "kubectl apply nodes",
+                "kubectl get nodes",
+                "kubectl describe nodes"
+              ],
+              "correct_index": 2,
+              "explanation": "Use 'kubectl get nodes'."
+            }
+          }
+        },
+        {
+          "id": "k8s-02",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Criando seu Primeiro Pod",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Para validar o tráfego de rede entre nós, precisamos rodar um pod simples com Nginx.",
+          "objective": "Crie um pod autônomo com o nome 'web-pod' utilizando a imagem 'nginx:alpine'.",
+          "tip": "Use 'kubectl run web-pod --image=nginx:alpine'.",
+          "solution": "kubectl run web-pod --image=nginx:alpine",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "run",
+                "web-pod",
+                "--image=nginx:alpine"
+              ],
+              "chips": [
+                "run",
+                "-f",
+                "-n",
+                "kubectl",
+                "--image=nginx:alpine",
+                "web-pod",
+                "delete",
+                "describe"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ web-pod --image=nginx:alpine",
+              "correct_choice": "run",
+              "choices": [
+                "get",
+                "logs",
+                "services",
+                "run"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um pod autônomo com o nome 'web-pod' utilizando a imagem 'nginx:alpine'.",
+              "options": [
+                "kubectl run web-pod --image=nginx:alpine",
+                "kubectl delete web-pod --image=nginx:alpine",
+                "kubectl -f web-pod --image=nginx:alpine",
+                "kubectl -n web-pod --image=nginx:alpine"
+              ],
+              "correct_index": 0,
+              "explanation": "Use 'kubectl run web-pod --image=nginx:alpine'."
+            }
+          }
+        },
+        {
+          "id": "k8s-03",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Visão Geral em Todos os Namespaces",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Por padrão, o kubectl só mostra os pods do namespace 'default'. Queremos auditar os pods de monitoramento e sistema em todo o cluster.",
+          "objective": "Liste os pods existentes em todos os namespaces do cluster.",
+          "tip": "Use a opção '-A' (ou '--all-namespaces'): 'kubectl get pods -A'.",
+          "solution": "kubectl get pods -A",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "get",
+                "pods",
+                "-A"
+              ],
+              "chips": [
+                "pods",
+                "delete",
+                "get",
+                "services",
+                "-A",
+                "kubectl",
+                "-f",
+                "deployments"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ pods -A",
+              "correct_choice": "get",
+              "choices": [
+                "logs",
+                "services",
+                "get",
+                "-n"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Liste os pods existentes em todos os namespaces do cluster.",
+              "options": [
+                "kubectl deployments pods -A",
+                "kubectl services pods -A",
+                "kubectl -f pods -A",
+                "kubectl get pods -A"
+              ],
+              "correct_index": 3,
+              "explanation": "Use a opção '-A' (ou '--all-namespaces'): 'kubectl get pods -A'."
+            }
+          }
+        },
+        {
+          "id": "k8s-04",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Deployments com Réplicas",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Pods individuais não possuem auto-cura se o nó falhar. Precisamos de um Deployment para gerenciar o ciclo de vida e réplicas.",
+          "objective": "Crie um deployment chamado 'backend-api' utilizando a imagem 'nginx:alpine' com 3 réplicas.",
+          "tip": "Use 'kubectl create deployment backend-api --image=nginx:alpine --replicas=3'.",
+          "solution": "kubectl create deployment backend-api --image=nginx:alpine --replicas=3",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "create",
+                "deployment",
+                "backend-api",
+                "--image=nginx:alpine",
+                "--replicas=3"
+              ],
+              "chips": [
+                "--replicas=3",
+                "exec",
+                "deployment",
+                "create",
+                "get",
+                "-f",
+                "kubectl",
+                "backend-api",
+                "--image=nginx:alpine",
+                "deployments"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ deployment backend-api --image=nginx:alpine --replicas=3",
+              "correct_choice": "create",
+              "choices": [
+                "exec",
+                "--all-namespaces",
+                "create",
+                "get"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um deployment chamado 'backend-api' utilizando a imagem 'nginx:alpine' com 3 réplicas.",
+              "options": [
+                "kubectl deployments deployment backend-api --image=nginx:alpine --replicas=3",
+                "kubectl exec deployment backend-api --image=nginx:alpine --replicas=3",
+                "kubectl -f deployment backend-api --image=nginx:alpine --replicas=3",
+                "kubectl create deployment backend-api --image=nginx:alpine --replicas=3"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'kubectl create deployment backend-api --image=nginx:alpine --replicas=3'."
+            }
+          }
+        },
+        {
+          "id": "k8s-05",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Escalando Aplicações Sob Demanda",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "O tráfego aumentou e precisamos escalar a capacidade do 'backend-api' de 3 para 5 réplicas imediatamente.",
+          "objective": "Escale a quantidade de réplicas do deployment 'backend-api' para 5 instâncias.",
+          "tip": "Use 'kubectl scale deployment backend-api --replicas=5'.",
+          "solution": "kubectl scale deployment backend-api --replicas=5",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "scale",
+                "deployment",
+                "backend-api",
+                "--replicas=5"
+              ],
+              "chips": [
+                "--replicas=5",
+                "backend-api",
+                "--all-namespaces",
+                "delete",
+                "-n",
+                "scale",
+                "exec",
+                "kubectl",
+                "deployment"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ deployment backend-api --replicas=5",
+              "correct_choice": "scale",
+              "choices": [
+                "get",
+                "apply",
+                "-f",
+                "scale"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Escale a quantidade de réplicas do deployment 'backend-api' para 5 instâncias.",
+              "options": [
+                "kubectl -n deployment backend-api --replicas=5",
+                "kubectl --all-namespaces deployment backend-api --replicas=5",
+                "kubectl scale deployment backend-api --replicas=5",
+                "kubectl delete deployment backend-api --replicas=5"
+              ],
+              "correct_index": 2,
+              "explanation": "Use 'kubectl scale deployment backend-api --replicas=5'."
+            }
+          }
+        },
+        {
+          "id": "k8s-06",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Expondo com Kubernetes Services",
+          "difficulty": "Intermediário",
+          "xp": 130,
+          "scenario": "Os pods têm IPs efêmeros que mudam ao reiniciar. Precisamos de um Service com balanceador interno para rotear requisições.",
+          "objective": "Exponha o deployment 'backend-api' através de um Service na porta 80.",
+          "tip": "Use 'kubectl expose deployment backend-api --port=80 --target-port=80'.",
+          "solution": "kubectl expose deployment backend-api --port=80 --target-port=80",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "expose",
+                "deployment",
+                "backend-api",
+                "--port=80",
+                "--target-port=80"
+              ],
+              "chips": [
+                "--port=80",
+                "--target-port=80",
+                "get",
+                "kubectl",
+                "deployment",
+                "logs",
+                "backend-api",
+                "pods",
+                "expose",
+                "apply"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ deployment backend-api --port=80 --target-port=80",
+              "correct_choice": "expose",
+              "choices": [
+                "-A",
+                "expose",
+                "-n",
+                "get"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exponha o deployment 'backend-api' através de um Service na porta 80.",
+              "options": [
+                "kubectl apply deployment backend-api --port=80 --target-port=80",
+                "kubectl get deployment backend-api --port=80 --target-port=80",
+                "kubectl logs deployment backend-api --port=80 --target-port=80",
+                "kubectl expose deployment backend-api --port=80 --target-port=80"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'kubectl expose deployment backend-api --port=80 --target-port=80'."
+            }
+          }
+        },
+        {
+          "id": "k8s-07",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Desacoplando Configurações (ConfigMaps)",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Nunca coloque credenciais ou endpoints hardcoded na imagem do contêiner. Devem ser injetados via ConfigMap.",
+          "objective": "Crie um ConfigMap chamado 'app-config' contendo a chave literal 'DB_HOST=postgres-cluster'.",
+          "tip": "Use 'kubectl create configmap app-config --from-literal=DB_HOST=postgres-cluster'.",
+          "solution": "kubectl create configmap app-config --from-literal=DB_HOST=postgres-cluster",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "create",
+                "configmap",
+                "app-config",
+                "--from-literal=DB_HOST=postgres-cluster"
+              ],
+              "chips": [
+                "app-config",
+                "pods",
+                "-f",
+                "services",
+                "--from-literal=DB_HOST=postgres-cluster",
+                "configmap",
+                "kubectl",
+                "create",
+                "describe"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ configmap app-config --from-literal=DB_HOST=postgres-cluster",
+              "correct_choice": "create",
+              "choices": [
+                "create",
+                "-f",
+                "logs",
+                "-n"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Crie um ConfigMap chamado 'app-config' contendo a chave literal 'DB_HOST=postgres-cluster'.",
+              "options": [
+                "kubectl create configmap app-config --from-literal=DB_HOST=postgres-cluster",
+                "kubectl pods configmap app-config --from-literal=DB_HOST=postgres-cluster",
+                "kubectl -f configmap app-config --from-literal=DB_HOST=postgres-cluster",
+                "kubectl describe configmap app-config --from-literal=DB_HOST=postgres-cluster"
+              ],
+              "correct_index": 0,
+              "explanation": "Use 'kubectl create configmap app-config --from-literal=DB_HOST=postgres-cluster'."
+            }
+          }
+        },
+        {
+          "id": "k8s-08",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Troubleshooting de Pods",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Um dos pods parece instável. Precisamos inspecionar os eventos detalhados para entender o ciclo de vida.",
+          "objective": "Inspecione os detalhes completos e eventos recentes do pod 'web-pod'.",
+          "tip": "Use 'kubectl describe pod web-pod'.",
+          "solution": "kubectl describe pod web-pod",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "describe",
+                "pod",
+                "web-pod"
+              ],
+              "chips": [
+                "kubectl",
+                "pod",
+                "apply",
+                "--all-namespaces",
+                "describe",
+                "--dry-run=client",
+                "-n",
+                "web-pod"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ pod web-pod",
+              "correct_choice": "describe",
+              "choices": [
+                "describe",
+                "apply",
+                "services",
+                "--dry-run=client"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Inspecione os detalhes completos e eventos recentes do pod 'web-pod'.",
+              "options": [
+                "kubectl --dry-run=client pod web-pod",
+                "kubectl describe pod web-pod",
+                "kubectl apply pod web-pod",
+                "kubectl --all-namespaces pod web-pod"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'kubectl describe pod web-pod'."
+            }
+          }
+        },
+        {
+          "id": "k8s-09",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Coleta de Logs de Pods",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Precisamos validar se a inicialização do contêiner dentro do pod ocorreu sem erros.",
+          "objective": "Exiba os logs gerados pelo pod 'web-pod'.",
+          "tip": "Use 'kubectl logs web-pod'.",
+          "solution": "kubectl logs web-pod",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "logs",
+                "web-pod"
+              ],
+              "chips": [
+                "web-pod",
+                "logs",
+                "deployments",
+                "-A",
+                "describe",
+                "kubectl",
+                "--dry-run=client"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ web-pod",
+              "correct_choice": "logs",
+              "choices": [
+                "-n",
+                "--dry-run=client",
+                "apply",
+                "logs"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba os logs gerados pelo pod 'web-pod'.",
+              "options": [
+                "kubectl describe web-pod",
+                "kubectl deployments web-pod",
+                "kubectl -A web-pod",
+                "kubectl logs web-pod"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'kubectl logs web-pod'."
+            }
+          }
+        },
+        {
+          "id": "k8s-10",
+          "track_id": "k8s",
+          "track_name": "Kubernetes Orquestração",
+          "track_icon": "☸️",
+          "title": "Deletando Recursos com Segurança",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O teste temporário terminou e precisamos desalocar o pod 'web-pod' para liberar memória nos nós.",
+          "objective": "Remova o pod 'web-pod' do cluster.",
+          "tip": "Use 'kubectl delete pod web-pod'.",
+          "solution": "kubectl delete pod web-pod",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "kubectl",
+                "delete",
+                "pod",
+                "web-pod"
+              ],
+              "chips": [
+                "get",
+                "web-pod",
+                "services",
+                "delete",
+                "exec",
+                "kubectl",
+                "pod",
+                "-A"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "kubectl ____ pod web-pod",
+              "correct_choice": "delete",
+              "choices": [
+                "pods",
+                "logs",
+                "delete",
+                "describe"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Remova o pod 'web-pod' do cluster.",
+              "options": [
+                "kubectl services pod web-pod",
+                "kubectl delete pod web-pod",
+                "kubectl get pod web-pod",
+                "kubectl -A pod web-pod"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'kubectl delete pod web-pod'."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "datadog",
+      "name": "Datadog Observabilidade",
+      "icon": "🐕",
+      "description": "Aprenda a operar o Datadog Agent, executar checks, gerar flares e configurar tags unificadas.",
+      "required_xp": 5500,
+      "required_seniority": "Nível 8 · SRE & Observability Guru",
+      "missions_count": 10,
+      "missions": [
+        {
+          "id": "datadog-01",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Diagnóstico Geral do Datadog Agent",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O dashboard corporativo no Datadog não está exibindo as métricas do novo servidor. Precisamos validar se o Agent local está rodando.",
+          "objective": "Gere o relatório geral de telemetria do Datadog Agent para auditar os checks coletores, APM, DogStatsD e logs.",
+          "tip": "Use 'datadog-agent status'.",
+          "solution": "datadog-agent status",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "status"
+              ],
+              "chips": [
+                "configcheck",
+                "datadog-agent",
+                "status",
+                "health",
+                "version",
+                "datadoghq.com"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____",
+              "correct_choice": "status",
+              "choices": [
+                "check",
+                "datadoghq.com",
+                "DD_SITE",
+                "status"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Gere o relatório geral de telemetria do Datadog Agent para auditar os checks coletores, APM, DogStatsD e logs.",
+              "options": [
+                "datadog-agent datadoghq.com",
+                "datadog-agent health",
+                "datadog-agent configcheck",
+                "datadog-agent status"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'datadog-agent status'."
+            }
+          }
+        },
+        {
+          "id": "datadog-02",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Health Check dos Sub-Serviços",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "O monitor de infraestrutura precisa de uma verificação rápida de integridade para confirmar que todos os sub-serviços estão respondendo.",
+          "objective": "Verifique a integridade e saúde operacional de todos os sub-serviços do Agent.",
+          "tip": "Use 'datadog-agent health'.",
+          "solution": "datadog-agent health",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "health"
+              ],
+              "chips": [
+                "datadog-agent",
+                "check",
+                "datadoghq.com",
+                "DD_ENV",
+                "DD_SITE",
+                "health"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____",
+              "correct_choice": "health",
+              "choices": [
+                "status",
+                "version",
+                "health",
+                "datadoghq.com"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Verifique a integridade e saúde operacional de todos os sub-serviços do Agent.",
+              "options": [
+                "datadog-agent DD_ENV",
+                "datadog-agent datadoghq.com",
+                "datadog-agent DD_SITE",
+                "datadog-agent health"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'datadog-agent health'."
+            }
+          }
+        },
+        {
+          "id": "datadog-03",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Auditoria de Versão do Agent",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "A equipe de segurança exigiu certificar que todos os agentes estejam no mínimo na versão 7.50+.",
+          "objective": "Consulte a versão exata e o commit do binário do Datadog Agent instalado no sistema.",
+          "tip": "Use 'datadog-agent version'.",
+          "solution": "datadog-agent version",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "version"
+              ],
+              "chips": [
+                "DD_ENV",
+                "flare",
+                "DD_SERVICE",
+                "datadog-agent",
+                "version",
+                "DD_SITE"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____",
+              "correct_choice": "version",
+              "choices": [
+                "health",
+                "DD_ENV",
+                "version",
+                "configcheck"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Consulte a versão exata e o commit do binário do Datadog Agent instalado no sistema.",
+              "options": [
+                "datadog-agent DD_SITE",
+                "datadog-agent version",
+                "datadog-agent DD_ENV",
+                "datadog-agent DD_SERVICE"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'datadog-agent version'."
+            }
+          }
+        },
+        {
+          "id": "datadog-04",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Check de Disco Sob Demanda",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "Antes de reiniciar o agente, queremos testar se o coletor do check de disco está extraindo as partições corretamente.",
+          "objective": "Execute sob demanda a coleta de métricas do check de disco ('disk') para auditar o espaço das partições.",
+          "tip": "Use 'datadog-agent check disk'.",
+          "solution": "datadog-agent check disk",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "check",
+                "disk"
+              ],
+              "chips": [
+                "status",
+                "datadog-agent",
+                "configcheck",
+                "flare",
+                "disk",
+                "check",
+                "health"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____ disk",
+              "correct_choice": "check",
+              "choices": [
+                "DD_ENV",
+                "DD_SITE",
+                "check",
+                "status"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Execute sob demanda a coleta de métricas do check de disco ('disk') para auditar o espaço das partições.",
+              "options": [
+                "datadog-agent check disk",
+                "datadog-agent configcheck disk",
+                "datadog-agent flare disk",
+                "datadog-agent status disk"
+              ],
+              "correct_index": 0,
+              "explanation": "Use 'datadog-agent check disk'."
+            }
+          }
+        },
+        {
+          "id": "datadog-05",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Validando a Integração Docker",
+          "difficulty": "Intermediário",
+          "xp": 120,
+          "scenario": "O coletor precisa ler as estatísticas do socket do Docker localmente para mapear contêineres e imagens.",
+          "objective": "Execute o check do Docker no Agent para validar a leitura das métricas e contêineres do socket local.",
+          "tip": "Use 'datadog-agent check docker'.",
+          "solution": "datadog-agent check docker",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "check",
+                "docker"
+              ],
+              "chips": [
+                "DD_SITE",
+                "check",
+                "status",
+                "docker",
+                "flare",
+                "health",
+                "datadog-agent"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____ docker",
+              "correct_choice": "check",
+              "choices": [
+                "DD_SERVICE",
+                "datadoghq.com",
+                "check",
+                "DD_SITE"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Execute o check do Docker no Agent para validar a leitura das métricas e contêineres do socket local.",
+              "options": [
+                "datadog-agent DD_SITE docker",
+                "datadog-agent status docker",
+                "datadog-agent health docker",
+                "datadog-agent check docker"
+              ],
+              "correct_index": 3,
+              "explanation": "Use 'datadog-agent check docker'."
+            }
+          }
+        },
+        {
+          "id": "datadog-06",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Gerando um Datadog Flare para Suporte",
+          "difficulty": "Intermediário",
+          "xp": 140,
+          "scenario": "Você abriu um ticket no suporte da Datadog (#984521) solicitando ajuda em uma anomalia de rede. O suporte pediu um Flare para análise de logs criptografados.",
+          "objective": "Gere e envie o pacote de diagnóstico completo (flare) associando ao número de caso de suporte '984521'.",
+          "tip": "Use 'datadog-agent flare --case-id 984521'.",
+          "solution": "datadog-agent flare --case-id 984521",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "flare",
+                "--case-id",
+                "984521"
+              ],
+              "chips": [
+                "DD_ENV",
+                "datadoghq.com",
+                "--case-id",
+                "984521",
+                "flare",
+                "datadog-agent",
+                "status",
+                "DD_API_KEY"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____ --case-id 984521",
+              "correct_choice": "flare",
+              "choices": [
+                "flare",
+                "DD_SERVICE",
+                "DD_SITE",
+                "health"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Gere e envie o pacote de diagnóstico completo (flare) associando ao número de caso de suporte '984521'.",
+              "options": [
+                "datadog-agent DD_ENV --case-id 984521",
+                "datadog-agent flare --case-id 984521",
+                "datadog-agent DD_API_KEY --case-id 984521",
+                "datadog-agent datadoghq.com --case-id 984521"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'datadog-agent flare --case-id 984521'."
+            }
+          }
+        },
+        {
+          "id": "datadog-07",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Unified Service Tagging: DD_ENV",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "A melhor prática da Datadog exige as três tags primordiais (env, service, version) para correlação entre APM e logs.",
+          "objective": "Configure a tag unificada de ambiente da aplicação, exportando a variável correspondente para 'production'.",
+          "tip": "Use 'export DD_ENV=production'.",
+          "solution": "export DD_ENV=production",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "export",
+                "DD_ENV=production"
+              ],
+              "chips": [
+                "DD_SITE",
+                "export",
+                "DD_SERVICE",
+                "status",
+                "DD_ENV=production",
+                "datadoghq.com"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "export ____",
+              "correct_choice": "DD_ENV=production",
+              "choices": [
+                "version",
+                "health",
+                "DD_ENV=production",
+                "status"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Configure a tag unificada de ambiente da aplicação, exportando a variável correspondente para 'production'.",
+              "options": [
+                "export datadoghq.com",
+                "export DD_ENV=production",
+                "export DD_SITE",
+                "export status"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'export DD_ENV=production'."
+            }
+          }
+        },
+        {
+          "id": "datadog-08",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Unified Service Tagging: DD_SERVICE",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Para agrupar métricas e logs no APM Catalog, precisamos definir o nome padronizado do serviço.",
+          "objective": "Configure o nome do serviço no APM exportando a variável de identificação do serviço para 'payment-api'.",
+          "tip": "Use 'export DD_SERVICE=payment-api'.",
+          "solution": "export DD_SERVICE=payment-api",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "export",
+                "DD_SERVICE=payment-api"
+              ],
+              "chips": [
+                "export",
+                "DD_SERVICE=payment-api",
+                "health",
+                "DD_SERVICE",
+                "DD_ENV",
+                "DD_API_KEY"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "export ____",
+              "correct_choice": "DD_SERVICE=payment-api",
+              "choices": [
+                "flare",
+                "DD_SERVICE",
+                "DD_SERVICE=payment-api",
+                "health"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Configure o nome do serviço no APM exportando a variável de identificação do serviço para 'payment-api'.",
+              "options": [
+                "export DD_SERVICE=payment-api",
+                "export health",
+                "export DD_SERVICE",
+                "export DD_API_KEY"
+              ],
+              "correct_index": 0,
+              "explanation": "Use 'export DD_SERVICE=payment-api'."
+            }
+          }
+        },
+        {
+          "id": "datadog-09",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Unified Service Tagging: DD_VERSION",
+          "difficulty": "Iniciante",
+          "xp": 110,
+          "scenario": "Para o Datadog correlacionar picos de erro a uma versão específica lançada pós-deploy.",
+          "objective": "Rastreie a versão da aplicação no Datadog exportando a variável de versão para '2.0.1'.",
+          "tip": "Use 'export DD_VERSION=2.0.1'.",
+          "solution": "export DD_VERSION=2.0.1",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "export",
+                "DD_VERSION=2.0.1"
+              ],
+              "chips": [
+                "flare",
+                "DD_ENV",
+                "DD_VERSION=2.0.1",
+                "check",
+                "export",
+                "datadog-agent"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "export ____",
+              "correct_choice": "DD_VERSION=2.0.1",
+              "choices": [
+                "datadog-agent",
+                "flare",
+                "DD_VERSION=2.0.1",
+                "datadoghq.com"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Rastreie a versão da aplicação no Datadog exportando a variável de versão para '2.0.1'.",
+              "options": [
+                "export DD_ENV",
+                "export DD_VERSION=2.0.1",
+                "export check",
+                "export datadog-agent"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'export DD_VERSION=2.0.1'."
+            }
+          }
+        },
+        {
+          "id": "datadog-10",
+          "track_id": "datadog",
+          "track_name": "Datadog Observabilidade",
+          "track_icon": "🐕",
+          "title": "Auditoria de Configurações em Execução",
+          "difficulty": "Iniciante",
+          "xp": 100,
+          "scenario": "Para fechar o checklist de homologação, queremos exibir a configuração final consolidada do Agent.",
+          "objective": "Exiba no terminal a configuração consolidada em tempo de execução do Datadog Agent.",
+          "tip": "Use 'datadog-agent config'.",
+          "solution": "datadog-agent config",
+          "exercise_types": {
+            "word_bank": {
+              "instruction": "Monte o comando correto tocando nos blocos em ordem:",
+              "target_tokens": [
+                "datadog-agent",
+                "config"
+              ],
+              "chips": [
+                "DD_SITE",
+                "configcheck",
+                "datadog-agent",
+                "config",
+                "DD_SERVICE",
+                "check"
+              ]
+            },
+            "fill_in_the_blank": {
+              "instruction": "Complete o comando com o parâmetro correto:",
+              "sentence": "datadog-agent ____",
+              "correct_choice": "config",
+              "choices": [
+                "datadoghq.com",
+                "configcheck",
+                "config",
+                "health"
+              ]
+            },
+            "multiple_choice": {
+              "question": "Exiba no terminal a configuração consolidada em tempo de execução do Datadog Agent.",
+              "options": [
+                "datadog-agent DD_SERVICE",
+                "datadog-agent config",
+                "datadog-agent DD_SITE",
+                "datadog-agent check"
+              ],
+              "correct_index": 1,
+              "explanation": "Use 'datadog-agent config'."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

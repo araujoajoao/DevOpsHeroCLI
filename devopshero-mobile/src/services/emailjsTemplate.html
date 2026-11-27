@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="supported-color-schemes" content="dark" />
+  <title>Código de Verificação OTP - DevOpsHero CLI</title>
+  <style type="text/css">
+    * {
+      box-sizing: border-box !important;
+    }
+    body, html {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      background-color: #07090e !important;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    table {
+      border-collapse: collapse !important;
+      table-layout: fixed !important;
+      width: 100% !important;
+    }
+    td, p, div, span, h2 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; width: 100%; background-color: #07090e; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+  <!-- Outer Background Table (100% Fluid) -->
+  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#07090e" style="width: 100%; background-color: #07090e; margin: 0; padding: 0; table-layout: fixed;">
+    <tr>
+      <td align="center" style="padding: 16px 8px; width: 100%;">
+
+        <!-- Main Card (100% Fluid on Mobile, Max 540px on Desktop) -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 100%; max-width: 540px; margin: 0 auto; background-color: #0c1220; border: 1px solid #1e293b; border-radius: 14px; overflow: hidden; table-layout: fixed;">
+          
+          <!-- Header Bar: macOS Terminal Style -->
+          <tr>
+            <td bgcolor="#091426" style="background: linear-gradient(135deg, #091426 0%, #0d1e38 100%); padding: 16px 18px; border-bottom: 1px solid #1e293b;">
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="left" valign="middle">
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 5px;"></span>
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 5px;"></span>
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                    <strong style="color: #ffffff; font-size: 16px; font-weight: 800; letter-spacing: -0.3px;">DevOps<span style="color: #00f2fe;">Hero</span> CLI</strong>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Main Email Content -->
+          <tr>
+            <td style="padding: 24px 18px; width: 100%;">
+              
+              <!-- Greeting -->
+              <h2 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 800; color: #f8fafc; letter-spacing: -0.3px;">
+                Olá, @{{to_name}} 👋
+              </h2>
+
+              <p style="margin: 0 0 14px 0; font-size: 14px; line-height: 22px; color: #94a3b8;">
+                Recebemos uma solicitação de cadastro na plataforma <strong>{{app_name}}</strong> para a conta <strong style="color: #00f2fe;">{{to_email}}</strong>.
+              </p>
+
+              <p style="margin: 0 0 18px 0; font-size: 14px; line-height: 22px; color: #94a3b8;">
+                Para validar sua conta e ativar seu terminal DevOps, insira o código de verificação abaixo no aplicativo:
+              </p>
+
+              <!-- Central OTP Code Box (Single Line, Never Breaks) -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 18px 0; table-layout: fixed;">
+                <tr>
+                  <td align="center" bgcolor="#040711" style="background-color: #040711; border: 2px solid #00f2fe; border-radius: 12px; padding: 20px 10px; text-align: center; box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);">
+                    <div style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: #00f2fe; text-transform: uppercase; margin-bottom: 8px;">
+                      [ TOKEN DE ACESSO OTP ]
+                    </div>
+
+                    <!-- Single line OTP: Fits both the 23-char placeholder in preview and the real 6-digit code in production -->
+                    <div style="font-family: 'SF Mono', 'Courier New', Courier, monospace; font-size: 24px; font-weight: 900; letter-spacing: 3px; color: #00ff87; line-height: 1.2; text-shadow: 0 0 10px rgba(0, 255, 135, 0.4); display: inline-block; white-space: nowrap; max-width: 100%;">
+                      {{verification_code}}
+                    </div>
+
+                    <div style="font-size: 12px; color: #64748b; font-weight: 600; margin-top: 10px;">
+                      ⏱️ Válido por <span style="color: #cbd5e1;">{{expires_in}}</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Environment Audit Box (Clean Vertical List, Never Clips) -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 16px 0; table-layout: fixed;">
+                <tr>
+                  <td bgcolor="#080e1b" style="background-color: #080e1b; border: 1px solid #1e293b; border-radius: 10px; padding: 14px 16px;">
+                    <div style="font-size: 11px; font-family: 'Courier New', Courier, monospace; color: #00f2fe; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">
+                      [ AUDITORIA DE AMBIENTE ]
+                    </div>
+                    <div style="font-size: 13px; color: #cbd5e1; line-height: 22px;">
+                      • <strong>Ambiente:</strong> {{device_badge}}<br />
+                      • <strong>Dispositivo:</strong> {{device_model}}<br />
+                      • <strong>Plataforma:</strong> {{client_platform}}<br />
+                      • <strong>Resolução:</strong> {{client_resolution}}<br />
+                      • <strong>Interface:</strong> {{input_type}}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Security Protocol Notice -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 14px 0 18px 0; table-layout: fixed;">
+                <tr>
+                  <td bgcolor="#0b101d" style="background-color: #0b101d; border-left: 4px solid #fbbf24; border-radius: 6px; padding: 12px 14px;">
+                    <p style="margin: 0; font-size: 12px; line-height: 18px; color: #cbd5e1;">
+                      <strong style="color: #fbbf24;">⚠️ Protocolo de Segurança:</strong> Nunca compartilhe este código. A equipe DevOpsHero não solicita senhas ou tokens por mensagens diretas. Se não solicitou este cadastro, desconsidere esta mensagem.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Sender & Admin Info Footer -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 14px; table-layout: fixed;">
+                <tr>
+                  <td style="font-size: 12px; line-height: 18px; color: #64748b; border-top: 1px solid #1e293b; padding-top: 12px;">
+                    <strong>Enviado por:</strong> {{admin_email}}<br />
+                    <strong>Timestamp:</strong> {{time_sent}}<br />
+                    <strong>Suporte:</strong> <a href="mailto:{{reply_to}}" style="color: #00f2fe; text-decoration: none;">{{reply_to}}</a>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Bottom Footer -->
+          <tr>
+            <td bgcolor="#080d19" style="background-color: #080d19; border-top: 1px solid #1e293b; padding: 14px 16px; text-align: center;">
+              <p style="margin: 0 0 4px 0; font-size: 11px; color: #475569;">
+                DevOpsHero Mobile & CLI · Simulador de Linux, Docker, K8s & CI/CD.
+              </p>
+              <p style="margin: 0; font-size: 10px; font-family: 'Courier New', Courier, monospace; color: #334155;">
+                auth.devopshero.internal · {{verification_code}}
+              </p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
