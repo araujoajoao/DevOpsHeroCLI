@@ -66,12 +66,36 @@ if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/pip" ] || ! venv_ok; then
         fi
     fi
     
+    NEEDS_INSTALL=1
+fi
+
+# Packaged installs (.deb / .app) live in a read-only directory and are installed
+# as a regular (non-editable) package: reinstall whenever the packaged version changes.
+SRC_VERSION=$(sed -n 's/^__version__[[:space:]]*=[[:space:]]*["'"'"']\([^"'"'"']*\)["'"'"'].*/\1/p' "$DIR/devopsherocli/__init__.py")
+if [ -z "$INSTALL_FLAG" ] && [ -z "${NEEDS_INSTALL:-}" ]; then
+    VENV_VERSION=$("$VENV_DIR/bin/python" -I -c 'import devopsherocli; print(devopsherocli.__version__)' 2>/dev/null || true)
+    if [ "$VENV_VERSION" != "$SRC_VERSION" ]; then
+        echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Nova versão instalada (${VENV_VERSION:-?} → $SRC_VERSION). Atualizando ambiente..."
+        NEEDS_INSTALL=1
+    fi
+fi
+
+if [ -n "${NEEDS_INSTALL:-}" ]; then
     echo -e "\033[1;34m⚡ [DevOpsHeroCLI]\033[0m Instalando dependências (Textual, Rich, Prompt Toolkit)..."
     "$VENV_DIR/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
     if [ -n "$INSTALL_FLAG" ]; then
         "$VENV_DIR/bin/pip" install -q -e "$DIR"
     else
-        "$VENV_DIR/bin/pip" install -q "$DIR"
+        # Build from a private copy: the packaged directory is read-only for the user.
+        BUILD_SRC=$(mktemp -d)
+        trap 'rm -rf "$BUILD_SRC"' EXIT
+        cp -R "$DIR/devopsherocli" "$DIR/pyproject.toml" "$BUILD_SRC/"
+        for f in README.md LICENSE; do
+            if [ -f "$DIR/$f" ]; then cp "$DIR/$f" "$BUILD_SRC/"; else touch "$BUILD_SRC/$f"; fi
+        done
+        "$VENV_DIR/bin/pip" install -q --upgrade "$BUILD_SRC"
+        rm -rf "$BUILD_SRC"
+        trap - EXIT
     fi
     echo -e "\033[1;32m✓ [DevOpsHeroCLI]\033[0m Ambiente configurado com sucesso!"
     echo ""
@@ -88,7 +112,8 @@ if [ "$1" = "update" ] || [ "$1" = "upgrade" ]; then
         exit 0
     else
         echo -e "\033[1;33m[AVISO]\033[0m Diretório .git não encontrado (cópia baixada como ZIP)."
-        echo "Para atualizar, baixe a nova versão no GitHub ou clone com git clone."
+        echo "Para atualizar, baixe o instalador mais recente em:"
+        echo "  https://github.com/araujoajoao/DevOpsHeroCLI/releases/latest"
         exit 1
     fi
 fi
