@@ -73,6 +73,13 @@ jobs:
           python scripts/build_linux_deb.py
           dpkg-deb --info dist/DevOpsHero.deb | grep -q "Version: ${{ needs.verify.outputs.version }}"
           cp dist/DevOpsHero.deb "dist/DevOpsHero_${{ needs.verify.outputs.version }}_all.deb"
+      - name: Install test (clean Ubuntu)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ./dist/DevOpsHero.deb
+          dh --version | tee /tmp/dh-version.txt
+          grep -q "${{ needs.verify.outputs.version }}" /tmp/dh-version.txt
+          dh l > /dev/null
       - uses: actions/upload-artifact@v4
         with:
           name: linux-deb
@@ -98,6 +105,16 @@ jobs:
           /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" dist/DevOpsHero.app/Contents/Info.plist \
             | grep -qx "${{ needs.verify.outputs.version }}"
           cp dist/DevOpsHero.dmg "dist/DevOpsHero_${{ needs.verify.outputs.version }}.dmg"
+      - name: Install test (mount .dmg and run the bundled CLI)
+        run: |
+          MNT=$(mktemp -d)
+          hdiutil attach dist/DevOpsHero.dmg -mountpoint "$MNT" -nobrowse -readonly
+          cp -R "$MNT/DevOpsHero.app" "$RUNNER_TEMP/"
+          hdiutil detach "$MNT"
+          APP_DIR="$RUNNER_TEMP/DevOpsHero.app/Contents/Resources/app"
+          test -x "$RUNNER_TEMP/DevOpsHero.app/Contents/MacOS/DevOpsHero"
+          "$APP_DIR/dh" --version | tee "$RUNNER_TEMP/dh-version.txt"
+          grep -q "${{ needs.verify.outputs.version }}" "$RUNNER_TEMP/dh-version.txt"
       - uses: actions/upload-artifact@v4
         with:
           name: macos-dmg

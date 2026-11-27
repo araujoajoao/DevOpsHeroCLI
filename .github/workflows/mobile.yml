@@ -1,0 +1,112 @@
+name: Mobile
+
+# Validates that the mobile apps build for Android and iOS.
+# Store publishing (Google Play / App Store) is done later with EAS (devopshero-mobile/eas.json).
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "devopshero-mobile/**"
+      - "devopshero-ios-swiftui/**"
+      - ".github/workflows/mobile.yml"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "devopshero-mobile/**"
+      - "devopshero-ios-swiftui/**"
+      - ".github/workflows/mobile.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: devopshero-mobile
+
+jobs:
+  checks:
+    name: Expo checks & JS bundles (Android + iOS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: devopshero-mobile/package-lock.json
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npx expo-doctor
+      - run: npx expo export --platform android --platform ios --output-dir dist
+
+  android:
+    name: Android native build (Gradle)
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: devopshero-mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm ci
+      - run: npx expo prebuild --platform android --no-install --clean
+      - name: assembleRelease
+        working-directory: devopshero-mobile/android
+        run: ./gradlew assembleRelease --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: devopshero-android-apk
+          path: devopshero-mobile/android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+
+  ios-expo:
+    name: iOS native build (Expo app, simulator)
+    needs: checks
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: devopshero-mobile/package-lock.json
+      - run: npm ci
+      - run: npx expo prebuild --platform ios --clean
+      - name: xcodebuild (Release, iphonesimulator)
+        working-directory: devopshero-mobile/ios
+        run: |
+          set -o pipefail
+          xcodebuild -workspace DevOpsHero.xcworkspace -scheme DevOpsHero \
+            -configuration Release -sdk iphonesimulator \
+            -destination "generic/platform=iOS Simulator" \
+            CODE_SIGNING_ALLOWED=NO build | tail -n 40
+
+  ios-swiftui:
+    name: iOS native build (SwiftUI app, simulator)
+    runs-on: macos-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: devopshero-ios-swiftui
+    steps:
+      - uses: actions/checkout@v4
+      - name: xcodebuild (Debug, iphonesimulator)
+        run: |
+          set -o pipefail
+          xcodebuild -project DevOpsHero.xcodeproj -scheme DevOpsHero \
+            -sdk iphonesimulator -destination "generic/platform=iOS Simulator" \
+            CODE_SIGNING_ALLOWED=NO build | tail -n 40

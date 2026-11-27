@@ -10,6 +10,17 @@ permissions:
   contents: read
 
 jobs:
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan full history for leaked credentials (Datadog API/APP keys, tokens, private keys)
+        run: |
+          docker run --rm -v "$PWD:/repo:ro" zricethezav/gitleaks:latest git /repo --redact --no-banner -v
+
   test:
     name: Test (Python ${{ matrix.python-version }} on ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
